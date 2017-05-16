@@ -39,7 +39,7 @@ class VggConfiguration(TrainingConfiguration):
 
         classifier.add(Flatten())  # Flatten
         classifier.add(Dropout(0.5))
-        classifier.add(Dense(units=2, kernel_regularizer=l2(self.weight_decay)))
+        classifier.add(Dense(units=32, kernel_regularizer=l2(self.weight_decay)))
         classifier.add(Activation('softmax', name="output_node"))
 
         stochastic_gradient_descent = SGD(lr=self.learning_rate, momentum=self.nesterov_momentum, nesterov=True)

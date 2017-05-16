@@ -5,7 +5,7 @@ from keras.engine import Model
 
 class TrainingConfiguration(ABC):
     def __init__(self,
-                 data_shape: tuple = (256, 256, 3),
+                 data_shape: tuple = (128, 224, 3),
                  number_of_epochs: int = 200,
                  number_of_epochs_before_early_stopping: int = 10,
                  number_of_epochs_before_reducing_learning_rate: int = 5,

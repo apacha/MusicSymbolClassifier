@@ -1,18 +1,14 @@
+import argparse
 import datetime
 import os
 from time import time
 
-import argparse
 import numpy as np
-import shutil
 from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau
 from keras.preprocessing.image import ImageDataGenerator
 
 from TrainingHistoryPlotter import TrainingHistoryPlotter
-from datasets.AdditionalDataset import AdditionalDataset
 from datasets.DatasetSplitter import DatasetSplitter
-from datasets.MuscimaDataset import MuscimaDataset
-from datasets.PascalVocDataset import PascalVocDataset
 from models.ConfigurationFactory import ConfigurationFactory
 
 
@@ -20,31 +16,20 @@ def train_model(dataset_directory: str,
                 model_name: str,
                 show_plot_after_training: bool,
                 delete_and_recreate_dataset_directory: bool):
-    print("Downloading and extracting datasets...")
 
     if delete_and_recreate_dataset_directory:
-        print("Deleting dataset directory and creating it anew")
-        shutil.rmtree(dataset_directory)
-
-        pascal_voc_dataset = PascalVocDataset(dataset_directory)
-        pascal_voc_dataset.download_and_extract_dataset()
-        muscima_dataset = MuscimaDataset(dataset_directory)
-        muscima_dataset.download_and_extract_dataset()
-        additional_dataset = AdditionalDataset(dataset_directory)
-        additional_dataset.download_and_extract_dataset()
-
         dataset_splitter = DatasetSplitter(dataset_directory, dataset_directory)
+        dataset_splitter.delete_split_directories()
         dataset_splitter.split_images_into_training_validation_and_test_set()
 
     print("Training on dataset...")
     start_time = time()
 
     training_configuration = ConfigurationFactory.get_configuration_by_name(model_name)
-    img_rows, img_cols = training_configuration.data_shape[0], training_configuration.data_shape[1]
+    img_rows, img_cols = training_configuration.data_shape[1], training_configuration.data_shape[0]
     number_of_pixels_shift = training_configuration.number_of_pixel_shift
 
-    train_generator = ImageDataGenerator(horizontal_flip=True,
-                                         rotation_range=10,
+    train_generator = ImageDataGenerator(rotation_range=10,
                                          width_shift_range=number_of_pixels_shift / img_rows,
                                          height_shift_range=number_of_pixels_shift / img_cols,
                                          )
