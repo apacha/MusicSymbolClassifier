@@ -1,3 +1,4 @@
+import argparse
 import os
 import random
 import shutil
@@ -40,7 +41,7 @@ class DatasetSplitter:
                                                                dataset_size: int,
                                                                validation_percentage: float = 0.1,
                                                                test_percentage: float = 0.1,
-                                                               seed:int = 0) -> (List[int], List[int], List[int]):
+                                                               seed: int = 0) -> (List[int], List[int], List[int]):
         """
         Returns a reproducible set of random sample indices from the entire dataset population
         :param dataset_size: The population size
@@ -58,10 +59,17 @@ class DatasetSplitter:
         training_sample_indices = list(set(all_indices) - set(validation_sample_indices) - set(test_sample_indices))
         return training_sample_indices, validation_sample_indices, test_sample_indices
 
+    def delete_split_directories(self):
+        print("Deleting split directories... ")
+        shutil.rmtree(os.path.join(self.destination_directory, "train"), True)
+        shutil.rmtree(os.path.join(self.destination_directory, "validation"), True)
+        shutil.rmtree(os.path.join(self.destination_directory, "test"), True)
+
     def split_images_into_training_validation_and_test_set(self):
         print("Splitting data into training, validation and test sets...")
 
-        for image_class in ["other", "scores"]:
+        directories = os.listdir(self.source_directory)
+        for image_class in directories:
             path_to_images_of_class = os.path.join(self.source_directory, image_class)
             number_of_images_in_class = len(os.listdir(path_to_images_of_class))
             training_sample_indices, validation_sample_indices, test_sample_indices = \
@@ -79,7 +87,21 @@ class DatasetSplitter:
         for image in files:
             shutil.copy(os.path.join(path_to_images_of_class, image), destination_path)
 
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--source_directory",
+        type=str,
+        default="../data",
+        help="The directory, where the images should be copied from")
+    parser.add_argument(
+        "--destination_directory",
+        type=str,
+        default="../data",
+        help="The directory, where the images should be split into the three directories 'train', 'test' and 'validation'")
 
-# dataset_splitter = DatasetSplitter("C:\\Users\\Alex\\Repositories\\MusicScoreClassifier\\ModelGenerator\\data",
-#                                    "C:\\Users\\Alex\\Repositories\\MusicScoreClassifier\\ModelGenerator\\data")
-# dataset_splitter.split_images_into_training_validation_and_test_set()
+    flags, unparsed = parser.parse_known_args()
+
+    datasest = DatasetSplitter(flags.source_directory, flags.destination_directory)
+    datasest.delete_split_directories()
+    datasest.split_images_into_training_validation_and_test_set()
