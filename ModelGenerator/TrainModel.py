@@ -91,13 +91,13 @@ def train_model(dataset_directory: str,
     print("Accuracy : ", evaluation[1])
     print("Error : ", 1 - evaluation[1])
 
+    end_time = time()
+    print("Execution time: %.1fs" % (end_time - start_time))
+
     TrainingHistoryPlotter.plot_history(history,
                                         "Results-{0}-{1}.png".format(training_configuration.name(),
                                                                      datetime.date.today()),
                                         show_plot=show_plot_after_training)
-
-    end_time = time()
-    print("Execution time: %.1fs" % (end_time - start_time))
 
 
 if __name__ == "__main__":
