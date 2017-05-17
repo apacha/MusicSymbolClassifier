@@ -1,5 +1,6 @@
 from models import TrainingConfiguration
 from models.SimpleConfiguration import SimpleConfiguration
+from models.Vgg4Configuration import Vgg4Configuration
 from models.VggConfiguration import VggConfiguration
 
 
@@ -9,6 +10,7 @@ class ConfigurationFactory:
         configurations = []
         configurations.append(SimpleConfiguration())
         configurations.append(VggConfiguration())
+        configurations.append(Vgg4Configuration())
 
         for i in range(len(configurations)):
             if configurations[i].name() == name:
