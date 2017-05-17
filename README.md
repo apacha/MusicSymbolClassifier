@@ -4,6 +4,7 @@ This repository is the model trainer part of the Music Symbol Classifier, which 
 
 Note my previous project which classifies images into Music scores or something else which can be found in [this](https://github.com/apacha/MusicScoreClassifier) repository on Github.
 
+[![Build Status](https://travis-ci.org/apacha/MusicSymbolClassifier.svg?branch=master)](https://travis-ci.org/apacha/MusicSymbolClassifier)
 
 # Running the application
 This repository contains several scripts that can be used independently of each other. 
