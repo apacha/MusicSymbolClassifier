@@ -1,4 +1,4 @@
-# Music Score Classifier
+# Music Symbol Classifier
 
 This repository is the model trainer part of the Music Symbol Classifier, which classifies handwritten Music Symbols into 32 different classes using Deep Learning and the HOMUS dataset of handwritten music symbols.
 
