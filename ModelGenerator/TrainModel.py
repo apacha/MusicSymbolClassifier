@@ -108,7 +108,7 @@ def train_model(dataset_directory: str,
     print("Execution time: %.1fs" % (end_time - start_time))
 
     TrainingHistoryPlotter.plot_history(history,
-                                        "Results-{0}-{1}.png".format(training_configuration.name(),
+                                        "{0}_results_{1}.png".format(training_configuration.name(),
                                                                      datetime.date.today()),
                                         show_plot=show_plot_after_training)
 
