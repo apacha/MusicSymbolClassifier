@@ -1,8 +1,10 @@
 import argparse
 import datetime
 import os
+from sklearn import metrics
 from time import time
 
+import numpy
 import numpy as np
 from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau
 from keras.preprocessing.image import ImageDataGenerator
@@ -48,7 +50,8 @@ def train_model(dataset_directory: str,
     test_generator = ImageDataGenerator()
     test_data_generator = test_generator.flow_from_directory(os.path.join(dataset_directory, "test"),
                                                              target_size=(img_cols, img_rows),
-                                                             batch_size=training_configuration.training_minibatch_size)
+                                                             batch_size=training_configuration.training_minibatch_size,
+                                                             shuffle=False)
     test_steps_per_epoch = np.math.ceil(test_data_generator.samples / test_data_generator.batch_size)
 
     model = training_configuration.classifier()
@@ -84,12 +87,21 @@ def train_model(dataset_directory: str,
     best_model = training_configuration.classifier()
     best_model.load_weights(best_model_path)
 
+    test_data_generator.reset()
+    true_classes = test_data_generator.classes
+    predictions = best_model.predict_generator(test_data_generator, steps=test_steps_per_epoch)
+    predicted_classes = numpy.argmax(predictions, axis=1)
+
+    report = metrics.classification_report(true_classes, predicted_classes)
+    # accuracy = metrics.accuracy_score(true_classes, predicted_classes) # is the same as from evaluate_generator
+
+    test_data_generator.reset()
     evaluation = best_model.evaluate_generator(test_data_generator, steps=test_steps_per_epoch)
 
-    print(best_model.metrics_names)
-    print("Loss : ", evaluation[0])
-    print("Accuracy : ", evaluation[1])
-    print("Error : ", 1 - evaluation[1])
+    print(report)
+    print("Total Loss: {0:.5f}".format(evaluation[0]))
+    print("Total Accuracy: {0:0.5f}%".format(evaluation[1] * 100))
+    print("Total Error: {0:0.5f}%".format((1 - evaluation[1]) * 100))
 
     end_time = time()
     print("Execution time: %.1fs" % (end_time - start_time))
