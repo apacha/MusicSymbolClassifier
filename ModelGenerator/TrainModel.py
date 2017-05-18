@@ -88,11 +88,12 @@ def train_model(dataset_directory: str,
     best_model.load_weights(best_model_path)
 
     test_data_generator.reset()
+    class_labels = list(test_data_generator.class_indices.keys())
     true_classes = test_data_generator.classes
     predictions = best_model.predict_generator(test_data_generator, steps=test_steps_per_epoch)
     predicted_classes = numpy.argmax(predictions, axis=1)
 
-    report = metrics.classification_report(true_classes, predicted_classes)
+    report = metrics.classification_report(true_classes, predicted_classes, target_names=class_labels)
     # accuracy = metrics.accuracy_score(true_classes, predicted_classes) # is the same as from evaluate_generator
 
     test_data_generator.reset()
