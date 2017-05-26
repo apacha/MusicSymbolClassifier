@@ -28,28 +28,25 @@ def train_model(dataset_directory: str,
     start_time = time()
 
     training_configuration = ConfigurationFactory.get_configuration_by_name(model_name)
-    img_rows, img_cols = training_configuration.data_shape[1], training_configuration.data_shape[0]
-    number_of_pixels_shift = training_configuration.number_of_pixel_shift
 
     train_generator = ImageDataGenerator(rotation_range=10,
-                                         width_shift_range=number_of_pixels_shift / img_rows,
-                                         height_shift_range=number_of_pixels_shift / img_cols,
+                                         zoom_range=training_configuration.zoom_range
                                          )
     training_data_generator = train_generator.flow_from_directory(os.path.join(dataset_directory, "training"),
-                                                                  target_size=(img_cols, img_rows),
-                                                                  batch_size=training_configuration.training_minibatch_size,
+                                                                  target_size=(training_configuration.input_image_rows, training_configuration.input_image_columns),
+                                                                  batch_size=training_configuration.training_minibatch_size
                                                                   )
     training_steps_per_epoch = np.math.ceil(training_data_generator.samples / training_data_generator.batch_size)
 
     validation_generator = ImageDataGenerator()
     validation_data_generator = validation_generator.flow_from_directory(os.path.join(dataset_directory, "validation"),
-                                                                         target_size=(img_cols, img_rows),
+                                                                         target_size=(training_configuration.input_image_rows, training_configuration.input_image_columns),
                                                                          batch_size=training_configuration.training_minibatch_size)
     validation_steps_per_epoch = np.math.ceil(validation_data_generator.samples / validation_data_generator.batch_size)
 
     test_generator = ImageDataGenerator()
     test_data_generator = test_generator.flow_from_directory(os.path.join(dataset_directory, "test"),
-                                                             target_size=(img_cols, img_rows),
+                                                             target_size=(training_configuration.input_image_rows, training_configuration.input_image_columns),
                                                              batch_size=training_configuration.training_minibatch_size,
                                                              shuffle=False)
     test_steps_per_epoch = np.math.ceil(test_data_generator.samples / test_data_generator.batch_size)

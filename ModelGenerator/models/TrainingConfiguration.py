@@ -5,7 +5,7 @@ from keras.engine import Model
 
 class TrainingConfiguration(ABC):
     def __init__(self,
-                 data_shape: tuple = (128, 224, 3),
+                 data_shape: tuple = (244, 128, 3), # Rows, columns, channels
                  number_of_epochs: int = 200,
                  number_of_epochs_before_early_stopping: int = 10,
                  number_of_epochs_before_reducing_learning_rate: int = 5,
@@ -16,10 +16,12 @@ class TrainingConfiguration(ABC):
                  minimum_learning_rate: float = 0.0001,
                  weight_decay: float = 0.0001,
                  nesterov_momentum: float = 0.9,
-                 number_of_pixel_shift=24.0
+                 zoom_range = 0.20
                  ):
         self.data_shape = data_shape
+        self.input_image_rows, self.input_image_columns, self.input_image_channels = data_shape
         self.number_of_epochs = number_of_epochs
+        self.zoom_range = zoom_range
         self.number_of_epochs_before_early_stopping = number_of_epochs_before_early_stopping
         self.number_of_epochs_before_reducing_learning_rate = number_of_epochs_before_reducing_learning_rate
         self.training_minibatch_size = training_minibatch_size
@@ -29,7 +31,6 @@ class TrainingConfiguration(ABC):
         self.minimum_learning_rate = minimum_learning_rate
         self.weight_decay = weight_decay
         self.nesterov_momentum = nesterov_momentum
-        self.number_of_pixel_shift = number_of_pixel_shift
 
     @abstractmethod
     def classifier(self) -> Model:
