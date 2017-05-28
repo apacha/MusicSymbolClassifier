@@ -29,12 +29,12 @@ def train_model(dataset_directory: str,
 
     training_configuration = ConfigurationFactory.get_configuration_by_name(model_name)
 
-    train_generator = ImageDataGenerator(rotation_range=10,
+    train_generator = ImageDataGenerator(rotation_range=training_configuration.rotation_range,
                                          zoom_range=training_configuration.zoom_range
                                          )
     training_data_generator = train_generator.flow_from_directory(os.path.join(dataset_directory, "training"),
                                                                   target_size=(training_configuration.input_image_rows, training_configuration.input_image_columns),
-                                                                  batch_size=training_configuration.training_minibatch_size
+                                                                  batch_size=training_configuration.training_minibatch_size,
                                                                   )
     training_steps_per_epoch = np.math.ceil(training_data_generator.samples / training_data_generator.batch_size)
 

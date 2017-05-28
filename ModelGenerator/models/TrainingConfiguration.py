@@ -5,19 +5,21 @@ from keras.engine import Model
 
 class TrainingConfiguration(ABC):
     def __init__(self,
-                 data_shape: tuple = (244, 128, 3), # Rows, columns, channels
+                 data_shape: tuple = (244, 128, 3),  # Rows, columns, channels
                  number_of_epochs: int = 200,
-                 number_of_epochs_before_early_stopping: int = 10,
-                 number_of_epochs_before_reducing_learning_rate: int = 5,
-                 training_minibatch_size: int = 16,
-                 initialization: str = "he_normal",
-                 learning_rate: float = 0.001,
+                 number_of_epochs_before_early_stopping: int = 20,
+                 number_of_epochs_before_reducing_learning_rate: int = 8,
+                 training_minibatch_size: int = 64,
+                 initialization: str = "glorot_uniform",
+                 learning_rate: float = 0.01,
                  learning_rate_reduction_factor: float = 0.5,
-                 minimum_learning_rate: float = 0.0001,
-                 weight_decay: float = 0.0001,
+                 minimum_learning_rate: float = 0.00001,
+                 weight_decay: float = 0.0002,
                  nesterov_momentum: float = 0.9,
-                 zoom_range = 0.20
+                 zoom_range=0.2,
+                 rotation_range=10
                  ):
+        self.rotation_range = rotation_range
         self.data_shape = data_shape
         self.input_image_rows, self.input_image_columns, self.input_image_channels = data_shape
         self.number_of_epochs = number_of_epochs
@@ -44,11 +46,17 @@ class TrainingConfiguration(ABC):
 
     def summary(self) -> str:
         """ Returns the string that summarizes this configuration """
+
+        optimizer = self.classifier().optimizer
+
         summary = "Training for {0:d} epochs with initial learning rate of {1}, weight-decay of {2} and Nesterov Momentum of {3} ...\n" \
             .format(self.number_of_epochs, self.learning_rate, self.weight_decay, self.nesterov_momentum)
         summary += "Additional parameters: Initialization: {0}, Minibatch-size: {1}, Early stopping after {2} epochs without improvement\n" \
             .format(self.initialization, self.training_minibatch_size, self.number_of_epochs_before_early_stopping)
-        summary += "Data-Shape: {0}, Reducing learning rate by factor to {1} respectively if not improved validation accuracy after {2} epochs" \
+        summary += "Data-Shape: {0}, Reducing learning rate by factor to {1} respectively if not improved validation accuracy after {2} epochs\n" \
             .format(self.data_shape, self.learning_rate_reduction_factor,
                     self.number_of_epochs_before_reducing_learning_rate)
+        summary += "Data-augmentation: Zooming {0}% randomly, rotating {1}° randomly\n" \
+            .format(self.zoom_range * 100, self.rotation_range)
+        summary += "Optimizer: {0}, with parameters {1}".format(optimizer, optimizer.get_config())
         return summary
