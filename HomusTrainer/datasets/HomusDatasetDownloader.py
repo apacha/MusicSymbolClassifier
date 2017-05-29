@@ -8,7 +8,7 @@ import numpy
 from datasets.Dataset import Dataset
 
 
-class HomusDataset(Dataset):
+class HomusDatasetDownloader(Dataset):
     """ Loads images from a custom directory and splits them into train and validation
         directories with a random generator """
 
@@ -45,5 +45,5 @@ if __name__ == "__main__":
 
     flags, unparsed = parser.parse_known_args()
 
-    dataset = HomusDataset(flags.dataset_directory)
+    dataset = HomusDatasetDownloader(flags.dataset_directory)
     dataset.download_and_extract_dataset()
