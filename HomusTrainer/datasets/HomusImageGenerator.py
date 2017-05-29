@@ -1,20 +1,10 @@
 import argparse
 import os
 
-from DatasetDownloader import DatasetDownloader
 
-
-def create_images():
-
-    destination_file = "HOMUS.zip"
-    if not os.path.exists(destination_file):
-        dataset_downloader = DatasetDownloader()
-        dataset_downloader.download_file("http://grfia.dlsi.ua.es/homus/HOMUS.zip")
-
+def create_images(raw_data_directory: str, destination_directory: str):
     pass
 
 
-
 if __name__ == "__main__":
-
-    create_images()
+    create_images("../data/raw", "../data/images")
