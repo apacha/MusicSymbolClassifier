@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 
 from keras.engine import Model
+from keras.optimizers import Optimizer, SGD, Adam
 
 
 class TrainingConfiguration(ABC):
@@ -17,8 +18,16 @@ class TrainingConfiguration(ABC):
                  weight_decay: float = 0.0002,
                  nesterov_momentum: float = 0.9,
                  zoom_range=0.2,
-                 rotation_range=10
+                 rotation_range=10,
+                 optimizer: str = "SGD"
                  ):
+        """
+        :param data_shape: Tuple with order (rows, columns, channels)
+        :param zoom_range: Percentage that the input will dynamically be zoomed turing training (0-1)
+        :param rotation_range: Random rotation of the input image during training in degree
+        :param optimizer: The used optimizer for the training, currently supported are either 'SGD' or 'Adam'.
+        """
+        self.optimizer = optimizer
         self.rotation_range = rotation_range
         self.data_shape = data_shape
         self.input_image_rows, self.input_image_columns, self.input_image_channels = data_shape
@@ -44,10 +53,20 @@ class TrainingConfiguration(ABC):
         """ Returns the name of this configuration """
         pass
 
+    def get_optimizer(self) -> Optimizer:
+        """
+        Returns the configured optimizer for this configuration
+        :return:
+        """
+        if self.optimizer == "SGD":
+            return SGD(lr=self.learning_rate, momentum=self.nesterov_momentum, nesterov=True)
+        if self.optimizer == "Adam":
+            return Adam(lr=self.learning_rate)
+
     def summary(self) -> str:
         """ Returns the string that summarizes this configuration """
 
-        optimizer = self.classifier().optimizer
+        optimizer = self.get_optimizer()
 
         summary = "Training for {0:d} epochs with initial learning rate of {1}, weight-decay of {2} and Nesterov Momentum of {3} ...\n" \
             .format(self.number_of_epochs, self.learning_rate, self.weight_decay, self.nesterov_momentum)
@@ -58,5 +77,5 @@ class TrainingConfiguration(ABC):
                     self.number_of_epochs_before_reducing_learning_rate)
         summary += "Data-augmentation: Zooming {0}% randomly, rotating {1}° randomly\n" \
             .format(self.zoom_range * 100, self.rotation_range)
-        summary += "Optimizer: {0}, with parameters {1}".format(optimizer, optimizer.get_config())
+        summary += "Optimizer: {0}, with parameters {1}".format(self.optimizer, optimizer.get_config())
         return summary

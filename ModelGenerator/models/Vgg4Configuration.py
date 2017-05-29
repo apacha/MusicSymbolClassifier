@@ -1,7 +1,7 @@
 from keras.layers import Activation, BatchNormalization, Convolution2D, Dense, Dropout, Flatten, MaxPooling2D, \
     AveragePooling2D
 from keras.models import Sequential
-from keras.optimizers import SGD
+from keras.optimizers import SGD, Adam
 from keras.regularizers import l2
 
 from models.TrainingConfiguration import TrainingConfiguration
@@ -42,8 +42,7 @@ class Vgg4Configuration(TrainingConfiguration):
         classifier.add(Dense(units=32, kernel_regularizer=l2(self.weight_decay)))
         classifier.add(Activation('softmax', name="output_node"))
 
-        stochastic_gradient_descent = SGD(lr=self.learning_rate, momentum=self.nesterov_momentum, nesterov=True)
-        classifier.compile(stochastic_gradient_descent, loss="categorical_crossentropy", metrics=["accuracy"])
+        classifier.compile(self.get_optimizer(), loss="categorical_crossentropy", metrics=["accuracy"])
         return classifier
 
 
