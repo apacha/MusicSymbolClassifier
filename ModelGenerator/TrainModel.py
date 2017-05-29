@@ -57,7 +57,7 @@ def train_model(dataset_directory: str,
     print("Model {0} loaded.".format(training_configuration.name()))
     print(training_configuration.summary())
 
-    best_model_path = "{0}.h5".format(training_configuration.name())
+    best_model_path = "{1}_{0}.h5".format(training_configuration.name(), datetime.date.today())
 
     model_checkpoint = ModelCheckpoint(best_model_path, monitor="val_acc", save_best_only=True, verbose=1)
     early_stop = EarlyStopping(monitor='val_acc',
@@ -105,8 +105,9 @@ def train_model(dataset_directory: str,
     print("Execution time: %.1fs" % (end_time - start_time))
 
     TrainingHistoryPlotter.plot_history(history,
-                                        "{0}_results_{1}.png".format(training_configuration.name(),
-                                                                     datetime.date.today()),
+                                        "{1}_{0}_{2:.1f}p.png".format(training_configuration.name(),
+                                                                     datetime.date.today(),
+                                                                     evaluation[1]*100),
                                         show_plot=show_plot_after_training)
 
 
