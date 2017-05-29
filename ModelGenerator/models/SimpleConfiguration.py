@@ -46,3 +46,9 @@ class SimpleConfiguration(TrainingConfiguration):
     def name(self) -> str:
         """ Returns the name of this configuration """
         return "simple"
+
+
+if __name__ == "__main__":
+    configuration = SimpleConfiguration()
+    configuration.classifier().summary()
+    print(configuration.summary())
