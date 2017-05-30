@@ -68,7 +68,7 @@ class Symbol:
         offset = Point2D(self.dimensions.origin.x - margin - width_offset_for_centering,
                          self.dimensions.origin.y - margin - height_offset_for_centering)
 
-        img = Image.new('RGB', (width, height), "white")  # create a new black image
+        img = Image.new('RGB', (destination_width, destination_height), "white")  # create a new black image
         draw = ImageDraw.Draw(img)
         black = (0, 0, 0)
 

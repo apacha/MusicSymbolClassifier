@@ -11,11 +11,7 @@ from datasets.HomusDatasetDownloader import HomusDatasetDownloader
 
 
 class HomusDatasetDownloaderTest(unittest.TestCase):
-    def setUp(self):
-        pass
-
     def test_download_and_extract_dataset_expect_folder_to_be_created(self):
-
         datasetDownloader = HomusDatasetDownloader(".")
 
         # Act
