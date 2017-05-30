@@ -1,3 +1,4 @@
+import os
 import unittest
 
 from sympy import Point2D
@@ -43,6 +44,21 @@ class Symbol_test(unittest.TestCase):
         self.assertEqual("12-8-Time", symbol.symbol_name)
         self.assertEqual(content, symbol.content)
         self.assertEqual(3, len(symbol.strokes), "We expected three strokes")
+
+    def test_draw_into_bitmap(self):
+        # Arrange
+        symbol = Symbol("", [[Point2D(0, 0), Point2D(100, 100)]], "", Rectangle(Point2D(0, 0), 100, 100))
+        export_path = "test_bitmap.png"
+
+        # Act
+        symbol.draw_into_bitmap(export_path, 2, 2, 102, 102)
+
+        # Assert
+        self.assertTrue(os.path.exists(export_path))
+
+        # Cleanup
+        os.remove(export_path)
+
 
 if __name__ == '__main__':
     unittest.main()

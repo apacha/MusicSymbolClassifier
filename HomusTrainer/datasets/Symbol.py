@@ -1,8 +1,10 @@
 from typing import List
 
 import sys
-from sympy import Point2D
 
+from PIL import ImageDraw
+from sympy import Point2D
+from PIL import Image
 from datasets.Rectangle import Rectangle
 
 
@@ -55,87 +57,28 @@ class Symbol:
             strokes.append(stroke)
 
         dimensions = Rectangle(Point2D(min_x, min_y), max_x - min_x + 1, max_y - min_y + 1)
-
         return Symbol(content, strokes, symbol_name, dimensions)
 
-
-    def draw_into_bitmap(self, export_file_name: str, stroke_thickness: int, margin: int = 2):
-        pass
-
-    #     /// <summary>
-    #     ///
-    #     /// </summary>
-    #     /// <param name="exportFileName"></param>
-    #     /// <param name="strokeThickness"></param>
-    #     /// <param name="margin">Additional margin, especially useful, if strokeThickness is bigger than one, to prevent drawing outside of image</param>
-    #     public Size DrawIntoBitmap(string exportFileName, int strokeThickness, int margin = 2)
-    #     {
-    #          var width = Dimensions.Width + 2*margin;
-    #          var height = Dimensions.Height + 2*margin;
-    #          var offset = new Point(Dimensions.Location.X - margin, Dimensions.Location.Y - margin);
-    #
-    #          using (var bmp = new Bitmap(width, height))
-    #          {
-    #              using (Graphics g = Graphics.FromImage(bmp))
-    #              {
-    #                   g.FillRectangle(new SolidBrush(Color.White), 0, 0, width, height);
-    #                   foreach (var stroke in Strokes)
-    #                   {
-    #                       for (int i = 0; i < stroke.Count - 1; i++)
-    #                       {
-    #                           var startPoint = SubtractOffset(stroke[i], offset);
-    #                           var endPoint = SubtractOffset(stroke[i + 1], offset);
-    #                           g.DrawLine(new Pen(Color.Black, strokeThickness), startPoint, endPoint);
-    #                       }
-    #                   }
-    #
-    #                   bmp.Save(exportFileName, ImageFormat.Png);
-    #               }
-    #          }
-    #
-    #          return new Size(width, height);
-    #     }
-    #
-
-
-
     def draw_into_bitmap(self, export_file_name: str, stroke_thickness: int, margin: int, destination_width: int,
-                         destination_height: int):
-        pass
+                         destination_height: int) -> (int, int):
+        width = self.dimensions.width + 2 * margin
+        height = self.dimensions.height + 2 * margin
+        width_offset_for_centering = (destination_width - width) / 2
+        height_offset_for_centering = (destination_height - height) / 2
+        offset = Point2D(self.dimensions.origin.x - margin - width_offset_for_centering,
+                         self.dimensions.origin.y - margin - height_offset_for_centering)
 
-# public Size DrawIntoBitmap(string exportFileName, int strokeThickness, int margin, int destinationWidth, int destinationHeight)
-# {
-# var width = Dimensions.Width + 2*margin;
-# var height = Dimensions.Height + 2*margin;
-# var widthOffsetForCentering = (destinationWidth - width) / 2;
-# var heightOffsetForCentering = (destinationHeight - height) / 2;
-# var offset = new Point(Dimensions.Location.X - margin - widthOffsetForCentering, Dimensions.Location.Y - margin - heightOffsetForCentering);
-#
-# using (var bmp = new Bitmap(destinationWidth, destinationHeight))
-# {
-#     using (Graphics g = Graphics.FromImage(bmp))
-# {
-#     g.FillRectangle(new SolidBrush(Color.White), 0, 0, destinationWidth, destinationHeight);
-# foreach (var stroke in Strokes)
-# {
-# for (int i = 0; i < stroke.Count - 1; i++)
-# {
-# var startPoint = SubtractOffset(stroke[i], offset);
-# var endPoint = SubtractOffset(stroke[i + 1], offset);
-# g.DrawLine(new Pen(Color.Black, strokeThickness), startPoint, endPoint);
-# }
-# }
-#
-# bmp.Save(exportFileName, ImageFormat.Png);
-# }
-# }
-#
-# return new Size(width, height);
-# }
-#
-#
-#
-#
-#     def SubtractOffset(Point a, Point b) -> Point:
-#         return new Point(a.X - b.X, a.Y - b.Y);
-#
+        img = Image.new('RGB', (width, height), "white")  # create a new black image
+        draw = ImageDraw.Draw(img)
+        black = (0, 0, 0)
+
+        for stroke in self.strokes:
+            for i in range(0, len(stroke) - 1):
+                start_point = self.subtract_offset(stroke[i], offset)
+                end_point = self.subtract_offset(stroke[i + 1], offset)
+                draw.line((start_point.x, start_point.y, end_point.x, end_point.y), black, stroke_thickness)
+
+        img.save(export_file_name)
+
+    def subtract_offset(self, a: Point2D, b: Point2D) -> Point2D:
+        return Point2D(a.x - b.x, a.y - b.y)
