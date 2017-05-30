@@ -34,49 +34,29 @@ class Symbol:
 
         symbol_name = lines[0]
         strokes = []
+
+        for stroke_string in lines[1:]:
+            stroke = []
+
+            for point_string in stroke_string.split(";"):
+                if point_string is "":
+                    continue  # Skip the last element, that is due to a trailing ; in each line
+
+                point_x, point_y = point_string.split(",")
+                x = int(point_x)
+                y = int(point_y)
+                stroke.append(Point2D(x, y))
+
+                max_x = max(max_x, x)
+                min_x = min(min_x, x)
+                max_y = max(max_y, y)
+                min_y = min(min_y, y)
+
+            strokes.append(stroke)
+
         dimensions = Rectangle(Point2D(min_x, min_y), max_x - min_x + 1, max_y - min_y + 1)
 
         return Symbol(content, strokes, symbol_name, dimensions)
-
-    #
-    #     public static Symbol InitializeFromString(string content)
-    #     {
-    #         var lines = content.Split(new[] { "\n", "\r\n" }, StringSplitOptions.None);
-    #
-    #         var newSymbol = new Symbol
-    #         {
-    #             FileContent = content,
-    #             SymbolName = lines[0]
-    #         };
-    #
-    #         int minX = int.MaxValue;
-    #         int maxX = 0;
-    #         int minY = int.MaxValue;
-    #         int maxY = 0;
-    #
-    #         foreach (var strokeString in lines.Skip(1))
-    #         {
-    #             var stroke = new List<Point>();
-    #             foreach (var pointString in strokeString.Split(';').Where(s => s != "")) // Each stroke ends with a ; so the last element after the split should be skipped
-    #             {
-    #                  var point = new Point(int.Parse(pointString.Split(',')[0]), int.Parse(pointString.Split(',')[1]));
-    #                  stroke.Add(point);
-    #
-    #                  maxX = Math.Max(maxX, point.X);
-    #                  minX = Math.Min(minX, point.X);
-    #                  maxY = Math.Max(maxY, point.Y);
-    #                  minY = Math.Min(minY, point.Y);
-    #             }
-    #
-    #             newSymbol.Strokes.Add(stroke);
-    #             newSymbol.Dimensions = new Rectangle(minX, minY, maxX - minX + 1, maxY - minY + 1);
-    #         }
-    #
-    #         return newSymbol;
-    #     }
-    #
-
-
 
 
     def draw_into_bitmap(self, export_file_name: str, stroke_thickness: int, margin: int = 2):

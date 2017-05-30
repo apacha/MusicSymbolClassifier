@@ -7,3 +7,7 @@ class Rectangle:
         self.height = height
         self.width = width
         self.origin = origin
+
+    def __eq__(self, o: object) -> bool:
+        are_equal = self.width == o.width and self.height == o.height and self.origin == o.origin
+        return are_equal
