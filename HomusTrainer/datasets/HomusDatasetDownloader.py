@@ -23,10 +23,10 @@ class HomusDatasetDownloader(Dataset):
 
     def download_and_extract_dataset(self):
         if not os.path.exists(self.dataset_filename):
-            print("Downloading Additional Dataset...")
+            print("Downloading HOMUS Dataset...")
             self.download_file(self.url, self.dataset_filename)
 
-        print("Extracting Additional Dataset...")
+        print("Extracting HOMUS Dataset...")
         self.extract_dataset(self.destination_directory)
 
     def extract_dataset(self, absolute_path_to_temp_folder: str):

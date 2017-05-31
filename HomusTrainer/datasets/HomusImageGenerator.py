@@ -37,11 +37,11 @@ class HomusImageGenerator:
                 symbol.draw_into_bitmap(os.path.join(target_directory, export_file_name), stroke_thickness, 0, width,
                                         height)
 
-            current_symbol += 1
-            if current_symbol % 100 == 0:
-                sys.stdout.write('\r')
-                sys.stdout.write("{0: >5}/{1}".format(current_symbol, total_number_of_symbols))
-                sys.stdout.flush()
+                current_symbol += 1
+                if current_symbol % 100 == 0:
+                    sys.stdout.write('\r')
+                    sys.stdout.write("{0: >5}/{1}".format(current_symbol, total_number_of_symbols))
+                    sys.stdout.flush()
 
 
 if __name__ == "__main__":

@@ -16,22 +16,22 @@ class DatasetSplitter:
         """
 
         :param source_directory: The root directory, where all images currently reside.
-            Must have two sub-folders called scores and other.
+            Must one sub-folders per class.
         :param destination_directory: The root directory, into which the data will be placed.
-            Inside of this directory, the following structure contains the data:
+            Inside of this directory, the following structure will be created:
 
-         directory
+         destination_directory
          |- training
-         |   |- other
-         |   |- scores
+         |   |- class1
+         |   |- class2
          |
          |- validation
-         |   |- other
-         |   |- scores
+         |   |- class1
+         |   |- class2
          |
          |- test
-         |   |- other
-         |   |- scores
+         |   |- class1
+         |   |- class2
 
         """
         self.source_directory = source_directory
@@ -83,7 +83,7 @@ class DatasetSplitter:
         files = numpy.array(os.listdir(path_to_images_of_class))[sample_indices]
         destination_path = os.path.join(self.destination_directory, name_of_split, image_class)
         os.makedirs(destination_path, exist_ok=True)
-        print("Copying {0} {2} images of {1}...".format(len(files), image_class, name_of_split))
+        print("Copying {0} {2} files of {1}...".format(len(files), image_class, name_of_split))
         for image in files:
             shutil.copy(os.path.join(path_to_images_of_class, image), destination_path)
 
@@ -92,12 +92,12 @@ if __name__ == "__main__":
     parser.add_argument(
         "--source_directory",
         type=str,
-        default="../data",
+        default="../data/images",
         help="The directory, where the images should be copied from")
     parser.add_argument(
         "--destination_directory",
         type=str,
-        default="../data",
+        default="../data/images",
         help="The directory, where the images should be split into the three directories 'train', 'test' and 'validation'")
 
     flags, unparsed = parser.parse_known_args()

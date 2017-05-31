@@ -1,6 +1,8 @@
 import argparse
 import datetime
 import os
+
+import shutil
 from sklearn import metrics
 from time import time
 
@@ -11,6 +13,8 @@ from keras.preprocessing.image import ImageDataGenerator
 
 from TrainingHistoryPlotter import TrainingHistoryPlotter
 from datasets.DatasetSplitter import DatasetSplitter
+from datasets.HomusDatasetDownloader import HomusDatasetDownloader
+from datasets.HomusImageGenerator import HomusImageGenerator
 from models.ConfigurationFactory import ConfigurationFactory
 
 
@@ -19,8 +23,18 @@ def train_model(dataset_directory: str,
                 show_plot_after_training: bool,
                 delete_and_recreate_dataset_directory: bool):
 
+    raw_dataset_directory = os.path.join(dataset_directory, "raw")
+    image_dataset_directory = os.path.join(dataset_directory, "images")
+
     if delete_and_recreate_dataset_directory:
-        dataset_splitter = DatasetSplitter(dataset_directory, dataset_directory)
+        print("Deleting dataset directory {0}".format(dataset_directory))
+        shutil.rmtree(dataset_directory)
+
+        dataset_downloader = HomusDatasetDownloader(raw_dataset_directory)
+        dataset_downloader.download_and_extract_dataset()
+        HomusImageGenerator.create_images(raw_dataset_directory, image_dataset_directory)
+
+        dataset_splitter = DatasetSplitter(image_dataset_directory, image_dataset_directory)
         dataset_splitter.delete_split_directories()
         dataset_splitter.split_images_into_training_validation_and_test_set()
 
@@ -32,21 +46,25 @@ def train_model(dataset_directory: str,
     train_generator = ImageDataGenerator(rotation_range=training_configuration.rotation_range,
                                          zoom_range=training_configuration.zoom_range
                                          )
-    training_data_generator = train_generator.flow_from_directory(os.path.join(dataset_directory, "training"),
-                                                                  target_size=(training_configuration.input_image_rows, training_configuration.input_image_columns),
+    training_data_generator = train_generator.flow_from_directory(os.path.join(image_dataset_directory, "training"),
+                                                                  target_size=(training_configuration.input_image_rows,
+                                                                               training_configuration.input_image_columns),
                                                                   batch_size=training_configuration.training_minibatch_size,
                                                                   )
     training_steps_per_epoch = np.math.ceil(training_data_generator.samples / training_data_generator.batch_size)
 
     validation_generator = ImageDataGenerator()
-    validation_data_generator = validation_generator.flow_from_directory(os.path.join(dataset_directory, "validation"),
-                                                                         target_size=(training_configuration.input_image_rows, training_configuration.input_image_columns),
+    validation_data_generator = validation_generator.flow_from_directory(os.path.join(image_dataset_directory, "validation"),
+                                                                         target_size=(
+                                                                         training_configuration.input_image_rows,
+                                                                         training_configuration.input_image_columns),
                                                                          batch_size=training_configuration.training_minibatch_size)
     validation_steps_per_epoch = np.math.ceil(validation_data_generator.samples / validation_data_generator.batch_size)
 
     test_generator = ImageDataGenerator()
-    test_data_generator = test_generator.flow_from_directory(os.path.join(dataset_directory, "test"),
-                                                             target_size=(training_configuration.input_image_rows, training_configuration.input_image_columns),
+    test_data_generator = test_generator.flow_from_directory(os.path.join(image_dataset_directory, "test"),
+                                                             target_size=(training_configuration.input_image_rows,
+                                                                          training_configuration.input_image_columns),
                                                              batch_size=training_configuration.training_minibatch_size,
                                                              shuffle=False)
     test_steps_per_epoch = np.math.ceil(test_data_generator.samples / test_data_generator.batch_size)
@@ -69,12 +87,12 @@ def train_model(dataset_directory: str,
                                                 factor=training_configuration.learning_rate_reduction_factor,
                                                 min_lr=training_configuration.minimum_learning_rate)
     history = model.fit_generator(
-            generator=training_data_generator,
-            steps_per_epoch=training_steps_per_epoch,
-            epochs=training_configuration.number_of_epochs,
-            callbacks=[model_checkpoint, early_stop, learning_rate_reduction],
-            validation_data=validation_data_generator,
-            validation_steps=validation_steps_per_epoch
+        generator=training_data_generator,
+        steps_per_epoch=training_steps_per_epoch,
+        epochs=training_configuration.number_of_epochs,
+        callbacks=[model_checkpoint, early_stop, learning_rate_reduction],
+        validation_data=validation_data_generator,
+        validation_steps=validation_steps_per_epoch
     )
 
     print("Loading best model from check-point and testing...")
@@ -106,8 +124,8 @@ def train_model(dataset_directory: str,
 
     TrainingHistoryPlotter.plot_history(history,
                                         "{1}_{0}_{2:.1f}p.png".format(training_configuration.name(),
-                                                                     datetime.date.today(),
-                                                                     evaluation[1]*100),
+                                                                      datetime.date.today(),
+                                                                      evaluation[1] * 100),
                                         show_plot=show_plot_after_training)
 
 
@@ -115,30 +133,30 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.register("type", "bool", lambda v: v.lower() == "true")
     parser.add_argument(
-            "--dataset_directory",
-            type=str,
-            default="data",
-            help="The directory, that is used for storing the images during training")
+        "--dataset_directory",
+        type=str,
+        default="data",
+        help="The directory, that is used for storing the images during training")
     parser.add_argument(
-            "--model_name",
-            type=str,
-            default="vgg",
-            help="The model used for training the network. Currently allowed values are \'simple\' or \'vgg\'")
+        "--model_name",
+        type=str,
+        default="vgg",
+        help="The model used for training the network. Currently allowed values are \'simple\' or \'vgg\'")
     parser.add_argument(
-            "--show_plot_after_training",
-            nargs="?",
-            const=True,
-            type="bool",
-            default=True,
-            help="Whether to show a plot with the accuracies after training or not.")
+        "--show_plot_after_training",
+        nargs="?",
+        const=True,
+        type="bool",
+        default=True,
+        help="Whether to show a plot with the accuracies after training or not.")
     parser.add_argument(
-            "--delete_and_recreate_dataset_directory",
-            nargs="?",
-            const=True,
-            type="bool",
-            default=True,
-            help="Whether to delete and recreate the dataset-directory (by downloading the appropriate "
-                 "files from the internet) or simply use whatever data currently is inside of that directory.")
+        "--delete_and_recreate_dataset_directory",
+        nargs="?",
+        const=True,
+        type="bool",
+        default=True,
+        help="Whether to delete and recreate the dataset-directory (by downloading the appropriate "
+             "files from the internet) or simply use whatever data currently is inside of that directory.")
 
     flags, unparsed = parser.parse_known_args()
 
