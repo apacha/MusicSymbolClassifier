@@ -6,7 +6,7 @@ from keras.optimizers import Optimizer, SGD, Adam
 
 class TrainingConfiguration(ABC):
     def __init__(self,
-                 data_shape: tuple = (244, 128, 3),  # Rows, columns, channels
+                 data_shape: tuple = (224, 128, 3),  # Rows, columns, channels
                  number_of_epochs: int = 200,
                  number_of_epochs_before_early_stopping: int = 20,
                  number_of_epochs_before_reducing_learning_rate: int = 8,

@@ -22,7 +22,6 @@ def train_model(dataset_directory: str,
                 model_name: str,
                 show_plot_after_training: bool,
                 delete_and_recreate_dataset_directory: bool):
-
     raw_dataset_directory = os.path.join(dataset_directory, "raw")
     image_dataset_directory = os.path.join(dataset_directory, "images")
 
@@ -46,19 +45,21 @@ def train_model(dataset_directory: str,
     train_generator = ImageDataGenerator(rotation_range=training_configuration.rotation_range,
                                          zoom_range=training_configuration.zoom_range
                                          )
-    training_data_generator = train_generator.flow_from_directory(os.path.join(image_dataset_directory, "training"),
-                                                                  target_size=(training_configuration.input_image_rows,
-                                                                               training_configuration.input_image_columns),
-                                                                  batch_size=training_configuration.training_minibatch_size,
-                                                                  )
+    training_data_generator = train_generator.flow_from_directory(
+        os.path.join(image_dataset_directory, "training"),
+        target_size=(training_configuration.input_image_rows,
+                     training_configuration.input_image_columns),
+        batch_size=training_configuration.training_minibatch_size
+    )
     training_steps_per_epoch = np.math.ceil(training_data_generator.samples / training_data_generator.batch_size)
 
     validation_generator = ImageDataGenerator()
-    validation_data_generator = validation_generator.flow_from_directory(os.path.join(image_dataset_directory, "validation"),
-                                                                         target_size=(
-                                                                         training_configuration.input_image_rows,
-                                                                         training_configuration.input_image_columns),
-                                                                         batch_size=training_configuration.training_minibatch_size)
+    validation_data_generator = validation_generator.flow_from_directory(
+        os.path.join(image_dataset_directory, "validation"),
+        target_size=(
+            training_configuration.input_image_rows,
+            training_configuration.input_image_columns),
+        batch_size=training_configuration.training_minibatch_size)
     validation_steps_per_epoch = np.math.ceil(validation_data_generator.samples / validation_data_generator.batch_size)
 
     test_generator = ImageDataGenerator()
