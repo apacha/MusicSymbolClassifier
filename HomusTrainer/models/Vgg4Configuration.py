@@ -10,6 +10,9 @@ from models.TrainingConfiguration import TrainingConfiguration
 class Vgg4Configuration(TrainingConfiguration):
     """ The winning VGG-Net 4 configuration from Deep Learning course """
 
+    def __init__(self):
+        super().__init__(optimizer="Adadelta")
+
     def classifier(self) -> Sequential:
         """ Returns the classifier of this configuration """
         classifier = Sequential()
