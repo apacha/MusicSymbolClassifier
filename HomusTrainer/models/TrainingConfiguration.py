@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 from keras.engine import Model
-from keras.optimizers import Optimizer, SGD, Adam
+from keras.optimizers import Optimizer, SGD, Adam, Adadelta
 
 
 class TrainingConfiguration(ABC):
@@ -15,7 +15,7 @@ class TrainingConfiguration(ABC):
                  learning_rate: float = 0.01,
                  learning_rate_reduction_factor: float = 0.5,
                  minimum_learning_rate: float = 0.00001,
-                 weight_decay: float = 0.0002,
+                 weight_decay: float = 0.0001,
                  nesterov_momentum: float = 0.9,
                  zoom_range=0.2,
                  rotation_range=10,
@@ -25,7 +25,7 @@ class TrainingConfiguration(ABC):
         :param data_shape: Tuple with order (rows, columns, channels)
         :param zoom_range: Percentage that the input will dynamically be zoomed turing training (0-1)
         :param rotation_range: Random rotation of the input image during training in degree
-        :param optimizer: The used optimizer for the training, currently supported are either 'SGD' or 'Adam'.
+        :param optimizer: The used optimizer for the training, currently supported are either 'SGD', 'Adam' or 'Adadelta'.
         """
         self.optimizer = optimizer
         self.rotation_range = rotation_range
@@ -62,6 +62,10 @@ class TrainingConfiguration(ABC):
             return SGD(lr=self.learning_rate, momentum=self.nesterov_momentum, nesterov=True)
         if self.optimizer == "Adam":
             return Adam(lr=self.learning_rate)
+        if self.optimizer == "Adadelta":
+            return Adadelta()
+
+        raise Exception("Invalid optimizer {0} requested".format(self.optimizer))
 
     def summary(self) -> str:
         """ Returns the string that summarizes this configuration """
