@@ -35,7 +35,7 @@ class HomusImageGenerator:
             for stroke_thickness in stroke_thicknesses:
                 export_file_name = "{0}_{1}.png".format(file_name, stroke_thickness)
                 symbol.draw_into_bitmap(os.path.join(target_directory, export_file_name), stroke_thickness, 0, width,
-                                        height)
+                                        height, True)
 
                 current_symbol += 1
                 if current_symbol % 100 == 0:

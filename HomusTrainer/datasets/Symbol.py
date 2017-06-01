@@ -61,7 +61,7 @@ class Symbol:
         return Symbol(content, strokes, symbol_name, dimensions)
 
     def draw_into_bitmap(self, export_file_name: str, stroke_thickness: int, margin: int, destination_width: int,
-                         destination_height: int) -> (int, int):
+                         destination_height: int, draw_with_staff_lines=False) -> (int, int):
         width = self.dimensions.width + 2 * margin
         height = self.dimensions.height + 2 * margin
         width_offset_for_centering = (destination_width - width) / 2
@@ -79,20 +79,32 @@ class Symbol:
                 end_point = self.subtract_offset(stroke[i + 1], offset)
                 draw.line((start_point.x, start_point.y, end_point.x, end_point.y), black, stroke_thickness)
 
+        if draw_with_staff_lines:
+            self.draw_staff_lines_into_image(image, stroke_thickness)
+            file_name, extension = os.path.splitext(os.path.basename(export_file_name))
+            path = os.path.dirname(export_file_name)
+            vertical_offset = 88
+            export_file_name = "{0}_offset_{1}{2}".format(os.path.join(path,file_name), vertical_offset, extension)
+
         image.save(export_file_name)
 
-    def draw_staff_lines_into_bitmap(self, file_name: str, stroke_thickness: int, staff_line_spacing: int = 14,
-                                     vertical_offset=60):
-        image = Image.open(file_name)
-        draw = ImageDraw.Draw(image)
+    def draw_staff_lines_into_image(self, image: Image, stroke_thickness: int, staff_line_spacing: int = 14,
+                                    vertical_offset=88):
         black = (0, 0, 0)
         width = image.width
+        draw = ImageDraw.Draw(image)
 
         for i in range(5):
             y = vertical_offset + i * staff_line_spacing
             draw.line((0, y, width, y), black, stroke_thickness)
 
-        export_file_name = "{0}_offset_{1}.png".format(os.path.splitext(os.path.basename(file_name))[0], vertical_offset)
+    def draw_staff_lines_into_bitmap(self, file_name: str, stroke_thickness: int, staff_line_spacing: int = 14,
+                                     vertical_offset=88):
+        image = Image.open(file_name)
+        self.draw_staff_lines_into_image(image, stroke_thickness, staff_line_spacing, vertical_offset)
+
+        export_file_name = "{0}_offset_{1}.png".format(os.path.splitext(os.path.basename(file_name))[0],
+                                                       vertical_offset)
         image.save(export_file_name)
 
     def subtract_offset(self, a: Point2D, b: Point2D) -> Point2D:
