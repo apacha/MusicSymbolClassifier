@@ -1,3 +1,4 @@
+import os
 from typing import List
 
 import sys
@@ -68,8 +69,8 @@ class Symbol:
         offset = Point2D(self.dimensions.origin.x - margin - width_offset_for_centering,
                          self.dimensions.origin.y - margin - height_offset_for_centering)
 
-        img = Image.new('RGB', (destination_width, destination_height), "white")  # create a new black image
-        draw = ImageDraw.Draw(img)
+        image = Image.new('RGB', (destination_width, destination_height), "white")  # create a new black image
+        draw = ImageDraw.Draw(image)
         black = (0, 0, 0)
 
         for stroke in self.strokes:
@@ -78,7 +79,21 @@ class Symbol:
                 end_point = self.subtract_offset(stroke[i + 1], offset)
                 draw.line((start_point.x, start_point.y, end_point.x, end_point.y), black, stroke_thickness)
 
-        img.save(export_file_name)
+        image.save(export_file_name)
+
+    def draw_staff_lines_into_bitmap(self, file_name: str, stroke_thickness: int, staff_line_spacing: int = 14,
+                                     vertical_offset=60):
+        image = Image.open(file_name)
+        draw = ImageDraw.Draw(image)
+        black = (0, 0, 0)
+        width = image.width
+
+        for i in range(5):
+            y = vertical_offset + i * staff_line_spacing
+            draw.line((0, y, width, y), black, stroke_thickness)
+
+        export_file_name = "{0}_offset_{1}.png".format(os.path.splitext(os.path.basename(file_name))[0], vertical_offset)
+        image.save(export_file_name)
 
     def subtract_offset(self, a: Point2D, b: Point2D) -> Point2D:
         return Point2D(a.x - b.x, a.y - b.y)

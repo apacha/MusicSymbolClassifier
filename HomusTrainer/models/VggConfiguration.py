@@ -9,6 +9,9 @@ from models.TrainingConfiguration import TrainingConfiguration
 class VggConfiguration(TrainingConfiguration):
     """ A rudimentary configuration for starting """
 
+    def __init__(self):
+        super().__init__(optimizer = "Adadelta", training_minibatch_size=128)
+
     def classifier(self) -> Sequential:
         """ Returns the classifier of this configuration """
         classifier = Sequential()
