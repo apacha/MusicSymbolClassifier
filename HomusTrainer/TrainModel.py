@@ -27,7 +27,8 @@ def train_model(dataset_directory: str,
 
     if delete_and_recreate_dataset_directory:
         print("Deleting dataset directory {0}".format(dataset_directory))
-        shutil.rmtree(dataset_directory)
+        if os.path.exists(dataset_directory):
+            shutil.rmtree(dataset_directory)
 
         dataset_downloader = HomusDatasetDownloader(raw_dataset_directory)
         dataset_downloader.download_and_extract_dataset()
