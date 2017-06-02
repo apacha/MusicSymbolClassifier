@@ -3,6 +3,8 @@ import datetime
 import os
 
 import shutil
+from typing import List
+
 from sklearn import metrics
 from time import time
 
@@ -21,7 +23,11 @@ from models.ConfigurationFactory import ConfigurationFactory
 def train_model(dataset_directory: str,
                 model_name: str,
                 show_plot_after_training: bool,
-                delete_and_recreate_dataset_directory: bool):
+                delete_and_recreate_dataset_directory: bool,
+                stroke_thicknesses: List[int],
+                width: int,
+                height: int,
+                staff_line_vertical_offsets: List[int]):
     raw_dataset_directory = os.path.join(dataset_directory, "raw")
     image_dataset_directory = os.path.join(dataset_directory, "images")
 
@@ -32,7 +38,8 @@ def train_model(dataset_directory: str,
 
         dataset_downloader = HomusDatasetDownloader(raw_dataset_directory)
         dataset_downloader.download_and_extract_dataset()
-        HomusImageGenerator.create_images(raw_dataset_directory, image_dataset_directory)
+        HomusImageGenerator.create_images(raw_dataset_directory, image_dataset_directory,
+                                          stroke_thicknesses, width, height, staff_line_vertical_offsets)
 
         dataset_splitter = DatasetSplitter(image_dataset_directory, image_dataset_directory)
         dataset_splitter.delete_split_directories()
@@ -47,20 +54,20 @@ def train_model(dataset_directory: str,
                                          zoom_range=training_configuration.zoom_range
                                          )
     training_data_generator = train_generator.flow_from_directory(
-        os.path.join(image_dataset_directory, "training"),
-        target_size=(training_configuration.input_image_rows,
-                     training_configuration.input_image_columns),
-        batch_size=training_configuration.training_minibatch_size
+            os.path.join(image_dataset_directory, "training"),
+            target_size=(training_configuration.input_image_rows,
+                         training_configuration.input_image_columns),
+            batch_size=training_configuration.training_minibatch_size
     )
     training_steps_per_epoch = np.math.ceil(training_data_generator.samples / training_data_generator.batch_size)
 
     validation_generator = ImageDataGenerator()
     validation_data_generator = validation_generator.flow_from_directory(
-        os.path.join(image_dataset_directory, "validation"),
-        target_size=(
-            training_configuration.input_image_rows,
-            training_configuration.input_image_columns),
-        batch_size=training_configuration.training_minibatch_size)
+            os.path.join(image_dataset_directory, "validation"),
+            target_size=(
+                training_configuration.input_image_rows,
+                training_configuration.input_image_columns),
+            batch_size=training_configuration.training_minibatch_size)
     validation_steps_per_epoch = np.math.ceil(validation_data_generator.samples / validation_data_generator.batch_size)
 
     test_generator = ImageDataGenerator()
@@ -89,12 +96,12 @@ def train_model(dataset_directory: str,
                                                 factor=training_configuration.learning_rate_reduction_factor,
                                                 min_lr=training_configuration.minimum_learning_rate)
     history = model.fit_generator(
-        generator=training_data_generator,
-        steps_per_epoch=training_steps_per_epoch,
-        epochs=training_configuration.number_of_epochs,
-        callbacks=[model_checkpoint, early_stop, learning_rate_reduction],
-        validation_data=validation_data_generator,
-        validation_steps=validation_steps_per_epoch
+            generator=training_data_generator,
+            steps_per_epoch=training_steps_per_epoch,
+            epochs=training_configuration.number_of_epochs,
+            callbacks=[model_checkpoint, early_stop, learning_rate_reduction],
+            validation_data=validation_data_generator,
+            validation_steps=validation_steps_per_epoch
     )
 
     print("Loading best model from check-point and testing...")
@@ -135,34 +142,51 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.register("type", "bool", lambda v: v.lower() == "true")
     parser.add_argument(
-        "--dataset_directory",
-        type=str,
-        default="data",
-        help="The directory, that is used for storing the images during training")
+            "--dataset_directory",
+            type=str,
+            default="data",
+            help="The directory, that is used for storing the images during training")
     parser.add_argument(
-        "--model_name",
-        type=str,
-        default="vgg",
-        help="The model used for training the network. Currently allowed values are \'simple\' or \'vgg\'")
+            "--model_name",
+            type=str,
+            default="vgg",
+            help="The model used for training the network. Currently allowed values are \'simple\' or \'vgg\'")
     parser.add_argument(
-        "--show_plot_after_training",
-        nargs="?",
-        const=True,
-        type="bool",
-        default=True,
-        help="Whether to show a plot with the accuracies after training or not.")
+            "--show_plot_after_training",
+            nargs="?",
+            const=True,
+            type="bool",
+            default=True,
+            help="Whether to show a plot with the accuracies after training or not.")
     parser.add_argument(
-        "--delete_and_recreate_dataset_directory",
-        nargs="?",
-        const=True,
-        type="bool",
-        default=True,
-        help="Whether to delete and recreate the dataset-directory (by downloading the appropriate "
-             "files from the internet) or simply use whatever data currently is inside of that directory.")
+            "--delete_and_recreate_dataset_directory",
+            nargs="?",
+            const=True,
+            type="bool",
+            default=True,
+            help="Whether to delete and recreate the dataset-directory (by downloading the appropriate "
+                 "files from the internet) or simply use whatever data currently is inside of that directory.")
+    parser.add_argument("-s", "--stroke_thicknesses", dest="stroke_thicknesses", default="3",
+                        help="Stroke thicknesses for drawing the generated bitmaps. May define comma-separated list "
+                             "of multiple stroke thicknesses, e.g. '1,2,3'")
+    parser.add_argument("-offsets", "--staff_line_vertical_offsets", dest="offsets", default="",
+                        help="Optional vertical offsets in pixel for drawing the symbols with superimposed "
+                             "staff-lines starting at this pixel-offset from the top. Multiple offsets possible, "
+                             "e.g. '81,88,95'")
+    parser.add_argument("--width", dest="width", default="128", help="Width of the generated images in pixel")
+    parser.add_argument("--height", dest="height", default="224", help="Height of the generated images in pixel")
 
     flags, unparsed = parser.parse_known_args()
+
+    offsets = None
+    if flags.offsets != "":
+        offsets = [int(o) for o in flags.offsets.split(',')]
 
     train_model(flags.dataset_directory,
                 flags.model_name,
                 flags.show_plot_after_training,
-                flags.delete_and_recreate_dataset_directory)
+                flags.delete_and_recreate_dataset_directory,
+                [int(s) for s in flags.stroke_thicknesses.split(',')],
+                int(flags.width),
+                int(flags.height),
+                offsets)
