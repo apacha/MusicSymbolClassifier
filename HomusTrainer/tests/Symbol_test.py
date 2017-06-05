@@ -74,15 +74,12 @@ class Symbol_test(unittest.TestCase):
                   "192;141,195;142,196;143,196;144,196;144,196;144,197;144,197;"
         export_path = "test_quarter_note.png"
         symbol = Symbol.initialize_from_string(content)
-        symbol.draw_into_bitmap(export_path, 3, 0, 128, 224)
 
         # Act
-        offsets = [18+7*i for i in range(20)]  #[18,25,32,39,46,53,60,67,74,81,88]
-        for offset in offsets:
-            symbol.draw_staff_lines_into_bitmap(export_path, 3, 14, offset)
+        offsets = [18 + 7 * i for i in range(20)]  # [18,25,32,39,46,53,60,67,74,81,88]
+        symbol.draw_into_bitmap(export_path, 3, 0, 128, 224, 14, offsets)
 
         # Assert
-
 
 
 if __name__ == '__main__':
