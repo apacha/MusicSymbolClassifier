@@ -194,5 +194,5 @@ if __name__ == "__main__":
                 int(flags.width),
                 int(flags.height),
                 offsets,
-                flags.training_minibatch_size,
+                int(flags.training_minibatch_size),
                 flags.optimizer)
