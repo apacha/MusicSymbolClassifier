@@ -1,0 +1,452 @@
+C:\Programming\Anaconda3-4.2.0\python.exe C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg -s 1,2,3 -offsets 74,81,88,95
+Using TensorFlow backend.
+Deleting dataset directory data
+Extracting HOMUS Dataset...
+Generating 182400 images with 15200 symbols in 3 different stroke thicknesses and with staff-lines in 4 different locations
+In directory C:\Users\Alex\Repositories\MusicSymbolClassifier\HomusTrainer\data\images
+182400/182400Deleting split directories... 
+Splitting data into training, validation and test sets...
+Copying 3840 training files of 12-8-Time...
+Copying 480 validation files of 12-8-Time...
+Copying 480 test files of 12-8-Time...
+Copying 3802 training files of 2-2-Time...
+Copying 475 validation files of 2-2-Time...
+Copying 475 test files of 2-2-Time...
+Copying 3840 training files of 2-4-Time...
+Copying 480 validation files of 2-4-Time...
+Copying 480 test files of 2-4-Time...
+Copying 3840 training files of 3-4-Time...
+Copying 480 validation files of 3-4-Time...
+Copying 480 test files of 3-4-Time...
+Copying 3840 training files of 3-8-Time...
+Copying 480 validation files of 3-8-Time...
+Copying 480 test files of 3-8-Time...
+Copying 3840 training files of 4-4-Time...
+Copying 480 validation files of 4-4-Time...
+Copying 480 test files of 4-4-Time...
+Copying 3840 training files of 6-8-Time...
+Copying 480 validation files of 6-8-Time...
+Copying 480 test files of 6-8-Time...
+Copying 3840 training files of 9-8-Time...
+Copying 480 validation files of 9-8-Time...
+Copying 480 test files of 9-8-Time...
+Copying 3860 training files of Barline...
+Copying 482 validation files of Barline...
+Copying 482 test files of Barline...
+Copying 3840 training files of C-Clef...
+Copying 480 validation files of C-Clef...
+Copying 480 test files of C-Clef...
+Copying 3840 training files of Common-Time...
+Copying 480 validation files of Common-Time...
+Copying 480 test files of Common-Time...
+Copying 3880 training files of Cut-Time...
+Copying 484 validation files of Cut-Time...
+Copying 484 test files of Cut-Time...
+Copying 3840 training files of Dot...
+Copying 480 validation files of Dot...
+Copying 480 test files of Dot...
+Copying 3840 training files of Double-Sharp...
+Copying 480 validation files of Double-Sharp...
+Copying 480 test files of Double-Sharp...
+Copying 7680 training files of Eighth-Note...
+Copying 960 validation files of Eighth-Note...
+Copying 960 test files of Eighth-Note...
+Copying 3840 training files of Eighth-Rest...
+Copying 480 validation files of Eighth-Rest...
+Copying 480 test files of Eighth-Rest...
+Copying 3840 training files of F-Clef...
+Copying 480 validation files of F-Clef...
+Copying 480 test files of F-Clef...
+Copying 3832 training files of Flat...
+Copying 478 validation files of Flat...
+Copying 478 test files of Flat...
+Copying 3840 training files of G-Clef...
+Copying 480 validation files of G-Clef...
+Copying 480 test files of G-Clef...
+Copying 7672 training files of Half-Note...
+Copying 958 validation files of Half-Note...
+Copying 958 test files of Half-Note...
+Copying 3840 training files of Natural...
+Copying 480 validation files of Natural...
+Copying 480 test files of Natural...
+Copying 7690 training files of Quarter-Note...
+Copying 961 validation files of Quarter-Note...
+Copying 961 test files of Quarter-Note...
+Copying 3840 training files of Quarter-Rest...
+Copying 480 validation files of Quarter-Rest...
+Copying 480 test files of Quarter-Rest...
+Copying 3840 training files of Sharp...
+Copying 480 validation files of Sharp...
+Copying 480 test files of Sharp...
+Copying 7690 training files of Sixteenth-Note...
+Copying 961 validation files of Sixteenth-Note...
+Copying 961 test files of Sixteenth-Note...
+Copying 3840 training files of Sixteenth-Rest...
+Copying 480 validation files of Sixteenth-Rest...
+Copying 480 test files of Sixteenth-Rest...
+Copying 7672 training files of Sixty-Four-Note...
+Copying 958 validation files of Sixty-Four-Note...
+Copying 958 test files of Sixty-Four-Note...
+Copying 3840 training files of Sixty-Four-Rest...
+Copying 480 validation files of Sixty-Four-Rest...
+Copying 480 test files of Sixty-Four-Rest...
+Copying 7672 training files of Thirty-Two-Note...
+Copying 958 validation files of Thirty-Two-Note...
+Copying 958 test files of Thirty-Two-Note...
+Copying 3840 training files of Thirty-Two-Rest...
+Copying 480 validation files of Thirty-Two-Rest...
+Copying 480 test files of Thirty-Two-Rest...
+Copying 3840 training files of Whole-Half-Rest...
+Copying 480 validation files of Whole-Half-Rest...
+Copying 480 test files of Whole-Half-Rest...
+Copying 3840 training files of Whole-Note...
+Copying 480 validation files of Whole-Note...
+Copying 480 test files of Whole-Note...
+Training on dataset...
+Found 145930 images belonging to 32 classes.
+Found 18235 images belonging to 32 classes.
+Found 18235 images belonging to 32 classes.
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv2d_1 (Conv2D)            (None, 224, 128, 16)      448       
+_________________________________________________________________
+batch_normalization_1 (Batch (None, 224, 128, 16)      64        
+_________________________________________________________________
+activation_1 (Activation)    (None, 224, 128, 16)      0         
+_________________________________________________________________
+conv2d_2 (Conv2D)            (None, 224, 128, 16)      2320      
+_________________________________________________________________
+batch_normalization_2 (Batch (None, 224, 128, 16)      64        
+_________________________________________________________________
+activation_2 (Activation)    (None, 224, 128, 16)      0         
+_________________________________________________________________
+max_pooling2d_1 (MaxPooling2 (None, 112, 64, 16)       0         
+_________________________________________________________________
+conv2d_3 (Conv2D)            (None, 112, 64, 32)       4640      
+_________________________________________________________________
+batch_normalization_3 (Batch (None, 112, 64, 32)       128       
+_________________________________________________________________
+activation_3 (Activation)    (None, 112, 64, 32)       0         
+_________________________________________________________________
+conv2d_4 (Conv2D)            (None, 112, 64, 32)       9248      
+_________________________________________________________________
+batch_normalization_4 (Batch (None, 112, 64, 32)       128       
+_________________________________________________________________
+activation_4 (Activation)    (None, 112, 64, 32)       0         
+_________________________________________________________________
+max_pooling2d_2 (MaxPooling2 (None, 56, 32, 32)        0         
+_________________________________________________________________
+conv2d_5 (Conv2D)            (None, 56, 32, 64)        18496     
+_________________________________________________________________
+batch_normalization_5 (Batch (None, 56, 32, 64)        256       
+_________________________________________________________________
+activation_5 (Activation)    (None, 56, 32, 64)        0         
+_________________________________________________________________
+conv2d_6 (Conv2D)            (None, 56, 32, 64)        36928     
+_________________________________________________________________
+batch_normalization_6 (Batch (None, 56, 32, 64)        256       
+_________________________________________________________________
+activation_6 (Activation)    (None, 56, 32, 64)        0         
+_________________________________________________________________
+conv2d_7 (Conv2D)            (None, 56, 32, 64)        36928     
+_________________________________________________________________
+batch_normalization_7 (Batch (None, 56, 32, 64)        256       
+_________________________________________________________________
+activation_7 (Activation)    (None, 56, 32, 64)        0         
+_________________________________________________________________
+max_pooling2d_3 (MaxPooling2 (None, 28, 16, 64)        0         
+_________________________________________________________________
+conv2d_8 (Conv2D)            (None, 28, 16, 128)       73856     
+_________________________________________________________________
+batch_normalization_8 (Batch (None, 28, 16, 128)       512       
+_________________________________________________________________
+activation_8 (Activation)    (None, 28, 16, 128)       0         
+_________________________________________________________________
+conv2d_9 (Conv2D)            (None, 28, 16, 128)       147584    
+_________________________________________________________________
+batch_normalization_9 (Batch (None, 28, 16, 128)       512       
+_________________________________________________________________
+activation_9 (Activation)    (None, 28, 16, 128)       0         
+_________________________________________________________________
+conv2d_10 (Conv2D)           (None, 28, 16, 128)       147584    
+_________________________________________________________________
+batch_normalization_10 (Batc (None, 28, 16, 128)       512       
+_________________________________________________________________
+activation_10 (Activation)   (None, 28, 16, 128)       0         
+_________________________________________________________________
+max_pooling2d_4 (MaxPooling2 (None, 14, 8, 128)        0         
+_________________________________________________________________
+conv2d_11 (Conv2D)           (None, 14, 8, 192)        221376    
+_________________________________________________________________
+batch_normalization_11 (Batc (None, 14, 8, 192)        768       
+_________________________________________________________________
+activation_11 (Activation)   (None, 14, 8, 192)        0         
+_________________________________________________________________
+conv2d_12 (Conv2D)           (None, 14, 8, 192)        331968    
+_________________________________________________________________
+batch_normalization_12 (Batc (None, 14, 8, 192)        768       
+_________________________________________________________________
+activation_12 (Activation)   (None, 14, 8, 192)        0         
+_________________________________________________________________
+conv2d_13 (Conv2D)           (None, 14, 8, 192)        331968    
+_________________________________________________________________
+batch_normalization_13 (Batc (None, 14, 8, 192)        768       
+_________________________________________________________________
+activation_13 (Activation)   (None, 14, 8, 192)        0         
+_________________________________________________________________
+conv2d_14 (Conv2D)           (None, 14, 8, 192)        331968    
+_________________________________________________________________
+batch_normalization_14 (Batc (None, 14, 8, 192)        768       
+_________________________________________________________________
+activation_14 (Activation)   (None, 14, 8, 192)        0         
+_________________________________________________________________
+max_pooling2d_5 (MaxPooling2 (None, 7, 4, 192)         0         
+_________________________________________________________________
+flatten_1 (Flatten)          (None, 5376)              0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 32)                172064    
+_________________________________________________________________
+output_node (Activation)     (None, 32)                0         
+=================================================================
+Total params: 1,873,136
+Trainable params: 1,870,256
+Non-trainable params: 2,880
+_________________________________________________________________
+Model vgg loaded.
+2017-06-05 09:01:32.039753: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-05 09:01:32.040109: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-05 09:01:32.040357: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE3 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-05 09:01:32.040691: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-05 09:01:32.040857: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-05 09:01:32.041210: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-05 09:01:32.041429: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-05 09:01:32.041729: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-05 09:01:32.390734: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:887] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti
+major: 6 minor: 1 memoryClockRate (GHz) 1.582
+pciBusID 0000:01:00.0
+Total memory: 11.00GiB
+Free memory: 9.12GiB
+2017-06-05 09:01:32.390982: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:908] DMA: 0 
+2017-06-05 09:01:32.391104: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:918] 0:   Y 
+2017-06-05 09:01:32.391244: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:977] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:01:00.0)
+Training for 200 epochs with initial learning rate of 0.01, weight-decay of 0.0001 and Nesterov Momentum of 0.9 ...
+Additional parameters: Initialization: glorot_uniform, Minibatch-size: 128, Early stopping after 20 epochs without improvement
+Data-Shape: (224, 128, 3), Reducing learning rate by factor to 0.5 respectively if not improved validation accuracy after 8 epochs
+Data-augmentation: Zooming 20.0% randomly, rotating 10° randomly
+Optimizer: Adadelta, with parameters {'lr': 1.0, 'rho': 0.95, 'decay': 0.0, 'epsilon': 1e-08}
+Epoch 1/200
+   9/1141 [..............................] - ETA: 1269s - loss: 5.4763 - acc: 0.04082017-06-05 09:01:51.314640: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\pool_allocator.cc:247] PoolAllocator: After 3617 get requests, put_count=3566 evicted_count=1000 eviction_rate=0.280426 and unsatisfied allocation rate=0.31822
+2017-06-05 09:01:51.315165: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\pool_allocator.cc:259] Raising pool_size_limit_ from 100 to 110
+1140/1141 [============================>.] - ETA: 0s - loss: 0.8013 - acc: 0.7914Epoch 00000: val_acc improved from -inf to 0.56627, saving model to 2017-06-05_vgg.h5
+1141/1141 [==============================] - 862s - loss: 0.8007 - acc: 0.7916 - val_loss: 1.9994 - val_acc: 0.5663
+Epoch 2/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.3150 - acc: 0.9359Epoch 00001: val_acc improved from 0.56627 to 0.91089, saving model to 2017-06-05_vgg.h5
+1141/1141 [==============================] - 789s - loss: 0.3149 - acc: 0.9359 - val_loss: 0.3942 - val_acc: 0.9109
+Epoch 3/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.2419 - acc: 0.9614Epoch 00002: val_acc did not improve
+1141/1141 [==============================] - 787s - loss: 0.2421 - acc: 0.9613 - val_loss: 3.6579 - val_acc: 0.3934
+Epoch 4/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.2009 - acc: 0.9739Epoch 00003: val_acc did not improve
+1141/1141 [==============================] - 788s - loss: 0.2011 - acc: 0.9738 - val_loss: 3.5112 - val_acc: 0.5463
+Epoch 5/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.1758 - acc: 0.9806Epoch 00004: val_acc did not improve
+1141/1141 [==============================] - 788s - loss: 0.1759 - acc: 0.9805 - val_loss: 0.4717 - val_acc: 0.9044
+Epoch 6/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.1607 - acc: 0.9837Epoch 00005: val_acc improved from 0.91089 to 0.97817, saving model to 2017-06-05_vgg.h5
+1141/1141 [==============================] - 789s - loss: 0.1607 - acc: 0.9837 - val_loss: 0.1918 - val_acc: 0.9782
+Epoch 7/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.1468 - acc: 0.9864Epoch 00006: val_acc did not improve
+1141/1141 [==============================] - 786s - loss: 0.1468 - acc: 0.9864 - val_loss: 0.4031 - val_acc: 0.9325
+Epoch 8/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.1348 - acc: 0.9885Epoch 00007: val_acc improved from 0.97817 to 0.98728, saving model to 2017-06-05_vgg.h5
+1141/1141 [==============================] - 785s - loss: 0.1348 - acc: 0.9885 - val_loss: 0.1373 - val_acc: 0.9873
+Epoch 9/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.1258 - acc: 0.9897Epoch 00008: val_acc improved from 0.98728 to 0.98870, saving model to 2017-06-05_vgg.h5
+1141/1141 [==============================] - 785s - loss: 0.1258 - acc: 0.9897 - val_loss: 0.1282 - val_acc: 0.9887
+Epoch 10/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.1186 - acc: 0.9907Epoch 00009: val_acc did not improve
+1141/1141 [==============================] - 785s - loss: 0.1186 - acc: 0.9907 - val_loss: 0.3235 - val_acc: 0.9533
+Epoch 11/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.1127 - acc: 0.9912Epoch 00010: val_acc improved from 0.98870 to 0.99424, saving model to 2017-06-05_vgg.h5
+1141/1141 [==============================] - 785s - loss: 0.1127 - acc: 0.9912 - val_loss: 0.1034 - val_acc: 0.9942
+Epoch 12/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.1076 - acc: 0.9916Epoch 00011: val_acc did not improve
+1141/1141 [==============================] - 770s - loss: 0.1076 - acc: 0.9917 - val_loss: 2.1190 - val_acc: 0.7421
+Epoch 13/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.1038 - acc: 0.9919Epoch 00012: val_acc improved from 0.99424 to 0.99479, saving model to 2017-06-05_vgg.h5
+1141/1141 [==============================] - 750s - loss: 0.1038 - acc: 0.9919 - val_loss: 0.0943 - val_acc: 0.9948
+Epoch 14/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0989 - acc: 0.9921Epoch 00013: val_acc did not improve
+1141/1141 [==============================] - 749s - loss: 0.0989 - acc: 0.9922 - val_loss: 0.0931 - val_acc: 0.9936
+Epoch 15/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0950 - acc: 0.9927Epoch 00014: val_acc did not improve
+1141/1141 [==============================] - 753s - loss: 0.0950 - acc: 0.9927 - val_loss: 0.0936 - val_acc: 0.9924
+Epoch 16/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0917 - acc: 0.9927Epoch 00015: val_acc did not improve
+1141/1141 [==============================] - 753s - loss: 0.0918 - acc: 0.9926 - val_loss: 0.3178 - val_acc: 0.9584
+Epoch 17/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0884 - acc: 0.9932Epoch 00016: val_acc did not improve
+1141/1141 [==============================] - 752s - loss: 0.0883 - acc: 0.9932 - val_loss: 0.0866 - val_acc: 0.9940
+Epoch 18/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0854 - acc: 0.9937Epoch 00017: val_acc did not improve
+1141/1141 [==============================] - 791s - loss: 0.0854 - acc: 0.9937 - val_loss: 0.0855 - val_acc: 0.9926
+Epoch 19/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0841 - acc: 0.9935Epoch 00018: val_acc did not improve
+1141/1141 [==============================] - 765s - loss: 0.0841 - acc: 0.9935 - val_loss: 0.3030 - val_acc: 0.9384
+Epoch 20/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0809 - acc: 0.9940Epoch 00019: val_acc improved from 0.99479 to 0.99868, saving model to 2017-06-05_vgg.h5
+1141/1141 [==============================] - 753s - loss: 0.0809 - acc: 0.9940 - val_loss: 0.0658 - val_acc: 0.9987
+Epoch 21/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0796 - acc: 0.9939Epoch 00020: val_acc did not improve
+1141/1141 [==============================] - 751s - loss: 0.0796 - acc: 0.9939 - val_loss: 0.0964 - val_acc: 0.9882
+Epoch 22/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0782 - acc: 0.9937Epoch 00021: val_acc did not improve
+1141/1141 [==============================] - 753s - loss: 0.0782 - acc: 0.9937 - val_loss: 0.0811 - val_acc: 0.9934
+Epoch 23/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0743 - acc: 0.9946Epoch 00022: val_acc did not improve
+1141/1141 [==============================] - 754s - loss: 0.0743 - acc: 0.9946 - val_loss: 0.0742 - val_acc: 0.9951
+Epoch 24/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0740 - acc: 0.9940Epoch 00023: val_acc did not improve
+1141/1141 [==============================] - 752s - loss: 0.0740 - acc: 0.9940 - val_loss: 0.0667 - val_acc: 0.9967
+Epoch 25/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0727 - acc: 0.9944Epoch 00024: val_acc did not improve
+1141/1141 [==============================] - 753s - loss: 0.0727 - acc: 0.9944 - val_loss: 0.0604 - val_acc: 0.9986
+Epoch 26/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0717 - acc: 0.9946Epoch 00025: val_acc did not improve
+1141/1141 [==============================] - 754s - loss: 0.0716 - acc: 0.9946 - val_loss: 0.0651 - val_acc: 0.9968
+Epoch 27/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0698 - acc: 0.9948Epoch 00026: val_acc did not improve
+1141/1141 [==============================] - 751s - loss: 0.0700 - acc: 0.9948 - val_loss: 0.0978 - val_acc: 0.9884
+Epoch 28/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0676 - acc: 0.9952Epoch 00027: val_acc did not improve
+1141/1141 [==============================] - 755s - loss: 0.0676 - acc: 0.9952 - val_loss: 0.0700 - val_acc: 0.9953
+Epoch 29/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0688 - acc: 0.9946Epoch 00028: val_acc did not improve
+
+Epoch 00028: reducing learning rate to 0.5.
+1141/1141 [==============================] - 752s - loss: 0.0688 - acc: 0.9946 - val_loss: 0.0618 - val_acc: 0.9962
+Epoch 30/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0557 - acc: 0.9980Epoch 00029: val_acc improved from 0.99868 to 0.99940, saving model to 2017-06-05_vgg.h5
+1141/1141 [==============================] - 756s - loss: 0.0557 - acc: 0.9980 - val_loss: 0.0496 - val_acc: 0.9994
+Epoch 31/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0513 - acc: 0.9985Epoch 00030: val_acc improved from 0.99940 to 0.99962, saving model to 2017-06-05_vgg.h5
+1141/1141 [==============================] - 750s - loss: 0.0513 - acc: 0.9985 - val_loss: 0.0464 - val_acc: 0.9996
+Epoch 32/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0481 - acc: 0.9984Epoch 00031: val_acc did not improve
+1141/1141 [==============================] - 851s - loss: 0.0481 - acc: 0.9984 - val_loss: 0.0436 - val_acc: 0.9995
+Epoch 33/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0457 - acc: 0.9983Epoch 00032: val_acc did not improve
+1141/1141 [==============================] - 775s - loss: 0.0457 - acc: 0.9983 - val_loss: 0.0415 - val_acc: 0.9993
+Epoch 34/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0429 - acc: 0.9986Epoch 00033: val_acc did not improve
+1141/1141 [==============================] - 750s - loss: 0.0429 - acc: 0.9986 - val_loss: 0.0397 - val_acc: 0.9993
+Epoch 35/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0408 - acc: 0.9985Epoch 00034: val_acc did not improve
+1141/1141 [==============================] - 756s - loss: 0.0408 - acc: 0.9985 - val_loss: 0.0367 - val_acc: 0.9995
+Epoch 36/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0389 - acc: 0.9985Epoch 00035: val_acc improved from 0.99962 to 0.99967, saving model to 2017-06-05_vgg.h5
+1141/1141 [==============================] - 751s - loss: 0.0389 - acc: 0.9985 - val_loss: 0.0349 - val_acc: 0.9997
+Epoch 37/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0376 - acc: 0.9985Epoch 00036: val_acc did not improve
+1141/1141 [==============================] - 750s - loss: 0.0376 - acc: 0.9985 - val_loss: 0.0343 - val_acc: 0.9991
+Epoch 38/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0372 - acc: 0.9983Epoch 00037: val_acc did not improve
+1141/1141 [==============================] - 750s - loss: 0.0372 - acc: 0.9983 - val_loss: 0.0340 - val_acc: 0.9992
+Epoch 39/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0352 - acc: 0.9985Epoch 00038: val_acc did not improve
+1141/1141 [==============================] - 750s - loss: 0.0352 - acc: 0.9985 - val_loss: 0.0343 - val_acc: 0.9987
+Epoch 40/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0351 - acc: 0.9983Epoch 00039: val_acc did not improve
+
+Epoch 00039: reducing learning rate to 0.25.
+1141/1141 [==============================] - 750s - loss: 0.0351 - acc: 0.9983 - val_loss: 0.0300 - val_acc: 0.9996
+Epoch 41/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0317 - acc: 0.9991Epoch 00040: val_acc improved from 0.99967 to 0.99989, saving model to 2017-06-05_vgg.h5
+1141/1141 [==============================] - 756s - loss: 0.0317 - acc: 0.9991 - val_loss: 0.0285 - val_acc: 0.9999
+Epoch 42/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0300 - acc: 0.9993Epoch 00041: val_acc did not improve
+1141/1141 [==============================] - 756s - loss: 0.0300 - acc: 0.9993 - val_loss: 0.0277 - val_acc: 0.9998
+Epoch 43/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0289 - acc: 0.9993Epoch 00042: val_acc improved from 0.99989 to 1.00000, saving model to 2017-06-05_vgg.h5
+1141/1141 [==============================] - 758s - loss: 0.0289 - acc: 0.9993 - val_loss: 0.0262 - val_acc: 1.0000
+Epoch 44/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0279 - acc: 0.9993Epoch 00043: val_acc did not improve
+1141/1141 [==============================] - 754s - loss: 0.0279 - acc: 0.9993 - val_loss: 0.0258 - val_acc: 0.9998
+Epoch 45/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0270 - acc: 0.9994Epoch 00044: val_acc did not improve
+1141/1141 [==============================] - 763s - loss: 0.0270 - acc: 0.9994 - val_loss: 0.0245 - val_acc: 1.0000
+Epoch 46/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0260 - acc: 0.9994Epoch 00045: val_acc did not improve
+1141/1141 [==============================] - 758s - loss: 0.0260 - acc: 0.9994 - val_loss: 0.0237 - val_acc: 0.9998
+Epoch 47/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0253 - acc: 0.9993Epoch 00046: val_acc did not improve
+1141/1141 [==============================] - 756s - loss: 0.0253 - acc: 0.9993 - val_loss: 0.0231 - val_acc: 0.9998
+Epoch 48/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0243 - acc: 0.9994Epoch 00047: val_acc did not improve
+1141/1141 [==============================] - 751s - loss: 0.0243 - acc: 0.9994 - val_loss: 0.0221 - val_acc: 0.9999
+Epoch 49/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0239 - acc: 0.9994Epoch 00048: val_acc did not improve
+1141/1141 [==============================] - 750s - loss: 0.0239 - acc: 0.9994 - val_loss: 0.0217 - val_acc: 0.9999
+Epoch 50/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0234 - acc: 0.9993Epoch 00049: val_acc did not improve
+1141/1141 [==============================] - 751s - loss: 0.0234 - acc: 0.9993 - val_loss: 0.0211 - val_acc: 0.9999
+Epoch 51/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0226 - acc: 0.9994Epoch 00050: val_acc did not improve
+1141/1141 [==============================] - 753s - loss: 0.0226 - acc: 0.9994 - val_loss: 0.0210 - val_acc: 0.9998
+Epoch 52/200
+1140/1141 [============================>.] - ETA: 0s - loss: 0.0220 - acc: 0.9994Epoch 00051: val_acc did not improve
+
+Epoch 00051: reducing learning rate to 0.125.
+1141/1141 [==============================] - 754s - loss: 0.0220 - acc: 0.9994 - val_loss: 0.0202 - val_acc: 0.9999
+Epoch 53/200
+ 451/1141 [==========>...................] - ETA: 449s - loss: 0.0209 - acc: 0.9996
+Process finished with exit code 1
+
+ 
+ -> Manual interrupt and continued with evaluation
+ 
+ 
+ Loading best model from check-point and testing...
+                 precision    recall  f1-score   support
+
+   Double-Sharp       1.00      1.00      1.00       480
+       2-4-Time       1.00      1.00      1.00       475
+           Flat       1.00      1.00      1.00       480
+     Whole-Note       1.00      1.00      1.00       480
+            Dot       1.00      1.00      1.00       480
+       2-2-Time       1.00      1.00      1.00       480
+    Eighth-Note       1.00      1.00      1.00       480
+ Sixteenth-Note       1.00      1.00      1.00       480
+        Barline       1.00      1.00      1.00       482
+         C-Clef       1.00      1.00      1.00       480
+    Common-Time       1.00      1.00      1.00       480
+Sixty-Four-Note       1.00      1.00      1.00       484
+        Natural       1.00      1.00      1.00       480
+Thirty-Two-Note       1.00      1.00      1.00       480
+   Quarter-Note       1.00      1.00      1.00       960
+      12-8-Time       1.00      1.00      1.00       480
+         F-Clef       1.00      1.00      1.00       480
+      Half-Note       1.00      1.00      1.00       478
+   Quarter-Rest       1.00      1.00      1.00       480
+ Sixteenth-Rest       1.00      1.00      1.00       958
+       6-8-Time       1.00      1.00      1.00       480
+Thirty-Two-Rest       1.00      1.00      1.00       961
+       9-8-Time       1.00      1.00      1.00       480
+       3-8-Time       1.00      1.00      1.00       480
+         G-Clef       1.00      1.00      1.00       961
+    Eighth-Rest       1.00      1.00      1.00       480
+       3-4-Time       1.00      1.00      1.00       958
+       Cut-Time       1.00      1.00      1.00       480
+Sixty-Four-Rest       1.00      1.00      1.00       958
+Whole-Half-Rest       1.00      1.00      1.00       480
+          Sharp       1.00      1.00      1.00       480
+       4-4-Time       1.00      1.00      1.00       480
+
+    avg / total       1.00      1.00      1.00     18235
+
+Total Loss: 0.02651
+Total Accuracy: 99.99452%
+Total Error: 0.00548%
+Execution time: 55.0s
