@@ -49,7 +49,6 @@ def test_model(model_path: str, model_name: str, image_path: str):
     # print("1/1 [==============================] - 0s")
 
     scores = classifier.predict(numpy.array([input_image])).flatten()
-    print(" Class scores: {0}".format(numpy.array2string(scores, formatter={'float_kind': lambda x: "%0.2f" % x})))
     class_with_highest_probability = numpy.where(scores == scores.max())[0][0]
 
     # Follows the order of the directories as listed by python command
@@ -86,6 +85,11 @@ def test_model(model_path: str, model_name: str, image_path: str):
                    'Thirty-Two-Rest',
                    'Whole-Half-Rest',
                    'Whole-Note']
+
+    print ("Class scores:")
+
+    for i in range(len(scores)):
+        print("{0:<18s} {1:.5f}".format(class_names[i], scores[i]))
 
     print(" Image is most likely: {0} (certainty: {1:0.2f})".format(class_names[class_with_highest_probability],
                                                                     scores[class_with_highest_probability]))
