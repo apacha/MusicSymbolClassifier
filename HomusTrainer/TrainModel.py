@@ -27,7 +27,9 @@ def train_model(dataset_directory: str,
                 stroke_thicknesses: List[int],
                 width: int,
                 height: int,
-                staff_line_vertical_offsets: List[int]):
+                staff_line_vertical_offsets: List[int],
+                training_minibatch_size: int,
+                optimizer: str):
     raw_dataset_directory = os.path.join(dataset_directory, "raw")
     image_dataset_directory = os.path.join(dataset_directory, "images")
 
@@ -48,7 +50,7 @@ def train_model(dataset_directory: str,
     print("Training on dataset...")
     start_time = time()
 
-    training_configuration = ConfigurationFactory.get_configuration_by_name(model_name)
+    training_configuration = ConfigurationFactory.get_configuration_by_name(model_name, optimizer, width, height, training_minibatch_size)
 
     train_generator = ImageDataGenerator(rotation_range=training_configuration.rotation_range,
                                          zoom_range=training_configuration.zoom_range
@@ -154,7 +156,7 @@ if __name__ == "__main__":
     parser.add_argument(
             "--show_plot_after_training",
             nargs="?",
-            const=True,
+            const=False,
             type="bool",
             default=True,
             help="Whether to show a plot with the accuracies after training or not.")
@@ -175,6 +177,8 @@ if __name__ == "__main__":
                              "e.g. '81,88,95'")
     parser.add_argument("--width", dest="width", default="128", help="Width of the generated images in pixel")
     parser.add_argument("--height", dest="height", default="224", help="Height of the generated images in pixel")
+    parser.add_argument("--minibatch_size", dest="training_minibatch_size", default="64", help="Size of the minibatches for training")
+    parser.add_argument("--optimizer", dest="optimizer", default="Adadelta", help="The optimizer used for the training")
 
     flags, unparsed = parser.parse_known_args()
 
@@ -189,4 +193,6 @@ if __name__ == "__main__":
                 [int(s) for s in flags.stroke_thicknesses.split(',')],
                 int(flags.width),
                 int(flags.height),
-                offsets)
+                offsets,
+                flags.training_minibatch_size,
+                flags.optimizer)
