@@ -22,7 +22,9 @@ echo "Appending source root $($pathToSourceRoot) to temporary PYTHONPATH"
 $env:PYTHONPATH = $pathToSourceRoot
 
 #python C:\Users\Alex\Repositories\MusicSymbolClassifier\HomusTrainer\tests\Symbol_test.py
-cd "tests"
-pytest
+#cd "tests"
+#pytest
+
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --delete_and_recreate_dataset_directory True --model_name vgg -s 3 -offsets 88
 
 Stop-Transcript
