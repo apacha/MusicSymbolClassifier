@@ -23,11 +23,12 @@ class HomusImageGenerator:
             staff_line_multiplier = len(staff_line_vertical_offsets)
 
         total_number_of_symbols = len(all_symbol_files) * len(stroke_thicknesses) * staff_line_multiplier
-        output = "Generating {0} images with {1} symbols in {2} different stroke thicknesses".format(
-            total_number_of_symbols, len(all_symbol_files), len(stroke_thicknesses))
+        output = "Generating {0} images with {1} symbols in {2} different stroke thicknesses ({3})".format(
+            total_number_of_symbols, len(all_symbol_files), len(stroke_thicknesses), stroke_thicknesses)
 
         if staff_line_vertical_offsets is not None:
-            output += " and with staff-lines in {0} different locations".format(staff_line_multiplier)
+            output += " and with staff-lines with {0} different offsets from the top ({1})".format(
+                staff_line_multiplier, staff_line_vertical_offsets)
 
         output += "\nIn directory {0}".format(os.path.abspath(destination_directory))
         print(output)
