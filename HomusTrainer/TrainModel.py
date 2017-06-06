@@ -156,9 +156,9 @@ if __name__ == "__main__":
     parser.add_argument(
             "--show_plot_after_training",
             nargs="?",
-            const=False,
+            const=True,
             type="bool",
-            default=True,
+            default=False,
             help="Whether to show a plot with the accuracies after training or not.")
     parser.add_argument(
             "--delete_and_recreate_dataset_directory",
