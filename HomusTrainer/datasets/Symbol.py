@@ -61,7 +61,8 @@ class Symbol:
         return Symbol(content, strokes, symbol_name, dimensions)
 
     def draw_into_bitmap(self, export_file_name: str, stroke_thickness: int, margin: int, destination_width: int,
-                         destination_height: int, staff_line_spacing: int = 14, staff_line_vertical_offsets: List[int] = None) -> (int, int):
+                         destination_height: int, staff_line_spacing: int = 14,
+                         staff_line_vertical_offsets: List[int] = None):
         """
 
         :param export_file_name:
@@ -69,6 +70,7 @@ class Symbol:
         :param margin:
         :param destination_width:
         :param destination_height:
+        :param staff_line_spacing:
         :param staff_line_vertical_offsets: Offsets used for drawing staff-lines. If None provided, no staff-lines will
                   be drawn if multiple integers are provided, multiple images will be generated
         :return:
@@ -95,14 +97,13 @@ class Symbol:
         if staff_line_vertical_offsets is not None:
             for staff_line_vertical_offset in staff_line_vertical_offsets:
                 image_with_staff_lines = image_without_staff_lines.copy()
-                self.draw_staff_lines_into_image(image_with_staff_lines,
-                                                 stroke_thickness,
-                                                 vertical_offset=staff_line_vertical_offset)
+                self.draw_staff_lines_into_image(image_with_staff_lines, stroke_thickness,
+                                                 staff_line_spacing, staff_line_vertical_offset)
                 file_name, extension = os.path.splitext(os.path.basename(export_file_name))
                 path = os.path.dirname(export_file_name)
                 file_name_with_offset = "{0}_offset_{1}{2}".format(os.path.join(path, file_name),
-                                                              staff_line_vertical_offset,
-                                                              extension)
+                                                                   staff_line_vertical_offset,
+                                                                   extension)
                 image_with_staff_lines.save(file_name_with_offset)
                 image_with_staff_lines.close()
         else:

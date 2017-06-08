@@ -15,6 +15,7 @@ class HomusImageGenerator:
                       stroke_thicknesses: List[int] = [3],
                       width: int = 128,
                       height: int = 224,
+                      staff_line_spacing: int = 14,
                       staff_line_vertical_offsets: List[int] = None):
         all_symbol_files = [y for x in os.walk(raw_data_directory) for y in glob(os.path.join(x[0], '*.txt'))]
 
@@ -48,7 +49,7 @@ class HomusImageGenerator:
             for stroke_thickness in stroke_thicknesses:
                 export_file_name = "{0}_{1}.png".format(file_name, stroke_thickness)
                 symbol.draw_into_bitmap(os.path.join(target_directory, export_file_name), stroke_thickness, 0, width,
-                                        height, staff_line_vertical_offsets)
+                                        height, staff_line_spacing, staff_line_vertical_offsets)
 
                 current_symbol += 1 * staff_line_multiplier
                 if current_symbol % 10 == 0:
@@ -76,14 +77,16 @@ if __name__ == "__main__":
                         help="Optional vertical offsets in pixel for drawing the symbols with superimposed "
                              "staff-lines starting at this pixel-offset from the top. Multiple offsets possible, "
                              "e.g. '81,88,95'")
-    parser.add_argument("--width", dest="width", default="128", help="Width of the generated images in pixel")
-    parser.add_argument("--height", dest="height", default="224", help="Height of the generated images in pixel")
+    parser.add_argument("--width", default="128", type=int, help="Width of the generated images in pixel")
+    parser.add_argument("--height", default="224", type=int, help="Height of the generated images in pixel")
+    parser.add_argument("--staff_line_spacing", default="14", type=int, help="Spacing between two staff-lines in pixel")
 
     flags, unparsed = parser.parse_known_args()
 
     HomusImageGenerator.create_images(flags.raw_dataset_directory,
                                       flags.image_dataset_directory,
                                       [int(s) for s in flags.stroke_thicknesses.split(',')],
-                                      int(flags.width),
-                                      int(flags.height),
+                                      flags.width,
+                                      flags.height,
+                                      flags.staff_line_spacing,
                                       [int(o) for o in flags.offsets.split(',')])

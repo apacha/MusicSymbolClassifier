@@ -28,6 +28,7 @@ def train_model(dataset_directory: str,
                 width: int,
                 height: int,
                 staff_line_vertical_offsets: List[int],
+                staff_line_spacing: int,
                 training_minibatch_size: int,
                 optimizer: str,
                 dynamic_learning_rate_reduction: bool):
@@ -41,8 +42,8 @@ def train_model(dataset_directory: str,
 
         dataset_downloader = HomusDatasetDownloader(raw_dataset_directory)
         dataset_downloader.download_and_extract_dataset()
-        HomusImageGenerator.create_images(raw_dataset_directory, image_dataset_directory,
-                                          stroke_thicknesses, width, height, staff_line_vertical_offsets)
+        HomusImageGenerator.create_images(raw_dataset_directory, image_dataset_directory, stroke_thicknesses, width,
+                                          height, staff_line_spacing, staff_line_vertical_offsets)
 
         dataset_splitter = DatasetSplitter(image_dataset_directory, image_dataset_directory)
         dataset_splitter.delete_split_directories()
@@ -170,6 +171,8 @@ if __name__ == "__main__":
     parser.add_argument("-s", "--stroke_thicknesses", dest="stroke_thicknesses", default="3",
                         help="Stroke thicknesses for drawing the generated bitmaps. May define comma-separated list "
                              "of multiple stroke thicknesses, e.g. '1,2,3'")
+
+    parser.add_argument("--staff_line_spacing", default="14", type=int, help="Spacing between two staff-lines in pixel")
     parser.add_argument("-offsets", "--staff_line_vertical_offsets", dest="offsets", default="",
                         help="Optional vertical offsets in pixel for drawing the symbols with superimposed "
                              "staff-lines starting at this pixel-offset from the top. Multiple offsets possible, "
@@ -199,6 +202,7 @@ if __name__ == "__main__":
                 flags.width,
                 flags.height,
                 offsets,
+                flags.staff_line_spacing,
                 flags.minibatch_size,
                 flags.optimizer,
                 flags.dynamic_learning_rate_reduction)
