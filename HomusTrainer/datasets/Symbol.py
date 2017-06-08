@@ -62,7 +62,7 @@ class Symbol:
 
     def draw_into_bitmap(self, export_file_name: str, stroke_thickness: int, margin: int, destination_width: int,
                          destination_height: int, staff_line_spacing: int = 14,
-                         staff_line_vertical_offsets: List[int] = None):
+                         staff_line_vertical_offsets: List[int] = None) -> Rectangle:
         """
 
         :param export_file_name:
@@ -73,7 +73,7 @@ class Symbol:
         :param staff_line_spacing:
         :param staff_line_vertical_offsets: Offsets used for drawing staff-lines. If None provided, no staff-lines will
                   be drawn if multiple integers are provided, multiple images will be generated
-        :return:
+        :return: Returns the bounding-box of the symbol, how it was drawn into the image
         """
         width = self.dimensions.width + 2 * margin
         height = self.dimensions.height + 2 * margin
@@ -92,6 +92,11 @@ class Symbol:
                 start_point = self.subtract_offset(stroke[i], offset)
                 end_point = self.subtract_offset(stroke[i + 1], offset)
                 draw.line((start_point.x, start_point.y, end_point.x, end_point.y), black, stroke_thickness)
+
+        location = self.subtract_offset(self.dimensions.origin, offset)
+        bounding_box_in_image = Rectangle(location, self.dimensions.width, self.dimensions.height)
+        # self.draw_bounding_box(draw, location)
+
         del draw
 
         if staff_line_vertical_offsets is not None:
@@ -110,6 +115,14 @@ class Symbol:
             image_without_staff_lines.save(export_file_name)
 
         image_without_staff_lines.close()
+
+        return bounding_box_in_image
+
+    def draw_bounding_box(self, draw, location):
+        red = (255, 0, 0)
+        draw.rectangle(
+            (location.x, location.y, location.x + self.dimensions.width, location.y + self.dimensions.height),
+            fill=None, outline=red)
 
     def draw_staff_lines_into_image(self,
                                     image: Image,

@@ -77,10 +77,12 @@ class Symbol_test(unittest.TestCase):
 
         # Act
         offsets = [18 + 7 * i for i in range(20)]  # [18,25,32,39,46,53,60,67,74,81,88]
-        symbol.draw_into_bitmap(export_path, 3, 0, 128, 224, 14, offsets)
+        bounding_box_in_image = symbol.draw_into_bitmap(export_path, 3, 0, 128, 224, 14, offsets)
 
         # Assert
-
+        self.assertEqual(bounding_box_in_image.origin, Point2D(109/2,147/2))
+        self.assertEqual(bounding_box_in_image.width, 19)
+        self.assertEqual(bounding_box_in_image.height, 77)
 
 if __name__ == '__main__':
     unittest.main()
