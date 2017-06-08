@@ -61,7 +61,7 @@ class TrainingConfiguration(ABC):
         if self.optimizer == "SGD":
             return SGD(lr=self.learning_rate, momentum=self.nesterov_momentum, nesterov=True)
         if self.optimizer == "Adam":
-            return Adam(lr=self.learning_rate)
+            return Adam()
         if self.optimizer == "Adadelta":
             return Adadelta()
 
