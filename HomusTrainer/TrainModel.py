@@ -194,15 +194,15 @@ if __name__ == "__main__":
     if flags.offsets != "":
         offsets = [int(o) for o in flags.offsets.split(',')]
 
-    train_model(flags.dataset_directory,
-                flags.model_name,
-                flags.show_plot_after_training,
-                flags.delete_and_recreate_dataset_directory,
-                [int(s) for s in flags.stroke_thicknesses.split(',')],
-                flags.width,
-                flags.height,
-                offsets,
-                flags.staff_line_spacing,
-                flags.minibatch_size,
-                flags.optimizer,
-                flags.dynamic_learning_rate_reduction)
+    train_model(dataset_directory=flags.dataset_directory,
+                model_name=flags.model_name,
+                show_plot_after_training=flags.show_plot_after_training,
+                delete_and_recreate_dataset_directory=flags.delete_and_recreate_dataset_directory,
+                stroke_thicknesses=[int(s) for s in flags.stroke_thicknesses.split(',')],
+                width=flags.width,
+                height=flags.height,
+                staff_line_vertical_offsets=offsets,
+                staff_line_spacing=flags.staff_line_spacing,
+                training_minibatch_size=flags.minibatch_size,
+                optimizer=flags.optimizer,
+                dynamic_learning_rate_reduction=flags.dynamic_learning_rate_reduction)
