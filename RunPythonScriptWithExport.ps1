@@ -21,16 +21,16 @@ $env:PYTHONPATH = $pathToSourceRoot
 #cd "tests"
 #pytest
 
-Start-Transcript -path "$($pathToTranscript)2017-06-08_vgg_staff74-81-88-95_192x96_no_lr_reduction.txt" -append
-python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg -s 3 -offsets 74,81,88,95 --width 96 --height 192 --minibatch_size 64 --optimizer Adam --no_dynamic_learning_rate_reduction
+Start-Transcript -path "$($pathToTranscript)2017-06-08_vgg_staff60-67-74-81_192x96_no_lr_reduction.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg -s 3 -offsets 60,67,74,81 --width 96 --height 192 --minibatch_size 64 --optimizer Adam --no_dynamic_learning_rate_reduction
 Stop-Transcript
 
-Start-Transcript -path "$($pathToTranscript)2017-06-08_vgg4_staff74-81-88-95_192x96_no_lr_reduction.txt" -append
-python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg4 -s 3 -offsets 74,81,88,95 --width 96 --height 192 --minibatch_size 64 --optimizer Adam --no_dynamic_learning_rate_reduction
+Start-Transcript -path "$($pathToTranscript)2017-06-08_vgg4_staff60-67-74-81_192x96_no_lr_reduction.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg4 -s 3 -offsets 60,67,74,81 --width 96 --height 192 --minibatch_size 64 --optimizer Adam --no_dynamic_learning_rate_reduction
 Stop-Transcript
 
 #Start-Transcript -path "$($pathToTranscript)output_3.txt" -append
-#python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg -s 3 -offsets 74,81,88,95 --width 96 --height 192 --minibatch_size 64 --optimizer SGD
+#python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --use_existing_dataset_directory --model_name vgg -s 3 -offsets 74,81,88,95 --width 96 --height 192 --minibatch_size 64 --optimizer SGD
 #Stop-Transcript
 #
 #Start-Transcript -path "$($pathToTranscript)output_4.txt" -append
