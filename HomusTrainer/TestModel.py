@@ -86,7 +86,7 @@ def test_model(model_path: str, model_name: str, image_path: str):
                    'Whole-Half-Rest',
                    'Whole-Note']
 
-    print ("Class scores:")
+    print("Class scores:")
 
     for i in range(len(scores)):
         print("{0:<18s} {1:.5f}".format(class_names[i], scores[i]))
