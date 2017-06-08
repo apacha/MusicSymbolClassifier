@@ -29,7 +29,8 @@ def train_model(dataset_directory: str,
                 height: int,
                 staff_line_vertical_offsets: List[int],
                 training_minibatch_size: int,
-                optimizer: str):
+                optimizer: str,
+                dynamic_learning_rate_reduction: bool):
     raw_dataset_directory = os.path.join(dataset_directory, "raw")
     image_dataset_directory = os.path.join(dataset_directory, "images")
 
@@ -50,26 +51,27 @@ def train_model(dataset_directory: str,
     print("Training on dataset...")
     start_time = time()
 
-    training_configuration = ConfigurationFactory.get_configuration_by_name(model_name, optimizer, width, height, training_minibatch_size)
+    training_configuration = ConfigurationFactory.get_configuration_by_name(model_name, optimizer, width, height,
+                                                                            training_minibatch_size)
 
     train_generator = ImageDataGenerator(rotation_range=training_configuration.rotation_range,
                                          zoom_range=training_configuration.zoom_range
                                          )
     training_data_generator = train_generator.flow_from_directory(
-            os.path.join(image_dataset_directory, "training"),
-            target_size=(training_configuration.input_image_rows,
-                         training_configuration.input_image_columns),
-            batch_size=training_configuration.training_minibatch_size
+        os.path.join(image_dataset_directory, "training"),
+        target_size=(training_configuration.input_image_rows,
+                     training_configuration.input_image_columns),
+        batch_size=training_configuration.training_minibatch_size
     )
     training_steps_per_epoch = np.math.ceil(training_data_generator.samples / training_data_generator.batch_size)
 
     validation_generator = ImageDataGenerator()
     validation_data_generator = validation_generator.flow_from_directory(
-            os.path.join(image_dataset_directory, "validation"),
-            target_size=(
-                training_configuration.input_image_rows,
-                training_configuration.input_image_columns),
-            batch_size=training_configuration.training_minibatch_size)
+        os.path.join(image_dataset_directory, "validation"),
+        target_size=(
+            training_configuration.input_image_rows,
+            training_configuration.input_image_columns),
+        batch_size=training_configuration.training_minibatch_size)
     validation_steps_per_epoch = np.math.ceil(validation_data_generator.samples / validation_data_generator.batch_size)
 
     test_generator = ImageDataGenerator()
@@ -97,13 +99,19 @@ def train_model(dataset_directory: str,
                                                 verbose=1,
                                                 factor=training_configuration.learning_rate_reduction_factor,
                                                 min_lr=training_configuration.minimum_learning_rate)
+    if dynamic_learning_rate_reduction:
+        callbacks = [model_checkpoint, early_stop, learning_rate_reduction]
+    else:
+        print("Learning-rate reduction on Plateau disabled")
+        callbacks = [model_checkpoint, early_stop]
+
     history = model.fit_generator(
-            generator=training_data_generator,
-            steps_per_epoch=training_steps_per_epoch,
-            epochs=training_configuration.number_of_epochs,
-            callbacks=[model_checkpoint, early_stop, learning_rate_reduction],
-            validation_data=validation_data_generator,
-            validation_steps=validation_steps_per_epoch
+        generator=training_data_generator,
+        steps_per_epoch=training_steps_per_epoch,
+        epochs=training_configuration.number_of_epochs,
+        callbacks=callbacks,
+        validation_data=validation_data_generator,
+        validation_steps=validation_steps_per_epoch
     )
 
     print("Loading best model from check-point and testing...")
@@ -143,31 +151,22 @@ def train_model(dataset_directory: str,
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.register("type", "bool", lambda v: v.lower() == "true")
-    parser.add_argument(
-            "--dataset_directory",
-            type=str,
-            default="data",
-            help="The directory, that is used for storing the images during training")
-    parser.add_argument(
-            "--model_name",
-            type=str,
-            default="vgg",
-            help="The model used for training the network. Currently allowed values are \'simple\' or \'vgg\'")
-    parser.add_argument(
-            "--show_plot_after_training",
-            nargs="?",
-            const=True,
-            type="bool",
-            default=False,
-            help="Whether to show a plot with the accuracies after training or not.")
-    parser.add_argument(
-            "--delete_and_recreate_dataset_directory",
-            nargs="?",
-            const=True,
-            type="bool",
-            default=True,
-            help="Whether to delete and recreate the dataset-directory (by downloading the appropriate "
-                 "files from the internet) or simply use whatever data currently is inside of that directory.")
+    parser.add_argument("--dataset_directory", type=str, default="data",
+                        help="The directory, that is used for storing the images during training")
+    parser.add_argument("--model_name", type=str, default="vgg",
+                        help="The model used for training the network. Currently allowed values are \'simple\' or \'vgg\'")
+
+    parser.add_argument("--show_plot_after_training", dest="show_plot_after_training", action='store_true',
+                        help="Whether to show a plot with the accuracies after training or not.")
+    parser.set_defaults(show_plot_after_training=False)
+
+    parser.add_argument("--use_existing_dataset_directory", dest="delete_and_recreate_dataset_directory",
+                        action='store_false',
+                        help="Whether to delete and recreate the dataset-directory (by downloading the appropriate "
+                             "files from the internet, extracting and generating images) or simply use whatever data "
+                             "currently is inside of that directory.")
+    parser.set_defaults(delete_and_recreate_dataset_directory=True)
+
     parser.add_argument("-s", "--stroke_thicknesses", dest="stroke_thicknesses", default="3",
                         help="Stroke thicknesses for drawing the generated bitmaps. May define comma-separated list "
                              "of multiple stroke thicknesses, e.g. '1,2,3'")
@@ -175,10 +174,16 @@ if __name__ == "__main__":
                         help="Optional vertical offsets in pixel for drawing the symbols with superimposed "
                              "staff-lines starting at this pixel-offset from the top. Multiple offsets possible, "
                              "e.g. '81,88,95'")
-    parser.add_argument("--width", dest="width", default="128", help="Width of the generated images in pixel")
-    parser.add_argument("--height", dest="height", default="224", help="Height of the generated images in pixel")
-    parser.add_argument("--minibatch_size", dest="training_minibatch_size", default="64", help="Size of the minibatches for training")
-    parser.add_argument("--optimizer", dest="optimizer", default="Adadelta", help="The optimizer used for the training")
+    parser.add_argument("--width", default=128, type=int, help="Width of the generated images in pixel")
+    parser.add_argument("--height", default=224, type=int, help="Height of the generated images in pixel")
+    parser.add_argument("--minibatch_size", default=64, type=int,
+                        help="Size of the minibatches for training")
+    parser.add_argument("--optimizer", default="Adadelta", help="The optimizer used for the training")
+
+    parser.add_argument("--no_dynamic_learning_rate_reduction", dest="dynamic_learning_rate_reduction",
+                        action="store_false",
+                        help="True, if the learning rate should be scheduled to be reduced on a plateau.")
+    parser.set_defaults(dynamic_learning_rate_reduction=True)
 
     flags, unparsed = parser.parse_known_args()
 
@@ -191,8 +196,9 @@ if __name__ == "__main__":
                 flags.show_plot_after_training,
                 flags.delete_and_recreate_dataset_directory,
                 [int(s) for s in flags.stroke_thicknesses.split(',')],
-                int(flags.width),
-                int(flags.height),
+                flags.width,
+                flags.height,
                 offsets,
-                int(flags.training_minibatch_size),
-                flags.optimizer)
+                flags.minibatch_size,
+                flags.optimizer,
+                flags.dynamic_learning_rate_reduction)
