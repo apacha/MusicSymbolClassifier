@@ -22,6 +22,19 @@ $env:PYTHONPATH = $pathToSourceRoot
 #pytest
 
 
+# Not yet started
+Start-Transcript -path "$($pathToTranscript)2017-06-09_vgg4_staff74_192x96_Adadelta.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg4 -s 3 -offsets 74 --width 96 --height 192 --minibatch_size 64 --optimizer Adadelta
+Stop-Transcript
+
+# Not yet started
+Start-Transcript -path "$($pathToTranscript)2017-06-09_vgg4_staff74_192x96_Adam.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg4 -s 3 -offsets 74 --width 96 --height 192 --minibatch_size 64 --optimizer Adadelta
+Stop-Transcript
+
+exit
+
+
 ################################################
 # Trainings not yet started
 ################################################
@@ -73,18 +86,8 @@ python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.
 Stop-Transcript
 
 # Started on Monsti, 09.06.2017, 11:30
-Start-Transcript -path "$($pathToTranscript)2017-06-09_vgg4_staff74_192x96_Adadelta.txt" -append
-python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg4 -s 3 -offsets 74 --width 96 --height 192 --minibatch_size 64 --optimizer Adadelta
-Stop-Transcript
-
-# Started on Monsti, 09.06.2017, 11:30
 Start-Transcript -path "$($pathToTranscript)2017-06-09_vgg_staff74_192x96_Adam.txt" -append
 python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg -s 3 -offsets 74 --width 96 --height 192 --minibatch_size 64 --optimizer Adadelta
-Stop-Transcript
-
-# Started on Monsti, 09.06.2017, 11:30
-Start-Transcript -path "$($pathToTranscript)2017-06-09_vgg4_staff74_192x96_Adam.txt" -append
-python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg4 -s 3 -offsets 74 --width 96 --height 192 --minibatch_size 64 --optimizer Adadelta
 Stop-Transcript
 
 # Started on Donkey, 09.06.2017, 11:00
