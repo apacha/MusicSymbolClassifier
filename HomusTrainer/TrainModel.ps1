@@ -26,17 +26,6 @@ $env:PYTHONPATH = $pathToSourceRoot
 # Trainings not yet started
 ################################################
 
-
-# Not yet started
-Start-Transcript -path "$($pathToTranscript)2017-06-09_vgg4_staff88_Adam.txt" -append
-python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg4 -s 3 -offsets 88 --width 128 --height 224 --minibatch_size 64 --optimizer Adam
-Stop-Transcript
-
-# Not yet started
-Start-Transcript -path "$($pathToTranscript)2017-06-09_vgg4_staff88_Adadelta.txt" -append
-python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg4 -s 3 -offsets 88 --width 128 --height 224 --minibatch_size 64 --optimizer Adadelta
-Stop-Transcript
-
 ##### Smaller image-sizes, 1 staff-line
 
 # Not yet started
@@ -97,6 +86,16 @@ Stop-Transcript
 # but retain those configurations for documentation
 #######################################################
 exit
+
+# Started on Donkey, 09.06.2017, 11:00
+Start-Transcript -path "$($pathToTranscript)2017-06-09_vgg4_staff88_Adam.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg4 -s 3 -offsets 88 --width 128 --height 224 --minibatch_size 64 --optimizer Adam
+Stop-Transcript
+
+# Started on Donkey, 09.06.2017, 11:00
+Start-Transcript -path "$($pathToTranscript)2017-06-09_vgg4_staff88_Adadelta.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg4 -s 3 -offsets 88 --width 128 --height 224 --minibatch_size 64 --optimizer Adadelta
+Stop-Transcript
 
 # Started on Donkey, 08.06.2017, 12:00
 Start-Transcript -path "$($pathToTranscript)2017-06-08_vgg_staff60-67-74-81_192x96_no_lr_reduction.txt" -append
