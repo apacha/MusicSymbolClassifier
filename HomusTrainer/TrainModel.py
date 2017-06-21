@@ -4,15 +4,17 @@ import os
 
 import shutil
 from typing import List
-
+from datetime import date
 from sklearn import metrics
 from time import time
 
 import numpy
 import numpy as np
-from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau
+from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau, History
 from keras.preprocessing.image import ImageDataGenerator
 
+import GoogleSpreadsheetReporter
+import TelegramNotifier
 from TrainingHistoryPlotter import TrainingHistoryPlotter
 from datasets.DatasetSplitter import DatasetSplitter
 from datasets.HomusDatasetDownloader import HomusDatasetDownloader
@@ -141,6 +143,32 @@ def train_model(dataset_directory: str,
 
     end_time = time()
     print("Execution time: %.1fs" % (end_time - start_time))
+
+    TelegramNotifier.send_message_via_telegram(
+        "Training on HOMUS dataset with model {0} finished. Accuracy: {1:0.5f}%".format(model_name,
+                                                                                        evaluation[1] * 100))
+
+    dataset_size = training_data_generator.samples + validation_data_generator.samples + test_data_generator.samples
+    stroke_thicknesses_string = ",".join(map(str, stroke_thicknesses))
+    staff_line_vertical_offsets_string = ",".join(map(str, staff_line_vertical_offsets))
+    image_sizes = "{0}x{1}px".format(training_configuration.input_image_rows,
+                                     training_configuration.input_image_columns)
+    data_augmentation = "{0}% zoom, {1}° rotation".format(training_configuration.zoom_range,
+                                                          training_configuration.rotation_range)
+    today = "{0:02d}.{1:02d}.{2}".format(date.today().day, date.today().month, date.today().year)
+    GoogleSpreadsheetReporter.append_result_to_spreadsheet(dataset_size=dataset_size, image_sizes=image_sizes,
+                                                           stroke_thicknesses=stroke_thicknesses_string,
+                                                           staff_lines=staff_line_vertical_offsets_string,
+                                                           model_name=model_name, data_augmentation=data_augmentation,
+                                                           optimizer=optimizer,
+                                                           early_stopping=training_configuration.number_of_epochs_before_early_stopping,
+                                                           reduction_patience=training_configuration.number_of_epochs_before_reducing_learning_rate,
+                                                           learning_rate_reduction_factor=training_configuration.learning_rate_reduction_factor,
+                                                           minibatch_size=training_minibatch_size,
+                                                           initialization=training_configuration.initialization,
+                                                           initial_learning_rate=training_configuration.get_initial_learning_rate(),
+                                                           accuracy=evaluation[1],
+                                                           date=today)
 
     TrainingHistoryPlotter.plot_history(history,
                                         "{1}_{0}_{2:.1f}p.png".format(training_configuration.name(),

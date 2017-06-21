@@ -10,7 +10,7 @@ class ConfigurationFactory:
                                   optimizer="Adadelta",
                                   width=128,
                                   height=224,
-                                  training_minibatch_size=64):
+                                  training_minibatch_size=64) -> TrainingConfiguration:
         configurations = []
         configurations.append(SimpleConfiguration())
         configurations.append(VggConfiguration(optimizer, width, height, training_minibatch_size))

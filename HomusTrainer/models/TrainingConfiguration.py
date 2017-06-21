@@ -67,6 +67,9 @@ class TrainingConfiguration(ABC):
 
         raise Exception("Invalid optimizer {0} requested".format(self.optimizer))
 
+    def get_initial_learning_rate(self) -> float:
+        return self.get_optimizer().get_config()["lr"]
+
     def summary(self) -> str:
         """ Returns the string that summarizes this configuration """
 
