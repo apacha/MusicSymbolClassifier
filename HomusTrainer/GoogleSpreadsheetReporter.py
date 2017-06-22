@@ -1,5 +1,4 @@
-from __future__ import print_function
-
+import traceback
 from typing import List
 
 import httplib2
@@ -53,28 +52,32 @@ def append_result_to_spreadsheet(dataset_size: int = 15200, image_sizes: str = "
     """ Appends the provided results to the Google Spreadsheets document
         https://docs.google.com/spreadsheets/d/1D9kHRhrOBogcrr5ko1DleCnHVKGGNkwbBc6_mnfA6XE/edit#gid=0
     """
-    service, spreadsheet_id = get_service_and_spreadsheet_id()
-    first_empty_line = get_first_empty_line_fast(service, spreadsheet_id)
-    print("Uploading results to Google Spreadsheet and appending at first empty line {0}".format(first_empty_line))
-    data = [dataset_size, image_sizes, stroke_thicknesses, staff_lines, model_name, data_augmentation, optimizer,
-            early_stopping, reduction_patience, learning_rate_reduction_factor, minibatch_size, initialization,
-            initial_learning_rate, accuracy, date]
-    write_into_spreadsheet(service, spreadsheet_id, data, first_empty_line)
+    try:
+        service, spreadsheet_id = get_service_and_spreadsheet_id()
+        first_empty_line = get_first_empty_line_fast(service, spreadsheet_id)
+        print("Uploading results to Google Spreadsheet and appending at first empty line {0}".format(first_empty_line))
+        data = [dataset_size, image_sizes, stroke_thicknesses, staff_lines, model_name, data_augmentation, optimizer,
+                early_stopping, reduction_patience, learning_rate_reduction_factor, minibatch_size, initialization,
+                initial_learning_rate, accuracy, date]
+        write_into_spreadsheet(service, spreadsheet_id, data, first_empty_line)
+    except Exception as exception:
+        print("Error while uploading results to Google Spreadsheet: {0}".format(str(exception)))
+        traceback.print_exc()
 
 
 def get_service_and_spreadsheet_id():
     credentials = get_credentials()
     http = credentials.authorize(httplib2.Http())
-    discoveryUrl = ('https://sheets.googleapis.com/$discovery/rest?'
-                    'version=v4')
+    discovery_url = ('https://sheets.googleapis.com/$discovery/rest?'
+                     'version=v4')
     service = discovery.build('sheets', 'v4', http=http,
-                              discoveryServiceUrl=discoveryUrl)
+                              discoveryServiceUrl=discovery_url)
     spreadsheet_id = '1D9kHRhrOBogcrr5ko1DleCnHVKGGNkwbBc6_mnfA6XE'
     return service, spreadsheet_id
 
 
 def write_into_spreadsheet(service, spreadsheet_id, row_data: List[str], line_number):
-    valueInputOption = "RAW"
+    value_input_option = "RAW"
 
     body = {
         'values': [
@@ -85,7 +88,7 @@ def write_into_spreadsheet(service, spreadsheet_id, row_data: List[str], line_nu
 
     result = service.spreadsheets().values().update(
         spreadsheetId=spreadsheet_id, range="Sheet1!A{0}:Z{0}".format(line_number),
-        valueInputOption=valueInputOption, body=body).execute()
+        valueInputOption=value_input_option, body=body).execute()
 
     return result
 

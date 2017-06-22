@@ -144,16 +144,20 @@ def train_model(dataset_directory: str,
     end_time = time()
     print("Execution time: %.1fs" % (end_time - start_time))
 
-    TelegramNotifier.send_message_via_telegram(
-        "Training on HOMUS dataset with model {0} finished. Accuracy: {1:0.5f}%".format(model_name,
-                                                                                        evaluation[1] * 100))
+    training_result_image = "{1}_{0}_{2:.1f}p.png".format(training_configuration.name(), datetime.date.today(),
+                                                          evaluation[1] * 100)
+    TrainingHistoryPlotter.plot_history(history, training_result_image, show_plot=show_plot_after_training)
+
+    notification_message = "Training on HOMUS dataset with model {0} finished. " \
+                           "Accuracy: {1:0.5f}%".format(model_name, evaluation[1] * 100)
+    TelegramNotifier.send_message_via_telegram(notification_message, training_result_image)
 
     dataset_size = training_data_generator.samples + validation_data_generator.samples + test_data_generator.samples
     stroke_thicknesses_string = ",".join(map(str, stroke_thicknesses))
     staff_line_vertical_offsets_string = ",".join(map(str, staff_line_vertical_offsets))
     image_sizes = "{0}x{1}px".format(training_configuration.input_image_rows,
                                      training_configuration.input_image_columns)
-    data_augmentation = "{0}% zoom, {1}° rotation".format(training_configuration.zoom_range,
+    data_augmentation = "{0}% zoom, {1}° rotation".format(int(training_configuration.zoom_range * 100),
                                                           training_configuration.rotation_range)
     today = "{0:02d}.{1:02d}.{2}".format(date.today().day, date.today().month, date.today().year)
     GoogleSpreadsheetReporter.append_result_to_spreadsheet(dataset_size=dataset_size, image_sizes=image_sizes,
@@ -169,12 +173,6 @@ def train_model(dataset_directory: str,
                                                            initial_learning_rate=training_configuration.get_initial_learning_rate(),
                                                            accuracy=evaluation[1],
                                                            date=today)
-
-    TrainingHistoryPlotter.plot_history(history,
-                                        "{1}_{0}_{2:.1f}p.png".format(training_configuration.name(),
-                                                                      datetime.date.today(),
-                                                                      evaluation[1] * 100),
-                                        show_plot=show_plot_after_training)
 
 
 if __name__ == "__main__":
