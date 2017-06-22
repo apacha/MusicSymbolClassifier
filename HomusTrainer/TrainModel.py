@@ -216,7 +216,7 @@ if __name__ == "__main__":
 
     flags, unparsed = parser.parse_known_args()
 
-    offsets = None
+    offsets = []
     if flags.offsets != "":
         offsets = [int(o) for o in flags.offsets.split(',')]
 
