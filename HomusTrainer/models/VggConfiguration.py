@@ -42,7 +42,7 @@ class VggConfiguration(TrainingConfiguration):
         classifier.add(MaxPooling2D())
 
         classifier.add(Flatten())  # Flatten
-        #classifier.add(Dropout(0.5))
+        # classifier.add(Dropout(0.5))
         classifier.add(Dense(units=32, kernel_regularizer=l2(self.weight_decay)))
         classifier.add(Activation('softmax', name="output_node"))
 
@@ -55,11 +55,14 @@ class VggConfiguration(TrainingConfiguration):
                                          kernel_regularizer=l2(weight_decay)))
         else:
             classifier.add(
-                    Convolution2D(filters, kernel_size, padding='same', kernel_regularizer=l2(weight_decay),
-                                  input_shape=input_shape))
+                Convolution2D(filters, kernel_size, padding='same', kernel_regularizer=l2(weight_decay),
+                              input_shape=input_shape))
         classifier.add(BatchNormalization())
         classifier.add(Activation('relu'))
 
     def name(self) -> str:
         """ Returns the name of this configuration """
         return "vgg"
+
+    def performs_localization(self) -> bool:
+        return False

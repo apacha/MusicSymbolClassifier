@@ -63,3 +63,6 @@ class Vgg4Configuration(TrainingConfiguration):
     def name(self) -> str:
         """ Returns the name of this configuration """
         return "vgg4"
+
+    def performs_localization(self) -> bool:
+        return False

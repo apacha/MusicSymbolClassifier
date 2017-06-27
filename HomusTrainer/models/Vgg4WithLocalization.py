@@ -69,9 +69,12 @@ class Vgg4WithLocalizationConfiguration(TrainingConfiguration):
         """ Returns the name of this configuration """
         return "vgg4_with_localization"
 
+    def performs_localization(self) -> bool:
+        return True
+
 
 if __name__ == "__main__":
     configuration = Vgg4WithLocalizationConfiguration()
     configuration.classifier().summary()
     plot_model(configuration.classifier(), to_file="vgg4_with_localization.png")
-    configuration.summary()
+    print(configuration.summary())

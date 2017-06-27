@@ -53,6 +53,11 @@ class TrainingConfiguration(ABC):
         """ Returns the name of this configuration """
         pass
 
+    @abstractmethod
+    def performs_localization(self) -> bool:
+        """ Returns wether this configuration has a regression head that performs object localization or not """
+        pass
+
     def get_optimizer(self) -> Optimizer:
         """
         Returns the configured optimizer for this configuration
@@ -84,5 +89,6 @@ class TrainingConfiguration(ABC):
                     self.number_of_epochs_before_reducing_learning_rate)
         summary += "Data-augmentation: Zooming {0}% randomly, rotating {1}° randomly\n" \
             .format(self.zoom_range * 100, self.rotation_range)
-        summary += "Optimizer: {0}, with parameters {1}".format(self.optimizer, optimizer.get_config())
+        summary += "Optimizer: {0}, with parameters {1}\n".format(self.optimizer, optimizer.get_config())
+        summary += "Performing object localization: {0}".format(self.performs_localization())
         return summary

@@ -47,6 +47,9 @@ class SimpleConfiguration(TrainingConfiguration):
         """ Returns the name of this configuration """
         return "simple"
 
+    def performs_localization(self) -> bool:
+        return False
+
 
 if __name__ == "__main__":
     configuration = SimpleConfiguration()
