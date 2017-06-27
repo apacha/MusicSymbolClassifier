@@ -6,14 +6,16 @@ import sys
 from PIL import ImageDraw
 from sympy import Point2D
 from PIL import Image
+
+from datasets.ExportPath import ExportPath
 from datasets.Rectangle import Rectangle
 
 
 class Symbol:
-    def __init__(self, content: str, strokes: List[List[Point2D]], symbol_name: str, dimensions: Rectangle) -> None:
+    def __init__(self, content: str, strokes: List[List[Point2D]], symbol_class: str, dimensions: Rectangle) -> None:
         super().__init__()
         self.dimensions = dimensions
-        self.symbol_name = symbol_name
+        self.symbol_class = symbol_class
         self.content = content
         self.strokes = strokes
 
@@ -60,12 +62,13 @@ class Symbol:
         dimensions = Rectangle(Point2D(min_x, min_y), max_x - min_x + 1, max_y - min_y + 1)
         return Symbol(content, strokes, symbol_name, dimensions)
 
-    def draw_into_bitmap(self, export_file_name: str, stroke_thickness: int, margin: int, destination_width: int,
+    def draw_into_bitmap(self, export_path: ExportPath, stroke_thickness: int, margin: int, destination_width: int,
                          destination_height: int, staff_line_spacing: int = 14,
-                         staff_line_vertical_offsets: List[int] = None) -> Rectangle:
+                         staff_line_vertical_offsets: List[int] = None, bounding_boxes: dict = None):
         """
 
-        :param export_file_name:
+        :param bounding_boxes: The dictionary into which the bounding-boxes will be added of each generated image
+        :param export_path:
         :param stroke_thickness:
         :param margin:
         :param destination_width:
@@ -73,7 +76,6 @@ class Symbol:
         :param staff_line_spacing:
         :param staff_line_vertical_offsets: Offsets used for drawing staff-lines. If None provided, no staff-lines will
                   be drawn if multiple integers are provided, multiple images will be generated
-        :return: Returns the bounding-box of the symbol, how it was drawn into the image
         """
         width = self.dimensions.width + 2 * margin
         height = self.dimensions.height + 2 * margin
@@ -104,19 +106,14 @@ class Symbol:
                 image_with_staff_lines = image_without_staff_lines.copy()
                 self.draw_staff_lines_into_image(image_with_staff_lines, stroke_thickness,
                                                  staff_line_spacing, staff_line_vertical_offset)
-                file_name, extension = os.path.splitext(os.path.basename(export_file_name))
-                path = os.path.dirname(export_file_name)
-                file_name_with_offset = "{0}_offset_{1}{2}".format(os.path.join(path, file_name),
-                                                                   staff_line_vertical_offset,
-                                                                   extension)
+                file_name_with_offset = export_path.get_full_path(staff_line_vertical_offset)
                 image_with_staff_lines.save(file_name_with_offset)
                 image_with_staff_lines.close()
+                bounding_boxes[file_name_with_offset] = bounding_box_in_image
         else:
-            image_without_staff_lines.save(export_file_name)
+            image_without_staff_lines.save(export_path.get_full_path())
 
         image_without_staff_lines.close()
-
-        return bounding_box_in_image
 
     def draw_bounding_box(self, draw, location):
         red = (255, 0, 0)
@@ -124,8 +121,8 @@ class Symbol:
             (location.x, location.y, location.x + self.dimensions.width, location.y + self.dimensions.height),
             fill=None, outline=red)
 
-    def draw_staff_lines_into_image(self,
-                                    image: Image,
+    @staticmethod
+    def draw_staff_lines_into_image(image: Image,
                                     stroke_thickness: int,
                                     staff_line_spacing: int = 14,
                                     vertical_offset=88):

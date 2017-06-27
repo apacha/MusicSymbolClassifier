@@ -5,6 +5,7 @@ from typing import List
 
 import sys
 
+from datasets.ExportPath import ExportPath
 from datasets.Symbol import Symbol
 
 
@@ -16,7 +17,7 @@ class HomusImageGenerator:
                       width: int = 128,
                       height: int = 224,
                       staff_line_spacing: int = 14,
-                      staff_line_vertical_offsets: List[int] = None):
+                      staff_line_vertical_offsets: List[int] = None) -> dict:
         all_symbol_files = [y for x in os.walk(raw_data_directory) for y in glob(os.path.join(x[0], '*.txt'))]
 
         staff_line_multiplier = 1
@@ -34,6 +35,7 @@ class HomusImageGenerator:
         output += "\nIn directory {0}".format(os.path.abspath(destination_directory))
         print(output)
         current_symbol = 0
+        bounding_boxes = dict()
 
         for symbol_file in all_symbol_files:
             with open(symbol_file) as file:
@@ -41,21 +43,24 @@ class HomusImageGenerator:
 
             symbol = Symbol.initialize_from_string(content)
 
-            target_directory = os.path.join(destination_directory, symbol.symbol_name)
+            target_directory = os.path.join(destination_directory, symbol.symbol_class)
             os.makedirs(target_directory, exist_ok=True)
 
-            file_name = os.path.splitext(os.path.basename(symbol_file))[0]
+            raw_file_name_without_extension = os.path.splitext(os.path.basename(symbol_file))[0]
 
             for stroke_thickness in stroke_thicknesses:
-                export_file_name = "{0}_{1}.png".format(file_name, stroke_thickness)
-                symbol.draw_into_bitmap(os.path.join(target_directory, export_file_name), stroke_thickness, 0, width,
-                                        height, staff_line_spacing, staff_line_vertical_offsets)
+                export_path = ExportPath(destination_directory, symbol.symbol_class, raw_file_name_without_extension,
+                                         stroke_thickness, 'png')
+                symbol.draw_into_bitmap(export_path, stroke_thickness, 0, width,
+                                        height, staff_line_spacing, staff_line_vertical_offsets, bounding_boxes)
 
                 current_symbol += 1 * staff_line_multiplier
                 if current_symbol % 10 == 0:
                     sys.stdout.write('\r')
                     sys.stdout.write("{0: >5}/{1}".format(current_symbol, total_number_of_symbols))
                     sys.stdout.flush()
+
+        return bounding_boxes
 
 
 if __name__ == "__main__":

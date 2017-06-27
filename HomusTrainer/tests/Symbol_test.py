@@ -28,7 +28,7 @@ class Symbol_test(unittest.TestCase):
 
         # Assert
         self.assertIsNotNone(symbol)
-        self.assertEqual("test", symbol.symbol_name)
+        self.assertEqual("test", symbol.symbol_class)
         self.assertEqual(content, symbol.content)
         self.assertEqual(strokes, symbol.strokes)
         self.assertEqual(dimensions, symbol.dimensions)
@@ -44,7 +44,7 @@ class Symbol_test(unittest.TestCase):
 
         # Assert
         self.assertIsNotNone(symbol)
-        self.assertEqual("12-8-Time", symbol.symbol_name)
+        self.assertEqual("12-8-Time", symbol.symbol_class)
         self.assertEqual(content, symbol.content)
         self.assertEqual(3, len(symbol.strokes), "We expected three strokes")
 
