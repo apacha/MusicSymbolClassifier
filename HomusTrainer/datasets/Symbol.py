@@ -101,7 +101,7 @@ class Symbol:
 
         del draw
 
-        if staff_line_vertical_offsets is not None:
+        if staff_line_vertical_offsets is not None and staff_line_vertical_offsets:
             for staff_line_vertical_offset in staff_line_vertical_offsets:
                 image_with_staff_lines = image_without_staff_lines.copy()
                 self.draw_staff_lines_into_image(image_with_staff_lines, stroke_thickness,

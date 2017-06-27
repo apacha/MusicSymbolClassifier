@@ -21,7 +21,7 @@ class HomusImageGenerator:
         all_symbol_files = [y for x in os.walk(raw_data_directory) for y in glob(os.path.join(x[0], '*.txt'))]
 
         staff_line_multiplier = 1
-        if staff_line_vertical_offsets is not None:
+        if staff_line_vertical_offsets is not None and staff_line_vertical_offsets:
             staff_line_multiplier = len(staff_line_vertical_offsets)
 
         total_number_of_symbols = len(all_symbol_files) * len(stroke_thicknesses) * staff_line_multiplier
