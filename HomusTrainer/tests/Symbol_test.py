@@ -3,6 +3,7 @@ import unittest
 
 from sympy import Point2D
 
+from datasets.ExportPath import ExportPath
 from datasets.Rectangle import Rectangle
 from datasets.Symbol import Symbol
 
@@ -51,16 +52,16 @@ class Symbol_test(unittest.TestCase):
     def test_draw_into_bitmap(self):
         # Arrange
         symbol = Symbol("", [[Point2D(0, 0), Point2D(100, 100)]], "", Rectangle(Point2D(0, 0), 100, 100))
-        export_path = "test_bitmap.png"
+        export_path = ExportPath("","","bitmap",2)
 
         # Act
         symbol.draw_into_bitmap(export_path, 2, 2, 102, 102)
 
         # Assert
-        self.assertTrue(os.path.exists(export_path))
+        self.assertTrue(os.path.exists(export_path.get_full_path()))
 
         # Cleanup
-        os.remove(export_path)
+        os.remove(export_path.get_full_path())
 
     def test_draw_staff_lines(self):
         content = "Quarter-Note\n144,130;144,130;143,130;141,130;139,130;138,131;138,131;138,133;140,135;143,135;146," \
@@ -72,14 +73,16 @@ class Symbol_test(unittest.TestCase):
                   "127;147,128;147,129;148,130;148,130;148,130;146,130;144,130;141,131;140,131;139,131;139,131;139," \
                   "131;139,131;139,131;140,131;140,133;141,137;141,143;141,150;141,158;139,172;139,180;139,188;140," \
                   "192;141,195;142,196;143,196;144,196;144,196;144,197;144,197;"
-        export_path = "test_quarter_note.png"
+        export_path = ExportPath("","","test",3)
         symbol = Symbol.initialize_from_string(content)
 
         # Act
         offsets = [18 + 7 * i for i in range(20)]  # [18,25,32,39,46,53,60,67,74,81,88]
-        bounding_box_in_image = symbol.draw_into_bitmap(export_path, 3, 0, 128, 224, 14, offsets)
+        bounding_boxes = dict()
+        symbol.draw_into_bitmap(export_path, 3, 0, 128, 224, 14, offsets, bounding_boxes)
 
         # Assert
+        bounding_box_in_image = bounding_boxes["test_3_offset_144.png"]
         self.assertEqual(bounding_box_in_image.origin, Point2D(109/2,147/2))
         self.assertEqual(bounding_box_in_image.width, 19)
         self.assertEqual(bounding_box_in_image.height, 77)

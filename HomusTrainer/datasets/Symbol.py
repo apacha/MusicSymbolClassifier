@@ -110,12 +110,18 @@ class Symbol:
                 image_with_staff_lines.save(file_name_with_offset)
                 image_with_staff_lines.close()
 
-                # Note that the ImageDatasetGenerator does not yield the full path, but only the class_name and
-                # the file_name, e.g. '3-4-Time\\1-13_3_offset_74.png', so we store only that part in the dictionary
-                class_and_file_name = export_path.get_class_name_and_file_path(staff_line_vertical_offset)
-                bounding_boxes[class_and_file_name] = bounding_box_in_image
+                if bounding_boxes is not None:
+                    # Note that the ImageDatasetGenerator does not yield the full path, but only the class_name and
+                    # the file_name, e.g. '3-4-Time\\1-13_3_offset_74.png', so we store only that part in the dictionary
+                    class_and_file_name = export_path.get_class_name_and_file_path(staff_line_vertical_offset)
+                    bounding_boxes[class_and_file_name] = bounding_box_in_image
         else:
             image_without_staff_lines.save(export_path.get_full_path())
+            if bounding_boxes is not None:
+                # Note that the ImageDatasetGenerator does not yield the full path, but only the class_name and
+                # the file_name, e.g. '3-4-Time\\1-13_3_offset_74.png', so we store only that part in the dictionary
+                class_and_file_name = export_path.get_class_name_and_file_path()
+                bounding_boxes[class_and_file_name] = bounding_box_in_image
 
         image_without_staff_lines.close()
 
