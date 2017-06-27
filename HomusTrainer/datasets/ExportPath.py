@@ -29,3 +29,13 @@ class ExportPath:
             return os.path.join(self.destination_directory, self.symbol_class,
                                 "{0}_{1}_offset_{2}.{3}".format(self.raw_file_name_without_extension,
                                                                 self.stroke_thickness, offset, self.extension))
+
+    def get_class_name_and_file_path(self, offset: int = None):
+        if offset is None:
+            return os.path.join(self.symbol_class,
+                                "{0}_{1}.{2}".format(self.raw_file_name_without_extension, self.stroke_thickness,
+                                                     self.extension))
+        else:
+            return os.path.join(self.symbol_class, "{0}_{1}_offset_{2}.{3}".format(self.raw_file_name_without_extension,
+                                                                                   self.stroke_thickness, offset,
+                                                                                   self.extension))
