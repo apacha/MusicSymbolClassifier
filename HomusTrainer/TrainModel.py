@@ -37,6 +37,7 @@ def train_model(dataset_directory: str,
                 dynamic_learning_rate_reduction: bool):
     raw_dataset_directory = os.path.join(dataset_directory, "raw")
     image_dataset_directory = os.path.join(dataset_directory, "images")
+    bounding_boxes = None
 
     if delete_and_recreate_dataset_directory:
         print("Deleting dataset directory {0}".format(dataset_directory))
@@ -45,8 +46,9 @@ def train_model(dataset_directory: str,
 
         dataset_downloader = HomusDatasetDownloader(raw_dataset_directory)
         dataset_downloader.download_and_extract_dataset()
-        HomusImageGenerator.create_images(raw_dataset_directory, image_dataset_directory, stroke_thicknesses, width,
-                                          height, staff_line_spacing, staff_line_vertical_offsets)
+        bounding_boxes = HomusImageGenerator.create_images(raw_dataset_directory, image_dataset_directory,
+                                                           stroke_thicknesses, width,
+                                                           height, staff_line_spacing, staff_line_vertical_offsets)
 
         dataset_splitter = DatasetSplitter(image_dataset_directory, image_dataset_directory)
         dataset_splitter.delete_split_directories()
@@ -62,32 +64,35 @@ def train_model(dataset_directory: str,
                                          zoom_range=training_configuration.zoom_range
                                          )
     training_data_generator = DirectoryIteratorWithBoundingBoxes(
-        directory=os.path.join(image_dataset_directory, "training"),
-        image_data_generator=train_generator,
-        target_size=(training_configuration.input_image_rows,
-                     training_configuration.input_image_columns),
-        batch_size=training_configuration.training_minibatch_size
+            directory=os.path.join(image_dataset_directory, "training"),
+            image_data_generator=train_generator,
+            target_size=(training_configuration.input_image_rows,
+                         training_configuration.input_image_columns),
+            batch_size=training_configuration.training_minibatch_size,
+            bounding_boxes=bounding_boxes
     )
     training_steps_per_epoch = np.math.ceil(training_data_generator.samples / training_data_generator.batch_size)
 
     validation_generator = ImageDataGenerator()
     validation_data_generator = DirectoryIteratorWithBoundingBoxes(
-        directory=os.path.join(image_dataset_directory, "validation"),
-        image_data_generator=validation_generator,
-        target_size=(
-            training_configuration.input_image_rows,
-            training_configuration.input_image_columns),
-        batch_size=training_configuration.training_minibatch_size)
+            directory=os.path.join(image_dataset_directory, "validation"),
+            image_data_generator=validation_generator,
+            target_size=(
+                training_configuration.input_image_rows,
+                training_configuration.input_image_columns),
+            batch_size=training_configuration.training_minibatch_size,
+            bounding_boxes=bounding_boxes)
     validation_steps_per_epoch = np.math.ceil(validation_data_generator.samples / validation_data_generator.batch_size)
 
     test_generator = ImageDataGenerator()
     test_data_generator = DirectoryIteratorWithBoundingBoxes(
-        directory=os.path.join(image_dataset_directory, "test"),
-        image_data_generator=test_generator,
-        target_size=(training_configuration.input_image_rows,
-                     training_configuration.input_image_columns),
-        batch_size=training_configuration.training_minibatch_size,
-        shuffle=False)
+            directory=os.path.join(image_dataset_directory, "test"),
+            image_data_generator=test_generator,
+            target_size=(training_configuration.input_image_rows,
+                         training_configuration.input_image_columns),
+            batch_size=training_configuration.training_minibatch_size,
+            shuffle=False,
+            bounding_boxes=bounding_boxes)
     test_steps_per_epoch = np.math.ceil(test_data_generator.samples / test_data_generator.batch_size)
 
     model = training_configuration.classifier()
@@ -114,12 +119,12 @@ def train_model(dataset_directory: str,
         callbacks = [model_checkpoint, early_stop]
 
     history = model.fit_generator(
-        generator=training_data_generator,
-        steps_per_epoch=training_steps_per_epoch,
-        epochs=training_configuration.number_of_epochs,
-        callbacks=callbacks,
-        validation_data=validation_data_generator,
-        validation_steps=validation_steps_per_epoch
+            generator=training_data_generator,
+            steps_per_epoch=training_steps_per_epoch,
+            epochs=training_configuration.number_of_epochs,
+            callbacks=callbacks,
+            validation_data=validation_data_generator,
+            validation_steps=validation_steps_per_epoch
     )
 
     print("Loading best model from check-point and testing...")
