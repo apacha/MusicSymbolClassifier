@@ -17,6 +17,7 @@ import GoogleSpreadsheetReporter
 import TelegramNotifier
 from TrainingHistoryPlotter import TrainingHistoryPlotter
 from datasets.DatasetSplitter import DatasetSplitter
+from datasets.DirectoryIteratorWithBoundingBoxes import DirectoryIteratorWithBoundingBoxes
 from datasets.HomusDatasetDownloader import HomusDatasetDownloader
 from datasets.HomusImageGenerator import HomusImageGenerator
 from models.ConfigurationFactory import ConfigurationFactory
@@ -60,8 +61,9 @@ def train_model(dataset_directory: str,
     train_generator = ImageDataGenerator(rotation_range=training_configuration.rotation_range,
                                          zoom_range=training_configuration.zoom_range
                                          )
-    training_data_generator = train_generator.flow_from_directory(
-        os.path.join(image_dataset_directory, "training"),
+    training_data_generator = DirectoryIteratorWithBoundingBoxes(
+        directory=os.path.join(image_dataset_directory, "training"),
+        image_data_generator=train_generator,
         target_size=(training_configuration.input_image_rows,
                      training_configuration.input_image_columns),
         batch_size=training_configuration.training_minibatch_size
@@ -69,8 +71,9 @@ def train_model(dataset_directory: str,
     training_steps_per_epoch = np.math.ceil(training_data_generator.samples / training_data_generator.batch_size)
 
     validation_generator = ImageDataGenerator()
-    validation_data_generator = validation_generator.flow_from_directory(
-        os.path.join(image_dataset_directory, "validation"),
+    validation_data_generator = DirectoryIteratorWithBoundingBoxes(
+        directory=os.path.join(image_dataset_directory, "validation"),
+        image_data_generator=validation_generator,
         target_size=(
             training_configuration.input_image_rows,
             training_configuration.input_image_columns),
@@ -78,11 +81,13 @@ def train_model(dataset_directory: str,
     validation_steps_per_epoch = np.math.ceil(validation_data_generator.samples / validation_data_generator.batch_size)
 
     test_generator = ImageDataGenerator()
-    test_data_generator = test_generator.flow_from_directory(os.path.join(image_dataset_directory, "test"),
-                                                             target_size=(training_configuration.input_image_rows,
-                                                                          training_configuration.input_image_columns),
-                                                             batch_size=training_configuration.training_minibatch_size,
-                                                             shuffle=False)
+    test_data_generator = DirectoryIteratorWithBoundingBoxes(
+        directory=os.path.join(image_dataset_directory, "test"),
+        image_data_generator=test_generator,
+        target_size=(training_configuration.input_image_rows,
+                     training_configuration.input_image_columns),
+        batch_size=training_configuration.training_minibatch_size,
+        shuffle=False)
     test_steps_per_epoch = np.math.ceil(test_data_generator.samples / test_data_generator.batch_size)
 
     model = training_configuration.classifier()
