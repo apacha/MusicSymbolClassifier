@@ -52,7 +52,7 @@ class Vgg4WithLocalizationConfiguration(TrainingConfiguration):
         regression_head = Dense(units=number_of_output_variables, kernel_regularizer=l2(self.weight_decay),
                                 activation='linear', name='output_bounding_box')(feature_vector)
 
-        classifier = Model(input=input, outputs=[classification_head, regression_head])
+        classifier = Model(inputs=[input], outputs=[classification_head, regression_head])
         classifier.compile(self.get_optimizer(),
                            loss={'output_class': 'categorical_crossentropy', 'output_bounding_box': 'mse'},
                            metrics=["accuracy"])
