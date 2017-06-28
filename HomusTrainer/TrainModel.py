@@ -152,28 +152,36 @@ def train_model(dataset_directory: str,
     class_labels = list(test_data_generator.class_indices.keys())
     true_classes = test_data_generator.classes
     predictions = best_model.predict_generator(test_data_generator, steps=test_steps_per_epoch)
-    predicted_classes = numpy.argmax(predictions, axis=1)
+    if training_configuration.performs_localization():
+        predicted_classes = numpy.argmax(predictions[0], axis=1)
+    else:
+        predicted_classes = numpy.argmax(predictions, axis=1)
 
     report = metrics.classification_report(true_classes, predicted_classes, target_names=class_labels)
-    # accuracy = metrics.accuracy_score(true_classes, predicted_classes) # is the same as from evaluate_generator
 
     test_data_generator.reset()
     evaluation = best_model.evaluate_generator(test_data_generator, steps=test_steps_per_epoch)
+    classification_accuracy = 0
 
     print(report)
-    print("Total Loss: {0:.5f}".format(evaluation[0]))
-    print("Total Accuracy: {0:0.5f}%".format(evaluation[1] * 100))
-    print("Total Error: {0:0.5f}%".format((1 - evaluation[1]) * 100))
+
+    for i in range(len(best_model.metrics_names)):
+        current_metric = best_model.metrics_names[i]
+        print("{0}: {1:.5f}".format(current_metric, evaluation[i]))
+        if current_metric == 'val_acc' or current_metric == 'output_class_acc':
+            classification_accuracy = evaluation[i]
+    print("Total Accuracy: {0:0.5f}%".format(classification_accuracy * 100))
+    print("Total Error: {0:0.5f}%".format((1 - classification_accuracy) * 100))
 
     end_time = time()
     print("Execution time: %.1fs" % (end_time - start_time))
 
     training_result_image = "{1}_{0}_{2:.1f}p.png".format(training_configuration.name(), datetime.date.today(),
-                                                          evaluation[1] * 100)
+                                                          classification_accuracy * 100)
     TrainingHistoryPlotter.plot_history(history, training_result_image, show_plot=show_plot_after_training)
 
     notification_message = "Training on HOMUS dataset with model {0} finished. " \
-                           "Accuracy: {1:0.5f}%".format(model_name, evaluation[1] * 100)
+                           "Accuracy: {1:0.5f}%".format(model_name, classification_accuracy * 100)
     TelegramNotifier.send_message_via_telegram(notification_message, training_result_image)
 
     dataset_size = training_data_generator.samples + validation_data_generator.samples + test_data_generator.samples
@@ -195,7 +203,7 @@ def train_model(dataset_directory: str,
                                                            minibatch_size=training_minibatch_size,
                                                            initialization=training_configuration.initialization,
                                                            initial_learning_rate=training_configuration.get_initial_learning_rate(),
-                                                           accuracy=evaluation[1],
+                                                           accuracy=classification_accuracy,
                                                            date=today)
 
 
