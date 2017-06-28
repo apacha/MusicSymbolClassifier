@@ -7,6 +7,7 @@ from typing import List
 from datetime import date
 from sklearn import metrics
 from time import time
+import pickle
 
 import numpy
 import numpy as np
@@ -38,6 +39,7 @@ def train_model(dataset_directory: str,
     raw_dataset_directory = os.path.join(dataset_directory, "raw")
     image_dataset_directory = os.path.join(dataset_directory, "images")
     bounding_boxes = None
+    bounding_boxes_cache = os.path.join(dataset_directory, "bounding_boxes.txt")
 
     if delete_and_recreate_dataset_directory:
         print("Deleting dataset directory {0}".format(dataset_directory))
@@ -49,50 +51,57 @@ def train_model(dataset_directory: str,
         bounding_boxes = HomusImageGenerator.create_images(raw_dataset_directory, image_dataset_directory,
                                                            stroke_thicknesses, width,
                                                            height, staff_line_spacing, staff_line_vertical_offsets)
+        with open(bounding_boxes_cache, "wb") as cache:
+            pickle.dump(bounding_boxes, cache)
 
         dataset_splitter = DatasetSplitter(image_dataset_directory, image_dataset_directory)
         dataset_splitter.delete_split_directories()
         dataset_splitter.split_images_into_training_validation_and_test_set()
 
-    print("Training on dataset...")
+    print("Loading configuration and data-readers...")
     start_time = time()
 
     training_configuration = ConfigurationFactory.get_configuration_by_name(model_name, optimizer, width, height,
                                                                             training_minibatch_size)
 
+    if training_configuration.performs_localization() and bounding_boxes is None:
+        # Try to unpickle
+        with open(bounding_boxes_cache, "rb") as cache:
+            bounding_boxes = pickle.load(cache)
+
     train_generator = ImageDataGenerator(rotation_range=training_configuration.rotation_range,
                                          zoom_range=training_configuration.zoom_range
                                          )
     training_data_generator = DirectoryIteratorWithBoundingBoxes(
-            directory=os.path.join(image_dataset_directory, "training"),
-            image_data_generator=train_generator,
-            target_size=(training_configuration.input_image_rows,
-                         training_configuration.input_image_columns),
-            batch_size=training_configuration.training_minibatch_size,
-            bounding_boxes=bounding_boxes
+        directory=os.path.join(image_dataset_directory, "training"),
+        image_data_generator=train_generator,
+        target_size=(training_configuration.input_image_rows,
+                     training_configuration.input_image_columns),
+        batch_size=training_configuration.training_minibatch_size,
+        bounding_boxes=bounding_boxes
     )
     training_steps_per_epoch = np.math.ceil(training_data_generator.samples / training_data_generator.batch_size)
 
     validation_generator = ImageDataGenerator()
     validation_data_generator = DirectoryIteratorWithBoundingBoxes(
-            directory=os.path.join(image_dataset_directory, "validation"),
-            image_data_generator=validation_generator,
-            target_size=(
-                training_configuration.input_image_rows,
-                training_configuration.input_image_columns),
-            batch_size=training_configuration.training_minibatch_size,
-            bounding_boxes=bounding_boxes)
+        directory=os.path.join(image_dataset_directory, "validation"),
+        image_data_generator=validation_generator,
+        target_size=(
+            training_configuration.input_image_rows,
+            training_configuration.input_image_columns),
+        batch_size=training_configuration.training_minibatch_size,
+        bounding_boxes=bounding_boxes)
     validation_steps_per_epoch = np.math.ceil(validation_data_generator.samples / validation_data_generator.batch_size)
 
     test_generator = ImageDataGenerator()
     test_data_generator = DirectoryIteratorWithBoundingBoxes(
-            directory=os.path.join(image_dataset_directory, "test"),
-            image_data_generator=test_generator,
-            target_size=(training_configuration.input_image_rows,
-                         training_configuration.input_image_columns),
-            batch_size=training_configuration.training_minibatch_size,
-            shuffle=False,
-            bounding_boxes=bounding_boxes)
+        directory=os.path.join(image_dataset_directory, "test"),
+        image_data_generator=test_generator,
+        target_size=(training_configuration.input_image_rows,
+                     training_configuration.input_image_columns),
+        batch_size=training_configuration.training_minibatch_size,
+        shuffle=False,
+        bounding_boxes=bounding_boxes)
     test_steps_per_epoch = np.math.ceil(test_data_generator.samples / test_data_generator.batch_size)
 
     model = training_configuration.classifier()
@@ -103,11 +112,15 @@ def train_model(dataset_directory: str,
 
     best_model_path = "{1}_{0}.h5".format(training_configuration.name(), datetime.date.today())
 
-    model_checkpoint = ModelCheckpoint(best_model_path, monitor="val_acc", save_best_only=True, verbose=1)
-    early_stop = EarlyStopping(monitor='val_acc',
+    monitor_variable = 'val_acc'
+    if training_configuration.performs_localization():
+        monitor_variable = 'val_output_class_acc'
+
+    model_checkpoint = ModelCheckpoint(best_model_path, monitor=monitor_variable, save_best_only=True, verbose=1)
+    early_stop = EarlyStopping(monitor=monitor_variable,
                                patience=training_configuration.number_of_epochs_before_early_stopping,
                                verbose=1)
-    learning_rate_reduction = ReduceLROnPlateau(monitor='val_acc',
+    learning_rate_reduction = ReduceLROnPlateau(monitor=monitor_variable,
                                                 patience=training_configuration.number_of_epochs_before_reducing_learning_rate,
                                                 verbose=1,
                                                 factor=training_configuration.learning_rate_reduction_factor,
@@ -118,13 +131,14 @@ def train_model(dataset_directory: str,
         print("Learning-rate reduction on Plateau disabled")
         callbacks = [model_checkpoint, early_stop]
 
+    print("Training on dataset...")
     history = model.fit_generator(
-            generator=training_data_generator,
-            steps_per_epoch=training_steps_per_epoch,
-            epochs=training_configuration.number_of_epochs,
-            callbacks=callbacks,
-            validation_data=validation_data_generator,
-            validation_steps=validation_steps_per_epoch
+        generator=training_data_generator,
+        steps_per_epoch=training_steps_per_epoch,
+        epochs=training_configuration.number_of_epochs,
+        callbacks=callbacks,
+        validation_data=validation_data_generator,
+        validation_steps=validation_steps_per_epoch
     )
 
     print("Loading best model from check-point and testing...")
@@ -242,3 +256,16 @@ if __name__ == "__main__":
                 training_minibatch_size=flags.minibatch_size,
                 optimizer=flags.optimizer,
                 dynamic_learning_rate_reduction=flags.dynamic_learning_rate_reduction)
+
+    # To run in in python console
+    # dataset_directory = 'data'
+    # model_name = 'vgg4_with_localization'
+    # delete_and_recreate_dataset_directory = True
+    # stroke_thicknesses = [3]
+    # width = 96
+    # height = 192
+    # staff_line_vertical_offsets = None
+    # staff_line_spacing = 14
+    # training_minibatch_size = 32
+    # optimizer = 'Adadelta'
+    # dynamic_learning_rate_reduction = True
