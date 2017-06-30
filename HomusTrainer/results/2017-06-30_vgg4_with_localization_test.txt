@@ -1,0 +1,2707 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20170630091417
+Username: DONKEY\Alex
+RunAs User: DONKEY\Alex
+Machine: DONKEY (Microsoft Windows NT 10.0.15063.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -Command if((Get-ExecutionPolicy ) -ne 'AllSigned') { Set-ExecutionPolicy -Scope Process Bypass }; & 'C:\Users\Alex\Repositories\MusicSymbolClassifier\HomusTrainer\TestModel.ps1'
+Process ID: 6500
+PSVersion: 5.1.15063.413
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.15063.413
+BuildVersion: 10.0.15063.413
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\Users\Alex\Repositories\MusicSymbolClassifier\HomusTrainer\2017-06-30_vgg4_with_localization_test.txt
+Using TensorFlow backend.
+Model:  vgg4_with_localization
+Weights loaded from :  2017-06-29_vgg4_with_localization_192x96_multistaff.h5
+Image:  C:\Users\Alex\Desktop\15-40_3_offset_67_1.png
+Loading image ...
+ Shape: (192, 96, 3)
+Loading classifier...
+2017-06-30 09:14:21.544875: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:14:21.545009: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:14:21.545543: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE3 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:14:21.545633: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:14:21.545703: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:14:21.545755: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:14:21.545807: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:14:21.545918: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:14:21.842363: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:887] Found device 0 with properties:
+name: GeForce GTX 1080 Ti
+major: 6 minor: 1 memoryClockRate (GHz) 1.582
+pciBusID 0000:01:00.0
+Total memory: 11.00GiB
+Free memory: 9.12GiB
+2017-06-30 09:14:21.842549: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:908] DMA: 0
+2017-06-30 09:14:21.843325: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:918] 0:   Y
+2017-06-30 09:14:21.843381: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:977] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:01:00.0)
+____________________________________________________________________________________________________
+Layer (type)                     Output Shape          Param #     Connected to
+====================================================================================================
+input_1 (InputLayer)             (None, 192, 96, 3)    0
+____________________________________________________________________________________________________
+conv2d_1 (Conv2D)                (None, 192, 96, 32)   896         input_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_1 (BatchNorm (None, 192, 96, 32)   128         conv2d_1[0][0]
+____________________________________________________________________________________________________
+activation_1 (Activation)        (None, 192, 96, 32)   0           batch_normalization_1[0][0]
+____________________________________________________________________________________________________
+conv2d_2 (Conv2D)                (None, 192, 96, 32)   9248        activation_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_2 (BatchNorm (None, 192, 96, 32)   128         conv2d_2[0][0]
+____________________________________________________________________________________________________
+activation_2 (Activation)        (None, 192, 96, 32)   0           batch_normalization_2[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_1 (MaxPooling2D)   (None, 96, 48, 32)    0           activation_2[0][0]
+____________________________________________________________________________________________________
+conv2d_3 (Conv2D)                (None, 96, 48, 64)    18496       max_pooling2d_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_3 (BatchNorm (None, 96, 48, 64)    256         conv2d_3[0][0]
+____________________________________________________________________________________________________
+activation_3 (Activation)        (None, 96, 48, 64)    0           batch_normalization_3[0][0]
+____________________________________________________________________________________________________
+conv2d_4 (Conv2D)                (None, 96, 48, 64)    36928       activation_3[0][0]
+____________________________________________________________________________________________________
+batch_normalization_4 (BatchNorm (None, 96, 48, 64)    256         conv2d_4[0][0]
+____________________________________________________________________________________________________
+activation_4 (Activation)        (None, 96, 48, 64)    0           batch_normalization_4[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_2 (MaxPooling2D)   (None, 48, 24, 64)    0           activation_4[0][0]
+____________________________________________________________________________________________________
+conv2d_5 (Conv2D)                (None, 48, 24, 128)   73856       max_pooling2d_2[0][0]
+____________________________________________________________________________________________________
+batch_normalization_5 (BatchNorm (None, 48, 24, 128)   512         conv2d_5[0][0]
+____________________________________________________________________________________________________
+activation_5 (Activation)        (None, 48, 24, 128)   0           batch_normalization_5[0][0]
+____________________________________________________________________________________________________
+conv2d_6 (Conv2D)                (None, 48, 24, 128)   147584      activation_5[0][0]
+____________________________________________________________________________________________________
+batch_normalization_6 (BatchNorm (None, 48, 24, 128)   512         conv2d_6[0][0]
+____________________________________________________________________________________________________
+activation_6 (Activation)        (None, 48, 24, 128)   0           batch_normalization_6[0][0]
+____________________________________________________________________________________________________
+conv2d_7 (Conv2D)                (None, 48, 24, 128)   147584      activation_6[0][0]
+____________________________________________________________________________________________________
+batch_normalization_7 (BatchNorm (None, 48, 24, 128)   512         conv2d_7[0][0]
+____________________________________________________________________________________________________
+activation_7 (Activation)        (None, 48, 24, 128)   0           batch_normalization_7[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_3 (MaxPooling2D)   (None, 24, 12, 128)   0           activation_7[0][0]
+____________________________________________________________________________________________________
+conv2d_8 (Conv2D)                (None, 24, 12, 256)   295168      max_pooling2d_3[0][0]
+____________________________________________________________________________________________________
+batch_normalization_8 (BatchNorm (None, 24, 12, 256)   1024        conv2d_8[0][0]
+____________________________________________________________________________________________________
+activation_8 (Activation)        (None, 24, 12, 256)   0           batch_normalization_8[0][0]
+____________________________________________________________________________________________________
+conv2d_9 (Conv2D)                (None, 24, 12, 256)   590080      activation_8[0][0]
+____________________________________________________________________________________________________
+batch_normalization_9 (BatchNorm (None, 24, 12, 256)   1024        conv2d_9[0][0]
+____________________________________________________________________________________________________
+activation_9 (Activation)        (None, 24, 12, 256)   0           batch_normalization_9[0][0]
+____________________________________________________________________________________________________
+conv2d_10 (Conv2D)               (None, 24, 12, 256)   590080      activation_9[0][0]
+____________________________________________________________________________________________________
+batch_normalization_10 (BatchNor (None, 24, 12, 256)   1024        conv2d_10[0][0]
+____________________________________________________________________________________________________
+activation_10 (Activation)       (None, 24, 12, 256)   0           batch_normalization_10[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_4 (MaxPooling2D)   (None, 12, 6, 256)    0           activation_10[0][0]
+____________________________________________________________________________________________________
+conv2d_11 (Conv2D)               (None, 12, 6, 512)    1180160     max_pooling2d_4[0][0]
+____________________________________________________________________________________________________
+batch_normalization_11 (BatchNor (None, 12, 6, 512)    2048        conv2d_11[0][0]
+____________________________________________________________________________________________________
+activation_11 (Activation)       (None, 12, 6, 512)    0           batch_normalization_11[0][0]
+____________________________________________________________________________________________________
+conv2d_12 (Conv2D)               (None, 12, 6, 512)    2359808     activation_11[0][0]
+____________________________________________________________________________________________________
+batch_normalization_12 (BatchNor (None, 12, 6, 512)    2048        conv2d_12[0][0]
+____________________________________________________________________________________________________
+activation_12 (Activation)       (None, 12, 6, 512)    0           batch_normalization_12[0][0]
+____________________________________________________________________________________________________
+conv2d_13 (Conv2D)               (None, 12, 6, 512)    2359808     activation_12[0][0]
+____________________________________________________________________________________________________
+batch_normalization_13 (BatchNor (None, 12, 6, 512)    2048        conv2d_13[0][0]
+____________________________________________________________________________________________________
+activation_13 (Activation)       (None, 12, 6, 512)    0           batch_normalization_13[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_5 (MaxPooling2D)   (None, 6, 3, 512)     0           activation_13[0][0]
+____________________________________________________________________________________________________
+flatten_1 (Flatten)              (None, 9216)          0           max_pooling2d_5[0][0]
+____________________________________________________________________________________________________
+output_class (Dense)             (None, 32)            294944      flatten_1[0][0]
+____________________________________________________________________________________________________
+output_bounding_box (Dense)      (None, 4)             36868       flatten_1[0][0]
+====================================================================================================
+Total params: 8,153,028
+Trainable params: 8,147,268
+Non-trainable params: 5,760
+____________________________________________________________________________________________________
+ Input shape: (192, 96, 3), Output: (None, 4) classes
+Classifying image ...
+Bounding-Box: [[ 19.89635277  62.89546967  55.81167221  65.40638733]]
+Class scores:
+12-8-Time          0.00000
+2-2-Time           0.00000
+2-4-Time           0.00001
+3-4-Time           0.00000
+3-8-Time           0.00000
+4-4-Time           0.00000
+6-8-Time           0.00000
+9-8-Time           0.00000
+Barline            0.00000
+C-Clef             0.99996
+Common-Time        0.00000
+Cut-Time           0.00000
+Dot                0.00000
+Double-Sharp       0.00000
+Eighth-Note        0.00000
+Eighth-Rest        0.00000
+F-Clef             0.00001
+Flat               0.00000
+G-Clef             0.00000
+Half-Note          0.00000
+Natural            0.00000
+Quarter-Note       0.00000
+Quarter-Rest       0.00000
+Sharp              0.00000
+Sixteenth-Note     0.00000
+Sixteenth-Rest     0.00000
+Sixty-Four-Note    0.00000
+Sixty-Four-Rest    0.00000
+Thirty-Two-Note    0.00000
+Thirty-Two-Rest    0.00000
+Whole-Half-Rest    0.00000
+Whole-Note         0.00000
+ Image is most likely: C-Clef (certainty: 1.00)
+Using TensorFlow backend.
+Model:  vgg4_with_localization
+Weights loaded from :  2017-06-29_vgg4_with_localization_192x96_multistaff.h5
+Image:  C:\Users\Alex\Desktop\15-40_3_offset_67_2.png
+Loading image ...
+ Shape: (192, 96, 3)
+Loading classifier...
+2017-06-30 09:14:38.917915: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:14:38.918095: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:14:38.919296: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE3 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:14:38.920528: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:14:38.921095: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:14:38.921624: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:14:38.922257: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:14:38.922785: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:14:39.242838: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:887] Found device 0 with properties:
+name: GeForce GTX 1080 Ti
+major: 6 minor: 1 memoryClockRate (GHz) 1.582
+pciBusID 0000:01:00.0
+Total memory: 11.00GiB
+Free memory: 9.12GiB
+2017-06-30 09:14:39.243045: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:908] DMA: 0
+2017-06-30 09:14:39.244180: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:918] 0:   Y
+2017-06-30 09:14:39.244577: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:977] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:01:00.0)
+____________________________________________________________________________________________________
+Layer (type)                     Output Shape          Param #     Connected to
+====================================================================================================
+input_1 (InputLayer)             (None, 192, 96, 3)    0
+____________________________________________________________________________________________________
+conv2d_1 (Conv2D)                (None, 192, 96, 32)   896         input_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_1 (BatchNorm (None, 192, 96, 32)   128         conv2d_1[0][0]
+____________________________________________________________________________________________________
+activation_1 (Activation)        (None, 192, 96, 32)   0           batch_normalization_1[0][0]
+____________________________________________________________________________________________________
+conv2d_2 (Conv2D)                (None, 192, 96, 32)   9248        activation_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_2 (BatchNorm (None, 192, 96, 32)   128         conv2d_2[0][0]
+____________________________________________________________________________________________________
+activation_2 (Activation)        (None, 192, 96, 32)   0           batch_normalization_2[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_1 (MaxPooling2D)   (None, 96, 48, 32)    0           activation_2[0][0]
+____________________________________________________________________________________________________
+conv2d_3 (Conv2D)                (None, 96, 48, 64)    18496       max_pooling2d_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_3 (BatchNorm (None, 96, 48, 64)    256         conv2d_3[0][0]
+____________________________________________________________________________________________________
+activation_3 (Activation)        (None, 96, 48, 64)    0           batch_normalization_3[0][0]
+____________________________________________________________________________________________________
+conv2d_4 (Conv2D)                (None, 96, 48, 64)    36928       activation_3[0][0]
+____________________________________________________________________________________________________
+batch_normalization_4 (BatchNorm (None, 96, 48, 64)    256         conv2d_4[0][0]
+____________________________________________________________________________________________________
+activation_4 (Activation)        (None, 96, 48, 64)    0           batch_normalization_4[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_2 (MaxPooling2D)   (None, 48, 24, 64)    0           activation_4[0][0]
+____________________________________________________________________________________________________
+conv2d_5 (Conv2D)                (None, 48, 24, 128)   73856       max_pooling2d_2[0][0]
+____________________________________________________________________________________________________
+batch_normalization_5 (BatchNorm (None, 48, 24, 128)   512         conv2d_5[0][0]
+____________________________________________________________________________________________________
+activation_5 (Activation)        (None, 48, 24, 128)   0           batch_normalization_5[0][0]
+____________________________________________________________________________________________________
+conv2d_6 (Conv2D)                (None, 48, 24, 128)   147584      activation_5[0][0]
+____________________________________________________________________________________________________
+batch_normalization_6 (BatchNorm (None, 48, 24, 128)   512         conv2d_6[0][0]
+____________________________________________________________________________________________________
+activation_6 (Activation)        (None, 48, 24, 128)   0           batch_normalization_6[0][0]
+____________________________________________________________________________________________________
+conv2d_7 (Conv2D)                (None, 48, 24, 128)   147584      activation_6[0][0]
+____________________________________________________________________________________________________
+batch_normalization_7 (BatchNorm (None, 48, 24, 128)   512         conv2d_7[0][0]
+____________________________________________________________________________________________________
+activation_7 (Activation)        (None, 48, 24, 128)   0           batch_normalization_7[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_3 (MaxPooling2D)   (None, 24, 12, 128)   0           activation_7[0][0]
+____________________________________________________________________________________________________
+conv2d_8 (Conv2D)                (None, 24, 12, 256)   295168      max_pooling2d_3[0][0]
+____________________________________________________________________________________________________
+batch_normalization_8 (BatchNorm (None, 24, 12, 256)   1024        conv2d_8[0][0]
+____________________________________________________________________________________________________
+activation_8 (Activation)        (None, 24, 12, 256)   0           batch_normalization_8[0][0]
+____________________________________________________________________________________________________
+conv2d_9 (Conv2D)                (None, 24, 12, 256)   590080      activation_8[0][0]
+____________________________________________________________________________________________________
+batch_normalization_9 (BatchNorm (None, 24, 12, 256)   1024        conv2d_9[0][0]
+____________________________________________________________________________________________________
+activation_9 (Activation)        (None, 24, 12, 256)   0           batch_normalization_9[0][0]
+____________________________________________________________________________________________________
+conv2d_10 (Conv2D)               (None, 24, 12, 256)   590080      activation_9[0][0]
+____________________________________________________________________________________________________
+batch_normalization_10 (BatchNor (None, 24, 12, 256)   1024        conv2d_10[0][0]
+____________________________________________________________________________________________________
+activation_10 (Activation)       (None, 24, 12, 256)   0           batch_normalization_10[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_4 (MaxPooling2D)   (None, 12, 6, 256)    0           activation_10[0][0]
+____________________________________________________________________________________________________
+conv2d_11 (Conv2D)               (None, 12, 6, 512)    1180160     max_pooling2d_4[0][0]
+____________________________________________________________________________________________________
+batch_normalization_11 (BatchNor (None, 12, 6, 512)    2048        conv2d_11[0][0]
+____________________________________________________________________________________________________
+activation_11 (Activation)       (None, 12, 6, 512)    0           batch_normalization_11[0][0]
+____________________________________________________________________________________________________
+conv2d_12 (Conv2D)               (None, 12, 6, 512)    2359808     activation_11[0][0]
+____________________________________________________________________________________________________
+batch_normalization_12 (BatchNor (None, 12, 6, 512)    2048        conv2d_12[0][0]
+____________________________________________________________________________________________________
+activation_12 (Activation)       (None, 12, 6, 512)    0           batch_normalization_12[0][0]
+____________________________________________________________________________________________________
+conv2d_13 (Conv2D)               (None, 12, 6, 512)    2359808     activation_12[0][0]
+____________________________________________________________________________________________________
+batch_normalization_13 (BatchNor (None, 12, 6, 512)    2048        conv2d_13[0][0]
+____________________________________________________________________________________________________
+activation_13 (Activation)       (None, 12, 6, 512)    0           batch_normalization_13[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_5 (MaxPooling2D)   (None, 6, 3, 512)     0           activation_13[0][0]
+____________________________________________________________________________________________________
+flatten_1 (Flatten)              (None, 9216)          0           max_pooling2d_5[0][0]
+____________________________________________________________________________________________________
+output_class (Dense)             (None, 32)            294944      flatten_1[0][0]
+____________________________________________________________________________________________________
+output_bounding_box (Dense)      (None, 4)             36868       flatten_1[0][0]
+====================================================================================================
+Total params: 8,153,028
+Trainable params: 8,147,268
+Non-trainable params: 5,760
+____________________________________________________________________________________________________
+ Input shape: (192, 96, 3), Output: (None, 4) classes
+Classifying image ...
+Bounding-Box: [[ 20.06981087  52.19916916  50.55994034  76.56549072]]
+Class scores:
+12-8-Time          0.00602
+2-2-Time           0.00002
+2-4-Time           0.00019
+3-4-Time           0.00002
+3-8-Time           0.00000
+4-4-Time           0.00023
+6-8-Time           0.00009
+9-8-Time           0.00005
+Barline            0.00003
+C-Clef             0.98488
+Common-Time        0.00019
+Cut-Time           0.00340
+Dot                0.00011
+Double-Sharp       0.00002
+Eighth-Note        0.00000
+Eighth-Rest        0.00004
+F-Clef             0.00046
+Flat               0.00000
+G-Clef             0.00002
+Half-Note          0.00022
+Natural            0.00002
+Quarter-Note       0.00000
+Quarter-Rest       0.00000
+Sharp              0.00003
+Sixteenth-Note     0.00001
+Sixteenth-Rest     0.00005
+Sixty-Four-Note    0.00001
+Sixty-Four-Rest    0.00014
+Thirty-Two-Note    0.00002
+Thirty-Two-Rest    0.00031
+Whole-Half-Rest    0.00324
+Whole-Note         0.00019
+ Image is most likely: C-Clef (certainty: 0.98)
+Using TensorFlow backend.
+Model:  vgg4_with_localization
+Weights loaded from :  2017-06-29_vgg4_with_localization_192x96_multistaff.h5
+Image:  C:\Users\Alex\Desktop\15-40_3_offset_67_3.png
+Loading image ...
+ Shape: (192, 96, 3)
+Loading classifier...
+2017-06-30 09:14:56.250811: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:14:56.250988: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:14:56.252123: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE3 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:14:56.253340: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:14:56.253901: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:14:56.254573: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:14:56.255021: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:14:56.255563: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:14:56.557578: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:887] Found device 0 with properties:
+name: GeForce GTX 1080 Ti
+major: 6 minor: 1 memoryClockRate (GHz) 1.582
+pciBusID 0000:01:00.0
+Total memory: 11.00GiB
+Free memory: 9.12GiB
+2017-06-30 09:14:56.557777: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:908] DMA: 0
+2017-06-30 09:14:56.558972: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:918] 0:   Y
+2017-06-30 09:14:56.559421: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:977] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:01:00.0)
+____________________________________________________________________________________________________
+Layer (type)                     Output Shape          Param #     Connected to
+====================================================================================================
+input_1 (InputLayer)             (None, 192, 96, 3)    0
+____________________________________________________________________________________________________
+conv2d_1 (Conv2D)                (None, 192, 96, 32)   896         input_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_1 (BatchNorm (None, 192, 96, 32)   128         conv2d_1[0][0]
+____________________________________________________________________________________________________
+activation_1 (Activation)        (None, 192, 96, 32)   0           batch_normalization_1[0][0]
+____________________________________________________________________________________________________
+conv2d_2 (Conv2D)                (None, 192, 96, 32)   9248        activation_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_2 (BatchNorm (None, 192, 96, 32)   128         conv2d_2[0][0]
+____________________________________________________________________________________________________
+activation_2 (Activation)        (None, 192, 96, 32)   0           batch_normalization_2[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_1 (MaxPooling2D)   (None, 96, 48, 32)    0           activation_2[0][0]
+____________________________________________________________________________________________________
+conv2d_3 (Conv2D)                (None, 96, 48, 64)    18496       max_pooling2d_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_3 (BatchNorm (None, 96, 48, 64)    256         conv2d_3[0][0]
+____________________________________________________________________________________________________
+activation_3 (Activation)        (None, 96, 48, 64)    0           batch_normalization_3[0][0]
+____________________________________________________________________________________________________
+conv2d_4 (Conv2D)                (None, 96, 48, 64)    36928       activation_3[0][0]
+____________________________________________________________________________________________________
+batch_normalization_4 (BatchNorm (None, 96, 48, 64)    256         conv2d_4[0][0]
+____________________________________________________________________________________________________
+activation_4 (Activation)        (None, 96, 48, 64)    0           batch_normalization_4[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_2 (MaxPooling2D)   (None, 48, 24, 64)    0           activation_4[0][0]
+____________________________________________________________________________________________________
+conv2d_5 (Conv2D)                (None, 48, 24, 128)   73856       max_pooling2d_2[0][0]
+____________________________________________________________________________________________________
+batch_normalization_5 (BatchNorm (None, 48, 24, 128)   512         conv2d_5[0][0]
+____________________________________________________________________________________________________
+activation_5 (Activation)        (None, 48, 24, 128)   0           batch_normalization_5[0][0]
+____________________________________________________________________________________________________
+conv2d_6 (Conv2D)                (None, 48, 24, 128)   147584      activation_5[0][0]
+____________________________________________________________________________________________________
+batch_normalization_6 (BatchNorm (None, 48, 24, 128)   512         conv2d_6[0][0]
+____________________________________________________________________________________________________
+activation_6 (Activation)        (None, 48, 24, 128)   0           batch_normalization_6[0][0]
+____________________________________________________________________________________________________
+conv2d_7 (Conv2D)                (None, 48, 24, 128)   147584      activation_6[0][0]
+____________________________________________________________________________________________________
+batch_normalization_7 (BatchNorm (None, 48, 24, 128)   512         conv2d_7[0][0]
+____________________________________________________________________________________________________
+activation_7 (Activation)        (None, 48, 24, 128)   0           batch_normalization_7[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_3 (MaxPooling2D)   (None, 24, 12, 128)   0           activation_7[0][0]
+____________________________________________________________________________________________________
+conv2d_8 (Conv2D)                (None, 24, 12, 256)   295168      max_pooling2d_3[0][0]
+____________________________________________________________________________________________________
+batch_normalization_8 (BatchNorm (None, 24, 12, 256)   1024        conv2d_8[0][0]
+____________________________________________________________________________________________________
+activation_8 (Activation)        (None, 24, 12, 256)   0           batch_normalization_8[0][0]
+____________________________________________________________________________________________________
+conv2d_9 (Conv2D)                (None, 24, 12, 256)   590080      activation_8[0][0]
+____________________________________________________________________________________________________
+batch_normalization_9 (BatchNorm (None, 24, 12, 256)   1024        conv2d_9[0][0]
+____________________________________________________________________________________________________
+activation_9 (Activation)        (None, 24, 12, 256)   0           batch_normalization_9[0][0]
+____________________________________________________________________________________________________
+conv2d_10 (Conv2D)               (None, 24, 12, 256)   590080      activation_9[0][0]
+____________________________________________________________________________________________________
+batch_normalization_10 (BatchNor (None, 24, 12, 256)   1024        conv2d_10[0][0]
+____________________________________________________________________________________________________
+activation_10 (Activation)       (None, 24, 12, 256)   0           batch_normalization_10[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_4 (MaxPooling2D)   (None, 12, 6, 256)    0           activation_10[0][0]
+____________________________________________________________________________________________________
+conv2d_11 (Conv2D)               (None, 12, 6, 512)    1180160     max_pooling2d_4[0][0]
+____________________________________________________________________________________________________
+batch_normalization_11 (BatchNor (None, 12, 6, 512)    2048        conv2d_11[0][0]
+____________________________________________________________________________________________________
+activation_11 (Activation)       (None, 12, 6, 512)    0           batch_normalization_11[0][0]
+____________________________________________________________________________________________________
+conv2d_12 (Conv2D)               (None, 12, 6, 512)    2359808     activation_11[0][0]
+____________________________________________________________________________________________________
+batch_normalization_12 (BatchNor (None, 12, 6, 512)    2048        conv2d_12[0][0]
+____________________________________________________________________________________________________
+activation_12 (Activation)       (None, 12, 6, 512)    0           batch_normalization_12[0][0]
+____________________________________________________________________________________________________
+conv2d_13 (Conv2D)               (None, 12, 6, 512)    2359808     activation_12[0][0]
+____________________________________________________________________________________________________
+batch_normalization_13 (BatchNor (None, 12, 6, 512)    2048        conv2d_13[0][0]
+____________________________________________________________________________________________________
+activation_13 (Activation)       (None, 12, 6, 512)    0           batch_normalization_13[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_5 (MaxPooling2D)   (None, 6, 3, 512)     0           activation_13[0][0]
+____________________________________________________________________________________________________
+flatten_1 (Flatten)              (None, 9216)          0           max_pooling2d_5[0][0]
+____________________________________________________________________________________________________
+output_class (Dense)             (None, 32)            294944      flatten_1[0][0]
+____________________________________________________________________________________________________
+output_bounding_box (Dense)      (None, 4)             36868       flatten_1[0][0]
+====================================================================================================
+Total params: 8,153,028
+Trainable params: 8,147,268
+Non-trainable params: 5,760
+____________________________________________________________________________________________________
+ Input shape: (192, 96, 3), Output: (None, 4) classes
+Classifying image ...
+Bounding-Box: [[ 21.70132446  50.92604065  48.9797821   82.94456482]]
+Class scores:
+12-8-Time          0.01001
+2-2-Time           0.00011
+2-4-Time           0.00039
+3-4-Time           0.00006
+3-8-Time           0.00001
+4-4-Time           0.00090
+6-8-Time           0.00100
+9-8-Time           0.00013
+Barline            0.00007
+C-Clef             0.97028
+Common-Time        0.00050
+Cut-Time           0.00587
+Dot                0.00053
+Double-Sharp       0.00003
+Eighth-Note        0.00000
+Eighth-Rest        0.00011
+F-Clef             0.00136
+Flat               0.00000
+G-Clef             0.00008
+Half-Note          0.00022
+Natural            0.00005
+Quarter-Note       0.00001
+Quarter-Rest       0.00005
+Sharp              0.00007
+Sixteenth-Note     0.00001
+Sixteenth-Rest     0.00005
+Sixty-Four-Note    0.00018
+Sixty-Four-Rest    0.00082
+Thirty-Two-Note    0.00008
+Thirty-Two-Rest    0.00080
+Whole-Half-Rest    0.00576
+Whole-Note         0.00044
+ Image is most likely: C-Clef (certainty: 0.97)
+Using TensorFlow backend.
+Model:  vgg4_with_localization
+Weights loaded from :  2017-06-29_vgg4_with_localization_192x96_multistaff.h5
+Image:  C:\Users\Alex\Desktop\15-40_3_offset_67_4.png
+Loading image ...
+ Shape: (192, 96, 3)
+Loading classifier...
+2017-06-30 09:15:13.225486: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:15:13.225642: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:15:13.226686: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE3 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:15:13.227321: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:15:13.228687: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:15:13.229315: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:15:13.229938: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:15:13.230623: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:15:13.550875: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:887] Found device 0 with properties:
+name: GeForce GTX 1080 Ti
+major: 6 minor: 1 memoryClockRate (GHz) 1.582
+pciBusID 0000:01:00.0
+Total memory: 11.00GiB
+Free memory: 9.12GiB
+2017-06-30 09:15:13.551068: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:908] DMA: 0
+2017-06-30 09:15:13.552343: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:918] 0:   Y
+2017-06-30 09:15:13.552871: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:977] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:01:00.0)
+____________________________________________________________________________________________________
+Layer (type)                     Output Shape          Param #     Connected to
+====================================================================================================
+input_1 (InputLayer)             (None, 192, 96, 3)    0
+____________________________________________________________________________________________________
+conv2d_1 (Conv2D)                (None, 192, 96, 32)   896         input_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_1 (BatchNorm (None, 192, 96, 32)   128         conv2d_1[0][0]
+____________________________________________________________________________________________________
+activation_1 (Activation)        (None, 192, 96, 32)   0           batch_normalization_1[0][0]
+____________________________________________________________________________________________________
+conv2d_2 (Conv2D)                (None, 192, 96, 32)   9248        activation_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_2 (BatchNorm (None, 192, 96, 32)   128         conv2d_2[0][0]
+____________________________________________________________________________________________________
+activation_2 (Activation)        (None, 192, 96, 32)   0           batch_normalization_2[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_1 (MaxPooling2D)   (None, 96, 48, 32)    0           activation_2[0][0]
+____________________________________________________________________________________________________
+conv2d_3 (Conv2D)                (None, 96, 48, 64)    18496       max_pooling2d_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_3 (BatchNorm (None, 96, 48, 64)    256         conv2d_3[0][0]
+____________________________________________________________________________________________________
+activation_3 (Activation)        (None, 96, 48, 64)    0           batch_normalization_3[0][0]
+____________________________________________________________________________________________________
+conv2d_4 (Conv2D)                (None, 96, 48, 64)    36928       activation_3[0][0]
+____________________________________________________________________________________________________
+batch_normalization_4 (BatchNorm (None, 96, 48, 64)    256         conv2d_4[0][0]
+____________________________________________________________________________________________________
+activation_4 (Activation)        (None, 96, 48, 64)    0           batch_normalization_4[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_2 (MaxPooling2D)   (None, 48, 24, 64)    0           activation_4[0][0]
+____________________________________________________________________________________________________
+conv2d_5 (Conv2D)                (None, 48, 24, 128)   73856       max_pooling2d_2[0][0]
+____________________________________________________________________________________________________
+batch_normalization_5 (BatchNorm (None, 48, 24, 128)   512         conv2d_5[0][0]
+____________________________________________________________________________________________________
+activation_5 (Activation)        (None, 48, 24, 128)   0           batch_normalization_5[0][0]
+____________________________________________________________________________________________________
+conv2d_6 (Conv2D)                (None, 48, 24, 128)   147584      activation_5[0][0]
+____________________________________________________________________________________________________
+batch_normalization_6 (BatchNorm (None, 48, 24, 128)   512         conv2d_6[0][0]
+____________________________________________________________________________________________________
+activation_6 (Activation)        (None, 48, 24, 128)   0           batch_normalization_6[0][0]
+____________________________________________________________________________________________________
+conv2d_7 (Conv2D)                (None, 48, 24, 128)   147584      activation_6[0][0]
+____________________________________________________________________________________________________
+batch_normalization_7 (BatchNorm (None, 48, 24, 128)   512         conv2d_7[0][0]
+____________________________________________________________________________________________________
+activation_7 (Activation)        (None, 48, 24, 128)   0           batch_normalization_7[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_3 (MaxPooling2D)   (None, 24, 12, 128)   0           activation_7[0][0]
+____________________________________________________________________________________________________
+conv2d_8 (Conv2D)                (None, 24, 12, 256)   295168      max_pooling2d_3[0][0]
+____________________________________________________________________________________________________
+batch_normalization_8 (BatchNorm (None, 24, 12, 256)   1024        conv2d_8[0][0]
+____________________________________________________________________________________________________
+activation_8 (Activation)        (None, 24, 12, 256)   0           batch_normalization_8[0][0]
+____________________________________________________________________________________________________
+conv2d_9 (Conv2D)                (None, 24, 12, 256)   590080      activation_8[0][0]
+____________________________________________________________________________________________________
+batch_normalization_9 (BatchNorm (None, 24, 12, 256)   1024        conv2d_9[0][0]
+____________________________________________________________________________________________________
+activation_9 (Activation)        (None, 24, 12, 256)   0           batch_normalization_9[0][0]
+____________________________________________________________________________________________________
+conv2d_10 (Conv2D)               (None, 24, 12, 256)   590080      activation_9[0][0]
+____________________________________________________________________________________________________
+batch_normalization_10 (BatchNor (None, 24, 12, 256)   1024        conv2d_10[0][0]
+____________________________________________________________________________________________________
+activation_10 (Activation)       (None, 24, 12, 256)   0           batch_normalization_10[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_4 (MaxPooling2D)   (None, 12, 6, 256)    0           activation_10[0][0]
+____________________________________________________________________________________________________
+conv2d_11 (Conv2D)               (None, 12, 6, 512)    1180160     max_pooling2d_4[0][0]
+____________________________________________________________________________________________________
+batch_normalization_11 (BatchNor (None, 12, 6, 512)    2048        conv2d_11[0][0]
+____________________________________________________________________________________________________
+activation_11 (Activation)       (None, 12, 6, 512)    0           batch_normalization_11[0][0]
+____________________________________________________________________________________________________
+conv2d_12 (Conv2D)               (None, 12, 6, 512)    2359808     activation_11[0][0]
+____________________________________________________________________________________________________
+batch_normalization_12 (BatchNor (None, 12, 6, 512)    2048        conv2d_12[0][0]
+____________________________________________________________________________________________________
+activation_12 (Activation)       (None, 12, 6, 512)    0           batch_normalization_12[0][0]
+____________________________________________________________________________________________________
+conv2d_13 (Conv2D)               (None, 12, 6, 512)    2359808     activation_12[0][0]
+____________________________________________________________________________________________________
+batch_normalization_13 (BatchNor (None, 12, 6, 512)    2048        conv2d_13[0][0]
+____________________________________________________________________________________________________
+activation_13 (Activation)       (None, 12, 6, 512)    0           batch_normalization_13[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_5 (MaxPooling2D)   (None, 6, 3, 512)     0           activation_13[0][0]
+____________________________________________________________________________________________________
+flatten_1 (Flatten)              (None, 9216)          0           max_pooling2d_5[0][0]
+____________________________________________________________________________________________________
+output_class (Dense)             (None, 32)            294944      flatten_1[0][0]
+____________________________________________________________________________________________________
+output_bounding_box (Dense)      (None, 4)             36868       flatten_1[0][0]
+====================================================================================================
+Total params: 8,153,028
+Trainable params: 8,147,268
+Non-trainable params: 5,760
+____________________________________________________________________________________________________
+ Input shape: (192, 96, 3), Output: (None, 4) classes
+Classifying image ...
+Bounding-Box: [[ 19.97816086  52.86243057  51.77735901  77.98310089]]
+Class scores:
+12-8-Time          0.00012
+2-2-Time           0.04421
+2-4-Time           0.00004
+3-4-Time           0.00003
+3-8-Time           0.00144
+4-4-Time           0.00021
+6-8-Time           0.00005
+9-8-Time           0.00309
+Barline            0.00025
+C-Clef             0.00702
+Common-Time        0.00063
+Cut-Time           0.00015
+Dot                0.00023
+Double-Sharp       0.00039
+Eighth-Note        0.00032
+Eighth-Rest        0.00003
+F-Clef             0.00007
+Flat               0.00017
+G-Clef             0.74194
+Half-Note          0.01032
+Natural            0.00000
+Quarter-Note       0.00001
+Quarter-Rest       0.00139
+Sharp              0.00040
+Sixteenth-Note     0.00000
+Sixteenth-Rest     0.00000
+Sixty-Four-Note    0.16518
+Sixty-Four-Rest    0.00983
+Thirty-Two-Note    0.00573
+Thirty-Two-Rest    0.00000
+Whole-Half-Rest    0.00089
+Whole-Note         0.00587
+ Image is most likely: G-Clef (certainty: 0.74)
+Using TensorFlow backend.
+Model:  vgg4_with_localization
+Weights loaded from :  2017-06-29_vgg4_with_localization_192x96_multistaff.h5
+Image:  C:\Users\Alex\Desktop\15-40_3_offset_67_5.png
+Loading image ...
+ Shape: (192, 96, 3)
+Loading classifier...
+2017-06-30 09:15:30.561165: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:15:30.561288: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:15:30.562471: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE3 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:15:30.563665: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:15:30.564216: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:15:30.564742: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:15:30.565349: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:15:30.565939: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:15:30.889151: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:887] Found device 0 with properties:
+name: GeForce GTX 1080 Ti
+major: 6 minor: 1 memoryClockRate (GHz) 1.582
+pciBusID 0000:01:00.0
+Total memory: 11.00GiB
+Free memory: 9.12GiB
+2017-06-30 09:15:30.889363: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:908] DMA: 0
+2017-06-30 09:15:30.890692: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:918] 0:   Y
+2017-06-30 09:15:30.891224: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:977] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:01:00.0)
+____________________________________________________________________________________________________
+Layer (type)                     Output Shape          Param #     Connected to
+====================================================================================================
+input_1 (InputLayer)             (None, 192, 96, 3)    0
+____________________________________________________________________________________________________
+conv2d_1 (Conv2D)                (None, 192, 96, 32)   896         input_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_1 (BatchNorm (None, 192, 96, 32)   128         conv2d_1[0][0]
+____________________________________________________________________________________________________
+activation_1 (Activation)        (None, 192, 96, 32)   0           batch_normalization_1[0][0]
+____________________________________________________________________________________________________
+conv2d_2 (Conv2D)                (None, 192, 96, 32)   9248        activation_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_2 (BatchNorm (None, 192, 96, 32)   128         conv2d_2[0][0]
+____________________________________________________________________________________________________
+activation_2 (Activation)        (None, 192, 96, 32)   0           batch_normalization_2[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_1 (MaxPooling2D)   (None, 96, 48, 32)    0           activation_2[0][0]
+____________________________________________________________________________________________________
+conv2d_3 (Conv2D)                (None, 96, 48, 64)    18496       max_pooling2d_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_3 (BatchNorm (None, 96, 48, 64)    256         conv2d_3[0][0]
+____________________________________________________________________________________________________
+activation_3 (Activation)        (None, 96, 48, 64)    0           batch_normalization_3[0][0]
+____________________________________________________________________________________________________
+conv2d_4 (Conv2D)                (None, 96, 48, 64)    36928       activation_3[0][0]
+____________________________________________________________________________________________________
+batch_normalization_4 (BatchNorm (None, 96, 48, 64)    256         conv2d_4[0][0]
+____________________________________________________________________________________________________
+activation_4 (Activation)        (None, 96, 48, 64)    0           batch_normalization_4[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_2 (MaxPooling2D)   (None, 48, 24, 64)    0           activation_4[0][0]
+____________________________________________________________________________________________________
+conv2d_5 (Conv2D)                (None, 48, 24, 128)   73856       max_pooling2d_2[0][0]
+____________________________________________________________________________________________________
+batch_normalization_5 (BatchNorm (None, 48, 24, 128)   512         conv2d_5[0][0]
+____________________________________________________________________________________________________
+activation_5 (Activation)        (None, 48, 24, 128)   0           batch_normalization_5[0][0]
+____________________________________________________________________________________________________
+conv2d_6 (Conv2D)                (None, 48, 24, 128)   147584      activation_5[0][0]
+____________________________________________________________________________________________________
+batch_normalization_6 (BatchNorm (None, 48, 24, 128)   512         conv2d_6[0][0]
+____________________________________________________________________________________________________
+activation_6 (Activation)        (None, 48, 24, 128)   0           batch_normalization_6[0][0]
+____________________________________________________________________________________________________
+conv2d_7 (Conv2D)                (None, 48, 24, 128)   147584      activation_6[0][0]
+____________________________________________________________________________________________________
+batch_normalization_7 (BatchNorm (None, 48, 24, 128)   512         conv2d_7[0][0]
+____________________________________________________________________________________________________
+activation_7 (Activation)        (None, 48, 24, 128)   0           batch_normalization_7[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_3 (MaxPooling2D)   (None, 24, 12, 128)   0           activation_7[0][0]
+____________________________________________________________________________________________________
+conv2d_8 (Conv2D)                (None, 24, 12, 256)   295168      max_pooling2d_3[0][0]
+____________________________________________________________________________________________________
+batch_normalization_8 (BatchNorm (None, 24, 12, 256)   1024        conv2d_8[0][0]
+____________________________________________________________________________________________________
+activation_8 (Activation)        (None, 24, 12, 256)   0           batch_normalization_8[0][0]
+____________________________________________________________________________________________________
+conv2d_9 (Conv2D)                (None, 24, 12, 256)   590080      activation_8[0][0]
+____________________________________________________________________________________________________
+batch_normalization_9 (BatchNorm (None, 24, 12, 256)   1024        conv2d_9[0][0]
+____________________________________________________________________________________________________
+activation_9 (Activation)        (None, 24, 12, 256)   0           batch_normalization_9[0][0]
+____________________________________________________________________________________________________
+conv2d_10 (Conv2D)               (None, 24, 12, 256)   590080      activation_9[0][0]
+____________________________________________________________________________________________________
+batch_normalization_10 (BatchNor (None, 24, 12, 256)   1024        conv2d_10[0][0]
+____________________________________________________________________________________________________
+activation_10 (Activation)       (None, 24, 12, 256)   0           batch_normalization_10[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_4 (MaxPooling2D)   (None, 12, 6, 256)    0           activation_10[0][0]
+____________________________________________________________________________________________________
+conv2d_11 (Conv2D)               (None, 12, 6, 512)    1180160     max_pooling2d_4[0][0]
+____________________________________________________________________________________________________
+batch_normalization_11 (BatchNor (None, 12, 6, 512)    2048        conv2d_11[0][0]
+____________________________________________________________________________________________________
+activation_11 (Activation)       (None, 12, 6, 512)    0           batch_normalization_11[0][0]
+____________________________________________________________________________________________________
+conv2d_12 (Conv2D)               (None, 12, 6, 512)    2359808     activation_11[0][0]
+____________________________________________________________________________________________________
+batch_normalization_12 (BatchNor (None, 12, 6, 512)    2048        conv2d_12[0][0]
+____________________________________________________________________________________________________
+activation_12 (Activation)       (None, 12, 6, 512)    0           batch_normalization_12[0][0]
+____________________________________________________________________________________________________
+conv2d_13 (Conv2D)               (None, 12, 6, 512)    2359808     activation_12[0][0]
+____________________________________________________________________________________________________
+batch_normalization_13 (BatchNor (None, 12, 6, 512)    2048        conv2d_13[0][0]
+____________________________________________________________________________________________________
+activation_13 (Activation)       (None, 12, 6, 512)    0           batch_normalization_13[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_5 (MaxPooling2D)   (None, 6, 3, 512)     0           activation_13[0][0]
+____________________________________________________________________________________________________
+flatten_1 (Flatten)              (None, 9216)          0           max_pooling2d_5[0][0]
+____________________________________________________________________________________________________
+output_class (Dense)             (None, 32)            294944      flatten_1[0][0]
+____________________________________________________________________________________________________
+output_bounding_box (Dense)      (None, 4)             36868       flatten_1[0][0]
+====================================================================================================
+Total params: 8,153,028
+Trainable params: 8,147,268
+Non-trainable params: 5,760
+____________________________________________________________________________________________________
+ Input shape: (192, 96, 3), Output: (None, 4) classes
+Classifying image ...
+Bounding-Box: [[ 15.47307205  62.82304001  64.94151306  65.9234314 ]]
+Class scores:
+12-8-Time          0.00018
+2-2-Time           0.00002
+2-4-Time           0.00004
+3-4-Time           0.00001
+3-8-Time           0.00002
+4-4-Time           0.00000
+6-8-Time           0.00000
+9-8-Time           0.00009
+Barline            0.00012
+C-Clef             0.86148
+Common-Time        0.00001
+Cut-Time           0.00003
+Dot                0.00000
+Double-Sharp       0.00000
+Eighth-Note        0.00002
+Eighth-Rest        0.00000
+F-Clef             0.00017
+Flat               0.00001
+G-Clef             0.00001
+Half-Note          0.00014
+Natural            0.00001
+Quarter-Note       0.00000
+Quarter-Rest       0.00000
+Sharp              0.12696
+Sixteenth-Note     0.00969
+Sixteenth-Rest     0.00001
+Sixty-Four-Note    0.00054
+Sixty-Four-Rest    0.00001
+Thirty-Two-Note    0.00029
+Thirty-Two-Rest    0.00010
+Whole-Half-Rest    0.00003
+Whole-Note         0.00002
+ Image is most likely: C-Clef (certainty: 0.86)
+Using TensorFlow backend.
+Model:  vgg4_with_localization
+Weights loaded from :  2017-06-29_vgg4_with_localization_192x96_multistaff.h5
+Image:  C:\Users\Alex\Desktop\15-40_3_offset_67_6.png
+Loading image ...
+ Shape: (192, 96, 3)
+Loading classifier...
+2017-06-30 09:15:47.757055: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:15:47.757195: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:15:47.758247: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE3 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:15:47.759865: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:15:47.760220: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:15:47.760597: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:15:47.760956: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:15:47.761307: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:15:48.070894: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:887] Found device 0 with properties:
+name: GeForce GTX 1080 Ti
+major: 6 minor: 1 memoryClockRate (GHz) 1.582
+pciBusID 0000:01:00.0
+Total memory: 11.00GiB
+Free memory: 9.12GiB
+2017-06-30 09:15:48.071122: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:908] DMA: 0
+2017-06-30 09:15:48.072401: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:918] 0:   Y
+2017-06-30 09:15:48.073054: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:977] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:01:00.0)
+____________________________________________________________________________________________________
+Layer (type)                     Output Shape          Param #     Connected to
+====================================================================================================
+input_1 (InputLayer)             (None, 192, 96, 3)    0
+____________________________________________________________________________________________________
+conv2d_1 (Conv2D)                (None, 192, 96, 32)   896         input_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_1 (BatchNorm (None, 192, 96, 32)   128         conv2d_1[0][0]
+____________________________________________________________________________________________________
+activation_1 (Activation)        (None, 192, 96, 32)   0           batch_normalization_1[0][0]
+____________________________________________________________________________________________________
+conv2d_2 (Conv2D)                (None, 192, 96, 32)   9248        activation_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_2 (BatchNorm (None, 192, 96, 32)   128         conv2d_2[0][0]
+____________________________________________________________________________________________________
+activation_2 (Activation)        (None, 192, 96, 32)   0           batch_normalization_2[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_1 (MaxPooling2D)   (None, 96, 48, 32)    0           activation_2[0][0]
+____________________________________________________________________________________________________
+conv2d_3 (Conv2D)                (None, 96, 48, 64)    18496       max_pooling2d_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_3 (BatchNorm (None, 96, 48, 64)    256         conv2d_3[0][0]
+____________________________________________________________________________________________________
+activation_3 (Activation)        (None, 96, 48, 64)    0           batch_normalization_3[0][0]
+____________________________________________________________________________________________________
+conv2d_4 (Conv2D)                (None, 96, 48, 64)    36928       activation_3[0][0]
+____________________________________________________________________________________________________
+batch_normalization_4 (BatchNorm (None, 96, 48, 64)    256         conv2d_4[0][0]
+____________________________________________________________________________________________________
+activation_4 (Activation)        (None, 96, 48, 64)    0           batch_normalization_4[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_2 (MaxPooling2D)   (None, 48, 24, 64)    0           activation_4[0][0]
+____________________________________________________________________________________________________
+conv2d_5 (Conv2D)                (None, 48, 24, 128)   73856       max_pooling2d_2[0][0]
+____________________________________________________________________________________________________
+batch_normalization_5 (BatchNorm (None, 48, 24, 128)   512         conv2d_5[0][0]
+____________________________________________________________________________________________________
+activation_5 (Activation)        (None, 48, 24, 128)   0           batch_normalization_5[0][0]
+____________________________________________________________________________________________________
+conv2d_6 (Conv2D)                (None, 48, 24, 128)   147584      activation_5[0][0]
+____________________________________________________________________________________________________
+batch_normalization_6 (BatchNorm (None, 48, 24, 128)   512         conv2d_6[0][0]
+____________________________________________________________________________________________________
+activation_6 (Activation)        (None, 48, 24, 128)   0           batch_normalization_6[0][0]
+____________________________________________________________________________________________________
+conv2d_7 (Conv2D)                (None, 48, 24, 128)   147584      activation_6[0][0]
+____________________________________________________________________________________________________
+batch_normalization_7 (BatchNorm (None, 48, 24, 128)   512         conv2d_7[0][0]
+____________________________________________________________________________________________________
+activation_7 (Activation)        (None, 48, 24, 128)   0           batch_normalization_7[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_3 (MaxPooling2D)   (None, 24, 12, 128)   0           activation_7[0][0]
+____________________________________________________________________________________________________
+conv2d_8 (Conv2D)                (None, 24, 12, 256)   295168      max_pooling2d_3[0][0]
+____________________________________________________________________________________________________
+batch_normalization_8 (BatchNorm (None, 24, 12, 256)   1024        conv2d_8[0][0]
+____________________________________________________________________________________________________
+activation_8 (Activation)        (None, 24, 12, 256)   0           batch_normalization_8[0][0]
+____________________________________________________________________________________________________
+conv2d_9 (Conv2D)                (None, 24, 12, 256)   590080      activation_8[0][0]
+____________________________________________________________________________________________________
+batch_normalization_9 (BatchNorm (None, 24, 12, 256)   1024        conv2d_9[0][0]
+____________________________________________________________________________________________________
+activation_9 (Activation)        (None, 24, 12, 256)   0           batch_normalization_9[0][0]
+____________________________________________________________________________________________________
+conv2d_10 (Conv2D)               (None, 24, 12, 256)   590080      activation_9[0][0]
+____________________________________________________________________________________________________
+batch_normalization_10 (BatchNor (None, 24, 12, 256)   1024        conv2d_10[0][0]
+____________________________________________________________________________________________________
+activation_10 (Activation)       (None, 24, 12, 256)   0           batch_normalization_10[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_4 (MaxPooling2D)   (None, 12, 6, 256)    0           activation_10[0][0]
+____________________________________________________________________________________________________
+conv2d_11 (Conv2D)               (None, 12, 6, 512)    1180160     max_pooling2d_4[0][0]
+____________________________________________________________________________________________________
+batch_normalization_11 (BatchNor (None, 12, 6, 512)    2048        conv2d_11[0][0]
+____________________________________________________________________________________________________
+activation_11 (Activation)       (None, 12, 6, 512)    0           batch_normalization_11[0][0]
+____________________________________________________________________________________________________
+conv2d_12 (Conv2D)               (None, 12, 6, 512)    2359808     activation_11[0][0]
+____________________________________________________________________________________________________
+batch_normalization_12 (BatchNor (None, 12, 6, 512)    2048        conv2d_12[0][0]
+____________________________________________________________________________________________________
+activation_12 (Activation)       (None, 12, 6, 512)    0           batch_normalization_12[0][0]
+____________________________________________________________________________________________________
+conv2d_13 (Conv2D)               (None, 12, 6, 512)    2359808     activation_12[0][0]
+____________________________________________________________________________________________________
+batch_normalization_13 (BatchNor (None, 12, 6, 512)    2048        conv2d_13[0][0]
+____________________________________________________________________________________________________
+activation_13 (Activation)       (None, 12, 6, 512)    0           batch_normalization_13[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_5 (MaxPooling2D)   (None, 6, 3, 512)     0           activation_13[0][0]
+____________________________________________________________________________________________________
+flatten_1 (Flatten)              (None, 9216)          0           max_pooling2d_5[0][0]
+____________________________________________________________________________________________________
+output_class (Dense)             (None, 32)            294944      flatten_1[0][0]
+____________________________________________________________________________________________________
+output_bounding_box (Dense)      (None, 4)             36868       flatten_1[0][0]
+====================================================================================================
+Total params: 8,153,028
+Trainable params: 8,147,268
+Non-trainable params: 5,760
+____________________________________________________________________________________________________
+ Input shape: (192, 96, 3), Output: (None, 4) classes
+Classifying image ...
+Bounding-Box: [[ 14.98822689  63.95275879  65.95994568  64.08783722]]
+Class scores:
+12-8-Time          0.00372
+2-2-Time           0.01676
+2-4-Time           0.00239
+3-4-Time           0.00006
+3-8-Time           0.00004
+4-4-Time           0.00336
+6-8-Time           0.00007
+9-8-Time           0.00033
+Barline            0.00015
+C-Clef             0.66081
+Common-Time        0.00219
+Cut-Time           0.00078
+Dot                0.00064
+Double-Sharp       0.00006
+Eighth-Note        0.00981
+Eighth-Rest        0.00859
+F-Clef             0.10388
+Flat               0.00451
+G-Clef             0.00272
+Half-Note          0.00047
+Natural            0.00048
+Quarter-Note       0.00002
+Quarter-Rest       0.17393
+Sharp              0.00032
+Sixteenth-Note     0.00004
+Sixteenth-Rest     0.00026
+Sixty-Four-Note    0.00000
+Sixty-Four-Rest    0.00002
+Thirty-Two-Note    0.00061
+Thirty-Two-Rest    0.00055
+Whole-Half-Rest    0.00213
+Whole-Note         0.00031
+ Image is most likely: C-Clef (certainty: 0.66)
+**********************
+Windows PowerShell transcript end
+End time: 20170630091601
+**********************
+**********************
+Windows PowerShell transcript start
+Start time: 20170630092246
+Username: DONKEY\Alex
+RunAs User: DONKEY\Alex
+Machine: DONKEY (Microsoft Windows NT 10.0.15063.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -Command if((Get-ExecutionPolicy ) -ne 'AllSigned') { Set-ExecutionPolicy -Scope Process Bypass }; & 'C:\Users\Alex\Repositories\MusicSymbolClassifier\HomusTrainer\TestModel.ps1'
+Process ID: 14300
+PSVersion: 5.1.15063.413
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.15063.413
+BuildVersion: 10.0.15063.413
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\Users\Alex\Repositories\MusicSymbolClassifier\HomusTrainer\2017-06-30_vgg4_with_localization_test.txt
+Using TensorFlow backend.
+Model:  vgg4_with_localization
+Weights loaded from :  2017-06-29_vgg4_with_localization_192x96_multistaff.h5
+Images:  ['C:\\Users\\Alex\\Desktop\\15-40_3_offset_67_1.png', 'C:\\Users\\Alex\\Desktop\\15-40_3_offset_67_2.png', 'C:\\Users\\Alex\\Desktop\\15-40_3_offset_67_3.png', 'C:\\Users\\Alex\\De
+sktop\\15-40_3_offset_67_4.png', 'C:\\Users\\Alex\\Desktop\\15-40_3_offset_67_5.png', 'C:\\Users\\Alex\\Desktop\\15-40_3_offset_67_6.png']
+Loading classifier...
+2017-06-30 09:22:50.557671: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use
+SSE instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:22:50.557857: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use
+SSE2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:22:50.558137: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use
+SSE3 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:22:50.558189: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use
+SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:22:50.558240: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use
+SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:22:50.558292: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use
+AVX instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:22:50.558343: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use
+AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:22:50.558393: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use
+FMA instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:22:50.858139: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:887] Found device 0 with properties:
+name: GeForce GTX 1080 Ti
+major: 6 minor: 1 memoryClockRate (GHz) 1.582
+pciBusID 0000:01:00.0
+Total memory: 11.00GiB
+Free memory: 9.12GiB
+2017-06-30 09:22:50.858453: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:908] DMA: 0
+2017-06-30 09:22:50.859144: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:918] 0:   Y
+2017-06-30 09:22:50.859230: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:977] Creating TensorFlow device (/gpu:0) -> (de
+vice: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:01:00.0)____________________________________________________________________________________________________
+Layer (type)                     Output Shape          Param #     Connected to
+====================================================================================================
+input_1 (InputLayer)             (None, 192, 96, 3)    0
+____________________________________________________________________________________________________
+conv2d_1 (Conv2D)                (None, 192, 96, 32)   896         input_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_1 (BatchNorm (None, 192, 96, 32)   128         conv2d_1[0][0]
+____________________________________________________________________________________________________
+activation_1 (Activation)        (None, 192, 96, 32)   0           batch_normalization_1[0][0]
+____________________________________________________________________________________________________
+conv2d_2 (Conv2D)                (None, 192, 96, 32)   9248        activation_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_2 (BatchNorm (None, 192, 96, 32)   128         conv2d_2[0][0]
+____________________________________________________________________________________________________
+activation_2 (Activation)        (None, 192, 96, 32)   0           batch_normalization_2[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_1 (MaxPooling2D)   (None, 96, 48, 32)    0           activation_2[0][0]
+____________________________________________________________________________________________________
+conv2d_3 (Conv2D)                (None, 96, 48, 64)    18496       max_pooling2d_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_3 (BatchNorm (None, 96, 48, 64)    256         conv2d_3[0][0]
+____________________________________________________________________________________________________
+activation_3 (Activation)        (None, 96, 48, 64)    0           batch_normalization_3[0][0]
+____________________________________________________________________________________________________
+conv2d_4 (Conv2D)                (None, 96, 48, 64)    36928       activation_3[0][0]
+____________________________________________________________________________________________________
+batch_normalization_4 (BatchNorm (None, 96, 48, 64)    256         conv2d_4[0][0]
+____________________________________________________________________________________________________
+activation_4 (Activation)        (None, 96, 48, 64)    0           batch_normalization_4[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_2 (MaxPooling2D)   (None, 48, 24, 64)    0           activation_4[0][0]
+____________________________________________________________________________________________________
+conv2d_5 (Conv2D)                (None, 48, 24, 128)   73856       max_pooling2d_2[0][0]
+____________________________________________________________________________________________________
+batch_normalization_5 (BatchNorm (None, 48, 24, 128)   512         conv2d_5[0][0]
+____________________________________________________________________________________________________
+activation_5 (Activation)        (None, 48, 24, 128)   0           batch_normalization_5[0][0]
+____________________________________________________________________________________________________
+conv2d_6 (Conv2D)                (None, 48, 24, 128)   147584      activation_5[0][0]
+____________________________________________________________________________________________________
+batch_normalization_6 (BatchNorm (None, 48, 24, 128)   512         conv2d_6[0][0]
+____________________________________________________________________________________________________
+activation_6 (Activation)        (None, 48, 24, 128)   0           batch_normalization_6[0][0]
+____________________________________________________________________________________________________
+conv2d_7 (Conv2D)                (None, 48, 24, 128)   147584      activation_6[0][0]
+____________________________________________________________________________________________________
+batch_normalization_7 (BatchNorm (None, 48, 24, 128)   512         conv2d_7[0][0]
+____________________________________________________________________________________________________
+activation_7 (Activation)        (None, 48, 24, 128)   0           batch_normalization_7[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_3 (MaxPooling2D)   (None, 24, 12, 128)   0           activation_7[0][0]
+____________________________________________________________________________________________________
+conv2d_8 (Conv2D)                (None, 24, 12, 256)   295168      max_pooling2d_3[0][0]
+____________________________________________________________________________________________________
+batch_normalization_8 (BatchNorm (None, 24, 12, 256)   1024        conv2d_8[0][0]
+____________________________________________________________________________________________________
+activation_8 (Activation)        (None, 24, 12, 256)   0           batch_normalization_8[0][0]
+____________________________________________________________________________________________________
+conv2d_9 (Conv2D)                (None, 24, 12, 256)   590080      activation_8[0][0]
+____________________________________________________________________________________________________
+batch_normalization_9 (BatchNorm (None, 24, 12, 256)   1024        conv2d_9[0][0]
+____________________________________________________________________________________________________
+activation_9 (Activation)        (None, 24, 12, 256)   0           batch_normalization_9[0][0]
+____________________________________________________________________________________________________
+conv2d_10 (Conv2D)               (None, 24, 12, 256)   590080      activation_9[0][0]
+____________________________________________________________________________________________________
+batch_normalization_10 (BatchNor (None, 24, 12, 256)   1024        conv2d_10[0][0]
+____________________________________________________________________________________________________
+activation_10 (Activation)       (None, 24, 12, 256)   0           batch_normalization_10[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_4 (MaxPooling2D)   (None, 12, 6, 256)    0           activation_10[0][0]
+____________________________________________________________________________________________________
+conv2d_11 (Conv2D)               (None, 12, 6, 512)    1180160     max_pooling2d_4[0][0]
+____________________________________________________________________________________________________
+batch_normalization_11 (BatchNor (None, 12, 6, 512)    2048        conv2d_11[0][0]
+____________________________________________________________________________________________________
+activation_11 (Activation)       (None, 12, 6, 512)    0           batch_normalization_11[0][0]
+____________________________________________________________________________________________________
+conv2d_12 (Conv2D)               (None, 12, 6, 512)    2359808     activation_11[0][0]
+____________________________________________________________________________________________________
+batch_normalization_12 (BatchNor (None, 12, 6, 512)    2048        conv2d_12[0][0]
+____________________________________________________________________________________________________
+activation_12 (Activation)       (None, 12, 6, 512)    0           batch_normalization_12[0][0]
+____________________________________________________________________________________________________
+conv2d_13 (Conv2D)               (None, 12, 6, 512)    2359808     activation_12[0][0]
+____________________________________________________________________________________________________
+batch_normalization_13 (BatchNor (None, 12, 6, 512)    2048        conv2d_13[0][0]
+____________________________________________________________________________________________________
+activation_13 (Activation)       (None, 12, 6, 512)    0           batch_normalization_13[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_5 (MaxPooling2D)   (None, 6, 3, 512)     0           activation_13[0][0]
+____________________________________________________________________________________________________
+flatten_1 (Flatten)              (None, 9216)          0           max_pooling2d_5[0][0]
+____________________________________________________________________________________________________
+output_class (Dense)             (None, 32)            294944      flatten_1[0][0]
+____________________________________________________________________________________________________
+output_bounding_box (Dense)      (None, 4)             36868       flatten_1[0][0]
+====================================================================================================
+Total params: 8,153,028
+Trainable params: 8,147,268
+Non-trainable params: 5,760
+____________________________________________________________________________________________________
+ Input shape: (192, 96, 3), Output: (None, 4) classes
+Loading image ...
+ Shape: (192, 96, 3)
+Classifying image ...
+Bounding-Box: [[ 19.89635277  62.89546967  55.81167221  65.40638733]]
+Class scores:
+12-8-Time          0.00000
+2-2-Time           0.00000
+2-4-Time           0.00001
+3-4-Time           0.00000
+3-8-Time           0.00000
+4-4-Time           0.00000
+6-8-Time           0.00000
+9-8-Time           0.00000
+Barline            0.00000
+C-Clef             0.99996
+Common-Time        0.00000
+Cut-Time           0.00000
+Dot                0.00000
+Double-Sharp       0.00000
+Eighth-Note        0.00000
+Eighth-Rest        0.00000
+F-Clef             0.00001
+Flat               0.00000
+G-Clef             0.00000
+Half-Note          0.00000
+Natural            0.00000
+Quarter-Note       0.00000
+Quarter-Rest       0.00000
+Sharp              0.00000
+Sixteenth-Note     0.00000
+Sixteenth-Rest     0.00000
+Sixty-Four-Note    0.00000
+Sixty-Four-Rest    0.00000
+Thirty-Two-Note    0.00000
+Thirty-Two-Rest    0.00000
+Whole-Half-Rest    0.00000
+Whole-Note         0.00000
+ Image is most likely: C-Clef (certainty: 1.00)
+Loading image ...
+ Shape: (192, 96, 3)
+Classifying image ...
+Bounding-Box: [[ 20.06981087  52.19916916  50.55994034  76.56549072]]
+Class scores:
+12-8-Time          0.00602
+2-2-Time           0.00002
+2-4-Time           0.00019
+3-4-Time           0.00002
+3-8-Time           0.00000
+4-4-Time           0.00023
+6-8-Time           0.00009
+9-8-Time           0.00005
+Barline            0.00003
+C-Clef             0.98488
+Common-Time        0.00019
+Cut-Time           0.00340
+Dot                0.00011
+Double-Sharp       0.00002
+Eighth-Note        0.00000
+Eighth-Rest        0.00004
+F-Clef             0.00046
+Flat               0.00000
+G-Clef             0.00002
+Half-Note          0.00022
+Natural            0.00002
+Quarter-Note       0.00000
+Quarter-Rest       0.00000
+Sharp              0.00003
+Sixteenth-Note     0.00001
+Sixteenth-Rest     0.00005
+Sixty-Four-Note    0.00001
+Sixty-Four-Rest    0.00014
+Thirty-Two-Note    0.00002
+Thirty-Two-Rest    0.00031
+Whole-Half-Rest    0.00324
+Whole-Note         0.00019
+ Image is most likely: C-Clef (certainty: 0.98)
+Loading image ...
+ Shape: (192, 96, 3)
+Classifying image ...
+Bounding-Box: [[ 21.70132446  50.92604065  48.9797821   82.94456482]]
+Class scores:
+12-8-Time          0.01001
+2-2-Time           0.00011
+2-4-Time           0.00039
+3-4-Time           0.00006
+3-8-Time           0.00001
+4-4-Time           0.00090
+6-8-Time           0.00100
+9-8-Time           0.00013
+Barline            0.00007
+C-Clef             0.97028
+Common-Time        0.00050
+Cut-Time           0.00587
+Dot                0.00053
+Double-Sharp       0.00003
+Eighth-Note        0.00000
+Eighth-Rest        0.00011
+F-Clef             0.00136
+Flat               0.00000
+G-Clef             0.00008
+Half-Note          0.00022
+Natural            0.00005
+Quarter-Note       0.00001
+Quarter-Rest       0.00005
+Sharp              0.00007
+Sixteenth-Note     0.00001
+Sixteenth-Rest     0.00005
+Sixty-Four-Note    0.00018
+Sixty-Four-Rest    0.00082
+Thirty-Two-Note    0.00008
+Thirty-Two-Rest    0.00080
+Whole-Half-Rest    0.00576
+Whole-Note         0.00044
+ Image is most likely: C-Clef (certainty: 0.97)
+Loading image ...
+ Shape: (192, 96, 3)
+Classifying image ...
+Bounding-Box: [[ 19.97816086  52.86243057  51.77735901  77.98310089]]
+Class scores:
+12-8-Time          0.00012
+2-2-Time           0.04421
+2-4-Time           0.00004
+3-4-Time           0.00003
+3-8-Time           0.00144
+4-4-Time           0.00021
+6-8-Time           0.00005
+9-8-Time           0.00309
+Barline            0.00025
+C-Clef             0.00702
+Common-Time        0.00063
+Cut-Time           0.00015
+Dot                0.00023
+Double-Sharp       0.00039
+Eighth-Note        0.00032
+Eighth-Rest        0.00003
+F-Clef             0.00007
+Flat               0.00017
+G-Clef             0.74194
+Half-Note          0.01032
+Natural            0.00000
+Quarter-Note       0.00001
+Quarter-Rest       0.00139
+Sharp              0.00040
+Sixteenth-Note     0.00000
+Sixteenth-Rest     0.00000
+Sixty-Four-Note    0.16518
+Sixty-Four-Rest    0.00983
+Thirty-Two-Note    0.00573
+Thirty-Two-Rest    0.00000
+Whole-Half-Rest    0.00089
+Whole-Note         0.00587
+ Image is most likely: G-Clef (certainty: 0.74)
+Loading image ...
+ Shape: (192, 96, 3)
+Classifying image ...
+Bounding-Box: [[ 15.47307205  62.82304001  64.94151306  65.9234314 ]]
+Class scores:
+12-8-Time          0.00018
+2-2-Time           0.00002
+2-4-Time           0.00004
+3-4-Time           0.00001
+3-8-Time           0.00002
+4-4-Time           0.00000
+6-8-Time           0.00000
+9-8-Time           0.00009
+Barline            0.00012
+C-Clef             0.86148
+Common-Time        0.00001
+Cut-Time           0.00003
+Dot                0.00000
+Double-Sharp       0.00000
+Eighth-Note        0.00002
+Eighth-Rest        0.00000
+F-Clef             0.00017
+Flat               0.00001
+G-Clef             0.00001
+Half-Note          0.00014
+Natural            0.00001
+Quarter-Note       0.00000
+Quarter-Rest       0.00000
+Sharp              0.12696
+Sixteenth-Note     0.00969
+Sixteenth-Rest     0.00001
+Sixty-Four-Note    0.00054
+Sixty-Four-Rest    0.00001
+Thirty-Two-Note    0.00029
+Thirty-Two-Rest    0.00010
+Whole-Half-Rest    0.00003
+Whole-Note         0.00002
+ Image is most likely: C-Clef (certainty: 0.86)
+Loading image ...
+ Shape: (192, 96, 3)
+Classifying image ...
+Bounding-Box: [[ 14.98822689  63.95275879  65.95994568  64.08783722]]
+Class scores:
+12-8-Time          0.00372
+2-2-Time           0.01676
+2-4-Time           0.00239
+3-4-Time           0.00006
+3-8-Time           0.00004
+4-4-Time           0.00336
+6-8-Time           0.00007
+9-8-Time           0.00033
+Barline            0.00015
+C-Clef             0.66081
+Common-Time        0.00219
+Cut-Time           0.00078
+Dot                0.00064
+Double-Sharp       0.00006
+Eighth-Note        0.00981
+Eighth-Rest        0.00859
+F-Clef             0.10388
+Flat               0.00451
+G-Clef             0.00272
+Half-Note          0.00047
+Natural            0.00048
+Quarter-Note       0.00002
+Quarter-Rest       0.17393
+Sharp              0.00032
+Sixteenth-Note     0.00004
+Sixteenth-Rest     0.00026
+Sixty-Four-Note    0.00000
+Sixty-Four-Rest    0.00002
+Thirty-Two-Note    0.00061
+Thirty-Two-Rest    0.00055
+Whole-Half-Rest    0.00213
+Whole-Note         0.00031
+ Image is most likely: C-Clef (certainty: 0.66)
+**********************
+Windows PowerShell transcript end
+End time: 20170630092304
+**********************
+**********************
+Windows PowerShell transcript start
+Start time: 20170630092551
+Username: DONKEY\Alex
+RunAs User: DONKEY\Alex
+Machine: DONKEY (Microsoft Windows NT 10.0.15063.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -Command if((Get-ExecutionPolicy ) -ne 'AllSigned') { Set-ExecutionPolicy -Scope Process Bypass }; & 'C:\Users\Alex\Repositories\MusicSymbolClassifier\HomusTrainer\TestModel.ps1'
+Process ID: 9908
+PSVersion: 5.1.15063.413
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.15063.413
+BuildVersion: 10.0.15063.413
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\Users\Alex\Repositories\MusicSymbolClassifier\HomusTrainer\2017-06-30_vgg4_with_localization_test.txt
+Using TensorFlow backend.
+Model:  vgg4_with_localization
+Weights loaded from :  2017-06-29_vgg4_with_localization_192x96_multistaff.h5
+Loading classifier...
+2017-06-30 09:25:55.202769: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:25:55.202921: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:25:55.203236: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE3 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:25:55.203322: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:25:55.203409: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:25:55.203494: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:25:55.203579: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:25:55.203657: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 09:25:55.507919: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:887] Found device 0 with properties:
+name: GeForce GTX 1080 Ti
+major: 6 minor: 1 memoryClockRate (GHz) 1.582
+pciBusID 0000:01:00.0
+Total memory: 11.00GiB
+Free memory: 9.12GiB
+2017-06-30 09:25:55.508100: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:908] DMA: 0
+2017-06-30 09:25:55.508571: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:918] 0:   Y
+2017-06-30 09:25:55.508628: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:977] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:01:00.0)
+____________________________________________________________________________________________________
+Layer (type)                     Output Shape          Param #     Connected to
+====================================================================================================
+input_1 (InputLayer)             (None, 192, 96, 3)    0
+____________________________________________________________________________________________________
+conv2d_1 (Conv2D)                (None, 192, 96, 32)   896         input_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_1 (BatchNorm (None, 192, 96, 32)   128         conv2d_1[0][0]
+____________________________________________________________________________________________________
+activation_1 (Activation)        (None, 192, 96, 32)   0           batch_normalization_1[0][0]
+____________________________________________________________________________________________________
+conv2d_2 (Conv2D)                (None, 192, 96, 32)   9248        activation_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_2 (BatchNorm (None, 192, 96, 32)   128         conv2d_2[0][0]
+____________________________________________________________________________________________________
+activation_2 (Activation)        (None, 192, 96, 32)   0           batch_normalization_2[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_1 (MaxPooling2D)   (None, 96, 48, 32)    0           activation_2[0][0]
+____________________________________________________________________________________________________
+conv2d_3 (Conv2D)                (None, 96, 48, 64)    18496       max_pooling2d_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_3 (BatchNorm (None, 96, 48, 64)    256         conv2d_3[0][0]
+____________________________________________________________________________________________________
+activation_3 (Activation)        (None, 96, 48, 64)    0           batch_normalization_3[0][0]
+____________________________________________________________________________________________________
+conv2d_4 (Conv2D)                (None, 96, 48, 64)    36928       activation_3[0][0]
+____________________________________________________________________________________________________
+batch_normalization_4 (BatchNorm (None, 96, 48, 64)    256         conv2d_4[0][0]
+____________________________________________________________________________________________________
+activation_4 (Activation)        (None, 96, 48, 64)    0           batch_normalization_4[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_2 (MaxPooling2D)   (None, 48, 24, 64)    0           activation_4[0][0]
+____________________________________________________________________________________________________
+conv2d_5 (Conv2D)                (None, 48, 24, 128)   73856       max_pooling2d_2[0][0]
+____________________________________________________________________________________________________
+batch_normalization_5 (BatchNorm (None, 48, 24, 128)   512         conv2d_5[0][0]
+____________________________________________________________________________________________________
+activation_5 (Activation)        (None, 48, 24, 128)   0           batch_normalization_5[0][0]
+____________________________________________________________________________________________________
+conv2d_6 (Conv2D)                (None, 48, 24, 128)   147584      activation_5[0][0]
+____________________________________________________________________________________________________
+batch_normalization_6 (BatchNorm (None, 48, 24, 128)   512         conv2d_6[0][0]
+____________________________________________________________________________________________________
+activation_6 (Activation)        (None, 48, 24, 128)   0           batch_normalization_6[0][0]
+____________________________________________________________________________________________________
+conv2d_7 (Conv2D)                (None, 48, 24, 128)   147584      activation_6[0][0]
+____________________________________________________________________________________________________
+batch_normalization_7 (BatchNorm (None, 48, 24, 128)   512         conv2d_7[0][0]
+____________________________________________________________________________________________________
+activation_7 (Activation)        (None, 48, 24, 128)   0           batch_normalization_7[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_3 (MaxPooling2D)   (None, 24, 12, 128)   0           activation_7[0][0]
+____________________________________________________________________________________________________
+conv2d_8 (Conv2D)                (None, 24, 12, 256)   295168      max_pooling2d_3[0][0]
+____________________________________________________________________________________________________
+batch_normalization_8 (BatchNorm (None, 24, 12, 256)   1024        conv2d_8[0][0]
+____________________________________________________________________________________________________
+activation_8 (Activation)        (None, 24, 12, 256)   0           batch_normalization_8[0][0]
+____________________________________________________________________________________________________
+conv2d_9 (Conv2D)                (None, 24, 12, 256)   590080      activation_8[0][0]
+____________________________________________________________________________________________________
+batch_normalization_9 (BatchNorm (None, 24, 12, 256)   1024        conv2d_9[0][0]
+____________________________________________________________________________________________________
+activation_9 (Activation)        (None, 24, 12, 256)   0           batch_normalization_9[0][0]
+____________________________________________________________________________________________________
+conv2d_10 (Conv2D)               (None, 24, 12, 256)   590080      activation_9[0][0]
+____________________________________________________________________________________________________
+batch_normalization_10 (BatchNor (None, 24, 12, 256)   1024        conv2d_10[0][0]
+____________________________________________________________________________________________________
+activation_10 (Activation)       (None, 24, 12, 256)   0           batch_normalization_10[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_4 (MaxPooling2D)   (None, 12, 6, 256)    0           activation_10[0][0]
+____________________________________________________________________________________________________
+conv2d_11 (Conv2D)               (None, 12, 6, 512)    1180160     max_pooling2d_4[0][0]
+____________________________________________________________________________________________________
+batch_normalization_11 (BatchNor (None, 12, 6, 512)    2048        conv2d_11[0][0]
+____________________________________________________________________________________________________
+activation_11 (Activation)       (None, 12, 6, 512)    0           batch_normalization_11[0][0]
+____________________________________________________________________________________________________
+conv2d_12 (Conv2D)               (None, 12, 6, 512)    2359808     activation_11[0][0]
+____________________________________________________________________________________________________
+batch_normalization_12 (BatchNor (None, 12, 6, 512)    2048        conv2d_12[0][0]
+____________________________________________________________________________________________________
+activation_12 (Activation)       (None, 12, 6, 512)    0           batch_normalization_12[0][0]
+____________________________________________________________________________________________________
+conv2d_13 (Conv2D)               (None, 12, 6, 512)    2359808     activation_12[0][0]
+____________________________________________________________________________________________________
+batch_normalization_13 (BatchNor (None, 12, 6, 512)    2048        conv2d_13[0][0]
+____________________________________________________________________________________________________
+activation_13 (Activation)       (None, 12, 6, 512)    0           batch_normalization_13[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_5 (MaxPooling2D)   (None, 6, 3, 512)     0           activation_13[0][0]
+____________________________________________________________________________________________________
+flatten_1 (Flatten)              (None, 9216)          0           max_pooling2d_5[0][0]
+____________________________________________________________________________________________________
+output_class (Dense)             (None, 32)            294944      flatten_1[0][0]
+____________________________________________________________________________________________________
+output_bounding_box (Dense)      (None, 4)             36868       flatten_1[0][0]
+====================================================================================================
+Total params: 8,153,028
+Trainable params: 8,147,268
+Non-trainable params: 5,760
+____________________________________________________________________________________________________
+ Input shape: (192, 96, 3), Output: (None, 4) classes
+
+Loading image C:\Users\Alex\Desktop\15-40_3_offset_67_1.png of shape (192, 96, 3)
+Classifying image ...
+Bounding-Box: [[ 19.89635277  62.89546967  55.81167221  65.40638733]]
+Class scores:
+12-8-Time          0.00000
+2-2-Time           0.00000
+2-4-Time           0.00001
+3-4-Time           0.00000
+3-8-Time           0.00000
+4-4-Time           0.00000
+6-8-Time           0.00000
+9-8-Time           0.00000
+Barline            0.00000
+C-Clef             0.99996
+Common-Time        0.00000
+Cut-Time           0.00000
+Dot                0.00000
+Double-Sharp       0.00000
+Eighth-Note        0.00000
+Eighth-Rest        0.00000
+F-Clef             0.00001
+Flat               0.00000
+G-Clef             0.00000
+Half-Note          0.00000
+Natural            0.00000
+Quarter-Note       0.00000
+Quarter-Rest       0.00000
+Sharp              0.00000
+Sixteenth-Note     0.00000
+Sixteenth-Rest     0.00000
+Sixty-Four-Note    0.00000
+Sixty-Four-Rest    0.00000
+Thirty-Two-Note    0.00000
+Thirty-Two-Rest    0.00000
+Whole-Half-Rest    0.00000
+Whole-Note         0.00000
+ Image is most likely: C-Clef (certainty: 1.00)
+
+Loading image C:\Users\Alex\Desktop\15-40_3_offset_67_2.png of shape (192, 96, 3)
+Classifying image ...
+Bounding-Box: [[ 20.06981087  52.19916916  50.55994034  76.56549072]]
+Class scores:
+12-8-Time          0.00602
+2-2-Time           0.00002
+2-4-Time           0.00019
+3-4-Time           0.00002
+3-8-Time           0.00000
+4-4-Time           0.00023
+6-8-Time           0.00009
+9-8-Time           0.00005
+Barline            0.00003
+C-Clef             0.98488
+Common-Time        0.00019
+Cut-Time           0.00340
+Dot                0.00011
+Double-Sharp       0.00002
+Eighth-Note        0.00000
+Eighth-Rest        0.00004
+F-Clef             0.00046
+Flat               0.00000
+G-Clef             0.00002
+Half-Note          0.00022
+Natural            0.00002
+Quarter-Note       0.00000
+Quarter-Rest       0.00000
+Sharp              0.00003
+Sixteenth-Note     0.00001
+Sixteenth-Rest     0.00005
+Sixty-Four-Note    0.00001
+Sixty-Four-Rest    0.00014
+Thirty-Two-Note    0.00002
+Thirty-Two-Rest    0.00031
+Whole-Half-Rest    0.00324
+Whole-Note         0.00019
+ Image is most likely: C-Clef (certainty: 0.98)
+
+Loading image C:\Users\Alex\Desktop\15-40_3_offset_67_3.png of shape (192, 96, 3)
+Classifying image ...
+Bounding-Box: [[ 21.70132446  50.92604065  48.9797821   82.94456482]]
+Class scores:
+12-8-Time          0.01001
+2-2-Time           0.00011
+2-4-Time           0.00039
+3-4-Time           0.00006
+3-8-Time           0.00001
+4-4-Time           0.00090
+6-8-Time           0.00100
+9-8-Time           0.00013
+Barline            0.00007
+C-Clef             0.97028
+Common-Time        0.00050
+Cut-Time           0.00587
+Dot                0.00053
+Double-Sharp       0.00003
+Eighth-Note        0.00000
+Eighth-Rest        0.00011
+F-Clef             0.00136
+Flat               0.00000
+G-Clef             0.00008
+Half-Note          0.00022
+Natural            0.00005
+Quarter-Note       0.00001
+Quarter-Rest       0.00005
+Sharp              0.00007
+Sixteenth-Note     0.00001
+Sixteenth-Rest     0.00005
+Sixty-Four-Note    0.00018
+Sixty-Four-Rest    0.00082
+Thirty-Two-Note    0.00008
+Thirty-Two-Rest    0.00080
+Whole-Half-Rest    0.00576
+Whole-Note         0.00044
+ Image is most likely: C-Clef (certainty: 0.97)
+
+Loading image C:\Users\Alex\Desktop\15-40_3_offset_67_4.png of shape (192, 96, 3)
+Classifying image ...
+Bounding-Box: [[ 19.97816086  52.86243057  51.77735901  77.98310089]]
+Class scores:
+12-8-Time          0.00012
+2-2-Time           0.04421
+2-4-Time           0.00004
+3-4-Time           0.00003
+3-8-Time           0.00144
+4-4-Time           0.00021
+6-8-Time           0.00005
+9-8-Time           0.00309
+Barline            0.00025
+C-Clef             0.00702
+Common-Time        0.00063
+Cut-Time           0.00015
+Dot                0.00023
+Double-Sharp       0.00039
+Eighth-Note        0.00032
+Eighth-Rest        0.00003
+F-Clef             0.00007
+Flat               0.00017
+G-Clef             0.74194
+Half-Note          0.01032
+Natural            0.00000
+Quarter-Note       0.00001
+Quarter-Rest       0.00139
+Sharp              0.00040
+Sixteenth-Note     0.00000
+Sixteenth-Rest     0.00000
+Sixty-Four-Note    0.16518
+Sixty-Four-Rest    0.00983
+Thirty-Two-Note    0.00573
+Thirty-Two-Rest    0.00000
+Whole-Half-Rest    0.00089
+Whole-Note         0.00587
+ Image is most likely: G-Clef (certainty: 0.74)
+
+Loading image C:\Users\Alex\Desktop\15-40_3_offset_67_5.png of shape (192, 96, 3)
+Classifying image ...
+Bounding-Box: [[ 15.47307205  62.82304001  64.94151306  65.9234314 ]]
+Class scores:
+12-8-Time          0.00018
+2-2-Time           0.00002
+2-4-Time           0.00004
+3-4-Time           0.00001
+3-8-Time           0.00002
+4-4-Time           0.00000
+6-8-Time           0.00000
+9-8-Time           0.00009
+Barline            0.00012
+C-Clef             0.86148
+Common-Time        0.00001
+Cut-Time           0.00003
+Dot                0.00000
+Double-Sharp       0.00000
+Eighth-Note        0.00002
+Eighth-Rest        0.00000
+F-Clef             0.00017
+Flat               0.00001
+G-Clef             0.00001
+Half-Note          0.00014
+Natural            0.00001
+Quarter-Note       0.00000
+Quarter-Rest       0.00000
+Sharp              0.12696
+Sixteenth-Note     0.00969
+Sixteenth-Rest     0.00001
+Sixty-Four-Note    0.00054
+Sixty-Four-Rest    0.00001
+Thirty-Two-Note    0.00029
+Thirty-Two-Rest    0.00010
+Whole-Half-Rest    0.00003
+Whole-Note         0.00002
+ Image is most likely: C-Clef (certainty: 0.86)
+
+Loading image C:\Users\Alex\Desktop\15-40_3_offset_67_6.png of shape (192, 96, 3)
+Classifying image ...
+Bounding-Box: [[ 14.98822689  63.95275879  65.95994568  64.08783722]]
+Class scores:
+12-8-Time          0.00372
+2-2-Time           0.01676
+2-4-Time           0.00239
+3-4-Time           0.00006
+3-8-Time           0.00004
+4-4-Time           0.00336
+6-8-Time           0.00007
+9-8-Time           0.00033
+Barline            0.00015
+C-Clef             0.66081
+Common-Time        0.00219
+Cut-Time           0.00078
+Dot                0.00064
+Double-Sharp       0.00006
+Eighth-Note        0.00981
+Eighth-Rest        0.00859
+F-Clef             0.10388
+Flat               0.00451
+G-Clef             0.00272
+Half-Note          0.00047
+Natural            0.00048
+Quarter-Note       0.00002
+Quarter-Rest       0.17393
+Sharp              0.00032
+Sixteenth-Note     0.00004
+Sixteenth-Rest     0.00026
+Sixty-Four-Note    0.00000
+Sixty-Four-Rest    0.00002
+Thirty-Two-Note    0.00061
+Thirty-Two-Rest    0.00055
+Whole-Half-Rest    0.00213
+Whole-Note         0.00031
+ Image is most likely: C-Clef (certainty: 0.66)
+**********************
+Windows PowerShell transcript end
+End time: 20170630092608
+**********************
+**********************
+Windows PowerShell transcript start
+Start time: 20170630102405
+Username: DONKEY\Alex
+RunAs User: DONKEY\Alex
+Machine: DONKEY (Microsoft Windows NT 10.0.15063.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -Command if((Get-ExecutionPolicy ) -ne 'AllSigned') { Set-ExecutionPolicy -Scope Process Bypass }; & 'C:\Users\Alex\Repositories\MusicSymbolClassifier\HomusTrainer\TestModel.ps1'
+Process ID: 8792
+PSVersion: 5.1.15063.413
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.15063.413
+BuildVersion: 10.0.15063.413
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\Users\Alex\Repositories\MusicSymbolClassifier\HomusTrainer\2017-06-30_vgg4_with_localization_test.txt
+Using TensorFlow backend.
+Model:  vgg4_with_localization
+Weights loaded from :  2017-06-29_vgg4_with_localization_192x96_multistaff.h5
+Loading classifier...
+2017-06-30 10:24:09.129775: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 10:24:09.129910: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 10:24:09.130211: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE3 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 10:24:09.130317: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 10:24:09.130387: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 10:24:09.130440: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 10:24:09.130491: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 10:24:09.130542: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 10:24:09.445182: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:887] Found device 0 with properties:
+name: GeForce GTX 1080 Ti
+major: 6 minor: 1 memoryClockRate (GHz) 1.582
+pciBusID 0000:01:00.0
+Total memory: 11.00GiB
+Free memory: 9.12GiB
+2017-06-30 10:24:09.445362: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:908] DMA: 0
+2017-06-30 10:24:09.445840: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:918] 0:   Y
+2017-06-30 10:24:09.445943: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:977] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:01:00.0)
+____________________________________________________________________________________________________
+Layer (type)                     Output Shape          Param #     Connected to
+====================================================================================================
+input_1 (InputLayer)             (None, 192, 96, 3)    0
+____________________________________________________________________________________________________
+conv2d_1 (Conv2D)                (None, 192, 96, 32)   896         input_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_1 (BatchNorm (None, 192, 96, 32)   128         conv2d_1[0][0]
+____________________________________________________________________________________________________
+activation_1 (Activation)        (None, 192, 96, 32)   0           batch_normalization_1[0][0]
+____________________________________________________________________________________________________
+conv2d_2 (Conv2D)                (None, 192, 96, 32)   9248        activation_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_2 (BatchNorm (None, 192, 96, 32)   128         conv2d_2[0][0]
+____________________________________________________________________________________________________
+activation_2 (Activation)        (None, 192, 96, 32)   0           batch_normalization_2[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_1 (MaxPooling2D)   (None, 96, 48, 32)    0           activation_2[0][0]
+____________________________________________________________________________________________________
+conv2d_3 (Conv2D)                (None, 96, 48, 64)    18496       max_pooling2d_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_3 (BatchNorm (None, 96, 48, 64)    256         conv2d_3[0][0]
+____________________________________________________________________________________________________
+activation_3 (Activation)        (None, 96, 48, 64)    0           batch_normalization_3[0][0]
+____________________________________________________________________________________________________
+conv2d_4 (Conv2D)                (None, 96, 48, 64)    36928       activation_3[0][0]
+____________________________________________________________________________________________________
+batch_normalization_4 (BatchNorm (None, 96, 48, 64)    256         conv2d_4[0][0]
+____________________________________________________________________________________________________
+activation_4 (Activation)        (None, 96, 48, 64)    0           batch_normalization_4[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_2 (MaxPooling2D)   (None, 48, 24, 64)    0           activation_4[0][0]
+____________________________________________________________________________________________________
+conv2d_5 (Conv2D)                (None, 48, 24, 128)   73856       max_pooling2d_2[0][0]
+____________________________________________________________________________________________________
+batch_normalization_5 (BatchNorm (None, 48, 24, 128)   512         conv2d_5[0][0]
+____________________________________________________________________________________________________
+activation_5 (Activation)        (None, 48, 24, 128)   0           batch_normalization_5[0][0]
+____________________________________________________________________________________________________
+conv2d_6 (Conv2D)                (None, 48, 24, 128)   147584      activation_5[0][0]
+____________________________________________________________________________________________________
+batch_normalization_6 (BatchNorm (None, 48, 24, 128)   512         conv2d_6[0][0]
+____________________________________________________________________________________________________
+activation_6 (Activation)        (None, 48, 24, 128)   0           batch_normalization_6[0][0]
+____________________________________________________________________________________________________
+conv2d_7 (Conv2D)                (None, 48, 24, 128)   147584      activation_6[0][0]
+____________________________________________________________________________________________________
+batch_normalization_7 (BatchNorm (None, 48, 24, 128)   512         conv2d_7[0][0]
+____________________________________________________________________________________________________
+activation_7 (Activation)        (None, 48, 24, 128)   0           batch_normalization_7[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_3 (MaxPooling2D)   (None, 24, 12, 128)   0           activation_7[0][0]
+____________________________________________________________________________________________________
+conv2d_8 (Conv2D)                (None, 24, 12, 256)   295168      max_pooling2d_3[0][0]
+____________________________________________________________________________________________________
+batch_normalization_8 (BatchNorm (None, 24, 12, 256)   1024        conv2d_8[0][0]
+____________________________________________________________________________________________________
+activation_8 (Activation)        (None, 24, 12, 256)   0           batch_normalization_8[0][0]
+____________________________________________________________________________________________________
+conv2d_9 (Conv2D)                (None, 24, 12, 256)   590080      activation_8[0][0]
+____________________________________________________________________________________________________
+batch_normalization_9 (BatchNorm (None, 24, 12, 256)   1024        conv2d_9[0][0]
+____________________________________________________________________________________________________
+activation_9 (Activation)        (None, 24, 12, 256)   0           batch_normalization_9[0][0]
+____________________________________________________________________________________________________
+conv2d_10 (Conv2D)               (None, 24, 12, 256)   590080      activation_9[0][0]
+____________________________________________________________________________________________________
+batch_normalization_10 (BatchNor (None, 24, 12, 256)   1024        conv2d_10[0][0]
+____________________________________________________________________________________________________
+activation_10 (Activation)       (None, 24, 12, 256)   0           batch_normalization_10[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_4 (MaxPooling2D)   (None, 12, 6, 256)    0           activation_10[0][0]
+____________________________________________________________________________________________________
+conv2d_11 (Conv2D)               (None, 12, 6, 512)    1180160     max_pooling2d_4[0][0]
+____________________________________________________________________________________________________
+batch_normalization_11 (BatchNor (None, 12, 6, 512)    2048        conv2d_11[0][0]
+____________________________________________________________________________________________________
+activation_11 (Activation)       (None, 12, 6, 512)    0           batch_normalization_11[0][0]
+____________________________________________________________________________________________________
+conv2d_12 (Conv2D)               (None, 12, 6, 512)    2359808     activation_11[0][0]
+____________________________________________________________________________________________________
+batch_normalization_12 (BatchNor (None, 12, 6, 512)    2048        conv2d_12[0][0]
+____________________________________________________________________________________________________
+activation_12 (Activation)       (None, 12, 6, 512)    0           batch_normalization_12[0][0]
+____________________________________________________________________________________________________
+conv2d_13 (Conv2D)               (None, 12, 6, 512)    2359808     activation_12[0][0]
+____________________________________________________________________________________________________
+batch_normalization_13 (BatchNor (None, 12, 6, 512)    2048        conv2d_13[0][0]
+____________________________________________________________________________________________________
+activation_13 (Activation)       (None, 12, 6, 512)    0           batch_normalization_13[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_5 (MaxPooling2D)   (None, 6, 3, 512)     0           activation_13[0][0]
+____________________________________________________________________________________________________
+flatten_1 (Flatten)              (None, 9216)          0           max_pooling2d_5[0][0]
+____________________________________________________________________________________________________
+output_class (Dense)             (None, 32)            294944      flatten_1[0][0]
+____________________________________________________________________________________________________
+output_bounding_box (Dense)      (None, 4)             36868       flatten_1[0][0]
+====================================================================================================
+Total params: 8,153,028
+Trainable params: 8,147,268
+Non-trainable params: 5,760
+____________________________________________________________________________________________________
+ Input shape: (192, 96, 3), Output: (None, 4) classes
+
+Loading image C:\Users\Alex\Desktop\15-40_3_offset_67_1.png of shape (192, 96, 3)
+Classifying image ...
+Bounding-Box: [[ 19.89635277  62.89546967  55.81167221  65.40638733]]
+Class scores:
+12-8-Time          0.00000
+2-2-Time           0.00000
+2-4-Time           0.00001
+3-4-Time           0.00000
+3-8-Time           0.00000
+4-4-Time           0.00000
+6-8-Time           0.00000
+9-8-Time           0.00000
+Barline            0.00000
+C-Clef             0.99996
+Common-Time        0.00000
+Cut-Time           0.00000
+Dot                0.00000
+Double-Sharp       0.00000
+Eighth-Note        0.00000
+Eighth-Rest        0.00000
+F-Clef             0.00001
+Flat               0.00000
+G-Clef             0.00000
+Half-Note          0.00000
+Natural            0.00000
+Quarter-Note       0.00000
+Quarter-Rest       0.00000
+Sharp              0.00000
+Sixteenth-Note     0.00000
+Sixteenth-Rest     0.00000
+Sixty-Four-Note    0.00000
+Sixty-Four-Rest    0.00000
+Thirty-Two-Note    0.00000
+Thirty-Two-Rest    0.00000
+Whole-Half-Rest    0.00000
+Whole-Note         0.00000
+ Image is most likely: C-Clef (certainty: 1.00)
+
+Loading image C:\Users\Alex\Desktop\15-40_3_offset_67_2.png of shape (192, 96, 3)
+Classifying image ...
+Bounding-Box: [[ 20.06981087  52.19916916  50.55994034  76.56549072]]
+Class scores:
+12-8-Time          0.00602
+2-2-Time           0.00002
+2-4-Time           0.00019
+3-4-Time           0.00002
+3-8-Time           0.00000
+4-4-Time           0.00023
+6-8-Time           0.00009
+9-8-Time           0.00005
+Barline            0.00003
+C-Clef             0.98488
+Common-Time        0.00019
+Cut-Time           0.00340
+Dot                0.00011
+Double-Sharp       0.00002
+Eighth-Note        0.00000
+Eighth-Rest        0.00004
+F-Clef             0.00046
+Flat               0.00000
+G-Clef             0.00002
+Half-Note          0.00022
+Natural            0.00002
+Quarter-Note       0.00000
+Quarter-Rest       0.00000
+Sharp              0.00003
+Sixteenth-Note     0.00001
+Sixteenth-Rest     0.00005
+Sixty-Four-Note    0.00001
+Sixty-Four-Rest    0.00014
+Thirty-Two-Note    0.00002
+Thirty-Two-Rest    0.00031
+Whole-Half-Rest    0.00324
+Whole-Note         0.00019
+ Image is most likely: C-Clef (certainty: 0.98)
+
+Loading image C:\Users\Alex\Desktop\15-40_3_offset_67_3.png of shape (192, 96, 3)
+Classifying image ...
+Bounding-Box: [[ 21.70132446  50.92604065  48.9797821   82.94456482]]
+Class scores:
+12-8-Time          0.01001
+2-2-Time           0.00011
+2-4-Time           0.00039
+3-4-Time           0.00006
+3-8-Time           0.00001
+4-4-Time           0.00090
+6-8-Time           0.00100
+9-8-Time           0.00013
+Barline            0.00007
+C-Clef             0.97028
+Common-Time        0.00050
+Cut-Time           0.00587
+Dot                0.00053
+Double-Sharp       0.00003
+Eighth-Note        0.00000
+Eighth-Rest        0.00011
+F-Clef             0.00136
+Flat               0.00000
+G-Clef             0.00008
+Half-Note          0.00022
+Natural            0.00005
+Quarter-Note       0.00001
+Quarter-Rest       0.00005
+Sharp              0.00007
+Sixteenth-Note     0.00001
+Sixteenth-Rest     0.00005
+Sixty-Four-Note    0.00018
+Sixty-Four-Rest    0.00082
+Thirty-Two-Note    0.00008
+Thirty-Two-Rest    0.00080
+Whole-Half-Rest    0.00576
+Whole-Note         0.00044
+ Image is most likely: C-Clef (certainty: 0.97)
+
+Loading image C:\Users\Alex\Desktop\15-40_3_offset_67_4.png of shape (192, 96, 3)
+Classifying image ...
+Bounding-Box: [[ 19.97816086  52.86243057  51.77735901  77.98310089]]
+Class scores:
+12-8-Time          0.00012
+2-2-Time           0.04421
+2-4-Time           0.00004
+3-4-Time           0.00003
+3-8-Time           0.00144
+4-4-Time           0.00021
+6-8-Time           0.00005
+9-8-Time           0.00309
+Barline            0.00025
+C-Clef             0.00702
+Common-Time        0.00063
+Cut-Time           0.00015
+Dot                0.00023
+Double-Sharp       0.00039
+Eighth-Note        0.00032
+Eighth-Rest        0.00003
+F-Clef             0.00007
+Flat               0.00017
+G-Clef             0.74194
+Half-Note          0.01032
+Natural            0.00000
+Quarter-Note       0.00001
+Quarter-Rest       0.00139
+Sharp              0.00040
+Sixteenth-Note     0.00000
+Sixteenth-Rest     0.00000
+Sixty-Four-Note    0.16518
+Sixty-Four-Rest    0.00983
+Thirty-Two-Note    0.00573
+Thirty-Two-Rest    0.00000
+Whole-Half-Rest    0.00089
+Whole-Note         0.00587
+ Image is most likely: G-Clef (certainty: 0.74)
+
+Loading image C:\Users\Alex\Desktop\15-40_3_offset_67_5.png of shape (192, 96, 3)
+Classifying image ...
+Bounding-Box: [[ 15.47307205  62.82304001  64.94151306  65.9234314 ]]
+Class scores:
+12-8-Time          0.00018
+2-2-Time           0.00002
+2-4-Time           0.00004
+3-4-Time           0.00001
+3-8-Time           0.00002
+4-4-Time           0.00000
+6-8-Time           0.00000
+9-8-Time           0.00009
+Barline            0.00012
+C-Clef             0.86148
+Common-Time        0.00001
+Cut-Time           0.00003
+Dot                0.00000
+Double-Sharp       0.00000
+Eighth-Note        0.00002
+Eighth-Rest        0.00000
+F-Clef             0.00017
+Flat               0.00001
+G-Clef             0.00001
+Half-Note          0.00014
+Natural            0.00001
+Quarter-Note       0.00000
+Quarter-Rest       0.00000
+Sharp              0.12696
+Sixteenth-Note     0.00969
+Sixteenth-Rest     0.00001
+Sixty-Four-Note    0.00054
+Sixty-Four-Rest    0.00001
+Thirty-Two-Note    0.00029
+Thirty-Two-Rest    0.00010
+Whole-Half-Rest    0.00003
+Whole-Note         0.00002
+ Image is most likely: C-Clef (certainty: 0.86)
+
+Loading image C:\Users\Alex\Desktop\15-40_3_offset_67_6.png of shape (192, 96, 3)
+Classifying image ...
+Bounding-Box: [[ 14.98822689  63.95275879  65.95994568  64.08783722]]
+Class scores:
+12-8-Time          0.00372
+2-2-Time           0.01676
+2-4-Time           0.00239
+3-4-Time           0.00006
+3-8-Time           0.00004
+4-4-Time           0.00336
+6-8-Time           0.00007
+9-8-Time           0.00033
+Barline            0.00015
+C-Clef             0.66081
+Common-Time        0.00219
+Cut-Time           0.00078
+Dot                0.00064
+Double-Sharp       0.00006
+Eighth-Note        0.00981
+Eighth-Rest        0.00859
+F-Clef             0.10388
+Flat               0.00451
+G-Clef             0.00272
+Half-Note          0.00047
+Natural            0.00048
+Quarter-Note       0.00002
+Quarter-Rest       0.17393
+Sharp              0.00032
+Sixteenth-Note     0.00004
+Sixteenth-Rest     0.00026
+Sixty-Four-Note    0.00000
+Sixty-Four-Rest    0.00002
+Thirty-Two-Note    0.00061
+Thirty-Two-Rest    0.00055
+Whole-Half-Rest    0.00213
+Whole-Note         0.00031
+ Image is most likely: C-Clef (certainty: 0.66)
+**********************
+Windows PowerShell transcript end
+End time: 20170630102422
+**********************
+**********************
+Windows PowerShell transcript start
+Start time: 20170630102600
+Username: DONKEY\Alex
+RunAs User: DONKEY\Alex
+Machine: DONKEY (Microsoft Windows NT 10.0.15063.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -Command if((Get-ExecutionPolicy ) -ne 'AllSigned') { Set-ExecutionPolicy -Scope Process Bypass }; & 'C:\Users\Alex\Repositories\MusicSymbolClassifier\HomusTrainer\TestModel.ps1'
+Process ID: 2456
+PSVersion: 5.1.15063.413
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.15063.413
+BuildVersion: 10.0.15063.413
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\Users\Alex\Repositories\MusicSymbolClassifier\HomusTrainer\2017-06-30_vgg4_with_localization_test.txt
+Using TensorFlow backend.
+Model:  vgg4_with_localization
+Weights loaded from :  2017-06-29_vgg4_with_localization_192x96_multistaff.h5
+Loading classifier...
+2017-06-30 10:26:04.262824: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 10:26:04.262989: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 10:26:04.263254: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE3 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 10:26:04.263306: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 10:26:04.263357: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 10:26:04.263408: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 10:26:04.263459: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 10:26:04.263510: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 10:26:04.578946: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:887] Found device 0 with properties:
+name: GeForce GTX 1080 Ti
+major: 6 minor: 1 memoryClockRate (GHz) 1.582
+pciBusID 0000:01:00.0
+Total memory: 11.00GiB
+Free memory: 9.12GiB
+2017-06-30 10:26:04.579126: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:908] DMA: 0
+2017-06-30 10:26:04.579524: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:918] 0:   Y
+2017-06-30 10:26:04.579576: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:977] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:01:00.0)
+____________________________________________________________________________________________________
+Layer (type)                     Output Shape          Param #     Connected to
+====================================================================================================
+input_1 (InputLayer)             (None, 192, 96, 3)    0
+____________________________________________________________________________________________________
+conv2d_1 (Conv2D)                (None, 192, 96, 32)   896         input_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_1 (BatchNorm (None, 192, 96, 32)   128         conv2d_1[0][0]
+____________________________________________________________________________________________________
+activation_1 (Activation)        (None, 192, 96, 32)   0           batch_normalization_1[0][0]
+____________________________________________________________________________________________________
+conv2d_2 (Conv2D)                (None, 192, 96, 32)   9248        activation_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_2 (BatchNorm (None, 192, 96, 32)   128         conv2d_2[0][0]
+____________________________________________________________________________________________________
+activation_2 (Activation)        (None, 192, 96, 32)   0           batch_normalization_2[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_1 (MaxPooling2D)   (None, 96, 48, 32)    0           activation_2[0][0]
+____________________________________________________________________________________________________
+conv2d_3 (Conv2D)                (None, 96, 48, 64)    18496       max_pooling2d_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_3 (BatchNorm (None, 96, 48, 64)    256         conv2d_3[0][0]
+____________________________________________________________________________________________________
+activation_3 (Activation)        (None, 96, 48, 64)    0           batch_normalization_3[0][0]
+____________________________________________________________________________________________________
+conv2d_4 (Conv2D)                (None, 96, 48, 64)    36928       activation_3[0][0]
+____________________________________________________________________________________________________
+batch_normalization_4 (BatchNorm (None, 96, 48, 64)    256         conv2d_4[0][0]
+____________________________________________________________________________________________________
+activation_4 (Activation)        (None, 96, 48, 64)    0           batch_normalization_4[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_2 (MaxPooling2D)   (None, 48, 24, 64)    0           activation_4[0][0]
+____________________________________________________________________________________________________
+conv2d_5 (Conv2D)                (None, 48, 24, 128)   73856       max_pooling2d_2[0][0]
+____________________________________________________________________________________________________
+batch_normalization_5 (BatchNorm (None, 48, 24, 128)   512         conv2d_5[0][0]
+____________________________________________________________________________________________________
+activation_5 (Activation)        (None, 48, 24, 128)   0           batch_normalization_5[0][0]
+____________________________________________________________________________________________________
+conv2d_6 (Conv2D)                (None, 48, 24, 128)   147584      activation_5[0][0]
+____________________________________________________________________________________________________
+batch_normalization_6 (BatchNorm (None, 48, 24, 128)   512         conv2d_6[0][0]
+____________________________________________________________________________________________________
+activation_6 (Activation)        (None, 48, 24, 128)   0           batch_normalization_6[0][0]
+____________________________________________________________________________________________________
+conv2d_7 (Conv2D)                (None, 48, 24, 128)   147584      activation_6[0][0]
+____________________________________________________________________________________________________
+batch_normalization_7 (BatchNorm (None, 48, 24, 128)   512         conv2d_7[0][0]
+____________________________________________________________________________________________________
+activation_7 (Activation)        (None, 48, 24, 128)   0           batch_normalization_7[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_3 (MaxPooling2D)   (None, 24, 12, 128)   0           activation_7[0][0]
+____________________________________________________________________________________________________
+conv2d_8 (Conv2D)                (None, 24, 12, 256)   295168      max_pooling2d_3[0][0]
+____________________________________________________________________________________________________
+batch_normalization_8 (BatchNorm (None, 24, 12, 256)   1024        conv2d_8[0][0]
+____________________________________________________________________________________________________
+activation_8 (Activation)        (None, 24, 12, 256)   0           batch_normalization_8[0][0]
+____________________________________________________________________________________________________
+conv2d_9 (Conv2D)                (None, 24, 12, 256)   590080      activation_8[0][0]
+____________________________________________________________________________________________________
+batch_normalization_9 (BatchNorm (None, 24, 12, 256)   1024        conv2d_9[0][0]
+____________________________________________________________________________________________________
+activation_9 (Activation)        (None, 24, 12, 256)   0           batch_normalization_9[0][0]
+____________________________________________________________________________________________________
+conv2d_10 (Conv2D)               (None, 24, 12, 256)   590080      activation_9[0][0]
+____________________________________________________________________________________________________
+batch_normalization_10 (BatchNor (None, 24, 12, 256)   1024        conv2d_10[0][0]
+____________________________________________________________________________________________________
+activation_10 (Activation)       (None, 24, 12, 256)   0           batch_normalization_10[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_4 (MaxPooling2D)   (None, 12, 6, 256)    0           activation_10[0][0]
+____________________________________________________________________________________________________
+conv2d_11 (Conv2D)               (None, 12, 6, 512)    1180160     max_pooling2d_4[0][0]
+____________________________________________________________________________________________________
+batch_normalization_11 (BatchNor (None, 12, 6, 512)    2048        conv2d_11[0][0]
+____________________________________________________________________________________________________
+activation_11 (Activation)       (None, 12, 6, 512)    0           batch_normalization_11[0][0]
+____________________________________________________________________________________________________
+conv2d_12 (Conv2D)               (None, 12, 6, 512)    2359808     activation_11[0][0]
+____________________________________________________________________________________________________
+batch_normalization_12 (BatchNor (None, 12, 6, 512)    2048        conv2d_12[0][0]
+____________________________________________________________________________________________________
+activation_12 (Activation)       (None, 12, 6, 512)    0           batch_normalization_12[0][0]
+____________________________________________________________________________________________________
+conv2d_13 (Conv2D)               (None, 12, 6, 512)    2359808     activation_12[0][0]
+____________________________________________________________________________________________________
+batch_normalization_13 (BatchNor (None, 12, 6, 512)    2048        conv2d_13[0][0]
+____________________________________________________________________________________________________
+activation_13 (Activation)       (None, 12, 6, 512)    0           batch_normalization_13[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_5 (MaxPooling2D)   (None, 6, 3, 512)     0           activation_13[0][0]
+____________________________________________________________________________________________________
+flatten_1 (Flatten)              (None, 9216)          0           max_pooling2d_5[0][0]
+____________________________________________________________________________________________________
+output_class (Dense)             (None, 32)            294944      flatten_1[0][0]
+____________________________________________________________________________________________________
+output_bounding_box (Dense)      (None, 4)             36868       flatten_1[0][0]
+====================================================================================================
+Total params: 8,153,028
+Trainable params: 8,147,268
+Non-trainable params: 5,760
+____________________________________________________________________________________________________
+ Input shape: (192, 96, 3), Output: (None, 4) classes
+
+Loading image C:\Users\Alex\Desktop\15-40_3_offset_67_1.png of shape (192, 96, 3)
+Classifying image ...
+Bounding-Box: [[ 19.89635277  62.89546967  55.81167221  65.40638733]]
+Class scores:
+12-8-Time          0.00000
+2-2-Time           0.00000
+2-4-Time           0.00001
+3-4-Time           0.00000
+3-8-Time           0.00000
+4-4-Time           0.00000
+6-8-Time           0.00000
+9-8-Time           0.00000
+Barline            0.00000
+C-Clef             0.99996
+Common-Time        0.00000
+Cut-Time           0.00000
+Dot                0.00000
+Double-Sharp       0.00000
+Eighth-Note        0.00000
+Eighth-Rest        0.00000
+F-Clef             0.00001
+Flat               0.00000
+G-Clef             0.00000
+Half-Note          0.00000
+Natural            0.00000
+Quarter-Note       0.00000
+Quarter-Rest       0.00000
+Sharp              0.00000
+Sixteenth-Note     0.00000
+Sixteenth-Rest     0.00000
+Sixty-Four-Note    0.00000
+Sixty-Four-Rest    0.00000
+Thirty-Two-Note    0.00000
+Thirty-Two-Rest    0.00000
+Whole-Half-Rest    0.00000
+Whole-Note         0.00000
+ Image is most likely: C-Clef (certainty: 1.00)
+Traceback (most recent call last):
+  File "C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TestModel.py", line 135, in <module>
+    test_model(args.model_path, args.model_name, args.image_paths)
+  File "C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TestModel.py", line 109, in test_model
+    rectangle = [bounding_box[0], bounding_box[1], bounding_box[0] + bounding_box[2],
+IndexError: index 1 is out of bounds for axis 0 with size 1
+**********************
+Windows PowerShell transcript end
+End time: 20170630102618
+**********************
+**********************
+Windows PowerShell transcript start
+Start time: 20170630103012
+Username: DONKEY\Alex
+RunAs User: DONKEY\Alex
+Machine: DONKEY (Microsoft Windows NT 10.0.15063.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -Command if((Get-ExecutionPolicy ) -ne 'AllSigned') { Set-ExecutionPolicy -Scope Process Bypass }; & 'C:\Users\Alex\Repositories\MusicSymbolClassifier\HomusTrainer\TestModel.ps1'
+Process ID: 2736
+PSVersion: 5.1.15063.413
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.15063.413
+BuildVersion: 10.0.15063.413
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\Users\Alex\Repositories\MusicSymbolClassifier\HomusTrainer\2017-06-30_vgg4_with_localization_test.txt
+Using TensorFlow backend.
+Model:  vgg4_with_localization
+Weights loaded from :  2017-06-29_vgg4_with_localization_192x96_multistaff.h5
+Loading classifier...
+2017-06-30 10:30:16.643401: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 10:30:16.643560: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 10:30:16.643919: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE3 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 10:30:16.643988: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 10:30:16.644040: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 10:30:16.644091: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 10:30:16.644142: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 10:30:16.644192: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+2017-06-30 10:30:16.966926: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:887] Found device 0 with properties:
+name: GeForce GTX 1080 Ti
+major: 6 minor: 1 memoryClockRate (GHz) 1.582
+pciBusID 0000:01:00.0
+Total memory: 11.00GiB
+Free memory: 9.12GiB
+2017-06-30 10:30:16.967105: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:908] DMA: 0
+2017-06-30 10:30:16.967592: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:918] 0:   Y
+2017-06-30 10:30:16.967648: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:977] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:01:00.0)
+____________________________________________________________________________________________________
+Layer (type)                     Output Shape          Param #     Connected to
+====================================================================================================
+input_1 (InputLayer)             (None, 192, 96, 3)    0
+____________________________________________________________________________________________________
+conv2d_1 (Conv2D)                (None, 192, 96, 32)   896         input_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_1 (BatchNorm (None, 192, 96, 32)   128         conv2d_1[0][0]
+____________________________________________________________________________________________________
+activation_1 (Activation)        (None, 192, 96, 32)   0           batch_normalization_1[0][0]
+____________________________________________________________________________________________________
+conv2d_2 (Conv2D)                (None, 192, 96, 32)   9248        activation_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_2 (BatchNorm (None, 192, 96, 32)   128         conv2d_2[0][0]
+____________________________________________________________________________________________________
+activation_2 (Activation)        (None, 192, 96, 32)   0           batch_normalization_2[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_1 (MaxPooling2D)   (None, 96, 48, 32)    0           activation_2[0][0]
+____________________________________________________________________________________________________
+conv2d_3 (Conv2D)                (None, 96, 48, 64)    18496       max_pooling2d_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_3 (BatchNorm (None, 96, 48, 64)    256         conv2d_3[0][0]
+____________________________________________________________________________________________________
+activation_3 (Activation)        (None, 96, 48, 64)    0           batch_normalization_3[0][0]
+____________________________________________________________________________________________________
+conv2d_4 (Conv2D)                (None, 96, 48, 64)    36928       activation_3[0][0]
+____________________________________________________________________________________________________
+batch_normalization_4 (BatchNorm (None, 96, 48, 64)    256         conv2d_4[0][0]
+____________________________________________________________________________________________________
+activation_4 (Activation)        (None, 96, 48, 64)    0           batch_normalization_4[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_2 (MaxPooling2D)   (None, 48, 24, 64)    0           activation_4[0][0]
+____________________________________________________________________________________________________
+conv2d_5 (Conv2D)                (None, 48, 24, 128)   73856       max_pooling2d_2[0][0]
+____________________________________________________________________________________________________
+batch_normalization_5 (BatchNorm (None, 48, 24, 128)   512         conv2d_5[0][0]
+____________________________________________________________________________________________________
+activation_5 (Activation)        (None, 48, 24, 128)   0           batch_normalization_5[0][0]
+____________________________________________________________________________________________________
+conv2d_6 (Conv2D)                (None, 48, 24, 128)   147584      activation_5[0][0]
+____________________________________________________________________________________________________
+batch_normalization_6 (BatchNorm (None, 48, 24, 128)   512         conv2d_6[0][0]
+____________________________________________________________________________________________________
+activation_6 (Activation)        (None, 48, 24, 128)   0           batch_normalization_6[0][0]
+____________________________________________________________________________________________________
+conv2d_7 (Conv2D)                (None, 48, 24, 128)   147584      activation_6[0][0]
+____________________________________________________________________________________________________
+batch_normalization_7 (BatchNorm (None, 48, 24, 128)   512         conv2d_7[0][0]
+____________________________________________________________________________________________________
+activation_7 (Activation)        (None, 48, 24, 128)   0           batch_normalization_7[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_3 (MaxPooling2D)   (None, 24, 12, 128)   0           activation_7[0][0]
+____________________________________________________________________________________________________
+conv2d_8 (Conv2D)                (None, 24, 12, 256)   295168      max_pooling2d_3[0][0]
+____________________________________________________________________________________________________
+batch_normalization_8 (BatchNorm (None, 24, 12, 256)   1024        conv2d_8[0][0]
+____________________________________________________________________________________________________
+activation_8 (Activation)        (None, 24, 12, 256)   0           batch_normalization_8[0][0]
+____________________________________________________________________________________________________
+conv2d_9 (Conv2D)                (None, 24, 12, 256)   590080      activation_8[0][0]
+____________________________________________________________________________________________________
+batch_normalization_9 (BatchNorm (None, 24, 12, 256)   1024        conv2d_9[0][0]
+____________________________________________________________________________________________________
+activation_9 (Activation)        (None, 24, 12, 256)   0           batch_normalization_9[0][0]
+____________________________________________________________________________________________________
+conv2d_10 (Conv2D)               (None, 24, 12, 256)   590080      activation_9[0][0]
+____________________________________________________________________________________________________
+batch_normalization_10 (BatchNor (None, 24, 12, 256)   1024        conv2d_10[0][0]
+____________________________________________________________________________________________________
+activation_10 (Activation)       (None, 24, 12, 256)   0           batch_normalization_10[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_4 (MaxPooling2D)   (None, 12, 6, 256)    0           activation_10[0][0]
+____________________________________________________________________________________________________
+conv2d_11 (Conv2D)               (None, 12, 6, 512)    1180160     max_pooling2d_4[0][0]
+____________________________________________________________________________________________________
+batch_normalization_11 (BatchNor (None, 12, 6, 512)    2048        conv2d_11[0][0]
+____________________________________________________________________________________________________
+activation_11 (Activation)       (None, 12, 6, 512)    0           batch_normalization_11[0][0]
+____________________________________________________________________________________________________
+conv2d_12 (Conv2D)               (None, 12, 6, 512)    2359808     activation_11[0][0]
+____________________________________________________________________________________________________
+batch_normalization_12 (BatchNor (None, 12, 6, 512)    2048        conv2d_12[0][0]
+____________________________________________________________________________________________________
+activation_12 (Activation)       (None, 12, 6, 512)    0           batch_normalization_12[0][0]
+____________________________________________________________________________________________________
+conv2d_13 (Conv2D)               (None, 12, 6, 512)    2359808     activation_12[0][0]
+____________________________________________________________________________________________________
+batch_normalization_13 (BatchNor (None, 12, 6, 512)    2048        conv2d_13[0][0]
+____________________________________________________________________________________________________
+activation_13 (Activation)       (None, 12, 6, 512)    0           batch_normalization_13[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_5 (MaxPooling2D)   (None, 6, 3, 512)     0           activation_13[0][0]
+____________________________________________________________________________________________________
+flatten_1 (Flatten)              (None, 9216)          0           max_pooling2d_5[0][0]
+____________________________________________________________________________________________________
+output_class (Dense)             (None, 32)            294944      flatten_1[0][0]
+____________________________________________________________________________________________________
+output_bounding_box (Dense)      (None, 4)             36868       flatten_1[0][0]
+====================================================================================================
+Total params: 8,153,028
+Trainable params: 8,147,268
+Non-trainable params: 5,760
+____________________________________________________________________________________________________
+ Input shape: (192, 96, 3), Output: (None, 4) classes
+
+Loading image C:\Users\Alex\Desktop\15-40_3_offset_67_1.png of shape (192, 96, 3)
+Classifying image ...
+Bounding-Box: [ 19.89635277  62.89546967  55.81167221  65.40638733]
+Class scores:
+12-8-Time          0.00000
+2-2-Time           0.00000
+2-4-Time           0.00001
+3-4-Time           0.00000
+3-8-Time           0.00000
+4-4-Time           0.00000
+6-8-Time           0.00000
+9-8-Time           0.00000
+Barline            0.00000
+C-Clef             0.99996
+Common-Time        0.00000
+Cut-Time           0.00000
+Dot                0.00000
+Double-Sharp       0.00000
+Eighth-Note        0.00000
+Eighth-Rest        0.00000
+F-Clef             0.00001
+Flat               0.00000
+G-Clef             0.00000
+Half-Note          0.00000
+Natural            0.00000
+Quarter-Note       0.00000
+Quarter-Rest       0.00000
+Sharp              0.00000
+Sixteenth-Note     0.00000
+Sixteenth-Rest     0.00000
+Sixty-Four-Note    0.00000
+Sixty-Four-Rest    0.00000
+Thirty-Two-Note    0.00000
+Thirty-Two-Rest    0.00000
+Whole-Half-Rest    0.00000
+Whole-Note         0.00000
+ Image is most likely: C-Clef (certainty: 1.00)
+
+Loading image C:\Users\Alex\Desktop\15-40_3_offset_67_2.png of shape (192, 96, 3)
+Classifying image ...
+Bounding-Box: [ 20.06981087  52.19916916  50.55994034  76.56549072]
+Class scores:
+12-8-Time          0.00602
+2-2-Time           0.00002
+2-4-Time           0.00019
+3-4-Time           0.00002
+3-8-Time           0.00000
+4-4-Time           0.00023
+6-8-Time           0.00009
+9-8-Time           0.00005
+Barline            0.00003
+C-Clef             0.98488
+Common-Time        0.00019
+Cut-Time           0.00340
+Dot                0.00011
+Double-Sharp       0.00002
+Eighth-Note        0.00000
+Eighth-Rest        0.00004
+F-Clef             0.00046
+Flat               0.00000
+G-Clef             0.00002
+Half-Note          0.00022
+Natural            0.00002
+Quarter-Note       0.00000
+Quarter-Rest       0.00000
+Sharp              0.00003
+Sixteenth-Note     0.00001
+Sixteenth-Rest     0.00005
+Sixty-Four-Note    0.00001
+Sixty-Four-Rest    0.00014
+Thirty-Two-Note    0.00002
+Thirty-Two-Rest    0.00031
+Whole-Half-Rest    0.00324
+Whole-Note         0.00019
+ Image is most likely: C-Clef (certainty: 0.98)
+
+Loading image C:\Users\Alex\Desktop\15-40_3_offset_67_3.png of shape (192, 96, 3)
+Classifying image ...
+Bounding-Box: [ 21.70132446  50.92604065  48.9797821   82.94456482]
+Class scores:
+12-8-Time          0.01001
+2-2-Time           0.00011
+2-4-Time           0.00039
+3-4-Time           0.00006
+3-8-Time           0.00001
+4-4-Time           0.00090
+6-8-Time           0.00100
+9-8-Time           0.00013
+Barline            0.00007
+C-Clef             0.97028
+Common-Time        0.00050
+Cut-Time           0.00587
+Dot                0.00053
+Double-Sharp       0.00003
+Eighth-Note        0.00000
+Eighth-Rest        0.00011
+F-Clef             0.00136
+Flat               0.00000
+G-Clef             0.00008
+Half-Note          0.00022
+Natural            0.00005
+Quarter-Note       0.00001
+Quarter-Rest       0.00005
+Sharp              0.00007
+Sixteenth-Note     0.00001
+Sixteenth-Rest     0.00005
+Sixty-Four-Note    0.00018
+Sixty-Four-Rest    0.00082
+Thirty-Two-Note    0.00008
+Thirty-Two-Rest    0.00080
+Whole-Half-Rest    0.00576
+Whole-Note         0.00044
+ Image is most likely: C-Clef (certainty: 0.97)
+
+Loading image C:\Users\Alex\Desktop\15-40_3_offset_67_4.png of shape (192, 96, 3)
+Classifying image ...
+Bounding-Box: [ 19.97816086  52.86243057  51.77735901  77.98310089]
+Class scores:
+12-8-Time          0.00012
+2-2-Time           0.04421
+2-4-Time           0.00004
+3-4-Time           0.00003
+3-8-Time           0.00144
+4-4-Time           0.00021
+6-8-Time           0.00005
+9-8-Time           0.00309
+Barline            0.00025
+C-Clef             0.00702
+Common-Time        0.00063
+Cut-Time           0.00015
+Dot                0.00023
+Double-Sharp       0.00039
+Eighth-Note        0.00032
+Eighth-Rest        0.00003
+F-Clef             0.00007
+Flat               0.00017
+G-Clef             0.74194
+Half-Note          0.01032
+Natural            0.00000
+Quarter-Note       0.00001
+Quarter-Rest       0.00139
+Sharp              0.00040
+Sixteenth-Note     0.00000
+Sixteenth-Rest     0.00000
+Sixty-Four-Note    0.16518
+Sixty-Four-Rest    0.00983
+Thirty-Two-Note    0.00573
+Thirty-Two-Rest    0.00000
+Whole-Half-Rest    0.00089
+Whole-Note         0.00587
+ Image is most likely: G-Clef (certainty: 0.74)
+
+Loading image C:\Users\Alex\Desktop\15-40_3_offset_67_5.png of shape (192, 96, 3)
+Classifying image ...
+Bounding-Box: [ 15.47307205  62.82304001  64.94151306  65.9234314 ]
+Class scores:
+12-8-Time          0.00018
+2-2-Time           0.00002
+2-4-Time           0.00004
+3-4-Time           0.00001
+3-8-Time           0.00002
+4-4-Time           0.00000
+6-8-Time           0.00000
+9-8-Time           0.00009
+Barline            0.00012
+C-Clef             0.86148
+Common-Time        0.00001
+Cut-Time           0.00003
+Dot                0.00000
+Double-Sharp       0.00000
+Eighth-Note        0.00002
+Eighth-Rest        0.00000
+F-Clef             0.00017
+Flat               0.00001
+G-Clef             0.00001
+Half-Note          0.00014
+Natural            0.00001
+Quarter-Note       0.00000
+Quarter-Rest       0.00000
+Sharp              0.12696
+Sixteenth-Note     0.00969
+Sixteenth-Rest     0.00001
+Sixty-Four-Note    0.00054
+Sixty-Four-Rest    0.00001
+Thirty-Two-Note    0.00029
+Thirty-Two-Rest    0.00010
+Whole-Half-Rest    0.00003
+Whole-Note         0.00002
+ Image is most likely: C-Clef (certainty: 0.86)
+
+Loading image C:\Users\Alex\Desktop\15-40_3_offset_67_6.png of shape (192, 96, 3)
+Classifying image ...
+Bounding-Box: [ 14.98822689  63.95275879  65.95994568  64.08783722]
+Class scores:
+12-8-Time          0.00372
+2-2-Time           0.01676
+2-4-Time           0.00239
+3-4-Time           0.00006
+3-8-Time           0.00004
+4-4-Time           0.00336
+6-8-Time           0.00007
+9-8-Time           0.00033
+Barline            0.00015
+C-Clef             0.66081
+Common-Time        0.00219
+Cut-Time           0.00078
+Dot                0.00064
+Double-Sharp       0.00006
+Eighth-Note        0.00981
+Eighth-Rest        0.00859
+F-Clef             0.10388
+Flat               0.00451
+G-Clef             0.00272
+Half-Note          0.00047
+Natural            0.00048
+Quarter-Note       0.00002
+Quarter-Rest       0.17393
+Sharp              0.00032
+Sixteenth-Note     0.00004
+Sixteenth-Rest     0.00026
+Sixty-Four-Note    0.00000
+Sixty-Four-Rest    0.00002
+Thirty-Two-Note    0.00061
+Thirty-Two-Rest    0.00055
+Whole-Half-Rest    0.00213
+Whole-Note         0.00031
+ Image is most likely: C-Clef (certainty: 0.66)
+**********************
+Windows PowerShell transcript end
+End time: 20170630103030
+**********************
