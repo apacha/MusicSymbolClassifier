@@ -69,6 +69,9 @@ def train_model(dataset_directory: str,
         with open(bounding_boxes_cache, "rb") as cache:
             bounding_boxes = pickle.load(cache)
 
+    if not training_configuration.performs_localization():
+        bounding_boxes = None
+
     train_generator = ImageDataGenerator(rotation_range=training_configuration.rotation_range,
                                          zoom_range=training_configuration.zoom_range
                                          )
