@@ -171,7 +171,7 @@ def train_model(dataset_directory: str,
     for i in range(len(best_model.metrics_names)):
         current_metric = best_model.metrics_names[i]
         print("{0}: {1:.5f}".format(current_metric, evaluation[i]))
-        if current_metric == 'val_acc' or current_metric == 'output_class_acc':
+        if current_metric == 'acc' or current_metric == 'output_class_acc':
             classification_accuracy = evaluation[i]
     print("Total Accuracy: {0:0.5f}%".format(classification_accuracy * 100))
     print("Total Error: {0:0.5f}%".format((1 - classification_accuracy) * 100))
