@@ -22,12 +22,8 @@ def send_message_via_telegram(message: str, image_path: str = None) -> None:
     """
     try:
         if image_path is not None:
-            byte_stream = BytesIO()
-            byte_stream.name = image_path
-            image = Image.open(image_path)
-            image.save(byte_stream, "png")
-            byte_stream.seek(0)
-            telegram_send.send([message], parse_mode="Markdown", images=[byte_stream])
+            with open(image_path, "rb") as f:
+                telegram_send.send([message], parse_mode="Markdown", images=[f])
         else:
             telegram_send.send([message], parse_mode="Markdown")
     except Exception as exception:
@@ -36,4 +32,4 @@ def send_message_via_telegram(message: str, image_path: str = None) -> None:
 
 
 if __name__ == '__main__':
-    send_message_via_telegram("I'm sending you a message with an image attached", "2017-06-22_vgg4_99.9p.png")
+    send_message_via_telegram("I'm sending you a message with an image attached", "2017-07-03_res_net_5_small_97.0p.png")
