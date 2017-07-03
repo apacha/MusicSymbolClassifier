@@ -9,7 +9,7 @@ from keras.utils import plot_model
 from models.TrainingConfiguration import TrainingConfiguration
 
 
-class ResNetConfiguration(TrainingConfiguration):
+class ResNet1Configuration(TrainingConfiguration):
     """ A network with residual modules """
 
     def __init__(self, optimizer="Adadelta", width=96, height=192, training_minibatch_size=64):
@@ -43,8 +43,8 @@ class ResNetConfiguration(TrainingConfiguration):
 
         feature_vector = Flatten()(layer)
 
-        number_of_ouput_classes = 32
-        classification_head = Dense(units=number_of_ouput_classes, kernel_regularizer=l2(self.weight_decay),
+        number_of_output_classes = 32
+        classification_head = Dense(units=number_of_output_classes, kernel_regularizer=l2(self.weight_decay),
                                     activation='softmax', name='output_class')(feature_vector)
 
         classifier = Model(inputs=[input], outputs=[classification_head])
@@ -88,14 +88,14 @@ class ResNetConfiguration(TrainingConfiguration):
 
     def name(self) -> str:
         """ Returns the name of this configuration """
-        return "res_net"
+        return "res_net_1"
 
     def performs_localization(self) -> bool:
         return False
 
 
 if __name__ == "__main__":
-    configuration = ResNetConfiguration()
+    configuration = ResNet1Configuration()
     configuration.classifier().summary()
     plot_model(configuration.classifier(), to_file="res_net.png")
     print(configuration.summary())

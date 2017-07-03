@@ -26,7 +26,7 @@ class ResNet2Configuration(TrainingConfiguration):
 
         for i in range(1, 3):
             is_first_convolution = i == 1
-            layer = self.add_res_net_block(layer, 32, 3, is_first_convolution, 3, i)
+            layer = self.add_res_net_block(layer, 32, 3, is_first_convolution, 2, i)
 
         for i in range(1, 3):
             is_first_convolution = i == 1
@@ -44,8 +44,8 @@ class ResNet2Configuration(TrainingConfiguration):
 
         feature_vector = Flatten()(layer)
 
-        number_of_ouput_classes = 32
-        classification_head = Dense(units=number_of_ouput_classes, kernel_regularizer=l2(self.weight_decay),
+        number_of_output_classes = 32
+        classification_head = Dense(units=number_of_output_classes, kernel_regularizer=l2(self.weight_decay),
                                     activation='softmax', name='output_class')(feature_vector)
 
         classifier = Model(inputs=[input], outputs=[classification_head])
@@ -97,6 +97,7 @@ class ResNet2Configuration(TrainingConfiguration):
 
 if __name__ == "__main__":
     configuration = ResNet2Configuration()
-    configuration.classifier().summary()
-    plot_model(configuration.classifier(), to_file="res_net.png")
+    classifier = configuration.classifier()
+    classifier.summary()
+    plot_model(classifier, to_file="res_net.png")
     print(configuration.summary())

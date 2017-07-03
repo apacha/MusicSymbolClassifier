@@ -44,8 +44,7 @@ class Vgg4Configuration(TrainingConfiguration):
 
         classifier.add(Flatten())  # Flatten
         # classifier.add(Dropout(0.5))
-        classifier.add(Dense(units=32, kernel_regularizer=l2(self.weight_decay)))
-        classifier.add(Activation('softmax', name="output_node"))
+        classifier.add(Dense(units=32, kernel_regularizer=l2(self.weight_decay, activation='softmax', name='output_class')))
 
         classifier.compile(self.get_optimizer(), loss="categorical_crossentropy", metrics=["accuracy"])
         return classifier
