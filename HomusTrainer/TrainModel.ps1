@@ -26,6 +26,7 @@ $env:PYTHONPATH = $pathToSourceRoot
 # Upcoming Trainings 
 ################################################
 
+
 #######################################################
 # Below are configurations that already were 
 # started on a machine and should not run again, 
@@ -53,6 +54,60 @@ Stop-Transcript
 
 Start-Transcript -path "$($pathToTranscript)2017-07-03_res_net_3_192x96_Adadelta_mb16.txt" -append
 python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name res_net_3 -s 3 --width 96 --height 192 --minibatch_size 16 --optimizer Adadelta
+Stop-Transcript
+
+# Started on Donkey, 04.07.2017
+Start-Transcript -path "$($pathToTranscript)2017-07-04_res_net_3_small_192x96_Adadelta_mb16.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name res_net_3_small -s 3 --width 96 --height 192 --minibatch_size 16 --optimizer Adadelta
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-04_res_net_3_small_192x96_Adadelta_mb8.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name res_net_3_small -s 3 --width 96 --height 192 --minibatch_size 8 --optimizer Adadelta
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-04_res_net_3_small_stroke2_192x96_Adadelta_mb16.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name res_net_3_small -s 2 --width 96 --height 192 --minibatch_size 16 --optimizer Adadelta
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-04_res_net_3_small_stroke1_192x96_Adadelta_mb16.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name res_net_3_small -s 1 --width 96 --height 192 --minibatch_size 16 --optimizer Adadelta
+Stop-Transcript
+
+# Started on Donkey, 03.07.2017
+Start-Transcript -path "$($pathToTranscript)2017-07-03_vgg_192x96_Adadelta_mb64.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg -s 3 --width 96 --height 192 --minibatch_size 64 --optimizer Adadelta
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-03_vgg_192x96_Adadelta_mb32.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg -s 3 --width 96 --height 192 --minibatch_size 32 --optimizer Adadelta
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-03_vgg4_192x96_Adadelta_mb64.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg4 -s 3 --width 96 --height 192 --minibatch_size 64 --optimizer Adadelta
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-03_vgg4_192x96_Adadelta_mb32.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg4 -s 3 --width 96 --height 192 --minibatch_size 32 --optimizer Adadelta
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-03_res_net_3_192x96_Adadelta_mb32.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name res_net_3 -s 3 --width 96 --height 192 --minibatch_size 32 --optimizer Adadelta
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-03_res_net_3_small_192x96_Adadelta_mb32.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name res_net_3_small -s 3 --width 96 --height 192 --minibatch_size 32 --optimizer Adadelta
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-03_res_net_4_192x96_Adadelta_mb32.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name res_net_4 -s 3 --width 96 --height 192 --minibatch_size 32 --optimizer Adadelta
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-03_res_net_5_192x96_Adadelta_mb32.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name res_net_5 -s 3 --width 96 --height 192 --minibatch_size 32 --optimizer Adadelta
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-03_res_net_5_small_192x96_Adadelta_mb32.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name res_net_5_small -s 3 --width 96 --height 192 --minibatch_size 32 --optimizer Adadelta
 Stop-Transcript
 
 # Started on Donkey, 30.06.2017
