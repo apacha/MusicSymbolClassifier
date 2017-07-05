@@ -153,6 +153,7 @@ def train_model(dataset_directory: str,
 
     test_data_generator.reset()
     class_labels = list(test_data_generator.class_indices.keys())
+    class_labels.sort()
     true_classes = test_data_generator.classes
     predictions = best_model.predict_generator(test_data_generator, steps=test_steps_per_epoch)
     if training_configuration.performs_localization():
