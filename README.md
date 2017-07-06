@@ -1,13 +1,17 @@
 # Music Symbol Classifier
 
-This repository is the model trainer part of the Music Symbol Classifier, which classifies handwritten Music Symbols into 32 different classes using Deep Learning and the HOMUS dataset of handwritten music symbols.
+This repository is the model trainer part of the Music Symbol Classifier, which classifies handwritten Music Symbols into 32 different classes using Deep Learning and the HOMUS dataset of handwritten music symbols. It is part of a set of three tools:
+
+|[Model Trainer](https://github.com/apacha/MusicSymbolClassifier)|[Mobile App](https://github.com/apacha/MobileMusicSymbolClassifier)|[Manual Classifier](https://github.com/apacha/ManualMusicSymbolClassifier)|
+|:----:|:-----:|:-----:|
+|Trains a deep network to automatically classify images of handwritten music symbols into 32 different classes.|Mobile Android application that uses a trained model to perform real-time classification on a mobile device.|A small C#/WPF application that can be used manually classify images, used during evaluation|
+|[![Build Status](https://travis-ci.org/apacha/MusicSymbolClassifier.svg?branch=master)](https://travis-ci.org/apacha/MusicSymbolClassifier)|TBD|[![Build status](https://ci.appveyor.com/api/projects/status/2lxb6eg6qnfj9jq5?svg=true)](https://ci.appveyor.com/project/apacha/manualmusicsymbolclassifier)|
+|[![codecov](https://codecov.io/gh/apacha/MusicSymbolClassifier/branch/master/graph/badge.svg)](https://codecov.io/gh/apacha/MusicSymbolClassifier)|||
 
 Note my previous project which classifies images into Music scores or something else which can be found in [this](https://github.com/apacha/MusicScoreClassifier) repository on Github.
 
-[![Build Status](https://travis-ci.org/apacha/MusicSymbolClassifier.svg?branch=master)](https://travis-ci.org/apacha/MusicSymbolClassifier)
-[![codecov](https://codecov.io/gh/apacha/MusicSymbolClassifier/branch/master/graph/badge.svg)](https://codecov.io/gh/apacha/MusicSymbolClassifier)
-
 An extensive overview of the results of different parameters is documented in this [Google Spreadsheet](https://docs.google.com/spreadsheets/d/1D9kHRhrOBogcrr5ko1DleCnHVKGGNkwbBc6_mnfA6XE/edit?usp=sharing)
+
 
 # Running the application
 This repository contains several scripts that can be used independently of each other. 
