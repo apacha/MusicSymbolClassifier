@@ -152,6 +152,7 @@ def train_model(dataset_directory: str,
     best_model.load_weights(best_model_path)
 
     test_data_generator.reset()
+    file_names = test_data_generator.filenames
     class_labels = list(test_data_generator.class_indices.keys())
     class_labels.sort()
     true_classes = test_data_generator.classes
@@ -162,12 +163,15 @@ def train_model(dataset_directory: str,
         predicted_classes = numpy.argmax(predictions, axis=1)
 
     report = metrics.classification_report(true_classes, predicted_classes, target_names=class_labels)
+    indices_of_misclassified_files = [i for i, e in enumerate(true_classes - predicted_classes) if e != 0]
+    misclassified_files = [file_names[i] for i in indices_of_misclassified_files]
 
     test_data_generator.reset()
     evaluation = best_model.evaluate_generator(test_data_generator, steps=test_steps_per_epoch)
     classification_accuracy = 0
 
     print(report)
+    print("Misclassified files: \n\t" + '\n\t'.join(misclassified_files))
 
     for i in range(len(best_model.metrics_names)):
         current_metric = best_model.metrics_names[i]
@@ -271,7 +275,7 @@ if __name__ == "__main__":
 
     # To run in in python console
     # dataset_directory = 'data'
-    # model_name = 'vgg4_with_localization'
+    # model_name = 'res_net_3_small'
     # delete_and_recreate_dataset_directory = True
     # stroke_thicknesses = [3]
     # width = 96
