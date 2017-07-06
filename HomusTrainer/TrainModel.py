@@ -163,15 +163,22 @@ def train_model(dataset_directory: str,
         predicted_classes = numpy.argmax(predictions, axis=1)
 
     report = metrics.classification_report(true_classes, predicted_classes, target_names=class_labels)
-    indices_of_misclassified_files = [i for i, e in enumerate(true_classes - predicted_classes) if e != 0]
-    misclassified_files = [file_names[i] for i in indices_of_misclassified_files]
 
     test_data_generator.reset()
     evaluation = best_model.evaluate_generator(test_data_generator, steps=test_steps_per_epoch)
     classification_accuracy = 0
 
     print(report)
-    print("Misclassified files: \n\t" + '\n\t'.join(misclassified_files))
+
+    indices_of_misclassified_files = [i for i, e in enumerate(true_classes - predicted_classes) if e != 0]
+    misclassified_files = [file_names[i] for i in indices_of_misclassified_files]
+    misclassified_files_actual_prediction_indices = [predicted_classes[i] for i in indices_of_misclassified_files]
+    misclassified_files_actual_prediction_classes = [class_labels[i] for i in
+                                                     misclassified_files_actual_prediction_indices]
+    print("Misclassified files:")
+    for i in range(len(misclassified_files)):
+        print("\t{0} is incorrectly classified as {1}".format(misclassified_files[i],
+                                                              misclassified_files_actual_prediction_classes[i]))
 
     for i in range(len(best_model.metrics_names)):
         current_metric = best_model.metrics_names[i]
