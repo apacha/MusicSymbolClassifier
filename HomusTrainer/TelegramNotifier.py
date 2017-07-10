@@ -23,9 +23,9 @@ def send_message_via_telegram(message: str, image_path: str = None) -> None:
     try:
         if image_path is not None:
             with open(image_path, "rb") as f:
-                telegram_send.send([message], parse_mode="Markdown", images=[f])
+                telegram_send.send([message], parse_mode="Text", images=[f])
         else:
-            telegram_send.send([message], parse_mode="Markdown")
+            telegram_send.send([message], parse_mode="Text")
     except Exception as exception:
         print("Error while sending notification via telegram: {0}".format(str(exception)))
         traceback.print_exc()
