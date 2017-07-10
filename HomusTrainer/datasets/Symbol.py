@@ -62,13 +62,27 @@ class Symbol:
         dimensions = Rectangle(Point2D(min_x, min_y), max_x - min_x + 1, max_y - min_y + 1)
         return Symbol(content, strokes, symbol_name, dimensions)
 
-    def draw_into_bitmap(self, export_path: ExportPath, stroke_thickness: int, margin: int, destination_width: int,
+    def draw_into_bitmap(self, export_path: ExportPath, stroke_thickness: int, margin: int = 0):
+        """
+        Draws the symbol in the original size that it has plus an optional margin
+        :param export_path: The path, where the symbols should be created on disk
+        :param stroke_thickness: Pen-thickness for drawing the symbol in pixels
+        :param margin: An optional margin for each symbol
+        :return:
+        """
+        self.draw_onto_canvas(export_path,
+                              stroke_thickness,
+                              margin,
+                              self.dimensions.width + 2 * margin,
+                              self.dimensions.height + 2 * margin)
+
+    def draw_onto_canvas(self, export_path: ExportPath, stroke_thickness: int, margin: int, destination_width: int,
                          destination_height: int, staff_line_spacing: int = 14,
                          staff_line_vertical_offsets: List[int] = None, bounding_boxes: dict = None):
         """
-
+        Draws the symbol onto a canvas with a fixed size
         :param bounding_boxes: The dictionary into which the bounding-boxes will be added of each generated image
-        :param export_path:
+        :param export_path: The path, where the symbols should be created on disk
         :param stroke_thickness:
         :param margin:
         :param destination_width:

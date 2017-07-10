@@ -49,19 +49,33 @@ class Symbol_test(unittest.TestCase):
         self.assertEqual(content, symbol.content)
         self.assertEqual(3, len(symbol.strokes), "We expected three strokes")
 
-    def test_draw_into_bitmap(self):
+    def test_draw_onto_canvas(self):
         # Arrange
         symbol = Symbol("", [[Point2D(0, 0), Point2D(100, 100)]], "", Rectangle(Point2D(0, 0), 100, 100))
         export_path = ExportPath("","","bitmap",2)
 
         # Act
-        symbol.draw_into_bitmap(export_path, 2, 2, 102, 102)
+        symbol.draw_onto_canvas(export_path, stroke_thickness=2, margin=2, destination_width=150, destination_height=150)
 
         # Assert
         self.assertTrue(os.path.exists(export_path.get_full_path()))
 
         # Cleanup
-        os.remove(export_path.get_full_path())
+        #os.remove(export_path.get_full_path())
+
+    def test_draw_into_bitmap_without_larger_canvas(self):
+        # Arrange
+        symbol = Symbol("", [[Point2D(0, 0), Point2D(100, 100)]], "", Rectangle(Point2D(0, 0), 100, 100))
+        export_path = ExportPath("","","bitmap",3)
+
+        # Act
+        symbol.draw_into_bitmap(export_path, stroke_thickness=3, margin=2)
+
+        # Assert
+        self.assertTrue(os.path.exists(export_path.get_full_path()))
+
+        # Cleanup
+        #os.remove(export_path.get_full_path())
 
     def test_draw_staff_lines(self):
         content = "Quarter-Note\n144,130;144,130;143,130;141,130;139,130;138,131;138,131;138,133;140,135;143,135;146," \
@@ -77,12 +91,12 @@ class Symbol_test(unittest.TestCase):
         symbol = Symbol.initialize_from_string(content)
 
         # Act
-        offsets = [18 + 7 * i for i in range(20)]  # [18,25,32,39,46,53,60,67,74,81,88]
+        offsets = [18 + 7 * i for i in range(3)]  # [18,25,32]
         bounding_boxes = dict()
-        symbol.draw_into_bitmap(export_path, 3, 0, 128, 224, 14, offsets, bounding_boxes)
+        symbol.draw_onto_canvas(export_path, 3, 0, 128, 224, 14, offsets, bounding_boxes)
 
         # Assert
-        bounding_box_in_image = bounding_boxes["test_3_offset_144.png"]
+        bounding_box_in_image = bounding_boxes["test_3_offset_25.png"]
         self.assertEqual(bounding_box_in_image.origin, Point2D(109/2,147/2))
         self.assertEqual(bounding_box_in_image.width, 19)
         self.assertEqual(bounding_box_in_image.height, 77)
