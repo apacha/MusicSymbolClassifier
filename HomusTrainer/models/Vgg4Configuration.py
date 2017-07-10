@@ -11,7 +11,7 @@ from models.TrainingConfiguration import TrainingConfiguration
 class Vgg4Configuration(TrainingConfiguration):
     """ The winning VGG-Net 4 configuration from Deep Learning course """
 
-    def __init__(self, optimizer="Adadelta", width=128, height=224, training_minibatch_size=64):
+    def __init__(self, optimizer="Adadelta", width=48, height=48, training_minibatch_size=64):
         super().__init__(optimizer=optimizer, data_shape=(height, width, 3),
                          training_minibatch_size=training_minibatch_size)
 
@@ -44,7 +44,7 @@ class Vgg4Configuration(TrainingConfiguration):
 
         classifier.add(Flatten())  # Flatten
         # classifier.add(Dropout(0.5))
-        classifier.add(Dense(units=32, kernel_regularizer=l2(self.weight_decay, activation='softmax', name='output_class')))
+        classifier.add(Dense(units=32, kernel_regularizer=l2(self.weight_decay), activation='softmax', name='output_class'))
 
         classifier.compile(self.get_optimizer(), loss="categorical_crossentropy", metrics=["accuracy"])
         return classifier
