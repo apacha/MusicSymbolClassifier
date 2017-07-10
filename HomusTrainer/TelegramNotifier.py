@@ -23,13 +23,13 @@ def send_message_via_telegram(message: str, image_path: str = None) -> None:
     try:
         if image_path is not None:
             with open(image_path, "rb") as f:
-                telegram_send.send([message], parse_mode="Text", images=[f])
+                telegram_send.send([message], parse_mode="text", images=[f])
         else:
-            telegram_send.send([message], parse_mode="Text")
+            telegram_send.send([message], parse_mode="text")
     except Exception as exception:
         print("Error while sending notification via telegram: {0}".format(str(exception)))
         traceback.print_exc()
 
 
 if __name__ == '__main__':
-    send_message_via_telegram("I'm sending you a message with an image attached", "2017-07-03_res_net_5_small_97.0p.png")
+    send_message_via_telegram("I'm sending you a message with an image attached", "2017-07-10_res_net_3_small_96.7p.png")
