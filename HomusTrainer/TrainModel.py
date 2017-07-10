@@ -35,7 +35,8 @@ def train_model(dataset_directory: str,
                 staff_line_spacing: int,
                 training_minibatch_size: int,
                 optimizer: str,
-                dynamic_learning_rate_reduction: bool):
+                dynamic_learning_rate_reduction: bool,
+                use_fixed_canvas: bool):
     raw_dataset_directory = os.path.join(dataset_directory, "raw")
     image_dataset_directory = os.path.join(dataset_directory, "images")
     bounding_boxes = None
@@ -48,9 +49,15 @@ def train_model(dataset_directory: str,
 
         dataset_downloader = HomusDatasetDownloader(raw_dataset_directory)
         dataset_downloader.download_and_extract_dataset()
+        generated_image_width = width
+        generated_image_height = height
+        if not use_fixed_canvas:
+            # If we are not using a fixed canvas, remove those arguments to allow symbols being drawn at their original shapes
+            generated_image_width, generated_image_height = None, None
         bounding_boxes = HomusImageGenerator.create_images(raw_dataset_directory, image_dataset_directory,
-                                                           stroke_thicknesses, width,
-                                                           height, staff_line_spacing, staff_line_vertical_offsets)
+                                                           stroke_thicknesses, generated_image_width,
+                                                           generated_image_height, staff_line_spacing,
+                                                           staff_line_vertical_offsets)
         with open(bounding_boxes_cache, "wb") as cache:
             pickle.dump(bounding_boxes, cache)
 
@@ -250,16 +257,23 @@ if __name__ == "__main__":
                         help="Optional vertical offsets in pixel for drawing the symbols with superimposed "
                              "staff-lines starting at this pixel-offset from the top. Multiple offsets possible, "
                              "e.g. '81,88,95'")
-    parser.add_argument("--width", default=128, type=int, help="Width of the generated images in pixel")
-    parser.add_argument("--height", default=224, type=int, help="Height of the generated images in pixel")
+    parser.add_argument("--width", default=96, type=int, help="Width of the input-images for the network in pixel")
+    parser.add_argument("--height", default=192, type=int, help="Height of the input-images for the network in pixel")
     parser.add_argument("--minibatch_size", default=64, type=int,
-                        help="Size of the minibatches for training")
-    parser.add_argument("--optimizer", default="Adadelta", help="The optimizer used for the training")
+                        help="Size of the minibatches for training, typically one of 8, 16, 32, 64 or 128")
+    parser.add_argument("--optimizer", default="Adadelta",
+                        help="The optimizer used for the training, can be SGD, Adam or Adadelta")
 
     parser.add_argument("--no_dynamic_learning_rate_reduction", dest="dynamic_learning_rate_reduction",
                         action="store_false",
-                        help="True, if the learning rate should be scheduled to be reduced on a plateau.")
+                        help="True, if the learning rate should not be scheduled to be reduced on a plateau.")
     parser.set_defaults(dynamic_learning_rate_reduction=True)
+
+    parser.add_argument("--disable_fixed_canvas_size", dest="use_fixed_canvas",
+                        action="store_false",
+                        help="True, if the images should be drawn on a fixed canvas with the specified width and height."
+                             "False to draw the symbols with their original sizes (each symbol might be different)")
+    parser.set_defaults(use_fixed_canvas=True)
 
     flags, unparsed = parser.parse_known_args()
 
@@ -278,7 +292,8 @@ if __name__ == "__main__":
                 staff_line_spacing=flags.staff_line_spacing,
                 training_minibatch_size=flags.minibatch_size,
                 optimizer=flags.optimizer,
-                dynamic_learning_rate_reduction=flags.dynamic_learning_rate_reduction)
+                dynamic_learning_rate_reduction=flags.dynamic_learning_rate_reduction,
+                use_fixed_canvas=flags.use_fixed_canvas)
 
     # To run in in python console
     # dataset_directory = 'data'

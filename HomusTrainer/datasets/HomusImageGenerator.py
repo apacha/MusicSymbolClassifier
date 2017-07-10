@@ -22,14 +22,20 @@ class HomusImageGenerator:
         Creates a visual representation of the Homus Dataset by parsing all text-files and the symbols as specified
         by the parameters by drawing lines that connect the points from each stroke of each symbol.
 
+        Each symbol will be drawn in the center of a fixed canvas, specified by width and height.
+
         :param raw_data_directory: The directory, that contains the text-files that contain the textual representation of the music symbols
         :param destination_directory: The directory, in which the symbols should be generated into. One sub-folder per
                                       symbol category will be generated automatically
         :param stroke_thicknesses: The thickness of the pen, used for drawing the lines in pixels. If multiple are
                                    specified, multiple images will be generated that have a different suffix, e.g.
                                    1-16-3.png for the 3-px version and 1-16-2.png for the 2-px version of the image 1-16
-        :param width: The width of the canvas, that each image will be drawn upon, regardless of the original size of the symbol. Larger symbols will be cropped
-        :param height: The height of the canvas, that each image will be drawn upon, regardless of the original size of the symbol. Larger symbols will be cropped
+        :param width: The width of the canvas, that each image will be drawn upon, regardless of the original size of
+                      the symbol. Larger symbols will be cropped. If the original size of the symbol should be used,
+                      provided None here.
+        :param height: The height of the canvas, that each image will be drawn upon, regardless of the original size of
+                       the symbol. Larger symbols will be cropped. If the original size of the symbol should be used,
+                       provided None here
         :param staff_line_spacing: Number of pixels spacing between each of the five staff-lines
         :param staff_line_vertical_offsets: List of vertical offsets, where the staff-lines will be superimposed over
                                             the drawn images. If None is provided, no staff-lines will be superimposed.
@@ -54,6 +60,9 @@ class HomusImageGenerator:
             output += " and with staff-lines with {0} different offsets from the top ({1})".format(
                 staff_line_multiplier, staff_line_vertical_offsets)
 
+        if width is not None and height is not None:
+            output += "\nCentrally drawn on a fixed canvas of size {0}x{1} (Width x Height)".format(width, height)
+
         output += "\nIn directory {0}".format(os.path.abspath(destination_directory))
         print(output)
         current_symbol = 0
@@ -73,7 +82,10 @@ class HomusImageGenerator:
             for stroke_thickness in stroke_thicknesses:
                 export_path = ExportPath(destination_directory, symbol.symbol_class, raw_file_name_without_extension,
                                          stroke_thickness, 'png')
-                symbol.draw_onto_canvas(export_path, stroke_thickness, 0, width,
+                if width is None and height is None:
+                    symbol.draw_into_bitmap(export_path, stroke_thickness, margin=2)
+                else:
+                    symbol.draw_onto_canvas(export_path, stroke_thickness, 0, width,
                                         height, staff_line_spacing, staff_line_vertical_offsets, bounding_boxes)
 
                 current_symbol += 1 * staff_line_multiplier
@@ -108,16 +120,26 @@ if __name__ == "__main__":
     parser.add_argument("--height", default="192", type=int, help="Height of the generated images in pixel")
     parser.add_argument("--staff_line_spacing", default="14", type=int, help="Spacing between two staff-lines in pixel")
 
+    parser.add_argument("--disable_fixed_canvas_size", dest="use_fixed_canvas",
+                        action="store_false",
+                        help="True, if the images should be drawn on a fixed canvas with the specified width and height."
+                             "False to draw the symbols with their original sizes (each symbol might be different)")
+    parser.set_defaults(use_fixed_canvas=True)
+
     flags, unparsed = parser.parse_known_args()
 
     offsets = []
     if flags.offsets != "":
         offsets = [int(o) for o in flags.offsets.split(',')]
 
+    width, height = flags.width, flags.height
+    if not flags.use_fixed_canvas:
+        width, height = None, None
+
     HomusImageGenerator.create_images(flags.raw_dataset_directory,
                                       flags.image_dataset_directory,
                                       [int(s) for s in flags.stroke_thicknesses.split(',')],
-                                      flags.width,
-                                      flags.height,
+                                      width,
+                                      height,
                                       flags.staff_line_spacing,
                                       offsets)

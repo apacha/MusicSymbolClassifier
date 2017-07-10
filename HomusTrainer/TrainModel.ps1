@@ -26,6 +26,18 @@ $env:PYTHONPATH = $pathToSourceRoot
 # Upcoming Trainings 
 ################################################
 
+Start-Transcript -path "$($pathToTranscript)2017-07-10_res_net_3_small_192x96_no_fixed_canvas_Adadelta_mb32.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name res_net_3_small -s 3 --width 96 --height 192 --minibatch_size 32 --optimizer Adadelta --disable_fixed_canvas_size
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-10_res_net_3_small_96x48_no_fixed_canvas_Adadelta_mb32.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name res_net_3_small -s 3 --width 48 --height 96 --minibatch_size 32 --optimizer Adadelta --disable_fixed_canvas_size
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-10_res_net_3_small_48x48_no_fixed_canvas_Adadelta_mb32.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name res_net_3_small -s 3 --width 48 --height 96 --minibatch_size 32 --optimizer Adadelta --disable_fixed_canvas_size
+Stop-Transcript
+
 #######################################################
 # Below are configurations that already were 
 # started on a machine and should not run again, 
@@ -35,7 +47,7 @@ $env:PYTHONPATH = $pathToSourceRoot
 exit
 
 # Started on Donkey, 07.07.2017
-Start-Transcript -path "$($pathToTranscript)2017-07-07_res_net_3_small_192x96_Adadelta_mb32.txt" -append
+Start-Transcript -path "$($pathToTranscript)2017-07-07_res_net_3_small_192x96_Adam_mb32.txt" -append
 python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name res_net_3_small -s 3 --width 96 --height 192 --minibatch_size 32 --optimizer Adam
 Stop-Transcript
 
