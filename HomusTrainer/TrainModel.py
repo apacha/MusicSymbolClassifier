@@ -226,7 +226,8 @@ def train_model(dataset_directory: str,
                                                            initialization=training_configuration.initialization,
                                                            initial_learning_rate=training_configuration.get_initial_learning_rate(),
                                                            accuracy=classification_accuracy,
-                                                           date=today)
+                                                           date=today,
+                                                           use_fixed_canvas=use_fixed_canvas)
 
 
 if __name__ == "__main__":
