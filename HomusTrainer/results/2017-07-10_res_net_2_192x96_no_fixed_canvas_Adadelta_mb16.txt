@@ -1,0 +1,780 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20170710233255
+Username: DONKEY\Alex
+RunAs User: DONKEY\Alex
+Machine: DONKEY (Microsoft Windows NT 10.0.15063.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -Command if((Get-ExecutionPolicy ) -ne 'AllSigned') { Set-ExecutionPolicy -Scope Process Bypass }; & 'C:\Users\Alex\Repositories\MusicSymbolClassifier\HomusTrainer\TrainModel.ps1'
+Process ID: 22468
+PSVersion: 5.1.15063.413
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.15063.413
+BuildVersion: 10.0.15063.413
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\Users\Alex\Repositories\MusicSymbolClassifier\HomusTrainer\2017-07-10_res_net_2_192x96_no_fixed_canvas_Adadelta_mb16.txt
+Using TensorFlow backend.
+Deleting dataset directory data
+Extracting HOMUS Dataset...
+Generating 15200 images with 15200 symbols in 1 different stroke thicknesses ([3]) and with staff-lines with 1 different offsets from the top ([])
+In directory C:\Users\Alex\Repositories\MusicSymbolClassifier\HomusTrainer\data\images
+15200/15200Deleting split directories...
+Splitting data into training, validation and test sets...
+Copying 320 training files of 12-8-Time...
+Copying 40 validation files of 12-8-Time...
+Copying 40 test files of 12-8-Time...
+Copying 318 training files of 2-2-Time...
+Copying 39 validation files of 2-2-Time...
+Copying 39 test files of 2-2-Time...
+Copying 320 training files of 2-4-Time...
+Copying 40 validation files of 2-4-Time...
+Copying 40 test files of 2-4-Time...
+Copying 320 training files of 3-4-Time...
+Copying 40 validation files of 3-4-Time...
+Copying 40 test files of 3-4-Time...
+Copying 320 training files of 3-8-Time...
+Copying 40 validation files of 3-8-Time...
+Copying 40 test files of 3-8-Time...
+Copying 320 training files of 4-4-Time...
+Copying 40 validation files of 4-4-Time...
+Copying 40 test files of 4-4-Time...
+Copying 320 training files of 6-8-Time...
+Copying 40 validation files of 6-8-Time...
+Copying 40 test files of 6-8-Time...
+Copying 320 training files of 9-8-Time...
+Copying 40 validation files of 9-8-Time...
+Copying 40 test files of 9-8-Time...
+Copying 322 training files of Barline...
+Copying 40 validation files of Barline...
+Copying 40 test files of Barline...
+Copying 320 training files of C-Clef...
+Copying 40 validation files of C-Clef...
+Copying 40 test files of C-Clef...
+Copying 320 training files of Common-Time...
+Copying 40 validation files of Common-Time...
+Copying 40 test files of Common-Time...
+Copying 324 training files of Cut-Time...
+Copying 40 validation files of Cut-Time...
+Copying 40 test files of Cut-Time...
+Copying 320 training files of Dot...
+Copying 40 validation files of Dot...
+Copying 40 test files of Dot...
+Copying 320 training files of Double-Sharp...
+Copying 40 validation files of Double-Sharp...
+Copying 40 test files of Double-Sharp...
+Copying 640 training files of Eighth-Note...
+Copying 80 validation files of Eighth-Note...
+Copying 80 test files of Eighth-Note...
+Copying 320 training files of Eighth-Rest...
+Copying 40 validation files of Eighth-Rest...
+Copying 40 test files of Eighth-Rest...
+Copying 320 training files of F-Clef...
+Copying 40 validation files of F-Clef...
+Copying 40 test files of F-Clef...
+Copying 321 training files of Flat...
+Copying 39 validation files of Flat...
+Copying 39 test files of Flat...
+Copying 320 training files of G-Clef...
+Copying 40 validation files of G-Clef...
+Copying 40 test files of G-Clef...
+Copying 641 training files of Half-Note...
+Copying 79 validation files of Half-Note...
+Copying 79 test files of Half-Note...
+Copying 320 training files of Natural...
+Copying 40 validation files of Natural...
+Copying 40 test files of Natural...
+Copying 641 training files of Quarter-Note...
+Copying 80 validation files of Quarter-Note...
+Copying 80 test files of Quarter-Note...
+Copying 320 training files of Quarter-Rest...
+Copying 40 validation files of Quarter-Rest...
+Copying 40 test files of Quarter-Rest...
+Copying 320 training files of Sharp...
+Copying 40 validation files of Sharp...
+Copying 40 test files of Sharp...
+Copying 641 training files of Sixteenth-Note...
+Copying 80 validation files of Sixteenth-Note...
+Copying 80 test files of Sixteenth-Note...
+Copying 320 training files of Sixteenth-Rest...
+Copying 40 validation files of Sixteenth-Rest...
+Copying 40 test files of Sixteenth-Rest...
+Copying 641 training files of Sixty-Four-Note...
+Copying 79 validation files of Sixty-Four-Note...
+Copying 79 test files of Sixty-Four-Note...
+Copying 320 training files of Sixty-Four-Rest...
+Copying 40 validation files of Sixty-Four-Rest...
+Copying 40 test files of Sixty-Four-Rest...
+Copying 641 training files of Thirty-Two-Note...
+Copying 79 validation files of Thirty-Two-Note...
+Copying 79 test files of Thirty-Two-Note...
+Copying 320 training files of Thirty-Two-Rest...
+Copying 40 validation files of Thirty-Two-Rest...
+Copying 40 test files of Thirty-Two-Rest...
+Copying 320 training files of Whole-Half-Rest...
+Copying 40 validation files of Whole-Half-Rest...
+Copying 40 test files of Whole-Half-Rest...
+Copying 320 training files of Whole-Note...
+Copying 40 validation files of Whole-Note...
+Copying 40 test files of Whole-Note...
+Loading configuration and data-readers...
+Found 12170 images belonging to 32 classes.
+Found 1515 images belonging to 32 classes.
+Found 1515 images belonging to 32 classes.
+____________________________________________________________________________________________________
+Layer (type)                     Output Shape          Param #     Connected to
+====================================================================================================
+input_1 (InputLayer)             (None, 192, 96, 3)    0
+____________________________________________________________________________________________________
+conv1 (Conv2D)                   (None, 96, 48, 32)    4736        input_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_1 (BatchNorm (None, 96, 48, 32)    128         conv1[0][0]
+____________________________________________________________________________________________________
+activation_1 (Activation)        (None, 96, 48, 32)    0           batch_normalization_1[0][0]
+____________________________________________________________________________________________________
+max_pooling2d_1 (MaxPooling2D)   (None, 48, 24, 32)    0           activation_1[0][0]
+____________________________________________________________________________________________________
+conv2_1_a (Conv2D)               (None, 24, 12, 32)    9248        max_pooling2d_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_2 (BatchNorm (None, 24, 12, 32)    128         conv2_1_a[0][0]
+____________________________________________________________________________________________________
+activation_2 (Activation)        (None, 24, 12, 32)    0           batch_normalization_2[0][0]
+____________________________________________________________________________________________________
+conv2_1_b (Conv2D)               (None, 24, 12, 32)    9248        activation_2[0][0]
+____________________________________________________________________________________________________
+batch_normalization_3 (BatchNorm (None, 24, 12, 32)    128         conv2_1_b[0][0]
+____________________________________________________________________________________________________
+activation_3 (Activation)        (None, 24, 12, 32)    0           batch_normalization_3[0][0]
+____________________________________________________________________________________________________
+conv2_1_shortcut (Conv2D)        (None, 24, 12, 32)    1056        max_pooling2d_1[0][0]
+____________________________________________________________________________________________________
+add_1 (Add)                      (None, 24, 12, 32)    0           activation_3[0][0]
+                                                                   conv2_1_shortcut[0][0]
+____________________________________________________________________________________________________
+conv2_2_a (Conv2D)               (None, 24, 12, 32)    9248        add_1[0][0]
+____________________________________________________________________________________________________
+batch_normalization_4 (BatchNorm (None, 24, 12, 32)    128         conv2_2_a[0][0]
+____________________________________________________________________________________________________
+activation_4 (Activation)        (None, 24, 12, 32)    0           batch_normalization_4[0][0]
+____________________________________________________________________________________________________
+conv2_2_b (Conv2D)               (None, 24, 12, 32)    9248        activation_4[0][0]
+____________________________________________________________________________________________________
+batch_normalization_5 (BatchNorm (None, 24, 12, 32)    128         conv2_2_b[0][0]
+____________________________________________________________________________________________________
+activation_5 (Activation)        (None, 24, 12, 32)    0           batch_normalization_5[0][0]
+____________________________________________________________________________________________________
+add_2 (Add)                      (None, 24, 12, 32)    0           activation_5[0][0]
+                                                                   add_1[0][0]
+____________________________________________________________________________________________________
+conv3_1_a (Conv2D)               (None, 12, 6, 64)     18496       add_2[0][0]
+____________________________________________________________________________________________________
+batch_normalization_6 (BatchNorm (None, 12, 6, 64)     256         conv3_1_a[0][0]
+____________________________________________________________________________________________________
+activation_6 (Activation)        (None, 12, 6, 64)     0           batch_normalization_6[0][0]
+____________________________________________________________________________________________________
+conv3_1_b (Conv2D)               (None, 12, 6, 64)     36928       activation_6[0][0]
+____________________________________________________________________________________________________
+batch_normalization_7 (BatchNorm (None, 12, 6, 64)     256         conv3_1_b[0][0]
+____________________________________________________________________________________________________
+activation_7 (Activation)        (None, 12, 6, 64)     0           batch_normalization_7[0][0]
+____________________________________________________________________________________________________
+conv3_1_shortcut (Conv2D)        (None, 12, 6, 64)     2112        add_2[0][0]
+____________________________________________________________________________________________________
+add_3 (Add)                      (None, 12, 6, 64)     0           activation_7[0][0]
+                                                                   conv3_1_shortcut[0][0]
+____________________________________________________________________________________________________
+conv3_2_a (Conv2D)               (None, 12, 6, 64)     36928       add_3[0][0]
+____________________________________________________________________________________________________
+batch_normalization_8 (BatchNorm (None, 12, 6, 64)     256         conv3_2_a[0][0]
+____________________________________________________________________________________________________
+activation_8 (Activation)        (None, 12, 6, 64)     0           batch_normalization_8[0][0]
+____________________________________________________________________________________________________
+conv3_2_b (Conv2D)               (None, 12, 6, 64)     36928       activation_8[0][0]
+____________________________________________________________________________________________________
+batch_normalization_9 (BatchNorm (None, 12, 6, 64)     256         conv3_2_b[0][0]
+____________________________________________________________________________________________________
+activation_9 (Activation)        (None, 12, 6, 64)     0           batch_normalization_9[0][0]
+____________________________________________________________________________________________________
+add_4 (Add)                      (None, 12, 6, 64)     0           activation_9[0][0]
+                                                                   add_3[0][0]
+____________________________________________________________________________________________________
+conv4_1_a (Conv2D)               (None, 6, 3, 128)     73856       add_4[0][0]
+____________________________________________________________________________________________________
+batch_normalization_10 (BatchNor (None, 6, 3, 128)     512         conv4_1_a[0][0]
+____________________________________________________________________________________________________
+activation_10 (Activation)       (None, 6, 3, 128)     0           batch_normalization_10[0][0]
+____________________________________________________________________________________________________
+conv4_1_b (Conv2D)               (None, 6, 3, 128)     147584      activation_10[0][0]
+____________________________________________________________________________________________________
+batch_normalization_11 (BatchNor (None, 6, 3, 128)     512         conv4_1_b[0][0]
+____________________________________________________________________________________________________
+activation_11 (Activation)       (None, 6, 3, 128)     0           batch_normalization_11[0][0]
+____________________________________________________________________________________________________
+conv4_1_shortcut (Conv2D)        (None, 6, 3, 128)     8320        add_4[0][0]
+____________________________________________________________________________________________________
+add_5 (Add)                      (None, 6, 3, 128)     0           activation_11[0][0]
+                                                                   conv4_1_shortcut[0][0]
+____________________________________________________________________________________________________
+conv4_2_a (Conv2D)               (None, 6, 3, 128)     147584      add_5[0][0]
+____________________________________________________________________________________________________
+batch_normalization_12 (BatchNor (None, 6, 3, 128)     512         conv4_2_a[0][0]
+____________________________________________________________________________________________________
+activation_12 (Activation)       (None, 6, 3, 128)     0           batch_normalization_12[0][0]
+____________________________________________________________________________________________________
+conv4_2_b (Conv2D)               (None, 6, 3, 128)     147584      activation_12[0][0]
+____________________________________________________________________________________________________
+batch_normalization_13 (BatchNor (None, 6, 3, 128)     512         conv4_2_b[0][0]
+____________________________________________________________________________________________________
+activation_13 (Activation)       (None, 6, 3, 128)     0           batch_normalization_13[0][0]
+____________________________________________________________________________________________________
+add_6 (Add)                      (None, 6, 3, 128)     0           activation_13[0][0]
+                                                                   add_5[0][0]
+____________________________________________________________________________________________________
+conv4_3_a (Conv2D)               (None, 6, 3, 128)     147584      add_6[0][0]
+____________________________________________________________________________________________________
+batch_normalization_14 (BatchNor (None, 6, 3, 128)     512         conv4_3_a[0][0]
+____________________________________________________________________________________________________
+activation_14 (Activation)       (None, 6, 3, 128)     0           batch_normalization_14[0][0]
+____________________________________________________________________________________________________
+conv4_3_b (Conv2D)               (None, 6, 3, 128)     147584      activation_14[0][0]
+____________________________________________________________________________________________________
+batch_normalization_15 (BatchNor (None, 6, 3, 128)     512         conv4_3_b[0][0]
+____________________________________________________________________________________________________
+activation_15 (Activation)       (None, 6, 3, 128)     0           batch_normalization_15[0][0]
+____________________________________________________________________________________________________
+add_7 (Add)                      (None, 6, 3, 128)     0           activation_15[0][0]
+                                                                   add_6[0][0]
+____________________________________________________________________________________________________
+conv5_1_a (Conv2D)               (None, 3, 2, 256)     295168      add_7[0][0]
+____________________________________________________________________________________________________
+batch_normalization_16 (BatchNor (None, 3, 2, 256)     1024        conv5_1_a[0][0]
+____________________________________________________________________________________________________
+activation_16 (Activation)       (None, 3, 2, 256)     0           batch_normalization_16[0][0]
+____________________________________________________________________________________________________
+conv5_1_b (Conv2D)               (None, 3, 2, 256)     590080      activation_16[0][0]
+____________________________________________________________________________________________________
+batch_normalization_17 (BatchNor (None, 3, 2, 256)     1024        conv5_1_b[0][0]
+____________________________________________________________________________________________________
+activation_17 (Activation)       (None, 3, 2, 256)     0           batch_normalization_17[0][0]
+____________________________________________________________________________________________________
+conv5_1_shortcut (Conv2D)        (None, 3, 2, 256)     33024       add_7[0][0]
+____________________________________________________________________________________________________
+add_8 (Add)                      (None, 3, 2, 256)     0           activation_17[0][0]
+                                                                   conv5_1_shortcut[0][0]
+____________________________________________________________________________________________________
+conv5_2_a (Conv2D)               (None, 3, 2, 256)     590080      add_8[0][0]
+____________________________________________________________________________________________________
+batch_normalization_18 (BatchNor (None, 3, 2, 256)     1024        conv5_2_a[0][0]
+____________________________________________________________________________________________________
+activation_18 (Activation)       (None, 3, 2, 256)     0           batch_normalization_18[0][0]
+____________________________________________________________________________________________________
+conv5_2_b (Conv2D)               (None, 3, 2, 256)     590080      activation_18[0][0]
+____________________________________________________________________________________________________
+batch_normalization_19 (BatchNor (None, 3, 2, 256)     1024        conv5_2_b[0][0]
+____________________________________________________________________________________________________
+activation_19 (Activation)       (None, 3, 2, 256)     0           batch_normalization_19[0][0]
+____________________________________________________________________________________________________
+add_9 (Add)                      (None, 3, 2, 256)     0           activation_19[0][0]
+                                                                   add_8[0][0]
+____________________________________________________________________________________________________
+conv5_3_a (Conv2D)               (None, 3, 2, 256)     590080      add_9[0][0]
+____________________________________________________________________________________________________
+batch_normalization_20 (BatchNor (None, 3, 2, 256)     1024        conv5_3_a[0][0]
+____________________________________________________________________________________________________
+activation_20 (Activation)       (None, 3, 2, 256)     0           batch_normalization_20[0][0]
+____________________________________________________________________________________________________
+conv5_3_b (Conv2D)               (None, 3, 2, 256)     590080      activation_20[0][0]
+____________________________________________________________________________________________________
+batch_normalization_21 (BatchNor (None, 3, 2, 256)     1024        conv5_3_b[0][0]
+____________________________________________________________________________________________________
+activation_21 (Activation)       (None, 3, 2, 256)     0           batch_normalization_21[0][0]
+____________________________________________________________________________________________________
+add_10 (Add)                     (None, 3, 2, 256)     0           activation_21[0][0]
+                                                                   add_9[0][0]
+____________________________________________________________________________________________________
+average_pooling2d_1 (AveragePool (None, 1, 1, 256)     0           add_10[0][0]
+____________________________________________________________________________________________________
+flatten_1 (Flatten)              (None, 256)           0           average_pooling2d_1[0][0]
+____________________________________________________________________________________________________
+output_class (Dense)             (None, 32)            8224        flatten_1[0][0]
+====================================================================================================
+Total params: 4,291,968
+Trainable params: 4,286,528
+Non-trainable params: 5,440
+____________________________________________________________________________________________________
+Model res_net_2 loaded.
+2017-07-10 23:37:05.782332: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to
+ use SSE instructions, but these are available on your machine and could speed up CPU computations.
+2017-07-10 23:37:05.782411: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to
+ use SSE2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-07-10 23:37:05.782741: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to
+ use SSE3 instructions, but these are available on your machine and could speed up CPU computations.
+2017-07-10 23:37:05.784034: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to
+ use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2017-07-10 23:37:05.784262: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to
+ use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-07-10 23:37:05.785728: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to
+ use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2017-07-10 23:37:05.785965: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to
+ use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+2017-07-10 23:37:05.787042: W c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to
+ use FMA instructions, but these are available on your machine and could speed up CPU computations.
+2017-07-10 23:37:06.113731: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:887] Found device 0 with properties:
+name: GeForce GTX 1080 Ti
+major: 6 minor: 1 memoryClockRate (GHz) 1.582
+pciBusID 0000:01:00.0
+Total memory: 11.00GiB
+Free memory: 9.12GiB
+2017-07-10 23:37:06.113822: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:908] DMA: 0
+2017-07-10 23:37:06.115062: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:918] 0:   Y
+2017-07-10 23:37:06.115368: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\gpu_device.cc:977] Creating TensorFlow device (/gpu:0) -
+> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:01:00.0)
+Training for 200 epochs with initial learning rate of 0.01, weight-decay of 0.0001 and Nesterov Momentum of 0.9 ...
+Additional parameters: Initialization: glorot_uniform, Minibatch-size: 16, Early stopping after 20 epochs without improvement
+Data-Shape: (192, 96, 3), Reducing learning rate by factor to 0.5 respectively if not improved validation accuracy after 8 epochs
+Data-augmentation: Zooming 20.0% randomly, rotating 10° randomly
+Optimizer: Adadelta, with parameters {'lr': 1.0, 'rho': 0.95, 'decay': 0.0, 'epsilon': 1e-08}
+Performing object localization: False
+Training on dataset...
+Epoch 1/200
+  3/761 [..............................] - ETA: 1617s - loss: 5.7072 - acc: 0.06252017-07-10 23:37:24.031156: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflo
+w\core\common_runtime\gpu\pool_allocator.cc:247] PoolAllocator: After 2800 get requests, put_count=2614 evicted_count=1000 eviction_rate=0.382555 and unsatisfied allocation rate=0.4592
+86
+2017-07-10 23:37:24.031249: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\pool_allocator.cc:259] Raising pool_size_limit_ from 100
+ to 110
+ 73/761 [=>............................] - ETA: 101s - loss: 3.1891 - acc: 0.25172017-07-10 23:37:28.333551: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow
+\core\common_runtime\gpu\pool_allocator.cc:247] PoolAllocator: After 7322 get requests, put_count=7357 evicted_count=1000 eviction_rate=0.135925 and unsatisfied allocation rate=0.13493
+6
+2017-07-10 23:37:28.333628: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\core\common_runtime\gpu\pool_allocator.cc:259] Raising pool_size_limit_ from 256
+ to 281
+760/761 [============================>.] - ETA: 0s - loss: 1.4934 - acc: 0.6417Epoch 00000: val_acc improved from -inf to 0.79142, saving model to 2017-07-10_res_net_2.h5
+761/761 [==============================] - 62s - loss: 1.4923 - acc: 0.6419 - val_loss: 0.9504 - val_acc: 0.7914
+Epoch 2/200
+760/761 [============================>.] - ETA: 0s - loss: 0.8184 - acc: 0.8206Epoch 00001: val_acc improved from 0.79142 to 0.81980, saving model to 2017-07-10_res_net_2.h5
+761/761 [==============================] - 52s - loss: 0.8186 - acc: 0.8204 - val_loss: 0.8662 - val_acc: 0.8198
+Epoch 3/200
+760/761 [============================>.] - ETA: 0s - loss: 0.6688 - acc: 0.8692Epoch 00002: val_acc did not improve
+761/761 [==============================] - 48s - loss: 0.6693 - acc: 0.8691 - val_loss: 1.0277 - val_acc: 0.7703
+Epoch 4/200
+760/761 [============================>.] - ETA: 0s - loss: 0.5878 - acc: 0.8919Epoch 00003: val_acc improved from 0.81980 to 0.88515, saving model to 2017-07-10_res_net_2.h5
+761/761 [==============================] - 48s - loss: 0.5875 - acc: 0.8921 - val_loss: 0.6332 - val_acc: 0.8851
+Epoch 5/200
+760/761 [============================>.] - ETA: 0s - loss: 0.5183 - acc: 0.9141Epoch 00004: val_acc did not improve
+761/761 [==============================] - 48s - loss: 0.5184 - acc: 0.9140 - val_loss: 3.1174 - val_acc: 0.4799
+Epoch 6/200
+760/761 [============================>.] - ETA: 0s - loss: 0.4827 - acc: 0.9262Epoch 00005: val_acc did not improve
+761/761 [==============================] - 47s - loss: 0.4827 - acc: 0.9261 - val_loss: 0.6858 - val_acc: 0.8693
+Epoch 7/200
+760/761 [============================>.] - ETA: 0s - loss: 0.4493 - acc: 0.9345Epoch 00006: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.4491 - acc: 0.9346 - val_loss: 2.7823 - val_acc: 0.5439
+Epoch 8/200
+760/761 [============================>.] - ETA: 0s - loss: 0.4185 - acc: 0.9418Epoch 00007: val_acc improved from 0.88515 to 0.90825, saving model to 2017-07-10_res_net_2.h5
+761/761 [==============================] - 44s - loss: 0.4184 - acc: 0.9419 - val_loss: 0.5470 - val_acc: 0.9083
+Epoch 9/200
+760/761 [============================>.] - ETA: 0s - loss: 0.3965 - acc: 0.9470Epoch 00008: val_acc improved from 0.90825 to 0.93663, saving model to 2017-07-10_res_net_2.h5
+761/761 [==============================] - 44s - loss: 0.3963 - acc: 0.9471 - val_loss: 0.4494 - val_acc: 0.9366
+Epoch 10/200
+760/761 [============================>.] - ETA: 0s - loss: 0.3741 - acc: 0.9537Epoch 00009: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.3741 - acc: 0.9536 - val_loss: 0.4715 - val_acc: 0.9248
+Epoch 11/200
+760/761 [============================>.] - ETA: 0s - loss: 0.3528 - acc: 0.9571Epoch 00010: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.3532 - acc: 0.9569 - val_loss: 0.4612 - val_acc: 0.9248
+Epoch 12/200
+702/761 [==========================>...] - ETA: 3s - loss: 0.3342 - acc: 0.96092017-07-10 23:46:48.938084: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\c
+ore\common_runtime\gpu\pool_allocator.cc:247] PoolAllocator: After 5078819 get requests, put_count=5078822 evicted_count=9000 eviction_rate=0.00177206 and unsatisfied allocation rate=0
+.00177699
+760/761 [============================>.] - ETA: 0s - loss: 0.3340 - acc: 0.9612Epoch 00011: val_acc improved from 0.93663 to 0.93861, saving model to 2017-07-10_res_net_2.h5
+761/761 [==============================] - 44s - loss: 0.3341 - acc: 0.9611 - val_loss: 0.4164 - val_acc: 0.9386
+Epoch 13/200
+760/761 [============================>.] - ETA: 0s - loss: 0.3302 - acc: 0.9634Epoch 00012: val_acc improved from 0.93861 to 0.94719, saving model to 2017-07-10_res_net_2.h5
+761/761 [==============================] - 44s - loss: 0.3301 - acc: 0.9635 - val_loss: 0.4001 - val_acc: 0.9472
+Epoch 14/200
+760/761 [============================>.] - ETA: 0s - loss: 0.3120 - acc: 0.9651Epoch 00013: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.3123 - acc: 0.9650 - val_loss: 0.4997 - val_acc: 0.9175
+Epoch 15/200
+760/761 [============================>.] - ETA: 0s - loss: 0.3155 - acc: 0.9634Epoch 00014: val_acc improved from 0.94719 to 0.94917, saving model to 2017-07-10_res_net_2.h5
+761/761 [==============================] - 44s - loss: 0.3156 - acc: 0.9633 - val_loss: 0.3872 - val_acc: 0.9492
+Epoch 16/200
+760/761 [============================>.] - ETA: 0s - loss: 0.2929 - acc: 0.9707Epoch 00015: val_acc did not improve
+761/761 [==============================] - 43s - loss: 0.2928 - acc: 0.9708 - val_loss: 0.9925 - val_acc: 0.8218
+Epoch 17/200
+760/761 [============================>.] - ETA: 0s - loss: 0.2799 - acc: 0.9718Epoch 00016: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.2803 - acc: 0.9714 - val_loss: 0.4103 - val_acc: 0.9373
+Epoch 18/200
+760/761 [============================>.] - ETA: 0s - loss: 0.2781 - acc: 0.9712Epoch 00017: val_acc improved from 0.94917 to 0.95116, saving model to 2017-07-10_res_net_2.h5
+761/761 [==============================] - 44s - loss: 0.2781 - acc: 0.9713 - val_loss: 0.3471 - val_acc: 0.9512
+Epoch 19/200
+760/761 [============================>.] - ETA: 0s - loss: 0.2587 - acc: 0.9768Epoch 00018: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.2586 - acc: 0.9768 - val_loss: 0.3717 - val_acc: 0.9505
+Epoch 20/200
+760/761 [============================>.] - ETA: 0s - loss: 0.2548 - acc: 0.9759Epoch 00019: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.2548 - acc: 0.9759 - val_loss: 0.3818 - val_acc: 0.9452
+Epoch 21/200
+760/761 [============================>.] - ETA: 0s - loss: 0.2511 - acc: 0.9758Epoch 00020: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.2511 - acc: 0.9759 - val_loss: 3.1274 - val_acc: 0.5624
+Epoch 22/200
+760/761 [============================>.] - ETA: 0s - loss: 0.2538 - acc: 0.9743Epoch 00021: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.2537 - acc: 0.9744 - val_loss: 0.3707 - val_acc: 0.9432
+Epoch 23/200
+760/761 [============================>.] - ETA: 0s - loss: 0.2414 - acc: 0.9771Epoch 00022: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.2417 - acc: 0.9770 - val_loss: 0.3946 - val_acc: 0.9360
+Epoch 24/200
+760/761 [============================>.] - ETA: 0s - loss: 0.2347 - acc: 0.9801Epoch 00023: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.2346 - acc: 0.9801 - val_loss: 0.4032 - val_acc: 0.9386
+Epoch 25/200
+760/761 [============================>.] - ETA: 0s - loss: 0.2309 - acc: 0.9780Epoch 00024: val_acc improved from 0.95116 to 0.96106, saving model to 2017-07-10_res_net_2.h5
+761/761 [==============================] - 44s - loss: 0.2309 - acc: 0.9780 - val_loss: 0.3065 - val_acc: 0.9611
+Epoch 26/200
+ 18/761 [..............................] - ETA: 33s - loss: 0.2311 - acc: 0.97572017-07-10 23:56:29.172114: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\
+core\common_runtime\gpu\pool_allocator.cc:247] PoolAllocator: After 10722745 get requests, put_count=10722748 evicted_count=19000 eviction_rate=0.00177193 and unsatisfied allocation ra
+te=0.00177427
+760/761 [============================>.] - ETA: 0s - loss: 0.2285 - acc: 0.9783Epoch 00025: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.2285 - acc: 0.9782 - val_loss: 0.3306 - val_acc: 0.9518
+Epoch 27/200
+760/761 [============================>.] - ETA: 0s - loss: 0.2136 - acc: 0.9815Epoch 00026: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.2135 - acc: 0.9815 - val_loss: 0.3320 - val_acc: 0.9538
+Epoch 28/200
+760/761 [============================>.] - ETA: 0s - loss: 0.2165 - acc: 0.9802Epoch 00027: val_acc improved from 0.96106 to 0.96502, saving model to 2017-07-10_res_net_2.h5
+761/761 [==============================] - 44s - loss: 0.2164 - acc: 0.9802 - val_loss: 0.2784 - val_acc: 0.9650
+Epoch 29/200
+760/761 [============================>.] - ETA: 0s - loss: 0.2052 - acc: 0.9837Epoch 00028: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.2051 - acc: 0.9837 - val_loss: 0.3341 - val_acc: 0.9578
+Epoch 30/200
+760/761 [============================>.] - ETA: 0s - loss: 0.2044 - acc: 0.9820Epoch 00029: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.2043 - acc: 0.9820 - val_loss: 0.2896 - val_acc: 0.9624
+Epoch 31/200
+760/761 [============================>.] - ETA: 0s - loss: 0.2008 - acc: 0.9836Epoch 00030: val_acc did not improve
+761/761 [==============================] - 43s - loss: 0.2007 - acc: 0.9836 - val_loss: 0.3256 - val_acc: 0.9472
+Epoch 32/200
+760/761 [============================>.] - ETA: 0s - loss: 0.2054 - acc: 0.9808Epoch 00031: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.2053 - acc: 0.9808 - val_loss: 0.3166 - val_acc: 0.9584
+Epoch 33/200
+760/761 [============================>.] - ETA: 0s - loss: 0.2006 - acc: 0.9815Epoch 00032: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.2005 - acc: 0.9815 - val_loss: 0.3307 - val_acc: 0.9518
+Epoch 34/200
+760/761 [============================>.] - ETA: 0s - loss: 0.1931 - acc: 0.9850Epoch 00033: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.1939 - acc: 0.9849 - val_loss: 0.3375 - val_acc: 0.9485
+Epoch 35/200
+760/761 [============================>.] - ETA: 0s - loss: 0.1896 - acc: 0.9846Epoch 00034: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.1896 - acc: 0.9846 - val_loss: 0.3260 - val_acc: 0.9545
+Epoch 36/200
+760/761 [============================>.] - ETA: 0s - loss: 0.1934 - acc: 0.9813Epoch 00035: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.1933 - acc: 0.9814 - val_loss: 0.3150 - val_acc: 0.9531
+Epoch 37/200
+760/761 [============================>.] - ETA: 0s - loss: 0.1838 - acc: 0.9856Epoch 00036: val_acc did not improve
+
+Epoch 00036: reducing learning rate to 0.5.
+761/761 [==============================] - 44s - loss: 0.1837 - acc: 0.9856 - val_loss: 0.3045 - val_acc: 0.9545
+Epoch 38/200
+760/761 [============================>.] - ETA: 0s - loss: 0.1599 - acc: 0.9917Epoch 00037: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.1598 - acc: 0.9917 - val_loss: 0.2792 - val_acc: 0.9617
+Epoch 39/200
+105/761 [===>..........................] - ETA: 34s - loss: 0.1575 - acc: 0.99112017-07-11 00:06:07.755919: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\
+core\common_runtime\gpu\pool_allocator.cc:247] PoolAllocator: After 16370082 get requests, put_count=16370085 evicted_count=29000 eviction_rate=0.00177152 and unsatisfied allocation ra
+te=0.00177305
+760/761 [============================>.] - ETA: 0s - loss: 0.1527 - acc: 0.9951Epoch 00038: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.1526 - acc: 0.9951 - val_loss: 0.3160 - val_acc: 0.9518
+Epoch 40/200
+760/761 [============================>.] - ETA: 0s - loss: 0.1434 - acc: 0.9959Epoch 00039: val_acc improved from 0.96502 to 0.96964, saving model to 2017-07-10_res_net_2.h5
+761/761 [==============================] - 44s - loss: 0.1434 - acc: 0.9959 - val_loss: 0.2342 - val_acc: 0.9696
+Epoch 41/200
+760/761 [============================>.] - ETA: 0s - loss: 0.1374 - acc: 0.9968Epoch 00040: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.1374 - acc: 0.9968 - val_loss: 0.3017 - val_acc: 0.9591
+Epoch 42/200
+760/761 [============================>.] - ETA: 0s - loss: 0.1384 - acc: 0.9953Epoch 00041: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.1384 - acc: 0.9953 - val_loss: 0.2799 - val_acc: 0.9624
+Epoch 43/200
+760/761 [============================>.] - ETA: 0s - loss: 0.1326 - acc: 0.9957Epoch 00042: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.1325 - acc: 0.9957 - val_loss: 0.2654 - val_acc: 0.9630
+Epoch 44/200
+760/761 [============================>.] - ETA: 0s - loss: 0.1278 - acc: 0.9961Epoch 00043: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.1278 - acc: 0.9961 - val_loss: 0.2353 - val_acc: 0.9611
+Epoch 45/200
+760/761 [============================>.] - ETA: 0s - loss: 0.1263 - acc: 0.9959Epoch 00044: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.1263 - acc: 0.9959 - val_loss: 0.2631 - val_acc: 0.9644
+Epoch 46/200
+760/761 [============================>.] - ETA: 0s - loss: 0.1205 - acc: 0.9971Epoch 00045: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.1207 - acc: 0.9970 - val_loss: 0.2922 - val_acc: 0.9578
+Epoch 47/200
+760/761 [============================>.] - ETA: 0s - loss: 0.1195 - acc: 0.9960Epoch 00046: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.1194 - acc: 0.9960 - val_loss: 0.2761 - val_acc: 0.9597
+Epoch 48/200
+760/761 [============================>.] - ETA: 0s - loss: 0.1171 - acc: 0.9960Epoch 00047: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.1170 - acc: 0.9960 - val_loss: 0.2499 - val_acc: 0.9637
+Epoch 49/200
+760/761 [============================>.] - ETA: 0s - loss: 0.1136 - acc: 0.9967Epoch 00048: val_acc did not improve
+
+Epoch 00048: reducing learning rate to 0.25.
+761/761 [==============================] - 44s - loss: 0.1136 - acc: 0.9967 - val_loss: 0.2593 - val_acc: 0.9663
+Epoch 50/200
+760/761 [============================>.] - ETA: 0s - loss: 0.1082 - acc: 0.9976Epoch 00049: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.1082 - acc: 0.9976 - val_loss: 0.2412 - val_acc: 0.9650
+Epoch 51/200
+759/761 [============================>.] - ETA: 0s - loss: 0.1067 - acc: 0.9977Epoch 00050: val_acc improved from 0.96964 to 0.96964, saving model to 2017-07-10_res_net_2.h5
+761/761 [==============================] - 44s - loss: 0.1067 - acc: 0.9977 - val_loss: 0.2409 - val_acc: 0.9696
+Epoch 52/200
+192/761 [======>.......................] - ETA: 31s - loss: 0.1028 - acc: 0.99842017-07-11 00:15:47.509568: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\
+core\common_runtime\gpu\pool_allocator.cc:247] PoolAllocator: After 22017462 get requests, put_count=22017465 evicted_count=39000 eviction_rate=0.00177132 and unsatisfied allocation ra
+te=0.00177246
+760/761 [============================>.] - ETA: 0s - loss: 0.1020 - acc: 0.9987Epoch 00051: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.1020 - acc: 0.9987 - val_loss: 0.2416 - val_acc: 0.9670
+Epoch 53/200
+760/761 [============================>.] - ETA: 0s - loss: 0.1016 - acc: 0.9984Epoch 00052: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.1016 - acc: 0.9984 - val_loss: 0.2290 - val_acc: 0.9670
+Epoch 54/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0996 - acc: 0.9986Epoch 00053: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0996 - acc: 0.9986 - val_loss: 0.2428 - val_acc: 0.9677
+Epoch 55/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0979 - acc: 0.9980Epoch 00054: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0980 - acc: 0.9980 - val_loss: 0.2520 - val_acc: 0.9637
+Epoch 56/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0948 - acc: 0.9988Epoch 00055: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0948 - acc: 0.9988 - val_loss: 0.2412 - val_acc: 0.9683
+Epoch 57/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0927 - acc: 0.9990Epoch 00056: val_acc did not improve
+
+Epoch 00056: reducing learning rate to 0.125.
+761/761 [==============================] - 44s - loss: 0.0927 - acc: 0.9990 - val_loss: 0.2588 - val_acc: 0.9624
+Epoch 58/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0902 - acc: 0.9991Epoch 00057: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0902 - acc: 0.9991 - val_loss: 0.2300 - val_acc: 0.9637
+Epoch 59/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0892 - acc: 0.9988Epoch 00058: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0892 - acc: 0.9989 - val_loss: 0.2341 - val_acc: 0.9657
+Epoch 60/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0883 - acc: 0.9993Epoch 00059: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0883 - acc: 0.9993 - val_loss: 0.2360 - val_acc: 0.9663
+Epoch 61/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0876 - acc: 0.9990Epoch 00060: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0876 - acc: 0.9990 - val_loss: 0.2412 - val_acc: 0.9650
+Epoch 62/200
+759/761 [============================>.] - ETA: 0s - loss: 0.0860 - acc: 0.9990Epoch 00061: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0860 - acc: 0.9990 - val_loss: 0.2221 - val_acc: 0.9657
+Epoch 63/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0843 - acc: 0.9993Epoch 00062: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0843 - acc: 0.9993 - val_loss: 0.2288 - val_acc: 0.9663
+Epoch 64/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0831 - acc: 0.9994Epoch 00063: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0831 - acc: 0.9994 - val_loss: 0.2269 - val_acc: 0.9630
+Epoch 65/200
+279/761 [=========>....................] - ETA: 26s - loss: 0.0811 - acc: 1.00002017-07-11 00:25:27.322371: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\
+core\common_runtime\gpu\pool_allocator.cc:247] PoolAllocator: After 27664809 get requests, put_count=27664812 evicted_count=49000 eviction_rate=0.0017712 and unsatisfied allocation rat
+e=0.00177211
+760/761 [============================>.] - ETA: 0s - loss: 0.0818 - acc: 0.9995Epoch 00064: val_acc improved from 0.96964 to 0.97096, saving model to 2017-07-10_res_net_2.h5
+761/761 [==============================] - 44s - loss: 0.0818 - acc: 0.9995 - val_loss: 0.1991 - val_acc: 0.9710
+Epoch 66/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0814 - acc: 0.9993Epoch 00065: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0814 - acc: 0.9993 - val_loss: 0.2377 - val_acc: 0.9696
+Epoch 67/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0798 - acc: 0.9996Epoch 00066: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0798 - acc: 0.9996 - val_loss: 0.2355 - val_acc: 0.9670
+Epoch 68/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0798 - acc: 0.9989Epoch 00067: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0798 - acc: 0.9989 - val_loss: 0.2343 - val_acc: 0.9690
+Epoch 69/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0786 - acc: 0.9992Epoch 00068: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0786 - acc: 0.9992 - val_loss: 0.2095 - val_acc: 0.9650
+Epoch 70/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0771 - acc: 0.9994Epoch 00069: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0771 - acc: 0.9994 - val_loss: 0.2552 - val_acc: 0.9657
+Epoch 71/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0753 - acc: 0.9996Epoch 00070: val_acc improved from 0.97096 to 0.97162, saving model to 2017-07-10_res_net_2.h5
+761/761 [==============================] - 44s - loss: 0.0753 - acc: 0.9996 - val_loss: 0.2025 - val_acc: 0.9716
+Epoch 72/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0747 - acc: 0.9996Epoch 00071: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0747 - acc: 0.9996 - val_loss: 0.2241 - val_acc: 0.9677
+Epoch 73/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0739 - acc: 0.9992Epoch 00072: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0739 - acc: 0.9992 - val_loss: 0.2310 - val_acc: 0.9650
+Epoch 74/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0736 - acc: 0.9993Epoch 00073: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0736 - acc: 0.9993 - val_loss: 0.2158 - val_acc: 0.9677
+Epoch 75/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0720 - acc: 0.9996Epoch 00074: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0720 - acc: 0.9996 - val_loss: 0.2068 - val_acc: 0.9696
+Epoch 76/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0727 - acc: 0.9990Epoch 00075: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0727 - acc: 0.9990 - val_loss: 0.2408 - val_acc: 0.9637
+Epoch 77/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0703 - acc: 0.9996Epoch 00076: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0703 - acc: 0.9996 - val_loss: 0.2391 - val_acc: 0.9630
+Epoch 78/200
+360/761 [=============>................] - ETA: 22s - loss: 0.0695 - acc: 0.99972017-07-11 00:35:05.774207: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\
+core\common_runtime\gpu\pool_allocator.cc:247] PoolAllocator: After 33308778 get requests, put_count=33308781 evicted_count=59000 eviction_rate=0.0017713 and unsatisfied allocation rat
+e=0.00177206
+760/761 [============================>.] - ETA: 0s - loss: 0.0694 - acc: 0.9995Epoch 00077: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0694 - acc: 0.9995 - val_loss: 0.2415 - val_acc: 0.9710
+Epoch 79/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0684 - acc: 0.9996Epoch 00078: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0684 - acc: 0.9996 - val_loss: 0.1823 - val_acc: 0.9663
+Epoch 80/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0679 - acc: 0.9997Epoch 00079: val_acc did not improve
+
+Epoch 00079: reducing learning rate to 0.0625.
+761/761 [==============================] - 43s - loss: 0.0679 - acc: 0.9997 - val_loss: 0.2552 - val_acc: 0.9657
+Epoch 81/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0673 - acc: 0.9997Epoch 00080: val_acc improved from 0.97162 to 0.97558, saving model to 2017-07-10_res_net_2.h5
+761/761 [==============================] - 44s - loss: 0.0673 - acc: 0.9997 - val_loss: 0.1851 - val_acc: 0.9756
+Epoch 82/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0665 - acc: 0.9995Epoch 00081: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0665 - acc: 0.9995 - val_loss: 0.2922 - val_acc: 0.9591
+Epoch 83/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0660 - acc: 0.9995Epoch 00082: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0660 - acc: 0.9995 - val_loss: 0.2264 - val_acc: 0.9663
+Epoch 84/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0652 - acc: 0.9998Epoch 00083: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0652 - acc: 0.9998 - val_loss: 0.2266 - val_acc: 0.9663
+Epoch 85/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0653 - acc: 0.9995Epoch 00084: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0653 - acc: 0.9995 - val_loss: 0.2321 - val_acc: 0.9657
+Epoch 86/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0653 - acc: 0.9998Epoch 00085: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0653 - acc: 0.9998 - val_loss: 0.2215 - val_acc: 0.9670
+Epoch 87/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0647 - acc: 0.9995Epoch 00086: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0647 - acc: 0.9995 - val_loss: 0.1948 - val_acc: 0.9716
+Epoch 88/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0630 - acc: 0.9998Epoch 00087: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0630 - acc: 0.9998 - val_loss: 0.2274 - val_acc: 0.9683
+Epoch 89/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0624 - acc: 0.9998Epoch 00088: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0624 - acc: 0.9998 - val_loss: 0.2227 - val_acc: 0.9710
+Epoch 90/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0622 - acc: 0.9998Epoch 00089: val_acc did not improve
+
+Epoch 00089: reducing learning rate to 0.03125.
+761/761 [==============================] - 44s - loss: 0.0622 - acc: 0.9998 - val_loss: 0.2173 - val_acc: 0.9677
+Epoch 91/200
+443/761 [================>.............] - ETA: 17s - loss: 0.0613 - acc: 1.00002017-07-11 00:44:44.412081: I c:\tf_jenkins\home\workspace\release-win\device\gpu\os\windows\tensorflow\
+core\common_runtime\gpu\pool_allocator.cc:247] PoolAllocator: After 38953895 get requests, put_count=38953898 evicted_count=69000 eviction_rate=0.00177132 and unsatisfied allocation ra
+te=0.00177197
+760/761 [============================>.] - ETA: 0s - loss: 0.0613 - acc: 1.0000Epoch 00090: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0613 - acc: 1.0000 - val_loss: 0.2707 - val_acc: 0.9630
+Epoch 92/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0612 - acc: 0.9999Epoch 00091: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0612 - acc: 0.9999 - val_loss: 0.2173 - val_acc: 0.9670
+Epoch 93/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0611 - acc: 0.9998Epoch 00092: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0611 - acc: 0.9998 - val_loss: 0.2068 - val_acc: 0.9710
+Epoch 94/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0611 - acc: 0.9998Epoch 00093: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0610 - acc: 0.9998 - val_loss: 0.2009 - val_acc: 0.9703
+Epoch 95/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0605 - acc: 0.9998Epoch 00094: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0605 - acc: 0.9998 - val_loss: 0.2378 - val_acc: 0.9644
+Epoch 96/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0606 - acc: 0.9996Epoch 00095: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0606 - acc: 0.9996 - val_loss: 0.2091 - val_acc: 0.9663
+Epoch 97/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0604 - acc: 0.9996Epoch 00096: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0604 - acc: 0.9996 - val_loss: 0.2184 - val_acc: 0.9670
+Epoch 98/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0610 - acc: 0.9994Epoch 00097: val_acc did not improve
+
+Epoch 00097: reducing learning rate to 0.015625.
+761/761 [==============================] - 44s - loss: 0.0610 - acc: 0.9994 - val_loss: 0.2320 - val_acc: 0.9663
+Epoch 99/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0596 - acc: 0.9998Epoch 00098: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0596 - acc: 0.9998 - val_loss: 0.2261 - val_acc: 0.9677
+Epoch 100/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0597 - acc: 0.9998Epoch 00099: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0597 - acc: 0.9998 - val_loss: 0.1875 - val_acc: 0.9703
+Epoch 101/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0599 - acc: 0.9998Epoch 00100: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0599 - acc: 0.9998 - val_loss: 0.2268 - val_acc: 0.9650
+Epoch 102/200
+760/761 [============================>.] - ETA: 0s - loss: 0.0598 - acc: 0.9998Epoch 00101: val_acc did not improve
+761/761 [==============================] - 44s - loss: 0.0598 - acc: 0.9998 - val_loss: 0.2411 - val_acc: 0.9683
+Epoch 00101: early stopping
+Loading best model from check-point and testing...
+                 precision    recall  f1-score   support
+
+      12-8-Time       1.00      1.00      1.00        40
+       2-2-Time       1.00      1.00      1.00        39
+       2-4-Time       0.97      0.97      0.97        40
+       3-4-Time       1.00      0.97      0.99        40
+       3-8-Time       1.00      1.00      1.00        40
+       4-4-Time       1.00      0.97      0.99        40
+       6-8-Time       1.00      1.00      1.00        40
+       9-8-Time       1.00      1.00      1.00        40
+        Barline       0.95      0.97      0.96        40
+         C-Clef       1.00      1.00      1.00        40
+    Common-Time       1.00      1.00      1.00        40
+       Cut-Time       1.00      0.97      0.99        40
+            Dot       0.83      1.00      0.91        40
+   Double-Sharp       1.00      0.95      0.97        40
+    Eighth-Note       0.96      0.97      0.97        80
+    Eighth-Rest       0.95      1.00      0.98        40
+         F-Clef       1.00      1.00      1.00        40
+           Flat       1.00      0.97      0.99        39
+         G-Clef       0.98      1.00      0.99        40
+      Half-Note       1.00      0.99      0.99        79
+        Natural       0.97      0.97      0.97        40
+   Quarter-Note       0.99      0.99      0.99        80
+   Quarter-Rest       0.95      0.93      0.94        40
+          Sharp       1.00      1.00      1.00        40
+ Sixteenth-Note       0.94      0.95      0.94        80
+ Sixteenth-Rest       0.95      1.00      0.98        40
+Sixty-Four-Note       0.96      0.95      0.96        79
+Sixty-Four-Rest       1.00      0.93      0.96        40
+Thirty-Two-Note       0.94      0.92      0.93        79
+Thirty-Two-Rest       0.93      1.00      0.96        40
+Whole-Half-Rest       0.97      0.80      0.88        40
+     Whole-Note       0.98      1.00      0.99        40
+
+    avg / total       0.97      0.97      0.97      1515
+
+Misclassified files:
+        2-4-Time\49-40_3.png is incorrectly classified as Quarter-Rest
+        3-4-Time\39-30_3.png is incorrectly classified as 2-4-Time
+        4-4-Time\39-24_3.png is incorrectly classified as Sixteenth-Rest
+        Barline\24-33_3.png is incorrectly classified as Dot
+        Cut-Time\78-20_3.png is incorrectly classified as Natural
+        Double-Sharp\32-62_3.png is incorrectly classified as Sixteenth-Note
+        Double-Sharp\49-64_3.png is incorrectly classified as Eighth-Rest
+        Eighth-Note\85-101_3.png is incorrectly classified as Sixteenth-Note
+        Eighth-Note\99-104_3.png is incorrectly classified as Sixteenth-Note
+        Flat\34-55_3.png is incorrectly classified as Whole-Note
+        Half-Note\46-77_3.png is incorrectly classified as Quarter-Note
+        Natural\82-65_3.png is incorrectly classified as Quarter-Rest
+        Quarter-Note\21-96_3.png is incorrectly classified as Whole-Half-Rest
+        Quarter-Rest\1-101_3.png is incorrectly classified as Barline
+        Quarter-Rest\26-96_3.png is incorrectly classified as Sixteenth-Rest
+        Quarter-Rest\79-95_3.png is incorrectly classified as Eighth-Rest
+        Sixteenth-Note\21-113_3.png is incorrectly classified as Eighth-Note
+        Sixteenth-Note\32-115_3.png is incorrectly classified as Eighth-Note
+        Sixteenth-Note\54-114_3.png is incorrectly classified as Eighth-Note
+        Sixteenth-Note\8-112_3.png is incorrectly classified as Thirty-Two-Note
+        Sixty-Four-Note\13-123_3.png is incorrectly classified as Thirty-Two-Note
+        Sixty-Four-Note\32-136_3.png is incorrectly classified as Thirty-Two-Note
+        Sixty-Four-Note\79-135_3.png is incorrectly classified as Thirty-Two-Note
+        Sixty-Four-Note\86-133_3.png is incorrectly classified as Thirty-Two-Note
+        Sixty-Four-Rest\2-130_3.png is incorrectly classified as Thirty-Two-Rest
+        Sixty-Four-Rest\45-143_3.png is incorrectly classified as Thirty-Two-Rest
+        Sixty-Four-Rest\9-129_3.png is incorrectly classified as Thirty-Two-Rest
+        Thirty-Two-Note\17-137_3.png is incorrectly classified as Sixty-Four-Note
+        Thirty-Two-Note\32-126_3.png is incorrectly classified as G-Clef
+        Thirty-Two-Note\32-127_3.png is incorrectly classified as Sixteenth-Note
+        Thirty-Two-Note\36-123_3.png is incorrectly classified as Sixteenth-Note
+        Thirty-Two-Note\39-125_3.png is incorrectly classified as Sixty-Four-Note
+        Thirty-Two-Note\62-124_3.png is incorrectly classified as Sixty-Four-Note
+        Whole-Half-Rest\1-145_3.png is incorrectly classified as Dot
+        Whole-Half-Rest\41-74_3.png is incorrectly classified as Barline
+        Whole-Half-Rest\51-73_3.png is incorrectly classified as Dot
+        Whole-Half-Rest\76-73_3.png is incorrectly classified as Dot
+        Whole-Half-Rest\8-146_3.png is incorrectly classified as Dot
+        Whole-Half-Rest\8-148_3.png is incorrectly classified as Dot
+        Whole-Half-Rest\84-76_3.png is incorrectly classified as Dot
+        Whole-Half-Rest\95-73_3.png is incorrectly classified as Dot
+loss: 0.23434
+acc: 0.97294
+Total Accuracy: 97.29373%
+Total Error: 2.70627%
+Execution time: 4572.8s
+Uploading results to Google Spreadsheet and appending at first empty line 111
+**********************
+Windows PowerShell transcript end
+End time: 20170711005322
+**********************
