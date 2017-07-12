@@ -99,7 +99,7 @@ class Symbol:
                          self.dimensions.origin.y - margin - height_offset_for_centering)
 
         image_without_staff_lines = Image.new('RGB', (destination_width, destination_height),
-                                              "white")  # create a new black image_without_staff_lines
+                                              "white")  # create a new white image
         draw = ImageDraw.Draw(image_without_staff_lines)
         black = (0, 0, 0)
 
