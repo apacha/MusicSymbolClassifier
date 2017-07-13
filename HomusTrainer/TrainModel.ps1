@@ -34,6 +34,39 @@ $env:PYTHONPATH = $pathToSourceRoot
 #######################################################
 exit
 
+# Started on Monsti, 11.07.2017
+Start-Transcript -path "$($pathToTranscript)2017-07-11_vgg_small_48x48_no_fixed_canvas_Adadelta_mb16.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg -s 3 --width 48 --height 48 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-11_vgg_small_96x48_no_fixed_canvas_Adadelta_mb16.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg -s 3 --width 48 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-11_vgg_small_96x96_no_fixed_canvas_Adadelta_mb16.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg -s 3 --width 96 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-11_vgg_small_192x96_no_fixed_canvas_Adadelta_mb16.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg -s 3 --width 96 --height 192 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-11_vgg4_small_48x48_no_fixed_canvas_Adadelta_mb16.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg4 -s 3 --width 48 --height 48 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-11_vgg4_small_96x48_no_fixed_canvas_Adadelta_mb16.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg4 -s 3 --width 48 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-11_vgg4_small_96x96_no_fixed_canvas_Adadelta_mb16.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg4 -s 3 --width 96 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-11_vgg4_small_192x96_no_fixed_canvas_Adadelta_mb16.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg4 -s 3 --width 96 --height 192 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size
+Stop-Transcript
+
 # Started on Donkey, 11.07.2017
 Start-Transcript -path "$($pathToTranscript)2017-07-11_res_net_5_small_48x48_no_fixed_canvas_Adadelta_mb16.txt" -append
 python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name res_net_5_small -s 3 --width 48 --height 48 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size
