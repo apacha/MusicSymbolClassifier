@@ -2,7 +2,7 @@ from keras.layers import Activation, BatchNormalization, Convolution2D, Dense, D
 from keras.models import Sequential
 from keras.optimizers import SGD
 from keras.regularizers import l2
-
+from keras.utils import plot_model
 from models.TrainingConfiguration import TrainingConfiguration
 
 
@@ -65,3 +65,10 @@ class VggConfiguration(TrainingConfiguration):
 
     def performs_localization(self) -> bool:
         return False
+
+if __name__ == "__main__":
+    configuration = VggConfiguration()
+    classifier = configuration.classifier()
+    classifier.summary()
+    plot_model(classifier, to_file="vgg.png")
+    print(configuration.summary())
