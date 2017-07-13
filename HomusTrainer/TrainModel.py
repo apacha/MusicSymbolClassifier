@@ -1,21 +1,22 @@
 import argparse
 import datetime
 import os
-
-import shutil
-from typing import List
-from datetime import date
-from sklearn import metrics
-from time import time
 import pickle
+import shutil
+from datetime import date
+from time import time
+from typing import List
 
 import numpy
 import numpy as np
-from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau, History
+from PIL import Image
+from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau
 from keras.preprocessing.image import ImageDataGenerator
+from sklearn import metrics
 
 import GoogleSpreadsheetReporter
 import TelegramNotifier
+from datasets.ImageResizer import ImageResizer
 from TrainingHistoryPlotter import TrainingHistoryPlotter
 from datasets.DatasetSplitter import DatasetSplitter
 from datasets.DirectoryIteratorWithBoundingBoxes import DirectoryIteratorWithBoundingBoxes
@@ -61,6 +62,9 @@ def train_model(dataset_directory: str,
         with open(bounding_boxes_cache, "wb") as cache:
             pickle.dump(bounding_boxes, cache)
 
+        image_resizer = ImageResizer()
+        image_resizer.resize_all_images(image_dataset_directory, width, height, Image.LANCZOS)
+
         dataset_splitter = DatasetSplitter(image_dataset_directory, image_dataset_directory)
         dataset_splitter.delete_split_directories()
         dataset_splitter.split_images_into_training_validation_and_test_set()
@@ -88,7 +92,7 @@ def train_model(dataset_directory: str,
         target_size=(training_configuration.input_image_rows,
                      training_configuration.input_image_columns),
         batch_size=training_configuration.training_minibatch_size,
-        bounding_boxes=bounding_boxes
+        bounding_boxes=bounding_boxes,
     )
     training_steps_per_epoch = np.math.ceil(training_data_generator.samples / training_data_generator.batch_size)
 
