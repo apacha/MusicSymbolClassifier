@@ -37,11 +37,11 @@ class ResNet3SmallConfiguration(TrainingConfiguration):
         layer = self.add_res_net_block(layer, 128, 3, True)
         layer = self.add_res_net_block(layer, 128, 3, False)
         layer = self.add_res_net_block(layer, 128, 3, False)
-        layer = MaxPooling2D()(layer)
-
-        layer = self.add_res_net_block(layer, 256, 3, True)
-        layer = self.add_res_net_block(layer, 256, 3, False)
-        layer = self.add_res_net_block(layer, 256, 3, False)
+        # layer = MaxPooling2D()(layer)
+        #
+        # layer = self.add_res_net_block(layer, 256, 3, True)
+        # layer = self.add_res_net_block(layer, 256, 3, False)
+        # layer = self.add_res_net_block(layer, 256, 3, False)
         layer = AveragePooling2D()(layer)
 
         feature_vector = Flatten()(layer)
@@ -83,7 +83,7 @@ class ResNet3SmallConfiguration(TrainingConfiguration):
 
     def name(self) -> str:
         """ Returns the name of this configuration """
-        return "res_net_3_small"
+        return "res_net_3_small_reduced"
 
     def performs_localization(self) -> bool:
         return False
@@ -93,5 +93,5 @@ if __name__ == "__main__":
     configuration = ResNet3SmallConfiguration()
     classifier = configuration.classifier()
     classifier.summary()
-    plot_model(classifier, to_file="res_net_3.png")
+    plot_model(classifier, to_file="res_net_3_small.png")
     print(configuration.summary())

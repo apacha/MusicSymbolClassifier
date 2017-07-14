@@ -12,7 +12,7 @@ from models.TrainingConfiguration import TrainingConfiguration
 class ResNet5Configuration(TrainingConfiguration):
     """ A network with residual modules """
 
-    def __init__(self, optimizer="Adadelta", width=96, height=192, training_minibatch_size=64):
+    def __init__(self, optimizer="Adadelta", width=24, height=24, training_minibatch_size=64):
         super().__init__(optimizer=optimizer, data_shape=(height, width, 3),
                          training_minibatch_size=training_minibatch_size)
 
@@ -37,11 +37,11 @@ class ResNet5Configuration(TrainingConfiguration):
         layer = self.add_res_net_block(layer, 256, 3, True)
         layer = self.add_res_net_block(layer, 256, 3, False)
         layer = self.add_res_net_block(layer, 256, 3, False)
-        layer = MaxPooling2D()(layer)
-
-        layer = self.add_res_net_block(layer, 512, 3, True)
-        layer = self.add_res_net_block(layer, 512, 3, False)
-        layer = self.add_res_net_block(layer, 512, 3, False)
+        # layer = MaxPooling2D()(layer)
+        #
+        # layer = self.add_res_net_block(layer, 512, 3, True)
+        # layer = self.add_res_net_block(layer, 512, 3, False)
+        # layer = self.add_res_net_block(layer, 512, 3, False)
         layer = AveragePooling2D()(layer)
 
         feature_vector = Flatten()(layer)
@@ -83,7 +83,7 @@ class ResNet5Configuration(TrainingConfiguration):
 
     def name(self) -> str:
         """ Returns the name of this configuration """
-        return "res_net_5"
+        return "res_net_5_reduced"
 
     def performs_localization(self) -> bool:
         return False

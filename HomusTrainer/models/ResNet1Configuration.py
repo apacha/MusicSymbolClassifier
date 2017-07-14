@@ -12,7 +12,7 @@ from models.TrainingConfiguration import TrainingConfiguration
 class ResNet1Configuration(TrainingConfiguration):
     """ A network with residual modules """
 
-    def __init__(self, optimizer="Adadelta", width=96, height=192, training_minibatch_size=64):
+    def __init__(self, optimizer="Adadelta", width=24, height=24, training_minibatch_size=64):
         super().__init__(optimizer=optimizer, data_shape=(height, width, 3),
                          training_minibatch_size=training_minibatch_size)
 
@@ -35,10 +35,10 @@ class ResNet1Configuration(TrainingConfiguration):
             is_first_convolution = i == 1
             layer = self.add_res_net_block(layer, 256, 3, is_first_convolution, 4, i)
 
-        for i in range(1, 4):
-            is_first_convolution = i == 1
-            layer = self.add_res_net_block(layer, 512, 3, is_first_convolution, 5, i)
-
+        # for i in range(1, 4):
+        #     is_first_convolution = i == 1
+        #     layer = self.add_res_net_block(layer, 512, 3, is_first_convolution, 5, i)
+        #
         layer = AveragePooling2D()(layer)
 
         feature_vector = Flatten()(layer)
@@ -88,7 +88,7 @@ class ResNet1Configuration(TrainingConfiguration):
 
     def name(self) -> str:
         """ Returns the name of this configuration """
-        return "res_net_1"
+        return "res_net_1_reduced"
 
     def performs_localization(self) -> bool:
         return False
@@ -97,5 +97,5 @@ class ResNet1Configuration(TrainingConfiguration):
 if __name__ == "__main__":
     configuration = ResNet1Configuration()
     configuration.classifier().summary()
-    plot_model(configuration.classifier(), to_file="res_net.png")
+    plot_model(configuration.classifier(), to_file="res_net_1.png")
     print(configuration.summary())
