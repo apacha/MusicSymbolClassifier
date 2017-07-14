@@ -11,7 +11,7 @@ from models.TrainingConfiguration import TrainingConfiguration
 class Vgg4Configuration(TrainingConfiguration):
     """ The winning VGG-Net 4 configuration from Deep Learning course """
 
-    def __init__(self, optimizer="Adadelta", width=24, height=24, training_minibatch_size=64):
+    def __init__(self, optimizer="Adadelta", width=48, height=48, training_minibatch_size=64):
         super().__init__(optimizer=optimizer, data_shape=(height, width, 3),
                          training_minibatch_size=training_minibatch_size)
 
@@ -35,11 +35,11 @@ class Vgg4Configuration(TrainingConfiguration):
         self.add_convolution(classifier, 256, 3, self.weight_decay)
         self.add_convolution(classifier, 256, 3, self.weight_decay)
         self.add_convolution(classifier, 256, 3, self.weight_decay)
-        # classifier.add(MaxPooling2D())
-        #
-        # self.add_convolution(classifier, 512, 3, self.weight_decay)
-        # self.add_convolution(classifier, 512, 3, self.weight_decay)
-        # self.add_convolution(classifier, 512, 3, self.weight_decay)
+        classifier.add(MaxPooling2D())
+
+        self.add_convolution(classifier, 512, 3, self.weight_decay)
+        self.add_convolution(classifier, 512, 3, self.weight_decay)
+        self.add_convolution(classifier, 512, 3, self.weight_decay)
         classifier.add(AveragePooling2D())
 
         classifier.add(Flatten())  # Flatten
@@ -62,7 +62,7 @@ class Vgg4Configuration(TrainingConfiguration):
 
     def name(self) -> str:
         """ Returns the name of this configuration """
-        return "vgg4_reduced"
+        return "vgg4"
 
     def performs_localization(self) -> bool:
         return False

@@ -12,7 +12,7 @@ from models.TrainingConfiguration import TrainingConfiguration
 class ResNet2Configuration(TrainingConfiguration):
     """ A network with residual modules """
 
-    def __init__(self, optimizer="Adadelta", width=24, height=24, training_minibatch_size=64):
+    def __init__(self, optimizer="Adadelta", width=96, height=192, training_minibatch_size=64):
         super().__init__(optimizer=optimizer, data_shape=(height, width, 3),
                          training_minibatch_size=training_minibatch_size)
 
@@ -36,11 +36,11 @@ class ResNet2Configuration(TrainingConfiguration):
             is_first_convolution = i == 1
             layer = self.add_res_net_block(layer, 128, 3, is_first_convolution, 4, i)
 
-        # for i in range(1, 4):
-        #     is_first_convolution = i == 1
-        #     layer = self.add_res_net_block(layer, 256, 3, is_first_convolution, 5, i)
+        for i in range(1, 4):
+            is_first_convolution = i == 1
+            layer = self.add_res_net_block(layer, 256, 3, is_first_convolution, 5, i)
 
-        # layer = AveragePooling2D()(layer)
+        layer = AveragePooling2D()(layer)
 
         feature_vector = Flatten()(layer)
 
@@ -89,7 +89,7 @@ class ResNet2Configuration(TrainingConfiguration):
 
     def name(self) -> str:
         """ Returns the name of this configuration """
-        return "res_net_2_reduced"
+        return "res_net_2"
 
     def performs_localization(self) -> bool:
         return False
