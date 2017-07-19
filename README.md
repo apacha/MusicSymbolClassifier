@@ -20,8 +20,8 @@ Before running them, make sure that you have the necessary requirements installe
 ## Requirements
 
 - Python 3.5 (3.6 can be tricky, as of May 2017 [tensorflow does not yet officially support it](https://github.com/tensorflow/tensorflow/issues/6999))
-- Keras 2.0.4
-- Tensorflow 1.1.0 (or optionally tensorflow-gpu 1.1.0)
+- Keras 2.0.6
+- Tensorflow 1.2.1 (or optionally tensorflow-gpu 1.2.1)
 
 Optional: If you want to print the graph of the model being trained, install GraphViz on Windows via http://www.graphviz.org/Download_windows.php and add /bin to the PATH or run `sudo apt-get install graphviz` on Ubuntu (see https://github.com/fchollet/keras/issues/3210)
 
@@ -47,7 +47,7 @@ downloaded file and restart the script.
 
 Published under MIT License,
 
-Copyright (c) 2017 [Alexander Pacha](http://my-it.at), [TU Wien](https://www.ims.tuwien.ac.at/people/alexander-pacha)
+Copyright (c) 2017 [Alexander Pacha](http://alexanderpacha.com), [TU Wien](https://www.ims.tuwien.ac.at/people/alexander-pacha)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
