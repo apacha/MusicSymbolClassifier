@@ -124,7 +124,7 @@ if __name__ == "__main__":
                         action="store_false",
                         help="True, if the images should be drawn on a fixed canvas with the specified width and height."
                              "False to draw the symbols with their original sizes (each symbol might be different)")
-    parser.set_defaults(use_fixed_canvas=True)
+    parser.set_defaults(use_fixed_canvas=False)
 
     flags, unparsed = parser.parse_known_args()
 
