@@ -26,6 +26,25 @@ $env:PYTHONPATH = $pathToSourceRoot
 # Upcoming Trainings 
 ################################################
 
+################################################
+# Models that performed best 
+################################################
+exit
+# Best Models for 96x96 images without fixed canvas size
+Start-Transcript -path "$($pathToTranscript)2017-07-19_vgg4_96x96_no_fixed_canvas_Adadelta_mb16.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg4 -s 3 --width 96 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-19_res_net_4_96x96_no_fixed_canvas_Adadelta_mb16.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name res_net_4 -s 3 --width 96 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size
+Stop-Transcript
+
+# Best Model for 192x96 images with fixed canvas size
+Start-Transcript -path "$($pathToTranscript)2017-07-19_res_net_3_4_small_192x96_Adadelta_mb16.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name res_net_3_small -s 3 --width 96 --height 192 --minibatch_size 16 --optimizer Adadelta
+Stop-Transcript
+
+
 #######################################################
 # Below are configurations that already were 
 # started on a machine and should not run again, 
@@ -33,6 +52,30 @@ $env:PYTHONPATH = $pathToSourceRoot
 # but retain those configurations for documentation
 #######################################################
 exit
+# Started on Donkey, 19.07.2017
+Start-Transcript -path "$($pathToTranscript)2017-07-19_res_net_3_5_small_192x96_Adadelta_mb16.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name res_net_3_small -s 3 --width 96 --height 192 --minibatch_size 16 --optimizer Adadelta
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-19_res_net_3_96x96_no_fixed_canvas_Adadelta_mb16.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name res_net_3 -s 3 --width 96 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-19_res_net_3_2_96x96_no_fixed_canvas_Adadelta_mb16.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name res_net_3 -s 3 --width 96 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-20_res_net_4_2_96x96_no_fixed_canvas_Adadelta_mb16.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name res_net_4 -s 3 --width 96 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-19_vgg_96x96_no_fixed_canvas_Adadelta_mb16.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg -s 3 --width 96 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-19_vgg_2_96x96_no_fixed_canvas_Adadelta_mb16.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/HomusTrainer/TrainModel.py --model_name vgg -s 3 --width 96 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size
+Stop-Transcript
 
 # Started on Donkey, 13.07.2017
 Start-Transcript -path "$($pathToTranscript)2017-07-13_vgg_reduced_24x24_no_fixed_canvas_Adadelta_mb16.txt" -append
