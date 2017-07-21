@@ -1,13 +1,9 @@
 import os
-import random
 import shutil
 import urllib.parse as urlparse
 import urllib.request as urllib2
 import zipfile
 from abc import ABC, abstractmethod
-from typing import List
-
-import numpy
 
 
 class Dataset(ABC):
