@@ -227,6 +227,7 @@ def train_model(dataset_directory: str, model_name: str, show_plot_after_trainin
     data_augmentation = "{0}% zoom, {1}° rotation".format(int(training_configuration.zoom_range * 100),
                                                           training_configuration.rotation_range)
     today = "{0:02d}.{1:02d}.{2}".format(date.today().day, date.today().month, date.today().year)
+    datasets_string = str.join(",", datasets)
     GoogleSpreadsheetReporter.append_result_to_spreadsheet(dataset_size=dataset_size, image_sizes=image_sizes,
                                                            stroke_thicknesses=stroke_thicknesses_string,
                                                            staff_lines=staff_line_vertical_offsets_string,
@@ -240,7 +241,8 @@ def train_model(dataset_directory: str, model_name: str, show_plot_after_trainin
                                                            initial_learning_rate=training_configuration.get_initial_learning_rate(),
                                                            accuracy=classification_accuracy,
                                                            date=today,
-                                                           use_fixed_canvas=use_fixed_canvas)
+                                                           use_fixed_canvas=use_fixed_canvas,
+                                                           datasets=datasets_string)
 
 
 if __name__ == "__main__":
