@@ -26,6 +26,11 @@ $env:PYTHONPATH = $pathToSourceRoot
 # Upcoming Trainings 
 ################################################
 
+# Started on Donkey, 21.07.2017
+Start-Transcript -path "$($pathToTranscript)2017-07-21_res_net_4_96x96_no_fixed_canvas_Adadelta_mb16_homus_rebelo1_rebelo2_printed.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name res_net_4 -s 3 --width 96 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed
+Stop-Transcript
+
 ################################################
 # Models that performed best 
 ################################################
