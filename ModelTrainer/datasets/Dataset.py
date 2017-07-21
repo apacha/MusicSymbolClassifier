@@ -3,6 +3,7 @@ import random
 import shutil
 import urllib.parse as urlparse
 import urllib.request as urllib2
+import zipfile
 from abc import ABC, abstractmethod
 from typing import List
 
@@ -23,6 +24,21 @@ class Dataset(ABC):
     def download_and_extract_dataset(self):
         """ Starts the download of the dataset and extracts it into the directory specified in the constructor """
         pass
+
+    @abstractmethod
+    def get_dataset_download_url(self) -> str:
+        """ Returns the URL, where this dataset can be downloaded from directy """
+        pass
+
+    @abstractmethod
+    def get_dataset_filename(self) -> str:
+        """ Returns the filename for the ZIP-file that will be downloaded for this dataset """
+        pass
+
+    def extract_dataset(self, absolute_path_to_temp_folder: str):
+        archive = zipfile.ZipFile(self.get_dataset_filename(), "r")
+        archive.extractall(absolute_path_to_temp_folder)
+        archive.close()
 
     def clean_up_temp_directory(self, temp_directory):
         print("Deleting temporary directory {0}".format(temp_directory))
