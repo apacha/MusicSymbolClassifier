@@ -69,9 +69,6 @@ class DatasetDownloaderTest(unittest.TestCase):
         # Assert
         all_files = [y for x in os.walk(destination_directory) for y in
                           glob(os.path.join(x[0], target_file_extension))]
-        all_files.sort()
-        print("All files: " + str.join(", ", all_files))
-
         actual_number_of_files = len(all_files)
         self.assertEqual(number_of_samples_in_the_dataset, actual_number_of_files)
         self.assertTrue(os.path.exists(zip_file))
