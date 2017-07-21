@@ -80,7 +80,7 @@ def train_model(dataset_directory: str, model_name: str, show_plot_after_trainin
     print("Loading configuration and data-readers...")
     start_time = time()
 
-    number_of_classes = len(image_dataset_directory)
+    number_of_classes = len(os.listdir(image_dataset_directory))
     training_configuration = ConfigurationFactory.get_configuration_by_name(model_name, optimizer, width, height,
                                                                             training_minibatch_size, number_of_classes)
 
