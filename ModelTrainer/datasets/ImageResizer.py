@@ -8,7 +8,7 @@ class ImageResizer:
     def resize_all_images(self, image_dataset_directory, width, height, resampling_mode):
         all_images = [y for x in os.walk(image_dataset_directory) for y in glob(os.path.join(x[0], '*.png'))]
         for image_path in all_images:
-            img = Image.open(image_path)
+            img = Image.open(image_path).convert('RGB')
             hw_tuple = (height, width)
             if img.size != hw_tuple:
                 img = img.resize(hw_tuple, resampling_mode)
