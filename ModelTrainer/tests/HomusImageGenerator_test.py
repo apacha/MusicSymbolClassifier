@@ -23,7 +23,7 @@ class HomusImageGeneratorTest(unittest.TestCase):
         self.assertEqual(15200, actual_number_of_files)
 
         # Cleanup
-        os.remove("HOMUS.zip")
+        os.remove("HOMUS-2.0.zip")
         shutil.rmtree("temp")
 
 
