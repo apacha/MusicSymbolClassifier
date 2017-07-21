@@ -5,6 +5,7 @@ from keras.optimizers import Optimizer, SGD, Adam, Adadelta
 
 
 class TrainingConfiguration(ABC):
+    """ The base class for a configuration that specifies the hyperparameters of a training """
     def __init__(self,
                  data_shape: tuple = (224, 128, 3),  # Rows = Height, columns = Width, channels = typically 3 (RGB)
                  number_of_classes: int = 32,
