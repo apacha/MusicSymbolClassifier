@@ -112,19 +112,19 @@ if __name__ == "__main__":
     parser.add_argument("-s", "--stroke_thicknesses", dest="stroke_thicknesses", default="3",
                         help="Stroke thicknesses for drawing the generated bitmaps. May define comma-separated list "
                              "of multiple stroke thicknesses, e.g. '1,2,3'")
-    parser.add_argument("-offsets", "--staff_line_vertical_offsets", dest="offsets", default="70,77",
+    parser.add_argument("-offsets", "--staff_line_vertical_offsets", dest="offsets", default="",
                         help="Optional vertical offsets in pixel for drawing the symbols with superimposed "
                              "staff-lines starting at this pixel-offset from the top. Multiple offsets possible, "
                              "e.g. '81,88,95'")
     parser.add_argument("--width", default="96", type=int, help="Width of the generated images in pixel")
-    parser.add_argument("--height", default="192", type=int, help="Height of the generated images in pixel")
+    parser.add_argument("--height", default="96", type=int, help="Height of the generated images in pixel")
     parser.add_argument("--staff_line_spacing", default="14", type=int, help="Spacing between two staff-lines in pixel")
 
     parser.add_argument("--disable_fixed_canvas_size", dest="use_fixed_canvas",
                         action="store_false",
                         help="True, if the images should be drawn on a fixed canvas with the specified width and height."
                              "False to draw the symbols with their original sizes (each symbol might be different)")
-    parser.set_defaults(use_fixed_canvas=False)
+    parser.set_defaults(use_fixed_canvas=True)
 
     flags, unparsed = parser.parse_known_args()
 

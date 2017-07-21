@@ -9,8 +9,7 @@ from datasets.Dataset import Dataset
 
 
 class HomusDatasetDownloader(Dataset):
-    """ Loads images from a custom directory and splits them into train and validation
-        directories with a random generator """
+    """ Downloads the HOMUS dataset (V-2.0) """
 
     def __init__(self, destination_directory: str):
         """
@@ -18,8 +17,8 @@ class HomusDatasetDownloader(Dataset):
         :param destination_directory: The root directory, into which the data will be placed.        
         """
         super().__init__(destination_directory)
-        self.url = "http://grfia.dlsi.ua.es/homus/HOMUS.zip"
-        self.dataset_filename = "HOMUS.zip"
+        self.url = "https://owncloud.tuwien.ac.at/index.php/s/5qVjo9HGGN1bN4I/download"
+        self.dataset_filename = "HOMUS-2.0.zip"
 
     def download_and_extract_dataset(self):
         if not os.path.exists(self.dataset_filename):
