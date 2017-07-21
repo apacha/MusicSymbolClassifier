@@ -19,13 +19,13 @@ Before running them, make sure that you have the necessary requirements installe
 
 ## Requirements
 
-- Python 3.5 (3.6 can be tricky, as of May 2017 [tensorflow does not yet officially support it](https://github.com/tensorflow/tensorflow/issues/6999))
+- Python 3.5
 - Keras 2.0.6
 - Tensorflow 1.2.1 (or optionally tensorflow-gpu 1.2.1)
 
 Optional: If you want to print the graph of the model being trained, install GraphViz on Windows via http://www.graphviz.org/Download_windows.php and add /bin to the PATH or run `sudo apt-get install graphviz` on Ubuntu (see https://github.com/fchollet/keras/issues/3210)
 
-Note that installing Tensorflow and Keras can be quite a hassle, so we recommend using [Anaconda](https://www.continuum.io/downloads) or 
+For installing Tensorflow and Keras we recommend using [Anaconda](https://www.continuum.io/downloads) or 
 [Miniconda](https://conda.io/miniconda.html) as Python distribution (we did so for preparing Travis-CI and it worked).
 
 To accelerate training even further, you can make use of your GPU, by installing tensorflow-gpu instead of tensorflow
@@ -35,13 +35,9 @@ via pip (note that you can only have one of them) and the required Nvidia driver
 
 ## Training the model
 
-`python TrainModel.py` can be used to training the convolutional neural network. 
-It will automatically download and extract the HOMUS dataset.
+Run `python ModelTrainer/TrainModel.py` or `ModelTrainer/TrainBestModel.ps1` for automatically training a neural network with the best available configuration. It will automatically download and extract the HOMUS dataset.
 
-The result of this training is a .h5 (e.g. vgg.h5) file that contains the trained model.
-
-_Troubleshooting_: If for some reason the download of any of the datasets fails, stop the script, remove the partially
-downloaded file and restart the script.
+The result of this training is a .h5 (e.g. res_net_4.h5) file that contains the trained model and when running via the PowerShell-script a transcript of the entire training is also created for later investigation.
 
 # License
 
