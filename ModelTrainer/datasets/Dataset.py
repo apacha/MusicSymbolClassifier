@@ -2,7 +2,7 @@ import os
 import shutil
 import urllib.parse as urlparse
 import urllib.request as urllib2
-import zipfile
+from zipfile import ZipFile
 from abc import ABC, abstractmethod
 
 
@@ -32,7 +32,7 @@ class Dataset(ABC):
         pass
 
     def extract_dataset(self, absolute_path_to_temp_folder: str):
-        archive = zipfile.ZipFile(self.get_dataset_filename(), "r")
+        archive = ZipFile(self.get_dataset_filename(), "r")
         archive.extractall(absolute_path_to_temp_folder)
         archive.close()
 
