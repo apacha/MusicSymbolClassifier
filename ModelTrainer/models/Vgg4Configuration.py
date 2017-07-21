@@ -44,7 +44,7 @@ class Vgg4Configuration(TrainingConfiguration):
 
         model.add(Flatten())  # Flatten
         # model.add(Dropout(0.5))
-        model.add(Dense(units=32, kernel_regularizer=l2(self.weight_decay), activation='softmax', name='output_class'))
+        model.add(Dense(units=self.number_of_classes, kernel_regularizer=l2(self.weight_decay), activation='softmax', name='output_class'))
 
         model.compile(self.get_optimizer(), loss="categorical_crossentropy", metrics=["accuracy"])
         return model

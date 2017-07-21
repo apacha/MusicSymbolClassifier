@@ -46,7 +46,7 @@ class ResNet5SmallConfiguration(TrainingConfiguration):
 
         feature_vector = Flatten()(layer)
 
-        number_of_output_classes = 32
+        number_of_output_classes = self.number_of_classes
         classification_head = Dense(units=number_of_output_classes, kernel_regularizer=l2(self.weight_decay),
                                     activation='softmax', name='output_class')(feature_vector)
 
