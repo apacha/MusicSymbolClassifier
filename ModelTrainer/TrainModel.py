@@ -72,7 +72,7 @@ def train_model(dataset_directory: str,
     print("Loading configuration and data-readers...")
     start_time = time()
 
-    number_of_classes = 32 # TODO: Dynamically try to obtain from number of folders in data-directory
+    number_of_classes = 32  # TODO: Dynamically try to obtain from number of folders in data-directory
     training_configuration = ConfigurationFactory.get_configuration_by_name(model_name, optimizer, width, height,
                                                                             training_minibatch_size, number_of_classes)
 
@@ -240,11 +240,13 @@ if __name__ == "__main__":
     parser.register("type", "bool", lambda v: v.lower() == "true")
     parser.add_argument("--dataset_directory", type=str, default="data",
                         help="The directory, that is used for storing the images during training")
-    parser.add_argument("--model_name", type=str, default="vgg",
-                        help="The model used for training the network. Currently allowed values are \'simple\' or \'vgg\'")
+    parser.add_argument("--model_name", type=str, default="res_net_4",
+                        help="The model used for training the network. Run ListAvailableConfigurations.ps1 or "
+                             "models/ConfigurationFactory.py to get a list of all available configurations")
 
     parser.add_argument("--show_plot_after_training", dest="show_plot_after_training", action='store_true',
-                        help="Whether to show a plot with the accuracies after training or not.")
+                        help="Whether to show a plot with the accuracies after training and pause or not. "
+                             "Notice that the plot will be generated and stored regardless of this flag")
     parser.set_defaults(show_plot_after_training=False)
 
     parser.add_argument("--use_existing_dataset_directory", dest="delete_and_recreate_dataset_directory",
@@ -264,8 +266,8 @@ if __name__ == "__main__":
                              "staff-lines starting at this pixel-offset from the top. Multiple offsets possible, "
                              "e.g. '81,88,95'")
     parser.add_argument("--width", default=96, type=int, help="Width of the input-images for the network in pixel")
-    parser.add_argument("--height", default=192, type=int, help="Height of the input-images for the network in pixel")
-    parser.add_argument("--minibatch_size", default=64, type=int,
+    parser.add_argument("--height", default=96, type=int, help="Height of the input-images for the network in pixel")
+    parser.add_argument("--minibatch_size", default=16, type=int,
                         help="Size of the minibatches for training, typically one of 8, 16, 32, 64 or 128")
     parser.add_argument("--optimizer", default="Adadelta",
                         help="The optimizer used for the training, can be SGD, Adam or Adadelta")
