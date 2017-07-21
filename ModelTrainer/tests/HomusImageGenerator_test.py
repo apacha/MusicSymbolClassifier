@@ -15,7 +15,7 @@ class HomusImageGeneratorTest(unittest.TestCase):
 
         # Act
         datasetDownloader.download_and_extract_dataset()
-        HomusImageGenerator.create_images("temp/raw", "temp/img")
+        HomusImageGenerator.create_images("temp/raw", "temp/img", [3], 96, 192, 14)
         all_image_files = [y for x in os.walk("temp/img") for y in glob(os.path.join(x[0], '*.png'))]
         actual_number_of_files = len(all_image_files)
 
