@@ -22,22 +22,16 @@ from datasets.DatasetSplitter import DatasetSplitter
 from datasets.DirectoryIteratorWithBoundingBoxes import DirectoryIteratorWithBoundingBoxes
 from datasets.HomusDatasetDownloader import HomusDatasetDownloader
 from datasets.HomusImageGenerator import HomusImageGenerator
+from datasets.PrintedMusicSymbolsDatasetDownloader import PrintedMusicSymbolsDatasetDownloader
+from datasets.RebeloMusicSymbolDataset1Downloader import RebeloMusicSymbolDataset1Downloader
+from datasets.RebeloMusicSymbolDataset2Downloader import RebeloMusicSymbolDataset2Downloader
 from models.ConfigurationFactory import ConfigurationFactory
 
 
-def train_model(dataset_directory: str,
-                model_name: str,
-                show_plot_after_training: bool,
-                delete_and_recreate_dataset_directory: bool,
-                stroke_thicknesses: List[int],
-                width: int,
-                height: int,
-                staff_line_vertical_offsets: List[int],
-                staff_line_spacing: int,
-                training_minibatch_size: int,
-                optimizer: str,
-                dynamic_learning_rate_reduction: bool,
-                use_fixed_canvas: bool):
+def train_model(dataset_directory: str, model_name: str, show_plot_after_training: bool,
+                delete_and_recreate_dataset_directory: bool, stroke_thicknesses: List[int], width: int, height: int,
+                staff_line_vertical_offsets: List[int], staff_line_spacing: int, training_minibatch_size: int,
+                optimizer: str, dynamic_learning_rate_reduction: bool, use_fixed_canvas: bool, datasets: List[str]):
     raw_dataset_directory = os.path.join(dataset_directory, "raw")
     image_dataset_directory = os.path.join(dataset_directory, "images")
     bounding_boxes = None
@@ -48,20 +42,34 @@ def train_model(dataset_directory: str,
         if os.path.exists(dataset_directory):
             shutil.rmtree(dataset_directory)
 
-        dataset_downloader = HomusDatasetDownloader(raw_dataset_directory)
-        dataset_downloader.download_and_extract_dataset()
-        generated_image_width = width
-        generated_image_height = height
-        if not use_fixed_canvas:
-            # If we are not using a fixed canvas, remove those arguments to allow symbols being drawn at their original shapes
-            generated_image_width, generated_image_height = None, None
-        bounding_boxes = HomusImageGenerator.create_images(raw_dataset_directory, image_dataset_directory,
-                                                           stroke_thicknesses, generated_image_width,
-                                                           generated_image_height, staff_line_spacing,
-                                                           staff_line_vertical_offsets)
-        with open(bounding_boxes_cache, "wb") as cache:
-            pickle.dump(bounding_boxes, cache)
+        if 'homus' in datasets:
+            dataset_downloader = HomusDatasetDownloader(raw_dataset_directory)
+            dataset_downloader.download_and_extract_dataset()
+            generated_image_width = width
+            generated_image_height = height
+            if not use_fixed_canvas:
+                # If we are not using a fixed canvas, remove those arguments to allow symbols being drawn at their original shapes
+                generated_image_width, generated_image_height = None, None
+            bounding_boxes = HomusImageGenerator.create_images(raw_dataset_directory, image_dataset_directory,
+                                                               stroke_thicknesses, generated_image_width,
+                                                               generated_image_height, staff_line_spacing,
+                                                               staff_line_vertical_offsets)
+            with open(bounding_boxes_cache, "wb") as cache:
+                pickle.dump(bounding_boxes, cache)
 
+        if 'rebelo1' in datasets:
+            dataset_downloader = RebeloMusicSymbolDataset1Downloader(image_dataset_directory)
+            dataset_downloader.download_and_extract_dataset()
+
+        if 'rebelo2' in datasets:
+            dataset_downloader = RebeloMusicSymbolDataset2Downloader(image_dataset_directory)
+            dataset_downloader.download_and_extract_dataset()
+
+        if 'printed' in datasets:
+            dataset_downloader = PrintedMusicSymbolsDatasetDownloader(image_dataset_directory)
+            dataset_downloader.download_and_extract_dataset()
+
+        print("Resizing all images with the LANCZOS interpolation to {0}x{1}px (width x height).".format(width, height))
         image_resizer = ImageResizer()
         image_resizer.resize_all_images(image_dataset_directory, width, height, Image.LANCZOS)
 
@@ -72,7 +80,7 @@ def train_model(dataset_directory: str,
     print("Loading configuration and data-readers...")
     start_time = time()
 
-    number_of_classes = 32  # TODO: Dynamically try to obtain from number of folders in data-directory
+    number_of_classes = len(image_dataset_directory)
     training_configuration = ConfigurationFactory.get_configuration_by_name(model_name, optimizer, width, height,
                                                                             training_minibatch_size, number_of_classes)
 
@@ -283,11 +291,20 @@ if __name__ == "__main__":
                              "False to draw the symbols with their original sizes (each symbol might be different)")
     parser.set_defaults(use_fixed_canvas=True)
 
+    parser.add_argument("--datasets", dest="datasets", default="homus",
+                        help="Specifies which datasets are used for the training. One or multiple datasets of the "
+                             "following are possible: homus, rebelo1, rebelo2 or printed. Multiple values are "
+                             "connected by a separating comma, i.e. 'homus,rebelo1'")
+
     flags, unparsed = parser.parse_known_args()
 
     offsets = []
     if flags.offsets != "":
         offsets = [int(o) for o in flags.offsets.split(',')]
+
+    if flags.datasets == "":
+        raise Exception("No dataset selected. Specify the dataset for the training via the --dataset parameter")
+    datasets = flags.datasets.split(',')
 
     train_model(dataset_directory=flags.dataset_directory,
                 model_name=flags.model_name,
@@ -301,7 +318,8 @@ if __name__ == "__main__":
                 training_minibatch_size=flags.minibatch_size,
                 optimizer=flags.optimizer,
                 dynamic_learning_rate_reduction=flags.dynamic_learning_rate_reduction,
-                use_fixed_canvas=flags.use_fixed_canvas)
+                use_fixed_canvas=flags.use_fixed_canvas,
+                datasets=datasets)
 
     # To run in in python console
     # dataset_directory = 'data'
