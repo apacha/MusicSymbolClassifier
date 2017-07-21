@@ -6,7 +6,8 @@ from keras.optimizers import Optimizer, SGD, Adam, Adadelta
 
 class TrainingConfiguration(ABC):
     def __init__(self,
-                 data_shape: tuple = (224, 128, 3),  # Rows, columns, channels
+                 data_shape: tuple = (224, 128, 3),  # Rows = Height, columns = Width, channels = typically 3 (RGB)
+                 number_of_classes: int = 32,
                  number_of_epochs: int = 200,
                  number_of_epochs_before_early_stopping: int = 20,
                  number_of_epochs_before_reducing_learning_rate: int = 8,
@@ -19,7 +20,7 @@ class TrainingConfiguration(ABC):
                  nesterov_momentum: float = 0.9,
                  zoom_range=0.2,
                  rotation_range=10,
-                 optimizer: str = "SGD"
+                 optimizer: str = "SGD",
                  ):
         """
         :param data_shape: Tuple with order (rows, columns, channels)
@@ -30,6 +31,7 @@ class TrainingConfiguration(ABC):
         self.optimizer = optimizer
         self.rotation_range = rotation_range
         self.data_shape = data_shape
+        self.number_of_classes = number_of_classes
         self.input_image_rows, self.input_image_columns, self.input_image_channels = data_shape
         self.number_of_epochs = number_of_epochs
         self.zoom_range = zoom_range

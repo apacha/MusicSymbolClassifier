@@ -12,16 +12,16 @@ from models.TrainingConfiguration import TrainingConfiguration
 class ResNet4Configuration(TrainingConfiguration):
     """ A network with residual modules """
 
-    def __init__(self, optimizer="Adadelta", width=96, height=192, training_minibatch_size=64):
+    def __init__(self, optimizer: str, width: int, height: int, training_minibatch_size: int, number_of_classes: int):
         super().__init__(optimizer=optimizer, data_shape=(height, width, 3),
-                         training_minibatch_size=training_minibatch_size)
+                         training_minibatch_size=training_minibatch_size, number_of_classes=number_of_classes)
 
     def classifier(self) -> Sequential:
-        """ Returns the classifier of this configuration """
+        """ Returns the model of this configuration """
 
         input = Input(shape=self.data_shape)
 
-        layer = self.add_convolution(input, 64, 7, (2,2))
+        layer = self.add_convolution(input, 64, 7, (2, 2))
 
         layer = self.add_convolution(layer, 32, 3, True)
         layer = self.add_res_net_block(layer, 32, 3, False)
@@ -52,14 +52,15 @@ class ResNet4Configuration(TrainingConfiguration):
         classification_head = Dense(units=number_of_output_classes, kernel_regularizer=l2(self.weight_decay),
                                     activation='softmax', name='output_class')(feature_vector)
 
-        classifier = Model(inputs=[input], outputs=[classification_head])
-        classifier.compile(self.get_optimizer(),
+        model = Model(inputs=[input], outputs=[classification_head])
+        model.compile(self.get_optimizer(),
                            loss={'output_class': 'categorical_crossentropy'},
                            metrics=["accuracy"])
-        return classifier
+        return model
 
-    def add_convolution(self, previous_layer: Layer, filters: int, kernel_size: int, strides = (1,1)):
-        layer = Convolution2D(filters, kernel_size, strides=strides, padding='same', kernel_regularizer=l2(self.weight_decay))(previous_layer)
+    def add_convolution(self, previous_layer: Layer, filters: int, kernel_size: int, strides=(1, 1)):
+        layer = Convolution2D(filters, kernel_size, strides=strides, padding='same',
+                              kernel_regularizer=l2(self.weight_decay))(previous_layer)
         layer = BatchNormalization()(layer)
         layer = Activation('relu')(layer)
 
@@ -92,7 +93,7 @@ class ResNet4Configuration(TrainingConfiguration):
 
 
 if __name__ == "__main__":
-    configuration = ResNet4Configuration()
+    configuration = ResNet4Configuration("Adadelta", 96, 96, 16, 32)
     classifier = configuration.classifier()
     classifier.summary()
     plot_model(classifier, to_file="res_net_4.png")

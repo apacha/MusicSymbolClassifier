@@ -12,12 +12,12 @@ from models.TrainingConfiguration import TrainingConfiguration
 class ResNet1Configuration(TrainingConfiguration):
     """ A network with residual modules """
 
-    def __init__(self, optimizer="Adadelta", width=96, height=192, training_minibatch_size=64):
+    def __init__(self, optimizer: str, width: int, height: int, training_minibatch_size: int, number_of_classes: int):
         super().__init__(optimizer=optimizer, data_shape=(height, width, 3),
-                         training_minibatch_size=training_minibatch_size)
+                         training_minibatch_size=training_minibatch_size, number_of_classes=number_of_classes)
 
     def classifier(self) -> Sequential:
-        """ Returns the classifier of this configuration """
+        """ Returns the model of this configuration """
 
         input = Input(shape=self.data_shape)
 
@@ -47,11 +47,11 @@ class ResNet1Configuration(TrainingConfiguration):
         classification_head = Dense(units=number_of_output_classes, kernel_regularizer=l2(self.weight_decay),
                                     activation='softmax', name='output_class')(feature_vector)
 
-        classifier = Model(inputs=[input], outputs=[classification_head])
-        classifier.compile(self.get_optimizer(),
+        model = Model(inputs=[input], outputs=[classification_head])
+        model.compile(self.get_optimizer(),
                            loss={'output_class': 'categorical_crossentropy'},
                            metrics=["accuracy"])
-        return classifier
+        return model
 
     def add_convolution_block_with_batch_normalization(self, previous_layer: Layer, filters, kernel_size,
                                                        strides, layer_number: int) -> Layer:
@@ -95,7 +95,7 @@ class ResNet1Configuration(TrainingConfiguration):
 
 
 if __name__ == "__main__":
-    configuration = ResNet1Configuration()
+    configuration = ResNet1Configuration("Adadelta", 96, 96, 16, 32)
     configuration.classifier().summary()
     plot_model(configuration.classifier(), to_file="res_net_1.png")
     print(configuration.summary())

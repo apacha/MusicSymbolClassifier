@@ -12,12 +12,12 @@ from models.TrainingConfiguration import TrainingConfiguration
 class ResNet5SmallConfiguration(TrainingConfiguration):
     """ A network with residual modules """
 
-    def __init__(self, optimizer="Adadelta", width=96, height=192, training_minibatch_size=64):
+    def __init__(self, optimizer, width, height, training_minibatch_size, number_of_classes):
         super().__init__(optimizer=optimizer, data_shape=(height, width, 3),
-                         training_minibatch_size=training_minibatch_size)
+                         training_minibatch_size=training_minibatch_size, number_of_classes=number_of_classes)
 
     def classifier(self) -> Sequential:
-        """ Returns the classifier of this configuration """
+        """ Returns the model of this configuration """
 
         input = Input(shape=self.data_shape)
 
@@ -50,11 +50,11 @@ class ResNet5SmallConfiguration(TrainingConfiguration):
         classification_head = Dense(units=number_of_output_classes, kernel_regularizer=l2(self.weight_decay),
                                     activation='softmax', name='output_class')(feature_vector)
 
-        classifier = Model(inputs=[input], outputs=[classification_head])
-        classifier.compile(self.get_optimizer(),
+        model = Model(inputs=[input], outputs=[classification_head])
+        model.compile(self.get_optimizer(),
                            loss={'output_class': 'categorical_crossentropy'},
                            metrics=["accuracy"])
-        return classifier
+        return model
 
     def add_convolution(self, previous_layer: Layer, filters: int, kernel_size: int):
         layer = Convolution2D(filters, kernel_size, padding='same', kernel_regularizer=l2(self.weight_decay))(
@@ -90,7 +90,7 @@ class ResNet5SmallConfiguration(TrainingConfiguration):
 
 
 if __name__ == "__main__":
-    configuration = ResNet5SmallConfiguration()
+    configuration = ResNet5SmallConfiguration("Adadelta", 96, 96, 16, 32)
     classifier = configuration.classifier()
     classifier.summary()
     plot_model(classifier, to_file="res_net_5_small.png")

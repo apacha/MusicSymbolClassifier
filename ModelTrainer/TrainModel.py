@@ -72,8 +72,9 @@ def train_model(dataset_directory: str,
     print("Loading configuration and data-readers...")
     start_time = time()
 
+    number_of_classes = 32 # TODO: Dynamically try to obtain from number of folders in data-directory
     training_configuration = ConfigurationFactory.get_configuration_by_name(model_name, optimizer, width, height,
-                                                                            training_minibatch_size)
+                                                                            training_minibatch_size, number_of_classes)
 
     if training_configuration.performs_localization() and bounding_boxes is None:
         # Try to unpickle

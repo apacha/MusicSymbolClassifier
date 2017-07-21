@@ -14,23 +14,24 @@ from models.VggConfiguration import VggConfiguration
 
 class ConfigurationFactory:
     @staticmethod
-    def get_configuration_by_name(name: str = "simple",
-                                  optimizer="Adadelta",
-                                  width=128,
-                                  height=224,
-                                  training_minibatch_size=64) -> TrainingConfiguration:
+    def get_configuration_by_name(name: str,
+                                  optimizer: str,
+                                  width: int,
+                                  height: int,
+                                  training_minibatch_size: int,
+                                  number_of_classes: int) -> TrainingConfiguration:
         configurations = []
-        configurations.append(SimpleConfiguration())
-        configurations.append(VggConfiguration(optimizer, width, height, training_minibatch_size))
-        configurations.append(Vgg4Configuration(optimizer, width, height, training_minibatch_size))
-        configurations.append(ResNet1Configuration(optimizer, width, height, training_minibatch_size))
-        configurations.append(ResNet2Configuration(optimizer, width, height, training_minibatch_size))
-        configurations.append(ResNet3Configuration(optimizer, width, height, training_minibatch_size))
-        configurations.append(ResNet3SmallConfiguration(optimizer, width, height, training_minibatch_size))
-        configurations.append(ResNet4Configuration(optimizer, width, height, training_minibatch_size))
-        configurations.append(ResNet5Configuration(optimizer, width, height, training_minibatch_size))
-        configurations.append(ResNet5SmallConfiguration(optimizer, width, height, training_minibatch_size))
-        configurations.append(Vgg4WithLocalizationConfiguration(optimizer, width, height, training_minibatch_size))
+        configurations.append(SimpleConfiguration(optimizer, width, height, training_minibatch_size,number_of_classes))
+        configurations.append(VggConfiguration(optimizer, width, height, training_minibatch_size, number_of_classes))
+        configurations.append(Vgg4Configuration(optimizer, width, height, training_minibatch_size, number_of_classes))
+        configurations.append(ResNet1Configuration(optimizer, width, height, training_minibatch_size, number_of_classes))
+        configurations.append(ResNet2Configuration(optimizer, width, height, training_minibatch_size, number_of_classes))
+        configurations.append(ResNet3Configuration(optimizer, width, height, training_minibatch_size, number_of_classes))
+        configurations.append(ResNet3SmallConfiguration(optimizer, width, height, training_minibatch_size, number_of_classes))
+        configurations.append(ResNet4Configuration(optimizer, width, height, training_minibatch_size, number_of_classes))
+        configurations.append(ResNet5Configuration(optimizer, width, height, training_minibatch_size, number_of_classes))
+        configurations.append(ResNet5SmallConfiguration(optimizer, width, height, training_minibatch_size, number_of_classes))
+        configurations.append(Vgg4WithLocalizationConfiguration(optimizer, width, height, training_minibatch_size, number_of_classes))
 
         for i in range(len(configurations)):
             if configurations[i].name() == name:

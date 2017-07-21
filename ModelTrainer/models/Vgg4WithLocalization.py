@@ -11,12 +11,12 @@ from models.TrainingConfiguration import TrainingConfiguration
 class Vgg4WithLocalizationConfiguration(TrainingConfiguration):
     """ The winning VGG-Net 4 configuration from Deep Learning course """
 
-    def __init__(self, optimizer="Adadelta", width=128, height=224, training_minibatch_size=64):
+    def __init__(self, optimizer, width, height, training_minibatch_size, number_of_classes):
         super().__init__(optimizer=optimizer, data_shape=(height, width, 3),
-                         training_minibatch_size=training_minibatch_size)
+                         training_minibatch_size=training_minibatch_size, number_of_classes=number_of_classes)
 
     def classifier(self) -> Sequential:
-        """ Returns the classifier of this configuration """
+        """ Returns the model of this configuration """
 
         input = Input(shape=self.data_shape)
 
@@ -45,18 +45,18 @@ class Vgg4WithLocalizationConfiguration(TrainingConfiguration):
 
         feature_vector = Flatten()(layer)
 
-        number_of_ouput_classes = 32
+        number_of_ouput_classes = self.number_of_classes
         classification_head = Dense(units=number_of_ouput_classes, kernel_regularizer=l2(self.weight_decay),
                                     activation='softmax', name='output_class')(feature_vector)
         number_of_output_variables = 4  # Four values of the bounding-box: origin-x, origin-y, width and height
         regression_head = Dense(units=number_of_output_variables, kernel_regularizer=l2(self.weight_decay),
                                 activation='linear', name='output_bounding_box')(feature_vector)
 
-        classifier = Model(inputs=[input], outputs=[classification_head, regression_head])
-        classifier.compile(self.get_optimizer(),
+        model = Model(inputs=[input], outputs=[classification_head, regression_head])
+        model.compile(self.get_optimizer(),
                            loss={'output_class': 'categorical_crossentropy', 'output_bounding_box': 'mse'},
                            metrics=["accuracy"])
-        return classifier
+        return model
 
     def add_convolution_block_with_batch_normalization(self, previous_layer: Layer, filters, kernel_size) -> Layer:
         layer = Convolution2D(filters, kernel_size, padding='same',
@@ -74,7 +74,7 @@ class Vgg4WithLocalizationConfiguration(TrainingConfiguration):
 
 
 if __name__ == "__main__":
-    configuration = Vgg4WithLocalizationConfiguration()
+    configuration = Vgg4WithLocalizationConfiguration("Adadelta", 96, 96, 16, 32)
     configuration.classifier().summary()
     plot_model(configuration.classifier(), to_file="vgg4_with_localization.png")
     print(configuration.summary())
