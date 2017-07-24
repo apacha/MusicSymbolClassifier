@@ -81,12 +81,12 @@ class HomusImageGenerator:
 
             for stroke_thickness in stroke_thicknesses:
                 export_path = ExportPath(destination_directory, symbol.symbol_class, raw_file_name_without_extension,
-                                         stroke_thickness, 'png')
+                                         'png', stroke_thickness)
                 if width is None and height is None:
                     symbol.draw_into_bitmap(export_path, stroke_thickness, margin=2)
                 else:
                     symbol.draw_onto_canvas(export_path, stroke_thickness, 0, width,
-                                        height, staff_line_spacing, staff_line_vertical_offsets, bounding_boxes)
+                                            height, staff_line_spacing, staff_line_vertical_offsets, bounding_boxes)
 
                 current_symbol += 1 * staff_line_multiplier
                 if current_symbol % 10 == 0:
@@ -94,6 +94,7 @@ class HomusImageGenerator:
                     sys.stdout.write("{0: >5}/{1}".format(current_symbol, total_number_of_symbols))
                     sys.stdout.flush()
 
+        print("") # Print an empty line, so the next command starts in a new line instead of at the end of the progress-bar
         return bounding_boxes
 
 

@@ -256,13 +256,12 @@ if __name__ == "__main__":
 
     if flags.delete_and_recreate_dataset_directory:
         training_dataset_provider = TrainingDatasetProvider(flags.dataset_directory)
-        training_dataset_provider.recreate_and_prepare_datasets_for_training(datasets=datasets,
-                                                                             width=flags.width,
+        training_dataset_provider.recreate_and_prepare_datasets_for_training(datasets=datasets, width=flags.width,
                                                                              height=flags.height,
                                                                              use_fixed_canvas=flags.use_fixed_canvas,
+                                                                             stroke_thicknesses_for_generated_symbols=stroke_thicknesses_for_generated_symbols,
                                                                              staff_line_spacing=flags.staff_line_spacing,
-                                                                             staff_line_vertical_offsets=offsets,
-                                                                             stroke_thicknesses_for_generated_symbols=stroke_thicknesses_for_generated_symbols)
+                                                                             staff_line_vertical_offsets=offsets)
 
     train_model(dataset_directory=flags.dataset_directory,
                 model_name=flags.model_name,

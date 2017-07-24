@@ -3,7 +3,7 @@ import os
 
 class ExportPath:
     def __init__(self, destination_directory: str, symbol_class: str, raw_file_name_without_extension: str,
-                 stroke_thickness: int, extension: str = "png") -> None:
+                 extension: str = "png", stroke_thickness: int = None) -> None:
         super().__init__()
         self.stroke_thickness = stroke_thickness
         self.extension = extension
@@ -21,21 +21,24 @@ class ExportPath:
         'destination_directory'/'symbol_class'/'raw_file_name_without_extension'_'stroke_thickness'_offset_'offset'.'extension',
         e.g.: data/images/3-4-Time/1-13_3_offset_74.png
         """
-        if offset is None:
-            return os.path.join(self.destination_directory, self.symbol_class,
-                                "{0}_{1}.{2}".format(self.raw_file_name_without_extension, self.stroke_thickness,
-                                                     self.extension))
-        else:
-            return os.path.join(self.destination_directory, self.symbol_class,
-                                "{0}_{1}_offset_{2}.{3}".format(self.raw_file_name_without_extension,
-                                                                self.stroke_thickness, offset, self.extension))
+        stroke_thickness = ""
+        if self.stroke_thickness is not None:
+            stroke_thickness = "_{0}".format(self.stroke_thickness)
+
+        staffline_offset = ""
+        if offset is not None:
+            staffline_offset = "_offset_{0}".format(offset)
+
+        return os.path.join(self.destination_directory, self.symbol_class,
+                            "{0}{1}{2}.{3}".format(self.raw_file_name_without_extension,
+                                                   stroke_thickness, staffline_offset, self.extension))
 
     def get_class_name_and_file_path(self, offset: int = None):
-        if offset is None:
-            return os.path.join(self.symbol_class,
-                                "{0}_{1}.{2}".format(self.raw_file_name_without_extension, self.stroke_thickness,
-                                                     self.extension))
-        else:
-            return os.path.join(self.symbol_class, "{0}_{1}_offset_{2}.{3}".format(self.raw_file_name_without_extension,
-                                                                                   self.stroke_thickness, offset,
-                                                                                   self.extension))
+
+        staffline_offset = ""
+        if offset is not None:
+            staffline_offset = "_offset_{0}".format(offset)
+
+        return os.path.join(self.symbol_class, "{0}_{1}{2}.{3}".format(self.raw_file_name_without_extension,
+                                                                       self.stroke_thickness, staffline_offset,
+                                                                       self.extension))

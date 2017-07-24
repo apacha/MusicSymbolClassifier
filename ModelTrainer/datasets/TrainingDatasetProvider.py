@@ -1,3 +1,4 @@
+import argparse
 import os
 import pickle
 import shutil
@@ -25,11 +26,10 @@ class TrainingDatasetProvider:
         self.dataset_directory = dataset_directory
         self.image_dataset_directory = os.path.join(dataset_directory, "images")
 
-    def recreate_and_prepare_datasets_for_training(self, datasets: List[str], width: int,
-                                                   height: int,
-                                                   use_fixed_canvas: bool, staff_line_spacing: int,
-                                                   staff_line_vertical_offsets: List[int],
-                                                   stroke_thicknesses_for_generated_symbols: List[int]) -> None:
+    def recreate_and_prepare_datasets_for_training(self, datasets: List[str], width: int, height: int,
+                                                   use_fixed_canvas: bool,
+                                                   stroke_thicknesses_for_generated_symbols: List[int],
+                                                   staff_line_spacing: int, staff_line_vertical_offsets: List[int]) -> None:
         """
         Deletes the dataset_directory and recreates the requested datasets into that folder.
         Some datasets just need to be downloaded and extracted (e.g. PrintedMusicSymbolsDataset),
@@ -85,3 +85,8 @@ class TrainingDatasetProvider:
         dataset_splitter = DatasetSplitter(self.image_dataset_directory, self.image_dataset_directory)
         dataset_splitter.delete_split_directories()
         dataset_splitter.split_images_into_training_validation_and_test_set()
+
+if __name__ == "__main__":
+    training_dataset_provider = TrainingDatasetProvider("../data")
+    training_dataset_provider.recreate_and_prepare_datasets_for_training(["homus", "rebelo1", "rebelo2", "printed"], 96,
+                                                                         96, False, [3], 14, [])
