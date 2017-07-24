@@ -6,7 +6,7 @@ from typing import List
 import sys
 
 from datasets.ExportPath import ExportPath
-from datasets.HomusSymbols import HomusSymbols
+from datasets.HomusSymbol import HomusSymbol
 
 
 class HomusImageGenerator:
@@ -72,7 +72,7 @@ class HomusImageGenerator:
             with open(symbol_file) as file:
                 content = file.read()
 
-            symbol = HomusSymbols.initialize_from_string(content)
+            symbol = HomusSymbol.initialize_from_string(content)
 
             target_directory = os.path.join(destination_directory, symbol.symbol_class)
             os.makedirs(target_directory, exist_ok=True)

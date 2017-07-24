@@ -5,7 +5,7 @@ from sympy import Point2D
 
 from datasets.ExportPath import ExportPath
 from datasets.Rectangle import Rectangle
-from datasets.HomusSymbols import HomusSymbols
+from datasets.HomusSymbol import HomusSymbol
 
 
 class HomusSymbol_test(unittest.TestCase):
@@ -13,7 +13,7 @@ class HomusSymbol_test(unittest.TestCase):
         # Arrange
 
         # Act
-        symbol = HomusSymbols.initialize_from_string("")
+        symbol = HomusSymbol.initialize_from_string("")
 
         # Assert
         self.assertIsNone(symbol)
@@ -25,7 +25,7 @@ class HomusSymbol_test(unittest.TestCase):
         dimensions = Rectangle(Point2D(23, 101), 8, 7)
 
         # Act
-        symbol = HomusSymbols.initialize_from_string(content)
+        symbol = HomusSymbol.initialize_from_string(content)
 
         # Assert
         self.assertIsNotNone(symbol)
@@ -41,7 +41,7 @@ class HomusSymbol_test(unittest.TestCase):
                   "182;23,182;26,178;26,175;25,171;24,166;23,159;20,158;20,158;"
 
         # Act
-        symbol = HomusSymbols.initialize_from_string(content)
+        symbol = HomusSymbol.initialize_from_string(content)
 
         # Assert
         self.assertIsNotNone(symbol)
@@ -51,7 +51,7 @@ class HomusSymbol_test(unittest.TestCase):
 
     def test_draw_onto_canvas(self):
         # Arrange
-        symbol = HomusSymbols("", [[Point2D(0, 0), Point2D(100, 100)]], "", Rectangle(Point2D(0, 0), 100, 100))
+        symbol = HomusSymbol("", [[Point2D(0, 0), Point2D(100, 100)]], "", Rectangle(Point2D(0, 0), 100, 100))
         export_path = ExportPath("","","bitmap",2)
 
         # Act
@@ -65,7 +65,7 @@ class HomusSymbol_test(unittest.TestCase):
 
     def test_draw_into_bitmap_without_larger_canvas(self):
         # Arrange
-        symbol = HomusSymbols("", [[Point2D(0, 0), Point2D(100, 100)]], "", Rectangle(Point2D(0, 0), 100, 100))
+        symbol = HomusSymbol("", [[Point2D(0, 0), Point2D(100, 100)]], "", Rectangle(Point2D(0, 0), 100, 100))
         export_path = ExportPath("","","bitmap",3)
 
         # Act
@@ -88,7 +88,7 @@ class HomusSymbol_test(unittest.TestCase):
                   "131;139,131;139,131;140,131;140,133;141,137;141,143;141,150;141,158;139,172;139,180;139,188;140," \
                   "192;141,195;142,196;143,196;144,196;144,196;144,197;144,197;"
         export_path = ExportPath("","","test",3)
-        symbol = HomusSymbols.initialize_from_string(content)
+        symbol = HomusSymbol.initialize_from_string(content)
 
         # Act
         offsets = [18 + 7 * i for i in range(3)]  # [18,25,32]

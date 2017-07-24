@@ -11,7 +11,7 @@ from datasets.ExportPath import ExportPath
 from datasets.Rectangle import Rectangle
 
 
-class HomusSymbols:
+class HomusSymbol:
     def __init__(self, content: str, strokes: List[List[Point2D]], symbol_class: str, dimensions: Rectangle) -> None:
         super().__init__()
         self.dimensions = dimensions
@@ -20,12 +20,12 @@ class HomusSymbols:
         self.strokes = strokes
 
     @staticmethod
-    def initialize_from_string(content: str) -> 'HomusSymbols':
+    def initialize_from_string(content: str) -> 'HomusSymbol':
         """
         Create and initializes a new symbol from a string
         :param content: The content of a symbol as read from the text-file
         :return: The initialized symbol
-        :rtype: HomusSymbols
+        :rtype: HomusSymbol
         """
 
         if content is None or content is "":
@@ -60,7 +60,7 @@ class HomusSymbols:
             strokes.append(stroke)
 
         dimensions = Rectangle(Point2D(min_x, min_y), max_x - min_x + 1, max_y - min_y + 1)
-        return HomusSymbols(content, strokes, symbol_name, dimensions)
+        return HomusSymbol(content, strokes, symbol_name, dimensions)
 
     def draw_into_bitmap(self, export_path: ExportPath, stroke_thickness: int, margin: int = 0):
         """
