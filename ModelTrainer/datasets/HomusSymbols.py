@@ -11,7 +11,7 @@ from datasets.ExportPath import ExportPath
 from datasets.Rectangle import Rectangle
 
 
-class Symbol:
+class HomusSymbols:
     def __init__(self, content: str, strokes: List[List[Point2D]], symbol_class: str, dimensions: Rectangle) -> None:
         super().__init__()
         self.dimensions = dimensions
@@ -20,12 +20,12 @@ class Symbol:
         self.strokes = strokes
 
     @staticmethod
-    def initialize_from_string(content: str) -> 'Symbol':
+    def initialize_from_string(content: str) -> 'HomusSymbols':
         """
         Create and initializes a new symbol from a string
         :param content: The content of a symbol as read from the text-file
         :return: The initialized symbol
-        :rtype: Symbol
+        :rtype: HomusSymbols
         """
 
         if content is None or content is "":
@@ -60,7 +60,7 @@ class Symbol:
             strokes.append(stroke)
 
         dimensions = Rectangle(Point2D(min_x, min_y), max_x - min_x + 1, max_y - min_y + 1)
-        return Symbol(content, strokes, symbol_name, dimensions)
+        return HomusSymbols(content, strokes, symbol_name, dimensions)
 
     def draw_into_bitmap(self, export_path: ExportPath, stroke_thickness: int, margin: int = 0):
         """
@@ -105,11 +105,11 @@ class Symbol:
 
         for stroke in self.strokes:
             for i in range(0, len(stroke) - 1):
-                start_point = self.subtract_offset(stroke[i], offset)
-                end_point = self.subtract_offset(stroke[i + 1], offset)
+                start_point = self.__subtract_offset(stroke[i], offset)
+                end_point = self.__subtract_offset(stroke[i + 1], offset)
                 draw.line((start_point.x, start_point.y, end_point.x, end_point.y), black, stroke_thickness)
 
-        location = self.subtract_offset(self.dimensions.origin, offset)
+        location = self.__subtract_offset(self.dimensions.origin, offset)
         bounding_box_in_image = Rectangle(location, self.dimensions.width, self.dimensions.height)
         # self.draw_bounding_box(draw, location)
 
@@ -118,8 +118,8 @@ class Symbol:
         if staff_line_vertical_offsets is not None and staff_line_vertical_offsets:
             for staff_line_vertical_offset in staff_line_vertical_offsets:
                 image_with_staff_lines = image_without_staff_lines.copy()
-                self.draw_staff_lines_into_image(image_with_staff_lines, stroke_thickness,
-                                                 staff_line_spacing, staff_line_vertical_offset)
+                self.__draw_staff_lines_into_image(image_with_staff_lines, stroke_thickness,
+                                                   staff_line_spacing, staff_line_vertical_offset)
                 file_name_with_offset = export_path.get_full_path(staff_line_vertical_offset)
                 image_with_staff_lines.save(file_name_with_offset)
                 image_with_staff_lines.close()
@@ -146,10 +146,10 @@ class Symbol:
             fill=None, outline=red)
 
     @staticmethod
-    def draw_staff_lines_into_image(image: Image,
-                                    stroke_thickness: int,
-                                    staff_line_spacing: int = 14,
-                                    vertical_offset=88):
+    def __draw_staff_lines_into_image(image: Image,
+                                      stroke_thickness: int,
+                                      staff_line_spacing: int = 14,
+                                      vertical_offset=88):
         black = (0, 0, 0)
         width = image.width
         draw = ImageDraw.Draw(image)
@@ -160,5 +160,5 @@ class Symbol:
         del draw
 
     @staticmethod
-    def subtract_offset(a: Point2D, b: Point2D) -> Point2D:
+    def __subtract_offset(a: Point2D, b: Point2D) -> Point2D:
         return Point2D(a.x - b.x, a.y - b.y)

@@ -5,7 +5,7 @@ from sympy import Point2D
 
 from datasets.ExportPath import ExportPath
 from datasets.Rectangle import Rectangle
-from datasets.Symbol import Symbol
+from datasets.HomusSymbols import HomusSymbols
 
 
 class ExportPath_test(unittest.TestCase):

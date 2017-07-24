@@ -35,7 +35,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--dataset_directory",
         type=str,
-        default="../data/raw",
+        default="../data/homus_raw",
         help="The directory, where the extracted dataset will be copied to")
 
     flags, unparsed = parser.parse_known_args()

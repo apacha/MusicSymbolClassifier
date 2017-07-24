@@ -6,7 +6,7 @@ from typing import List
 import sys
 
 from datasets.ExportPath import ExportPath
-from datasets.Symbol import Symbol
+from datasets.HomusSymbols import HomusSymbols
 
 
 class HomusImageGenerator:
@@ -72,7 +72,7 @@ class HomusImageGenerator:
             with open(symbol_file) as file:
                 content = file.read()
 
-            symbol = Symbol.initialize_from_string(content)
+            symbol = HomusSymbols.initialize_from_string(content)
 
             target_directory = os.path.join(destination_directory, symbol.symbol_class)
             os.makedirs(target_directory, exist_ok=True)
@@ -102,7 +102,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--raw_dataset_directory",
         type=str,
-        default="../data/raw",
+        default="../data/homus_raw",
         help="The directory, where the raw HOMUS dataset can be found (the text-files that contain the strokes)")
     parser.add_argument(
         "--image_dataset_directory",

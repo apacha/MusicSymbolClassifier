@@ -49,7 +49,7 @@ class TrainingDatasetProvider:
     def __download_and_extract_datasets(self, datasets, width, height, use_fixed_canvas, staff_line_spacing,
                                         staff_line_vertical_offsets, stroke_thicknesses_for_generated_symbols):
         if 'homus' in datasets:
-            raw_dataset_directory = os.path.join(self.dataset_directory, "raw")
+            raw_dataset_directory = os.path.join(self.dataset_directory, "homus_raw")
             dataset_downloader = HomusDatasetDownloader(raw_dataset_directory)
             dataset_downloader.download_and_extract_dataset()
             generated_image_width = width
