@@ -1,5 +1,5 @@
 from sympy import Point2D
-
+from typing import List, Tuple
 
 class Rectangle:
     def __init__(self, origin: Point2D, width: int, height: int):
@@ -29,8 +29,15 @@ class Rectangle:
         bottom = max(r1.bottom, r2.bottom)
         width = right - left
         height = bottom - top
-        
+
         return Rectangle(Point2D(left, top), width, height)
+
+    def as_bounding_box_with_margin(self, margin: int = 1) -> Tuple[int, int, int, int]:
+        bounding_box_with_margin = (self.left - margin,
+                                    self.top - margin,
+                                    self.left + self.width + 2 * margin,
+                                    self.top + self.height + 2 * margin)
+        return bounding_box_with_margin
 
     def __eq__(self, o: object) -> bool:
         are_equal = self.width == o.width and self.height == o.height and self.origin == o.origin

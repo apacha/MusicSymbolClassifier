@@ -134,15 +134,19 @@ class AudiverisOmrImageGenerator:
                 if Rectangle.overlap(half_note_head, stem):
                     pairs.append((half_note_head, stem))
 
+        i = 0
         for pair in pairs:
+            symbol_class = pair[0].symbol_class
+            merge = Rectangle.merge(pair[0], pair[1])
+            bounding_box_with_one_pixel_margin = merge.as_bounding_box_with_margin(1)
+            symbol_image = image.crop(bounding_box_with_one_pixel_margin)
 
+            target_directory = os.path.join(destination_directory, symbol_class)
+            os.makedirs(target_directory, exist_ok=True)
 
-            # bounding_box_with_one_pixel_margin = symbol.get_bounding_box_with_margin(1)
-            # symbol_image = image.crop(bounding_box_with_one_pixel_margin)
-            #
-            # target_directory = os.path.join(destination_directory, symbol_class)
-            # os.makedirs(target_directory, exist_ok=True)
-            # symbol_image.save(export_path.get_full_path())
+            export_path = ExportPath(destination_directory, symbol_class, file_name_without_extension + str(i))
+            symbol_image.save(export_path.get_full_path())
+            i += 1
 
 
 class AudiverisOmrSymbol(Rectangle):
@@ -150,12 +154,6 @@ class AudiverisOmrSymbol(Rectangle):
         super().__init__(Point2D(x, y), width, height)
         self.symbol_class = symbol_class
 
-    def get_bounding_box_with_margin(self, margin: int = 1) -> Tuple[int, int, int, int]:
-        bounding_box_with_margin = (self.left - margin,
-                                    self.top - margin,
-                                    self.left + self.width + 2 * margin,
-                                    self.top + self.height + 2 * margin)
-        return bounding_box_with_margin
 
 
 if __name__ == "__main__":
