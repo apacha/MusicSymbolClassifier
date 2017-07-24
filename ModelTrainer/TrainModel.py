@@ -2,80 +2,31 @@ import argparse
 import datetime
 import os
 import pickle
-import shutil
 from datetime import date
 from time import time
 from typing import List
 
 import numpy
 import numpy as np
-from PIL import Image
 from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau
 from keras.preprocessing.image import ImageDataGenerator
 from sklearn import metrics
 
-import GoogleSpreadsheetReporter
-import TelegramNotifier
-from datasets.ImageResizer import ImageResizer
-from TrainingHistoryPlotter import TrainingHistoryPlotter
-from datasets.DatasetSplitter import DatasetSplitter
+from reporting import TelegramNotifier, GoogleSpreadsheetReporter
+from reporting.TrainingHistoryPlotter import TrainingHistoryPlotter
+from datasets.TrainingDatasetProvider import TrainingDatasetProvider
 from datasets.DirectoryIteratorWithBoundingBoxes import DirectoryIteratorWithBoundingBoxes
-from datasets.HomusDatasetDownloader import HomusDatasetDownloader
-from datasets.HomusImageGenerator import HomusImageGenerator
-from datasets.PrintedMusicSymbolsDatasetDownloader import PrintedMusicSymbolsDatasetDownloader
-from datasets.RebeloMusicSymbolDataset1Downloader import RebeloMusicSymbolDataset1Downloader
-from datasets.RebeloMusicSymbolDataset2Downloader import RebeloMusicSymbolDataset2Downloader
 from models.ConfigurationFactory import ConfigurationFactory
 
 
-def train_model(dataset_directory: str, model_name: str, show_plot_after_training: bool,
-                delete_and_recreate_dataset_directory: bool, stroke_thicknesses: List[int], width: int, height: int,
-                staff_line_vertical_offsets: List[int], staff_line_spacing: int, training_minibatch_size: int,
+def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: List[int],
+                width: int, height: int,
+                staff_line_vertical_offsets: List[int], training_minibatch_size: int,
                 optimizer: str, dynamic_learning_rate_reduction: bool, use_fixed_canvas: bool, datasets: List[str]):
-    raw_dataset_directory = os.path.join(dataset_directory, "raw")
     image_dataset_directory = os.path.join(dataset_directory, "images")
+
     bounding_boxes = None
     bounding_boxes_cache = os.path.join(dataset_directory, "bounding_boxes.txt")
-
-    if delete_and_recreate_dataset_directory:
-        print("Deleting dataset directory {0}".format(dataset_directory))
-        if os.path.exists(dataset_directory):
-            shutil.rmtree(dataset_directory)
-
-        if 'homus' in datasets:
-            dataset_downloader = HomusDatasetDownloader(raw_dataset_directory)
-            dataset_downloader.download_and_extract_dataset()
-            generated_image_width = width
-            generated_image_height = height
-            if not use_fixed_canvas:
-                # If we are not using a fixed canvas, remove those arguments to allow symbols being drawn at their original shapes
-                generated_image_width, generated_image_height = None, None
-            bounding_boxes = HomusImageGenerator.create_images(raw_dataset_directory, image_dataset_directory,
-                                                               stroke_thicknesses, generated_image_width,
-                                                               generated_image_height, staff_line_spacing,
-                                                               staff_line_vertical_offsets)
-            with open(bounding_boxes_cache, "wb") as cache:
-                pickle.dump(bounding_boxes, cache)
-
-        if 'rebelo1' in datasets:
-            dataset_downloader = RebeloMusicSymbolDataset1Downloader(image_dataset_directory)
-            dataset_downloader.download_and_extract_dataset()
-
-        if 'rebelo2' in datasets:
-            dataset_downloader = RebeloMusicSymbolDataset2Downloader(image_dataset_directory)
-            dataset_downloader.download_and_extract_dataset()
-
-        if 'printed' in datasets:
-            dataset_downloader = PrintedMusicSymbolsDatasetDownloader(image_dataset_directory)
-            dataset_downloader.download_and_extract_dataset()
-
-        print("Resizing all images with the LANCZOS interpolation to {0}x{1}px (width x height).".format(width, height))
-        image_resizer = ImageResizer()
-        image_resizer.resize_all_images(image_dataset_directory, width, height, Image.LANCZOS)
-
-        dataset_splitter = DatasetSplitter(image_dataset_directory, image_dataset_directory)
-        dataset_splitter.delete_split_directories()
-        dataset_splitter.split_images_into_training_validation_and_test_set()
 
     print("Loading configuration and data-readers...")
     start_time = time()
@@ -83,7 +34,6 @@ def train_model(dataset_directory: str, model_name: str, show_plot_after_trainin
     number_of_classes = len(os.listdir(os.path.join(image_dataset_directory, "training")))
     training_configuration = ConfigurationFactory.get_configuration_by_name(model_name, optimizer, width, height,
                                                                             training_minibatch_size, number_of_classes)
-
     if training_configuration.performs_localization() and bounding_boxes is None:
         # Try to unpickle
         with open(bounding_boxes_cache, "rb") as cache:
@@ -213,7 +163,7 @@ def train_model(dataset_directory: str, model_name: str, show_plot_after_trainin
 
     training_result_image = "{1}_{0}_{2:.1f}p.png".format(training_configuration.name(), datetime.date.today(),
                                                           classification_accuracy * 100)
-    TrainingHistoryPlotter.plot_history(history, training_result_image, show_plot=show_plot_after_training)
+    TrainingHistoryPlotter.plot_history(history, training_result_image)
 
     notification_message = "Training on HOMUS dataset with model {0} finished. " \
                            "Accuracy: {1:0.5f}%".format(model_name, classification_accuracy * 100)
@@ -253,11 +203,6 @@ if __name__ == "__main__":
     parser.add_argument("--model_name", type=str, default="res_net_4",
                         help="The model used for training the network. Run ListAvailableConfigurations.ps1 or "
                              "models/ConfigurationFactory.py to get a list of all available configurations")
-
-    parser.add_argument("--show_plot_after_training", dest="show_plot_after_training", action='store_true',
-                        help="Whether to show a plot with the accuracies after training and pause or not. "
-                             "Notice that the plot will be generated and stored regardless of this flag")
-    parser.set_defaults(show_plot_after_training=False)
 
     parser.add_argument("--use_existing_dataset_directory", dest="delete_and_recreate_dataset_directory",
                         action='store_false',
@@ -303,20 +248,28 @@ if __name__ == "__main__":
     offsets = []
     if flags.offsets != "":
         offsets = [int(o) for o in flags.offsets.split(',')]
+    stroke_thicknesses_for_generated_symbols = [int(s) for s in flags.stroke_thicknesses.split(',')]
 
     if flags.datasets == "":
         raise Exception("No dataset selected. Specify the dataset for the training via the --dataset parameter")
     datasets = flags.datasets.split(',')
 
+    if flags.delete_and_recreate_dataset_directory:
+        training_dataset_provider = TrainingDatasetProvider(flags.dataset_directory)
+        training_dataset_provider.recreate_and_prepare_datasets_for_training(datasets=datasets,
+                                                                             width=flags.width,
+                                                                             height=flags.height,
+                                                                             use_fixed_canvas=flags.use_fixed_canvas,
+                                                                             staff_line_spacing=flags.staff_line_spacing,
+                                                                             staff_line_vertical_offsets=offsets,
+                                                                             stroke_thicknesses_for_generated_symbols=stroke_thicknesses_for_generated_symbols)
+
     train_model(dataset_directory=flags.dataset_directory,
                 model_name=flags.model_name,
-                show_plot_after_training=flags.show_plot_after_training,
-                delete_and_recreate_dataset_directory=flags.delete_and_recreate_dataset_directory,
-                stroke_thicknesses=[int(s) for s in flags.stroke_thicknesses.split(',')],
+                stroke_thicknesses=stroke_thicknesses_for_generated_symbols,
                 width=flags.width,
                 height=flags.height,
                 staff_line_vertical_offsets=offsets,
-                staff_line_spacing=flags.staff_line_spacing,
                 training_minibatch_size=flags.minibatch_size,
                 optimizer=flags.optimizer,
                 dynamic_learning_rate_reduction=flags.dynamic_learning_rate_reduction,

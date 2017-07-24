@@ -5,7 +5,7 @@ from matplotlib import pyplot
 
 class TrainingHistoryPlotter:
     @staticmethod
-    def plot_history(history: History, file_name: str, show_plot: bool = True):
+    def plot_history(history: History, file_name: str, show_plot: bool = False):
         epoch_list = numpy.add(history.epoch, 1)  # Add 1 so it starts with epoch 1 instead of 0
 
         fig = pyplot.figure(1)

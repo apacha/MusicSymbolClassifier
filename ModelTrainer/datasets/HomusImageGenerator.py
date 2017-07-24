@@ -14,9 +14,9 @@ class HomusImageGenerator:
     def create_images(raw_data_directory: str,
                       destination_directory: str,
                       stroke_thicknesses: List[int],
-                      width: int,
-                      height: int,
-                      staff_line_spacing: int,
+                      width: int = None,
+                      height: int = None,
+                      staff_line_spacing: int = 14,
                       staff_line_vertical_offsets: List[int] = None) -> dict:
         """
         Creates a visual representation of the Homus Dataset by parsing all text-files and the symbols as specified
