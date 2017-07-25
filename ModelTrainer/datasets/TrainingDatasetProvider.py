@@ -5,6 +5,8 @@ from typing import List
 
 from PIL import Image
 
+from datasets.AudiverisOmrDatasetDownloader import AudiverisOmrDatasetDownloader
+from datasets.AudiverisOmrImageGenerator import AudiverisOmrImageGenerator
 from datasets.DatasetSplitter import DatasetSplitter
 from datasets.HomusDatasetDownloader import HomusDatasetDownloader
 from datasets.HomusImageGenerator import HomusImageGenerator
@@ -28,7 +30,8 @@ class TrainingDatasetProvider:
     def recreate_and_prepare_datasets_for_training(self, datasets: List[str], width: int, height: int,
                                                    use_fixed_canvas: bool,
                                                    stroke_thicknesses_for_generated_symbols: List[int],
-                                                   staff_line_spacing: int, staff_line_vertical_offsets: List[int]) -> None:
+                                                   staff_line_spacing: int,
+                                                   staff_line_vertical_offsets: List[int]) -> None:
         """
         Deletes the dataset_directory and recreates the requested datasets into that folder.
         Some datasets just need to be downloaded and extracted (e.g. PrintedMusicSymbolsDataset),
@@ -74,6 +77,12 @@ class TrainingDatasetProvider:
         if 'printed' in datasets:
             dataset_downloader = PrintedMusicSymbolsDatasetDownloader(self.image_dataset_directory)
             dataset_downloader.download_and_extract_dataset()
+        if 'audiveris' in datasets:
+            raw_dataset_directory = os.path.join(self.dataset_directory, "audiveris_raw")
+            dataset_downloader = AudiverisOmrDatasetDownloader(raw_dataset_directory)
+            dataset_downloader.download_and_extract_dataset()
+            image_generator = AudiverisOmrImageGenerator()
+            image_generator.extract_symbols(raw_dataset_directory, self.image_dataset_directory)
 
     def __resize_all_images_to_fixed_size(self, width, height):
         print("Resizing all images with the LANCZOS interpolation to {0}x{1}px (width x height).".format(width, height))
@@ -85,7 +94,9 @@ class TrainingDatasetProvider:
         dataset_splitter.delete_split_directories()
         dataset_splitter.split_images_into_training_validation_and_test_set()
 
+
 if __name__ == "__main__":
     training_dataset_provider = TrainingDatasetProvider("../data")
-    training_dataset_provider.recreate_and_prepare_datasets_for_training(["homus", "rebelo1", "rebelo2", "printed"], 96,
-                                                                         96, False, [3], 14, [])
+    training_dataset_provider.recreate_and_prepare_datasets_for_training(
+        ["homus", "rebelo1", "rebelo2", "printed", "audiveris"], 96,
+        96, False, [3], 14, [])

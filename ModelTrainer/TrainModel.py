@@ -240,8 +240,8 @@ if __name__ == "__main__":
 
     parser.add_argument("--datasets", dest="datasets", default="homus",
                         help="Specifies which datasets are used for the training. One or multiple datasets of the "
-                             "following are possible: homus, rebelo1, rebelo2 or printed. Multiple values are "
-                             "connected by a separating comma, i.e. 'homus,rebelo1'")
+                             "following are possible: homus, rebelo1, rebelo2, printed or audiveris. "
+                             "Multiple values are connected by a separating comma, i.e. 'homus,rebelo1'")
 
     flags, unparsed = parser.parse_known_args()
 
