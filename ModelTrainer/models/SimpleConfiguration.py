@@ -1,7 +1,5 @@
-from keras.layers import Convolution2D, Activation, MaxPooling2D, Flatten, Dense, Conv2D, BatchNormalization, \
-    AveragePooling2D, Dropout
+from keras.layers import Activation, BatchNormalization, Convolution2D, Dense, Dropout, Flatten, MaxPooling2D
 from keras.models import Sequential
-from keras.optimizers import SGD
 from keras.regularizers import l2
 
 from models.TrainingConfiguration import TrainingConfiguration

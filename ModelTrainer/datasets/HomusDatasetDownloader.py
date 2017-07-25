@@ -1,6 +1,5 @@
 import argparse
 import os
-import zipfile
 
 from datasets.Dataset import Dataset
 

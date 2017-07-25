@@ -49,8 +49,8 @@ class ResNet1Configuration(TrainingConfiguration):
 
         model = Model(inputs=[input], outputs=[classification_head])
         model.compile(self.get_optimizer(),
-                           loss={'output_class': 'categorical_crossentropy'},
-                           metrics=["accuracy"])
+                      loss={'output_class': 'categorical_crossentropy'},
+                      metrics=["accuracy"])
         return model
 
     def add_convolution_block_with_batch_normalization(self, previous_layer: Layer, filters, kernel_size,
@@ -70,7 +70,7 @@ class ResNet1Configuration(TrainingConfiguration):
         layer = Convolution2D(filters, kernel_size, strides=first_strides, padding='same',
                               kernel_regularizer=l2(self.weight_decay),
                               name="conv{0}_{1}_a".format(layer_number, block_number))(
-            previous_layer)
+                previous_layer)
         layer = BatchNormalization()(layer)
         layer = Activation('relu')(layer)
         layer = Convolution2D(filters, kernel_size, padding='same', kernel_regularizer=l2(self.weight_decay),

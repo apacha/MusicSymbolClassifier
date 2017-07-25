@@ -1,5 +1,7 @@
+from typing import Tuple
+
 from sympy import Point2D
-from typing import List, Tuple
+
 
 class Rectangle:
     def __init__(self, origin: Point2D, width: int, height: int):

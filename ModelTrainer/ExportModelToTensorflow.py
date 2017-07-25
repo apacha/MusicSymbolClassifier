@@ -1,16 +1,14 @@
-import os
-
 import argparse
-import keras
+import os
 import shutil
+
+import keras
 import tensorflow
 from keras import backend as K
 from keras.models import Sequential
 from tensorflow.contrib.session_bundle import exporter
 from tensorflow.core.protobuf import saver_pb2
-from tensorflow.python.client import session
 from tensorflow.python.framework import graph_io
-from tensorflow.python.ops import variables
 from tensorflow.python.tools import freeze_graph
 
 K.set_learning_phase(0)  # all new operations will be in test mode from now on

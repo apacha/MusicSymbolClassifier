@@ -1,12 +1,9 @@
-import os
 import unittest
 
+from hamcrest import *
 from sympy import Point2D
 
-from datasets.ExportPath import ExportPath
 from datasets.Rectangle import Rectangle
-from datasets.HomusSymbol import HomusSymbol
-from hamcrest import *
 
 
 class Rectangle_test(unittest.TestCase):

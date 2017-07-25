@@ -1,11 +1,10 @@
+import os
+
+import numpy as np
 from keras import backend
 from keras.preprocessing import image
 from keras.preprocessing.image import DirectoryIterator, ImageDataGenerator
-import numpy as np
 from six.moves import range
-import os
-
-from datasets.Rectangle import Rectangle
 
 try:
     from PIL import Image as pil_image
@@ -58,7 +57,7 @@ class DirectoryIteratorWithBoundingBoxes(DirectoryIterator):
                 img = image.array_to_img(batch_x[i], self.data_format, scale=True)
                 fname = '{prefix}_{index}_{hash}.{format}'.format(prefix=self.save_prefix,
                                                                   index=current_index + i,
-                                                                  hash=np.random.randint(1e4),
+                                                                  hash=np.random.randint(int(1e4)),
                                                                   format=self.save_format)
                 img.save(os.path.join(self.save_to_dir, fname))
         # build batch of labels

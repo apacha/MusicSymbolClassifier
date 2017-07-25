@@ -1,8 +1,6 @@
 import traceback
 
 import telegram_send
-from PIL import Image
-from io import BytesIO
 
 
 def send_message_via_telegram(message: str, image_path: str = None) -> None:

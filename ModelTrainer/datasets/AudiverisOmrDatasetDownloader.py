@@ -1,6 +1,5 @@
 import argparse
 import os
-from distutils import dir_util
 
 from datasets.Dataset import Dataset
 

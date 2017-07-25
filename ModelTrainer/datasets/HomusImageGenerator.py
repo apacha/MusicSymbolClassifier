@@ -54,11 +54,11 @@ class HomusImageGenerator:
 
         total_number_of_symbols = len(all_symbol_files) * len(stroke_thicknesses) * staff_line_multiplier
         output = "Generating {0} images with {1} symbols in {2} different stroke thicknesses ({3})".format(
-            total_number_of_symbols, len(all_symbol_files), len(stroke_thicknesses), stroke_thicknesses)
+                total_number_of_symbols, len(all_symbol_files), len(stroke_thicknesses), stroke_thicknesses)
 
         if staff_line_vertical_offsets is not None:
             output += " and with staff-lines with {0} different offsets from the top ({1})".format(
-                staff_line_multiplier, staff_line_vertical_offsets)
+                    staff_line_multiplier, staff_line_vertical_offsets)
 
         if width is not None and height is not None:
             output += "\nCentrally drawn on a fixed canvas of size {0}x{1} (Width x Height)".format(width, height)
@@ -94,22 +94,23 @@ class HomusImageGenerator:
                     sys.stdout.write("{0: >5}/{1}".format(current_symbol, total_number_of_symbols))
                     sys.stdout.flush()
 
-        print("") # Print an empty line, so the next command starts in a new line instead of at the end of the progress-bar
+        # Print an empty line, so the next command starts in a new line instead of at the end of the progress-bar
+        print("")
         return bounding_boxes
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--raw_dataset_directory",
-        type=str,
-        default="../data/homus_raw",
-        help="The directory, where the raw HOMUS dataset can be found (the text-files that contain the strokes)")
+            "--raw_dataset_directory",
+            type=str,
+            default="../data/homus_raw",
+            help="The directory, where the raw HOMUS dataset can be found (the text-files that contain the strokes)")
     parser.add_argument(
-        "--image_dataset_directory",
-        type=str,
-        default="../data/images",
-        help="The directory, where the generated bitmaps will be created")
+            "--image_dataset_directory",
+            type=str,
+            default="../data/images",
+            help="The directory, where the generated bitmaps will be created")
     parser.add_argument("-s", "--stroke_thicknesses", dest="stroke_thicknesses", default="3",
                         help="Stroke thicknesses for drawing the generated bitmaps. May define comma-separated list "
                              "of multiple stroke thicknesses, e.g. '1,2,3'")

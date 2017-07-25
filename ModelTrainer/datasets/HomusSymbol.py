@@ -1,11 +1,8 @@
-import os
+import sys
 from typing import List
 
-import sys
-
-from PIL import ImageDraw
+from PIL import Image, ImageDraw
 from sympy import Point2D
-from PIL import Image
 
 from datasets.ExportPath import ExportPath
 from datasets.Rectangle import Rectangle

@@ -1,9 +1,6 @@
 import argparse
 import os
 from glob import glob
-from typing import List, Tuple
-
-import sys
 from xml.etree import ElementTree
 
 from PIL import Image
@@ -155,19 +152,18 @@ class AudiverisOmrSymbol(Rectangle):
         self.symbol_class = symbol_class
 
 
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--raw_dataset_directory",
-        type=str,
-        default="../data/audiveris_omr_raw",
-        help="The directory, where the raw Audiveris OMR dataset can be found")
+            "--raw_dataset_directory",
+            type=str,
+            default="../data/audiveris_omr_raw",
+            help="The directory, where the raw Audiveris OMR dataset can be found")
     parser.add_argument(
-        "--image_dataset_directory",
-        type=str,
-        default="../data/images",
-        help="The directory, where the generated bitmaps will be created")
+            "--image_dataset_directory",
+            type=str,
+            default="../data/images",
+            help="The directory, where the generated bitmaps will be created")
 
     flags, unparsed = parser.parse_known_args()
 
