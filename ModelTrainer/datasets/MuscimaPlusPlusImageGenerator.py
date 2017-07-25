@@ -1,4 +1,5 @@
 import argparse
+import json
 import os
 from glob import glob
 from typing import List
@@ -35,15 +36,22 @@ class MuscimaPlusPlusImageGenerator:
             file_counter += 1
             crop_objects.extend(self.__get_crop_objects_from_xml_file(xml_file))
 
-        print ("") # Print empty line for next message to start on new line
-        self.__extract_and_draw_crop_objects(crop_objects, destination_directory)
+        path_of_this_file = os.path.dirname(os.path.realpath(__file__))
+        with open(os.path.join(path_of_this_file,"MuscimaPlusPlusBrokenSymbols.json")) as file:
+            broken_crop_objects = json.load(file)
+        print ("\nLoaded {0} crop-objects. Filtering {1} broken symbols".format(len(crop_objects),
+                                                                                len(broken_crop_objects)))
+        crop_objects = [crop_object for crop_object in crop_objects if not crop_object.uid in broken_crop_objects]
+
+
+        self.__render_crop_object_mask_into_image(crop_objects, destination_directory)
 
     def __get_crop_objects_from_xml_file(self, xml_file: str) -> List[CropObject]:
         # e.g., xml_file = 'data/muscima_pp/v0.9/data/cropobjects/CVC-MUSCIMA_W-01_N-10_D-ideal.xml'
         crop_objects = parse_cropobject_list(xml_file)
         return crop_objects
 
-    def __extract_and_draw_crop_objects(self, crop_objects: List[CropObject], destination_directory: str):
+    def __render_crop_object_mask_into_image(self, crop_objects: List[CropObject], destination_directory: str):
 
         crop_object_counter = 1
         total_number_of_crop_objects = len(crop_objects)
