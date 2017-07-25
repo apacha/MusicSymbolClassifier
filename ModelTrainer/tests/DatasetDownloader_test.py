@@ -3,6 +3,7 @@ import shutil
 import unittest
 from glob import glob
 
+from datasets.AudiverisOmrDatasetDownloader import AudiverisOmrDatasetDownloader
 from datasets.Dataset import Dataset
 from datasets.HomusDatasetDownloader import HomusDatasetDownloader
 from datasets.PrintedMusicSymbolsDatasetDownloader import PrintedMusicSymbolsDatasetDownloader
@@ -47,12 +48,23 @@ class DatasetDownloaderTest(unittest.TestCase):
         # Arrange
         zip_file = "PrintedMusicSymbolsDataset.zip"
         destination_directory = "PrintedMusicSymbols"
-        number_of_samples_in_the_dataset = 85
+        number_of_samples_in_the_dataset = 213
         target_file_extension = "*.png"
 
         self.download_dataset_and_verify_correct_extraction(destination_directory, number_of_samples_in_the_dataset,
                                                             target_file_extension, zip_file,
                                                             PrintedMusicSymbolsDatasetDownloader(destination_directory))
+
+    def test_download_and_extract_audiveris_symbols_dataset_expect_folder_to_be_created(self):
+        # Arrange
+        zip_file = "AudiverisOmrDataset.zip"
+        destination_directory = "AudiverisRawData"
+        number_of_samples_in_the_dataset = 4
+        target_file_extension = "*.png"
+
+        self.download_dataset_and_verify_correct_extraction(destination_directory, number_of_samples_in_the_dataset,
+                                                            target_file_extension, zip_file,
+                                                            AudiverisOmrDatasetDownloader(destination_directory))
 
     def download_dataset_and_verify_correct_extraction(self, destination_directory: str,
                                                        number_of_samples_in_the_dataset: int,
