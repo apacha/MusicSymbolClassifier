@@ -13,14 +13,15 @@ from datasets.ExportPath import ExportPath
 class AudiverisOmrImageGenerator:
     def __init__(self) -> None:
         super().__init__()
+        path_of_this_file = os.path.dirname(os.path.realpath(__file__))
         # This mapping contains the relation between the names of the classes used in the Audiveris OMR-dataset
         # annotations and the names that were used for the other datasets
-        with open("AudiverisOmrSymbolNameMapping.json") as file:
+        with open(os.path.join(path_of_this_file,"AudiverisOmrSymbolNameMapping.json")) as file:
             self.symbol_name_mapping = json.load(file)
 
         # Ledger lines can not be distinguished from tenuto or whole-half-rest, so we ignore it for now
         # For now, we ignore half/full notes, flags and stems too
-        with open("AudiverisOmrIgnoredClasses.json") as file:
+        with open(os.path.join(path_of_this_file,"AudiverisOmrIgnoredClasses.json")) as file:
             self.ignored_classes = json.load(file)
 
     def extract_symbols(self, raw_data_directory: str, destination_directory: str):
