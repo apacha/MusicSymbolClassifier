@@ -8,15 +8,13 @@ $newsize = $pswindow.buffersize
 $newsize.height = 9999
 $newsize.width = 1500
 $pswindow.buffersize = $newsize
-#$newsize = $pswindow.windowsize
-#$newsize.height = 50
-#$newsize.width = 150
-#$pswindow.windowsize = $newsize
 
+# Make sure that python finds all modules inside this directory
 cd $pathToSourceRoot
 echo "Appending source root $($pathToSourceRoot) to temporary PYTHONPATH"
 $env:PYTHONPATH = $pathToSourceRoot
 
+# Actually start the training with the default-values and without a fixed canvas for the HOMUS dataset
 Start-Transcript -path "$($pathToTranscript)Training_best_model_transcript.txt" -append
-python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --disable_fixed_canvas_size
+python TrainModel.py --disable_fixed_canvas_size
 Stop-Transcript

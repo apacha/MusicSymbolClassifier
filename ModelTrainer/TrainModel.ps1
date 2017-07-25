@@ -8,10 +8,6 @@ $newsize = $pswindow.buffersize
 $newsize.height = 9999
 $newsize.width = 1500
 $pswindow.buffersize = $newsize
-#$newsize = $pswindow.windowsize
-#$newsize.height = 50
-#$newsize.width = 150
-#$pswindow.windowsize = $newsize
 
 cd $pathToSourceRoot
 echo "Appending source root $($pathToSourceRoot) to temporary PYTHONPATH"

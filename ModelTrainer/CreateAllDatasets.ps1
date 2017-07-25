@@ -9,12 +9,11 @@ $newsize.height = 9999
 $newsize.width = 1500
 $pswindow.buffersize = $newsize
 
+# Make sure that python finds all modules inside this directory
 cd $pathToSourceRoot
 echo "Appending source root $($pathToSourceRoot) to temporary PYTHONPATH"
 $env:PYTHONPATH = $pathToSourceRoot
 
-python C:\Users\Alex\Repositories\MusicSymbolClassifier\ModelTrainer\models\ConfigurationFactory.py
-
-Write-Host "Press any key to continue ..."
-
-$x = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+Start-Transcript -path "$($pathToTranscript)TrainingDatasetProvider-Journal.txt" -append
+python datasets/TrainingDatasetProvider.py
+Stop-Transcript
