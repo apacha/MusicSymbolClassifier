@@ -1,10 +1,13 @@
 import argparse
 import os
 from glob import glob
+from typing import List
 
+import sys
 from PIL import Image
 from muscima.io import parse_cropobject_list
 from datasets.ExportPath import ExportPath
+from muscima.cropobject import CropObject
 
 
 class MuscimaPlusPlusImageGenerator:
@@ -24,17 +27,32 @@ class MuscimaPlusPlusImageGenerator:
         raw_data_directory = os.path.join(raw_data_directory, "v0.9", "data", "cropobjects")
         xml_files = [y for x in os.walk(raw_data_directory) for y in glob(os.path.join(x[0], '*.xml'))]
 
-        for xml_file in xml_files:
-            self.__extract_and_draw_crop_objects(xml_file, destination_directory)
+        crop_objects = []
 
-    def __extract_and_draw_crop_objects(self, xml_file: str, destination_directory: str):
+        file_counter = 1
+        for xml_file in xml_files:
+            self.__write_progress("Loading crop-objects from xml-files {0: >3}/{1}".format(file_counter, len(xml_files)))
+            file_counter += 1
+            crop_objects.extend(self.__get_crop_objects_from_xml_file(xml_file))
+
+        print ("") # Print empty line for next message to start on new line
+        self.__extract_and_draw_crop_objects(crop_objects, destination_directory)
+
+    def __get_crop_objects_from_xml_file(self, xml_file: str) -> List[CropObject]:
         # e.g., xml_file = 'data/muscima_pp/v0.9/data/cropobjects/CVC-MUSCIMA_W-01_N-10_D-ideal.xml'
         crop_objects = parse_cropobject_list(xml_file)
+        return crop_objects
 
+    def __extract_and_draw_crop_objects(self, crop_objects: List[CropObject], destination_directory: str):
+
+        crop_object_counter = 1
+        total_number_of_crop_objects = len(crop_objects)
         for crop_object in crop_objects:
+            self.__write_progress("Generating images from crop-object masks {0: >5}/{1}".format(crop_object_counter, total_number_of_crop_objects))
+            crop_object_counter += 1
             symbol_class = crop_object.clsname
-            # Some classes have "-symbols in their name, that we just remove
-            symbol_class = symbol_class.replace('"', '')
+            # Some classes have "-symbols or /-symbols in their name, that we just remove
+            symbol_class = symbol_class.replace('"', '').replace('/', '')
             # Make a copy of the mask to not temper with the original data
             mask = crop_object.mask.copy()
             # We want to draw black symbols on white canvas. The mask encodes foreground pixels
@@ -51,6 +69,13 @@ class MuscimaPlusPlusImageGenerator:
 
             export_path = ExportPath(destination_directory, symbol_class, crop_object.uid)
             image.save(export_path.get_full_path())
+
+        print ("") # Print empty line for next message to start on new line
+
+    def __write_progress(self, progress:str):
+        sys.stdout.write('\r')
+        sys.stdout.write(progress)
+        sys.stdout.flush()
 
 
 if __name__ == "__main__":
