@@ -4,6 +4,7 @@ from glob import glob
 from xml.etree import ElementTree
 
 from PIL import Image
+import json
 
 from datasets.AudiverisOmrSymbol import AudiverisOmrSymbol
 from datasets.ExportPath import ExportPath
@@ -14,57 +15,13 @@ class AudiverisOmrImageGenerator:
         super().__init__()
         # This mapping contains the relation between the names of the classes used in the Audiveris OMR-dataset
         # annotations and the names that were used for the other datasets
-        self.symbol_name_mapping = {"accidentalFlat": "Flat",
-                                    "accidentalNatural": "Natural",
-                                    "accidentalSharp": "Sharp",
-                                    "articStaccatissimoAbove": "Staccatissimo",
-                                    "articStaccatoAbove": "Dot",
-                                    "articTenutoBelow": "Tenuto",
-                                    "augmentationDot": "Dot",
-                                    "barlineDouble": "Barline",
-                                    "barlineSingle": "Barline",
-                                    "brace": "Brace",
-                                    "coda": "Coda",
-                                    "codaSquare": "Coda-Square",
-                                    "dynamicMP": "Other",
-                                    "dynamicPiano": "Other",
-                                    "fClef": "F-Clef",
-                                    "fClefChange": "F-Clef",
-                                    "flag8thDown": "Eighth-Flag",
-                                    "flag8thUp": "Eighth-Flag",
-                                    "flag16thUp": "Sixteenth-Flag",
-                                    "flag32ndUp": "Thirty-Two-Flag",
-                                    "flag128thDown": "Onehundred-Twenty-Eight-Flag",
-                                    "gClef": "G-Clef",
-                                    "gClefChange": "G-Clef",
-                                    "graceNoteAcciaccaturaStemUp": "Eighth-Grace-Note",
-                                    "graceNoteAppoggiaturaStemUp": "Eighth-Note",
-                                    "keyFlat": "Flat",
-                                    "keySharp": "Sharp",
-                                    "noteheadBlack": "Full-Note-Head",
-                                    "noteheadBlackSmall": "Full-Note-Head",
-                                    "noteheadHalf": "Half-Note-Head",
-                                    "noteheadWhole": "Whole-Note",
-                                    "rest8th": "Eighth-Rest",
-                                    "rest16th": "Sixteenth-Rest",
-                                    "rest32nd": "Thirty-Two-Rest",
-                                    "rest64th": "Sixty-Four-Rest",
-                                    "rest128th": "Onehundred-Twenty-Eight-Rest",
-                                    "restHalf": "Whole-Half-Rest",
-                                    "restQuarter": "Quarter-Rest",
-                                    "restWhole": "Whole-Half-Rest",
-                                    "segno": "Segno",
-                                    "stem": "Stem",
-                                    "timeSig4over4": "4-4-Time",
-                                    "timeSigCommon": "Common-Time",
-                                    "timeSigCutCommon": "Cut-Time",
-                                    "tuplet3": "Other"}
+        with open("AudiverisOmrSymbolNameMapping.json") as file:
+            self.symbol_name_mapping = json.load(file)
 
         # Ledger lines can not be distinguished from tenuto or whole-half-rest, so we ignore it for now
-        self.ignored_classes = ["ledger"]
         # For now, we ignore half/full notes, flags and stems too
-        self.ignored_classes.extend(["noteheadBlack", "noteheadBlackSmall", "noteheadHalf", "stem", "flag8thDown",
-                                     "flag8thUp", "flag16thUp", "flag32ndUp", "flag128thDown", ])
+        with open("AudiverisOmrIgnoredClasses.json") as file:
+            self.ignored_classes = json.load(file)
 
     def extract_symbols(self, raw_data_directory: str, destination_directory: str):
         """
@@ -128,18 +85,19 @@ class AudiverisOmrImageGenerator:
             symbol_image.save(export_path.get_full_path())
             symbol_number += 1
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-            "--raw_dataset_directory",
-            type=str,
-            default="../data/audiveris_omr_raw",
-            help="The directory, where the raw Audiveris OMR dataset can be found")
+        "--raw_dataset_directory",
+        type=str,
+        default="../data/audiveris_omr_raw",
+        help="The directory, where the raw Audiveris OMR dataset can be found")
     parser.add_argument(
-            "--image_dataset_directory",
-            type=str,
-            default="../data/images",
-            help="The directory, where the generated bitmaps will be created")
+        "--image_dataset_directory",
+        type=str,
+        default="../data/images",
+        help="The directory, where the generated bitmaps will be created")
 
     flags, unparsed = parser.parse_known_args()
 
