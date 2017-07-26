@@ -28,7 +28,7 @@ class MuscimaPlusPlusImageGenerator:
 
         xml_files = self.__load_all_xml_files(raw_data_directory)
         crop_objects = self.__load_crop_objects_from_xml_files(xml_files)
-        self.__render_crop_object_mask_into_image(crop_objects, destination_directory)
+        self.__render_masks_of_crop_objects_into_image(crop_objects, destination_directory)
 
     def extract_symbols_for_training(self, raw_data_directory: str, destination_directory: str):
         """
@@ -49,7 +49,7 @@ class MuscimaPlusPlusImageGenerator:
 
         crop_objects_that_can_be_rendered_directly = self.__get_crop_objects_that_can_be_rendered_directly(crop_objects)
         reclassified_crop_objects = self.__map_class_names(crop_objects_that_can_be_rendered_directly)
-        self.__render_crop_object_mask_into_image(reclassified_crop_objects, destination_directory)
+        self.__render_masks_of_crop_objects_into_image(reclassified_crop_objects, destination_directory)
 
         compound_crop_objects = self.__process_compound_crop_objects(crop_objects)
         # self.__render_crop_object_mask_into_image(compound_crop_objects, destination_directory)
@@ -112,7 +112,11 @@ class MuscimaPlusPlusImageGenerator:
             crop_object.clsname = symbol_class_mapping[crop_object.clsname]
         return reclassified_crop_objects
 
-    def __render_crop_object_mask_into_image(self, crop_objects: List[CropObject], destination_directory: str):
+    def __process_compound_crop_objects(self, crop_objects: List[CropObject]) -> List[CropObject]:
+
+        pass
+
+    def __render_masks_of_crop_objects_into_image(self, crop_objects: List[CropObject], destination_directory: str):
 
         crop_object_counter = 1
         total_number_of_crop_objects = len(crop_objects)
@@ -144,10 +148,6 @@ class MuscimaPlusPlusImageGenerator:
         sys.stdout.write('\r')
         sys.stdout.write(progress)
         sys.stdout.flush()
-
-    def __process_compound_crop_objects(self, crop_objects: List[CropObject]) -> List[CropObject]:
-
-        pass
 
 
 if __name__ == "__main__":
