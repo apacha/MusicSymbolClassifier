@@ -3,10 +3,6 @@ import shutil
 import unittest
 from glob import glob
 
-from datasets.AudiverisOmrDatasetDownloader import AudiverisOmrDatasetDownloader
-from datasets.AudiverisOmrImageGenerator import AudiverisOmrImageGenerator
-from datasets.HomusDatasetDownloader import HomusDatasetDownloader
-from datasets.HomusImageGenerator import HomusImageGenerator
 from datasets.MuscimaPlusPlusDatasetDownloader import MuscimaPlusPlusDatasetDownloader
 from datasets.MuscimaPlusPlusImageGenerator import MuscimaPlusPlusImageGenerator
 

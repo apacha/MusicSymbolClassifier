@@ -5,18 +5,16 @@ from glob import glob
 
 from datasets.AudiverisOmrDatasetDownloader import AudiverisOmrDatasetDownloader
 from datasets.AudiverisOmrImageGenerator import AudiverisOmrImageGenerator
-from datasets.HomusDatasetDownloader import HomusDatasetDownloader
-from datasets.HomusImageGenerator import HomusImageGenerator
 
 
 class AudiverisOmrImageGeneratorTest(unittest.TestCase):
 
     def test_download_extract_and_crop_bitmaps(self):
         # Arrange
-        datasetDownloader = AudiverisOmrDatasetDownloader("temp/audiveris_raw")
+        dataset_downloader = AudiverisOmrDatasetDownloader("temp/audiveris_raw")
 
         # Act
-        datasetDownloader.download_and_extract_dataset()
+        dataset_downloader.download_and_extract_dataset()
         image_generator = AudiverisOmrImageGenerator()
         image_generator.extract_symbols("temp/audiveris_raw", "temp/audiveris_img")
         all_image_files = [y for x in os.walk("temp/audiveris_img") for y in glob(os.path.join(x[0], '*.png'))]

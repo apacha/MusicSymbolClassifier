@@ -3,7 +3,7 @@ import unittest
 from datasets.ExportPath import ExportPath
 
 
-class ExportPath_test(unittest.TestCase):
+class ExportPathTest(unittest.TestCase):
     def test_get_full_path_without_stroke_thickness(self):
         # Arrange
         export_path = ExportPath("data/images", "3-4-Time", "1-13", "png")

@@ -8,7 +8,7 @@ from datasets.Rectangle import Rectangle
 from datasets.HomusSymbol import HomusSymbol
 
 
-class HomusSymbol_test(unittest.TestCase):
+class HomusSymbolTest(unittest.TestCase):
     def test_initialize_from_empty_string_expect_empty_symbol(self):
         # Arrange
 

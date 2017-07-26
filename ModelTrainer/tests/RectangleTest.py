@@ -6,7 +6,7 @@ from sympy import Point2D
 from datasets.Rectangle import Rectangle
 
 
-class Rectangle_test(unittest.TestCase):
+class RectangleTest(unittest.TestCase):
     def test_rectangles_that_overlap(self):
         # Arrange
         r1 = Rectangle(Point2D(1, 1), 2, 2)
