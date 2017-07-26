@@ -16,7 +16,7 @@ class MuscimaPlusPlusImageGeneratorTest(unittest.TestCase):
         # Act
         datasetDownloader.download_and_extract_dataset()
         image_generator = MuscimaPlusPlusImageGenerator()
-        image_generator.extract_symbols("temp/muscima_pp_raw", "temp/muscima_img")
+        image_generator.extract_all_symbols_as_they_are("temp/muscima_pp_raw", "temp/muscima_img")
         all_image_files = [y for x in os.walk("temp/muscima_img") for y in glob(os.path.join(x[0], '*.png'))]
         actual_number_of_files = len(all_image_files)
 

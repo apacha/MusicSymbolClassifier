@@ -14,10 +14,11 @@ from muscima.cropobject import CropObject
 class MuscimaPlusPlusImageGenerator:
     def __init__(self) -> None:
         super().__init__()
+        self.path_of_this_file = os.path.dirname(os.path.realpath(__file__))
 
-    def extract_symbols(self, raw_data_directory: str, destination_directory: str):
+    def extract_all_symbols_as_they_are(self, raw_data_directory: str, destination_directory: str):
         """
-        Extracts the symbols from the raw XML documents and generates individual symbols from the masks
+        Extracts all symbols from the raw XML documents and generates individual symbols from the masks
 
         :param raw_data_directory: The directory, that contains the xml-files and matching images
         :param destination_directory: The directory, in which the symbols should be generated into. One sub-folder per
@@ -26,17 +27,45 @@ class MuscimaPlusPlusImageGenerator:
         print("Extracting Symbols from Muscima++ Dataset...")
 
         xml_files = self.__load_all_xml_files(raw_data_directory)
-        crop_objects = self.__get_crop_objects_from_xml_files(xml_files)
-        crop_objects = self.__filter_broken_crop_objects(crop_objects)
-
+        crop_objects = self.__load_crop_objects_from_xml_files(xml_files)
         self.__render_crop_object_mask_into_image(crop_objects, destination_directory)
+
+    def extract_symbols_for_training(self, raw_data_directory: str, destination_directory: str):
+        """
+        Extracts all symbols from the raw XML documents and generates individual symbols from the masks.
+        This method filters broken symbols, performs a re-classification and joins individual
+        symbols into larger symbols for meeting the required classes of the other datasets.
+
+        :param raw_data_directory: The directory, that contains the xml-files and matching images
+        :param destination_directory: The directory, in which the symbols should be generated into. One sub-folder per
+                                      symbol category will be generated automatically
+        """
+        print("Extracting Symbols from Muscima++ Dataset...")
+
+        xml_files = self.__load_all_xml_files(raw_data_directory)
+        crop_objects = self.__load_crop_objects_from_xml_files(xml_files)
+        crop_objects = self.__filter_broken_crop_objects(crop_objects)
+        crop_objects = self.__filter_ignored_crop_objects(crop_objects)
+
+        crop_objects_that_can_be_rendered_directly = self.__get_crop_objects_that_can_be_rendered_directly(crop_objects)
+        reclassified_crop_objects = self.__map_class_names(crop_objects_that_can_be_rendered_directly)
+        self.__render_crop_object_mask_into_image(reclassified_crop_objects, destination_directory)
+
+        compound_crop_objects = self.__process_compound_crop_objects(crop_objects)
+        # self.__render_crop_object_mask_into_image(compound_crop_objects, destination_directory)
+
+    def __get_crop_objects_that_can_be_rendered_directly(self, crop_objects: List[CropObject]) -> List[CropObject]:
+        with open(os.path.join(self.path_of_this_file, "MuscimaPlusPlusSymbolClassMapping.json")) as file:
+            symbol_class_mapping = json.load(file)
+        crop_objects_that_can_be_rendered_directly = [c for c in crop_objects if c.clsname in symbol_class_mapping]
+        return crop_objects_that_can_be_rendered_directly
 
     def __load_all_xml_files(self, raw_data_directory: str) -> List[str]:
         raw_data_directory = os.path.join(raw_data_directory, "v0.9", "data", "cropobjects")
         xml_files = [y for x in os.walk(raw_data_directory) for y in glob(os.path.join(x[0], '*.xml'))]
         return xml_files
 
-    def __get_crop_objects_from_xml_files(self, xml_files: List[str]) -> List[CropObject]:
+    def __load_crop_objects_from_xml_files(self, xml_files: List[str]) -> List[CropObject]:
         crop_objects = []
         file_counter = 1
         for xml_file in xml_files:
@@ -45,6 +74,11 @@ class MuscimaPlusPlusImageGenerator:
             file_counter += 1
             crop_objects.extend(self.__get_crop_objects_from_xml_file(xml_file))
         print("")  # Print empty line for next print statement to start on a new line
+
+        for crop_object in crop_objects:
+            # Some classes have special characters in their class name that we have to remove
+            crop_object.clsname = crop_object.clsname.replace('"', '').replace('/', '').replace('.', '')
+
         print("Loaded {0} crop-objects".format(len(crop_objects)))
         return crop_objects
 
@@ -54,12 +88,29 @@ class MuscimaPlusPlusImageGenerator:
         return crop_objects
 
     def __filter_broken_crop_objects(self, crop_objects: List[CropObject]):
-        path_of_this_file = os.path.dirname(os.path.realpath(__file__))
-        with open(os.path.join(path_of_this_file, "MuscimaPlusPlusBrokenSymbols.json")) as file:
+        with open(os.path.join(self.path_of_this_file, "MuscimaPlusPlusBrokenSymbols.json")) as file:
             broken_crop_objects = json.load(file)
         print("Filtering {0} broken symbols".format(len(broken_crop_objects)))
         crop_objects = [crop_object for crop_object in crop_objects if not crop_object.uid in broken_crop_objects]
         return crop_objects
+
+    def __filter_ignored_crop_objects(self, crop_objects: List[CropObject]) -> List[CropObject]:
+        with open(os.path.join(self.path_of_this_file, "MuscimaPlusPlusIgnoredClasses.json")) as file:
+            ignored_classes = json.load(file)
+        number_of_unfiltered_objects = len(crop_objects)
+        crop_objects = [crop_object for crop_object in crop_objects if not crop_object.clsname in ignored_classes]
+        number_of_filtered_objects = len(crop_objects)
+        print("Filtering {0} symbols from {1} ignored classes".format(
+            number_of_unfiltered_objects - number_of_filtered_objects, len(ignored_classes)))
+        return crop_objects
+
+    def __map_class_names(self, crop_objects: List[CropObject]) -> List[CropObject]:
+        with open(os.path.join(self.path_of_this_file, "MuscimaPlusPlusSymbolClassMapping.json")) as file:
+            symbol_class_mapping = json.load(file)
+        reclassified_crop_objects = crop_objects.copy()
+        for crop_object in crop_objects:
+            crop_object.clsname = symbol_class_mapping[crop_object.clsname]
+        return reclassified_crop_objects
 
     def __render_crop_object_mask_into_image(self, crop_objects: List[CropObject], destination_directory: str):
 
@@ -70,8 +121,6 @@ class MuscimaPlusPlusImageGenerator:
                                                                                                 total_number_of_crop_objects))
             crop_object_counter += 1
             symbol_class = crop_object.clsname
-            # Some classes have "-symbols or /-symbols in their name, that we just remove
-            symbol_class = symbol_class.replace('"', '').replace('/', '')
             # Make a copy of the mask to not temper with the original data
             mask = crop_object.mask.copy()
             # We want to draw black symbols on white canvas. The mask encodes foreground pixels
@@ -96,6 +145,10 @@ class MuscimaPlusPlusImageGenerator:
         sys.stdout.write(progress)
         sys.stdout.flush()
 
+    def __process_compound_crop_objects(self, crop_objects: List[CropObject]) -> List[CropObject]:
+
+        pass
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -113,4 +166,6 @@ if __name__ == "__main__":
     flags, unparsed = parser.parse_known_args()
 
     muscima_pp_image_generator = MuscimaPlusPlusImageGenerator()
-    muscima_pp_image_generator.extract_symbols(flags.raw_dataset_directory, flags.image_dataset_directory)
+    muscima_pp_image_generator.extract_symbols_for_training(flags.raw_dataset_directory, flags.image_dataset_directory)
+    # muscima_pp_image_generator.extract_all_symbols_as_they_are(flags.raw_dataset_directory,
+    #                                                            flags.image_dataset_directory)
