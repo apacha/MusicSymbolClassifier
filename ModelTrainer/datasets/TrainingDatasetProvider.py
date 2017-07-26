@@ -60,7 +60,8 @@ class TrainingDatasetProvider:
             generated_image_width = width
             generated_image_height = height
             if not use_fixed_canvas:
-                # If we are not using a fixed canvas, remove those arguments to allow symbols being drawn at their original shapes
+                # If we are not using a fixed canvas, remove those arguments to
+                # allow symbols being drawn at their original shapes
                 generated_image_width, generated_image_height = None, None
             bounding_boxes = HomusImageGenerator.create_images(raw_dataset_directory, self.image_dataset_directory,
                                                                stroke_thicknesses_for_generated_symbols,
@@ -103,31 +104,23 @@ class TrainingDatasetProvider:
         dataset_splitter.delete_split_directories()
         dataset_splitter.split_images_into_training_validation_and_test_set()
 
+    @staticmethod
+    def add_arguments_for_training_dataset_provider(parser: argparse.ArgumentParser):
+        parser.add_argument("--width", default=96, type=int, help="Width of the input-images for the network in pixel")
+        parser.add_argument("--height", default=96, type=int,
+                            help="Height of the input-images for the network in pixel")
+        parser.add_argument("--datasets", dest="datasets", default="homus",
+                            help="Specifies which datasets are used for the training. One or multiple datasets of the "
+                                 "following are possible: homus, rebelo1, rebelo2, printed, audiveris or muscima_pp. "
+                                 "Multiple values are connected by a separating comma, i.e. 'homus,rebelo1'")
+        HomusImageGenerator.add_arguments_for_homus_image_generator(parser)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset_directory", type=str, default="../data",
                         help="The directory, where the dataset should be created in")
-    parser.add_argument("-s", "--stroke_thicknesses", dest="stroke_thicknesses", default="3",
-                        help="Stroke thicknesses for drawing the generated bitmaps. May define comma-separated list "
-                             "of multiple stroke thicknesses, e.g. '1,2,3'")
-    parser.add_argument("--staff_line_spacing", default="14", type=int, help="Spacing between two staff-lines in pixel")
-    parser.add_argument("-offsets", "--staff_line_vertical_offsets", dest="offsets", default="",
-                        help="Optional vertical offsets in pixel for drawing the symbols with superimposed "
-                             "staff-lines starting at this pixel-offset from the top. Multiple offsets possible, "
-                             "e.g. '81,88,95'")
-    parser.add_argument("--width", default=96, type=int, help="Width of the input-images for the network in pixel")
-    parser.add_argument("--height", default=96, type=int, help="Height of the input-images for the network in pixel")
-    parser.add_argument("--disable_fixed_canvas_size", dest="use_fixed_canvas",
-                        action="store_false",
-                        help="True, if the images should be drawn on a fixed canvas with the specified width and height."
-                             "False to draw the symbols with their original sizes (each symbol might be different)")
-    parser.set_defaults(use_fixed_canvas=True)
-    parser.add_argument("--datasets", dest="datasets", default="homus",
-                        help="Specifies which datasets are used for the training. One or multiple datasets of the "
-                             "following are possible: homus, rebelo1, rebelo2, printed, audiveris or muscima_pp. "
-                             "Multiple values are connected by a separating comma, i.e. 'homus,rebelo1'")
-
+    TrainingDatasetProvider.add_arguments_for_training_dataset_provider(parser)
     flags, unparsed = parser.parse_known_args()
 
     offsets = []
@@ -140,9 +133,10 @@ if __name__ == "__main__":
     datasets = flags.datasets.split(',')
 
     training_dataset_provider = TrainingDatasetProvider(flags.dataset_directory)
-    training_dataset_provider.recreate_and_prepare_datasets_for_training(datasets=datasets, width=flags.width,
-                                                                         height=flags.height,
-                                                                         use_fixed_canvas=flags.use_fixed_canvas,
-                                                                         stroke_thicknesses_for_generated_symbols=stroke_thicknesses_for_generated_symbols,
-                                                                         staff_line_spacing=flags.staff_line_spacing,
-                                                                         staff_line_vertical_offsets=offsets)
+    training_dataset_provider.recreate_and_prepare_datasets_for_training(
+        datasets=datasets, width=flags.width,
+        height=flags.height,
+        use_fixed_canvas=flags.use_fixed_canvas,
+        stroke_thicknesses_for_generated_symbols=stroke_thicknesses_for_generated_symbols,
+        staff_line_spacing=flags.staff_line_spacing,
+        staff_line_vertical_offsets=offsets)
