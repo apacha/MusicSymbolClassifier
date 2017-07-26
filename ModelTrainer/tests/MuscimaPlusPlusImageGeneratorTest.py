@@ -21,7 +21,7 @@ class MuscimaPlusPlusImageGeneratorTest(unittest.TestCase):
         actual_number_of_files = len(all_image_files)
 
         # Assert
-        self.assertEqual(91134, actual_number_of_files)
+        self.assertEqual(91255, actual_number_of_files)
 
         # Cleanup
         os.remove("MUSCIMA-pp_v0.9.zip")
