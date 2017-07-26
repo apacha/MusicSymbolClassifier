@@ -62,7 +62,7 @@ class HomusSymbolTest(unittest.TestCase):
         self.assertTrue(os.path.exists(export_path.get_full_path()))
 
         # Cleanup
-        # os.remove(export_path.get_full_path())
+        os.remove(export_path.get_full_path())
 
     def test_draw_into_bitmap_without_larger_canvas(self):
         # Arrange
@@ -76,7 +76,7 @@ class HomusSymbolTest(unittest.TestCase):
         self.assertTrue(os.path.exists(export_path.get_full_path()))
 
         # Cleanup
-        # os.remove(export_path.get_full_path())
+        os.remove(export_path.get_full_path())
 
     def test_draw_staff_lines(self):
         content = "Quarter-Note\n144,130;144,130;143,130;141,130;139,130;138,131;138,131;138,133;140,135;143,135;146," \
@@ -101,6 +101,10 @@ class HomusSymbolTest(unittest.TestCase):
         self.assertEqual(bounding_box_in_image.origin, Point2D(109 / 2, 147 / 2))
         self.assertEqual(bounding_box_in_image.width, 19)
         self.assertEqual(bounding_box_in_image.height, 77)
+
+        # Cleanup
+        for offset in offsets:
+            os.remove(export_path.get_full_path(offset))
 
 
 if __name__ == '__main__':
