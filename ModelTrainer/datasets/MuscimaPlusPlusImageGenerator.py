@@ -25,30 +25,40 @@ class MuscimaPlusPlusImageGenerator:
         """
         print("Extracting Symbols from Muscima++ Dataset...")
 
-        raw_data_directory = os.path.join(raw_data_directory, "v0.9", "data", "cropobjects")
-        xml_files = [y for x in os.walk(raw_data_directory) for y in glob(os.path.join(x[0], '*.xml'))]
-
-        crop_objects = []
-
-        file_counter = 1
-        for xml_file in xml_files:
-            self.__write_progress("Loading crop-objects from xml-files {0: >3}/{1}".format(file_counter, len(xml_files)))
-            file_counter += 1
-            crop_objects.extend(self.__get_crop_objects_from_xml_file(xml_file))
-
-        path_of_this_file = os.path.dirname(os.path.realpath(__file__))
-        with open(os.path.join(path_of_this_file,"MuscimaPlusPlusBrokenSymbols.json")) as file:
-            broken_crop_objects = json.load(file)
-        print ("\nLoaded {0} crop-objects. Filtering {1} broken symbols".format(len(crop_objects),
-                                                                                len(broken_crop_objects)))
-        crop_objects = [crop_object for crop_object in crop_objects if not crop_object.uid in broken_crop_objects]
-
+        xml_files = self.__load_all_xml_files(raw_data_directory)
+        crop_objects = self.__get_crop_objects_from_xml_files(xml_files)
+        crop_objects = self.__filter_broken_crop_objects(crop_objects)
 
         self.__render_crop_object_mask_into_image(crop_objects, destination_directory)
+
+    def __load_all_xml_files(self, raw_data_directory: str) -> List[str]:
+        raw_data_directory = os.path.join(raw_data_directory, "v0.9", "data", "cropobjects")
+        xml_files = [y for x in os.walk(raw_data_directory) for y in glob(os.path.join(x[0], '*.xml'))]
+        return xml_files
+
+    def __get_crop_objects_from_xml_files(self, xml_files: List[str]) -> List[CropObject]:
+        crop_objects = []
+        file_counter = 1
+        for xml_file in xml_files:
+            self.__write_progress(
+                "Loading crop-objects from xml-files {0: >3}/{1}".format(file_counter, len(xml_files)))
+            file_counter += 1
+            crop_objects.extend(self.__get_crop_objects_from_xml_file(xml_file))
+        print("")  # Print empty line for next print statement to start on a new line
+        print("Loaded {0} crop-objects".format(len(crop_objects)))
+        return crop_objects
 
     def __get_crop_objects_from_xml_file(self, xml_file: str) -> List[CropObject]:
         # e.g., xml_file = 'data/muscima_pp/v0.9/data/cropobjects/CVC-MUSCIMA_W-01_N-10_D-ideal.xml'
         crop_objects = parse_cropobject_list(xml_file)
+        return crop_objects
+
+    def __filter_broken_crop_objects(self, crop_objects: List[CropObject]):
+        path_of_this_file = os.path.dirname(os.path.realpath(__file__))
+        with open(os.path.join(path_of_this_file, "MuscimaPlusPlusBrokenSymbols.json")) as file:
+            broken_crop_objects = json.load(file)
+        print("Filtering {0} broken symbols".format(len(broken_crop_objects)))
+        crop_objects = [crop_object for crop_object in crop_objects if not crop_object.uid in broken_crop_objects]
         return crop_objects
 
     def __render_crop_object_mask_into_image(self, crop_objects: List[CropObject], destination_directory: str):
@@ -56,7 +66,8 @@ class MuscimaPlusPlusImageGenerator:
         crop_object_counter = 1
         total_number_of_crop_objects = len(crop_objects)
         for crop_object in crop_objects:
-            self.__write_progress("Generating images from crop-object masks {0: >5}/{1}".format(crop_object_counter, total_number_of_crop_objects))
+            self.__write_progress("Generating images from crop-object masks {0: >5}/{1}".format(crop_object_counter,
+                                                                                                total_number_of_crop_objects))
             crop_object_counter += 1
             symbol_class = crop_object.clsname
             # Some classes have "-symbols or /-symbols in their name, that we just remove
@@ -78,9 +89,9 @@ class MuscimaPlusPlusImageGenerator:
             export_path = ExportPath(destination_directory, symbol_class, crop_object.uid)
             image.save(export_path.get_full_path())
 
-        print ("") # Print empty line for next message to start on new line
+        print("")  # Print empty line for next message to start on new line
 
-    def __write_progress(self, progress:str):
+    def __write_progress(self, progress: str):
         sys.stdout.write('\r')
         sys.stdout.write(progress)
         sys.stdout.flush()
