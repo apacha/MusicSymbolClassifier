@@ -54,8 +54,8 @@ class ResNet4Configuration(TrainingConfiguration):
 
         model = Model(inputs=[input], outputs=[classification_head])
         model.compile(self.get_optimizer(),
-                           loss={'output_class': 'categorical_crossentropy'},
-                           metrics=["accuracy"])
+                      loss={'output_class': 'categorical_crossentropy'},
+                      metrics=["accuracy"])
         return model
 
     def add_convolution(self, previous_layer: Layer, filters: int, kernel_size: int, strides=(1, 1)):

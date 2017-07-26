@@ -52,12 +52,13 @@ class ResNet3SmallConfiguration(TrainingConfiguration):
 
         model = Model(inputs=[input], outputs=[classification_head])
         model.compile(self.get_optimizer(),
-                           loss={'output_class': 'categorical_crossentropy'},
-                           metrics=["accuracy"])
+                      loss={'output_class': 'categorical_crossentropy'},
+                      metrics=["accuracy"])
         return model
 
     def add_convolution(self, previous_layer: Layer, filters: int, kernel_size: int):
-        layer = Convolution2D(filters, kernel_size, padding='same', kernel_regularizer=l2(self.weight_decay))(previous_layer)
+        layer = Convolution2D(filters, kernel_size, padding='same', kernel_regularizer=l2(self.weight_decay))(
+            previous_layer)
         layer = BatchNormalization()(layer)
         layer = Activation('relu')(layer)
 

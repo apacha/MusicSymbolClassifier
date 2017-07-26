@@ -54,8 +54,8 @@ class Vgg4WithLocalizationConfiguration(TrainingConfiguration):
 
         model = Model(inputs=[input], outputs=[classification_head, regression_head])
         model.compile(self.get_optimizer(),
-                           loss={'output_class': 'categorical_crossentropy', 'output_bounding_box': 'mse'},
-                           metrics=["accuracy"])
+                      loss={'output_class': 'categorical_crossentropy', 'output_bounding_box': 'mse'},
+                      metrics=["accuracy"])
         return model
 
     def add_convolution_block_with_batch_normalization(self, previous_layer: Layer, filters, kernel_size) -> Layer:

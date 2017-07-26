@@ -50,8 +50,8 @@ class ResNet2Configuration(TrainingConfiguration):
 
         model = Model(inputs=[input], outputs=[classification_head])
         model.compile(self.get_optimizer(),
-                           loss={'output_class': 'categorical_crossentropy'},
-                           metrics=["accuracy"])
+                      loss={'output_class': 'categorical_crossentropy'},
+                      metrics=["accuracy"])
         return model
 
     def add_convolution_block_with_batch_normalization(self, previous_layer: Layer, filters, kernel_size,
