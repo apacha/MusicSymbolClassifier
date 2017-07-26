@@ -15,5 +15,5 @@ echo "Appending source root $($pathToSourceRoot) to temporary PYTHONPATH"
 $env:PYTHONPATH = $pathToSourceRoot
 
 Start-Transcript -path "$($pathToTranscript)TrainingDatasetProvider-Journal.txt" -append
-python datasets/TrainingDatasetProvider.py --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp
+python datasets/TrainingDatasetProvider.py --dataset_directory="data" --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp
 Stop-Transcript

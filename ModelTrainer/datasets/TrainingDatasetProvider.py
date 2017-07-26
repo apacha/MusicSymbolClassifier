@@ -43,8 +43,16 @@ class TrainingDatasetProvider:
         self.__delete_dataset_directory()
         self.__download_and_extract_datasets(datasets, width, height, use_fixed_canvas, staff_line_spacing,
                                              staff_line_vertical_offsets, stroke_thicknesses_for_generated_symbols)
-        self.__resize_all_images_to_fixed_size(width, height)
-        self.__split_dataset_into_training_validation_and_test_set()
+
+    def resize_all_images_to_fixed_size(self, width, height):
+        print("Resizing all images with the LANCZOS interpolation to {0}x{1}px (width x height).".format(width, height))
+        image_resizer = ImageResizer()
+        image_resizer.resize_all_images(self.image_dataset_directory, width, height, Image.LANCZOS)
+
+    def split_dataset_into_training_validation_and_test_set(self):
+        dataset_splitter = DatasetSplitter(self.image_dataset_directory, self.image_dataset_directory)
+        dataset_splitter.delete_split_directories()
+        dataset_splitter.split_images_into_training_validation_and_test_set()
 
     def __delete_dataset_directory(self):
         print("Deleting dataset directory {0}".format(self.dataset_directory))
@@ -93,16 +101,6 @@ class TrainingDatasetProvider:
             dataset_downloader.download_and_extract_dataset()
             image_generator = MuscimaPlusPlusImageGenerator()
             image_generator.extract_symbols_for_training(raw_dataset_directory, self.image_dataset_directory)
-
-    def __resize_all_images_to_fixed_size(self, width, height):
-        print("Resizing all images with the LANCZOS interpolation to {0}x{1}px (width x height).".format(width, height))
-        image_resizer = ImageResizer()
-        image_resizer.resize_all_images(self.image_dataset_directory, width, height, Image.LANCZOS)
-
-    def __split_dataset_into_training_validation_and_test_set(self):
-        dataset_splitter = DatasetSplitter(self.image_dataset_directory, self.image_dataset_directory)
-        dataset_splitter.delete_split_directories()
-        dataset_splitter.split_images_into_training_validation_and_test_set()
 
     @staticmethod
     def add_arguments_for_training_dataset_provider(parser: argparse.ArgumentParser):
