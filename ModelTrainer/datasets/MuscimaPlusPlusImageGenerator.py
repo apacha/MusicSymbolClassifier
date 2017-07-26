@@ -5,6 +5,7 @@ from glob import glob
 from typing import List
 
 import sys
+
 from PIL import Image
 from muscima.io import parse_cropobject_list
 from datasets.ExportPath import ExportPath
@@ -52,7 +53,7 @@ class MuscimaPlusPlusImageGenerator:
         self.__render_masks_of_crop_objects_into_image(reclassified_crop_objects, destination_directory)
 
         compound_crop_objects = self.__process_compound_crop_objects(crop_objects)
-        # self.__render_crop_object_mask_into_image(compound_crop_objects, destination_directory)
+        self.__render_masks_of_crop_objects_into_image(compound_crop_objects, destination_directory)
 
     def __get_crop_objects_that_can_be_rendered_directly(self, crop_objects: List[CropObject]) -> List[CropObject]:
         with open(os.path.join(self.path_of_this_file, "MuscimaPlusPlusSymbolClassMapping.json")) as file:
@@ -113,11 +114,94 @@ class MuscimaPlusPlusImageGenerator:
         return reclassified_crop_objects
 
     def __process_compound_crop_objects(self, crop_objects: List[CropObject]) -> List[CropObject]:
+        print("Processing compound objects ...")
 
-        pass
+        with open(os.path.join(self.path_of_this_file, "MuscimaPlusPlusClassesThatNeedComposition.json")) as file:
+            classes_that_need_composition = json.load(file)
+
+        crop_objects_for_composition = [crop_object for crop_object in crop_objects if
+                                        crop_object.clsname in classes_that_need_composition]
+
+        final_crop_objects = []
+        quarter_notes = []
+        half_notes = []
+        eighth_notes = []
+        sixteenth_notes = []
+        crop_object_dict = {c.uid: c for c in crop_objects}
+        for c in crop_objects_for_composition:
+            if (c.clsname != 'notehead-full') and (c.clsname != 'notehead-empty'):
+                continue
+
+            has_stem = False
+            has_beam = False
+            has_flag = False
+            stem_object = None
+            flag_objects = []
+            for o in c.outlinks:
+                uid_of_outlink = c.dataset + "___" + c.doc + "___" + str(o)
+                if not uid_of_outlink in crop_object_dict:
+                    continue  # The targeted object has been filtered by broken-list or ignored classes
+                outgoing_object = crop_object_dict[uid_of_outlink]
+                if outgoing_object.clsname == 'stem':
+                    has_stem = True
+                    stem_object = outgoing_object
+                elif outgoing_object.clsname == 'beam':
+                    has_beam = True
+                elif outgoing_object.clsname.endswith('flag'):
+                    has_flag = True
+                    flag_objects.append(outgoing_object)
+
+            if not has_stem:
+                continue
+
+            if has_beam:
+                pass
+            elif has_flag:
+                if len(flag_objects) == 1:
+                    eighth_notes.append((c, stem_object, flag_objects))
+                elif len(flag_objects) == 2:
+                    sixteenth_notes.append((c, stem_object, flag_objects))
+            else:
+                # We also need to check against quarter-note chords.
+                # Stems only have inlinks from noteheads, so checking
+                # for multiple inlinks will do the trick.
+                if len(stem_object.inlinks) == 1:
+                    if c.clsname == 'notehead-full':
+                        quarter_notes.append((c, stem_object))
+                    else:
+                        half_notes.append((c, stem_object))
+
+        for half_note in half_notes:
+            note_head, stem = half_note
+            note_head.join(stem)
+            note_head.clsname = "Half-Note"
+            final_crop_objects.append(note_head)
+
+        for quarter_note in quarter_notes:
+            note_head, stem = quarter_note
+            note_head.join(stem)
+            note_head.clsname = "Quarter-Note"
+            final_crop_objects.append(note_head)
+
+        for eighth_note in eighth_notes:
+            note_head, stem, flags = eighth_note
+            note_head.join(stem)
+            for flag in flags:
+                note_head.join(flag)
+            note_head.clsname = "Eighth-Note"
+            final_crop_objects.append(note_head)
+
+        for sixteenth_note in sixteenth_notes:
+            note_head, stem, flags = sixteenth_note
+            note_head.join(stem)
+            for flag in flags:
+                note_head.join(flag)
+            note_head.clsname = "Sixteenth-Note"
+            final_crop_objects.append(note_head)
+
+        return final_crop_objects
 
     def __render_masks_of_crop_objects_into_image(self, crop_objects: List[CropObject], destination_directory: str):
-
         crop_object_counter = 1
         total_number_of_crop_objects = len(crop_objects)
         for crop_object in crop_objects:
