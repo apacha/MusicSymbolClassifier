@@ -9,6 +9,7 @@ from PIL import Image
 from datasets.AudiverisOmrDatasetDownloader import AudiverisOmrDatasetDownloader
 from datasets.AudiverisOmrImageGenerator import AudiverisOmrImageGenerator
 from datasets.DatasetSplitter import DatasetSplitter
+from datasets.FornesMusicSymbolsDatasetDownloader import FornesMusicSymbolsDatasetDownloader
 from datasets.HomusDatasetDownloader import HomusDatasetDownloader
 from datasets.HomusImageGenerator import HomusImageGenerator
 from datasets.ImageResizer import ImageResizer
@@ -89,6 +90,9 @@ class TrainingDatasetProvider:
         if 'printed' in datasets:
             dataset_downloader = PrintedMusicSymbolsDatasetDownloader(self.image_dataset_directory)
             dataset_downloader.download_and_extract_dataset()
+        if 'fornes' in datasets:
+            dataset_downloader = FornesMusicSymbolsDatasetDownloader(self.image_dataset_directory)
+            dataset_downloader.download_and_extract_dataset()
         if 'audiveris' in datasets:
             raw_dataset_directory = os.path.join(self.dataset_directory, "audiveris_raw")
             dataset_downloader = AudiverisOmrDatasetDownloader(raw_dataset_directory)
@@ -109,8 +113,8 @@ class TrainingDatasetProvider:
                             help="Height of the input-images for the network in pixel")
         parser.add_argument("--datasets", dest="datasets", default="homus",
                             help="Specifies which datasets are used for the training. One or multiple datasets of the "
-                                 "following are possible: homus, rebelo1, rebelo2, printed, audiveris or muscima_pp. "
-                                 "Multiple values are connected by a separating comma, i.e. 'homus,rebelo1'")
+                                 "following are possible: homus, rebelo1, rebelo2, printed, audiveris, muscima_pp or "
+                                 "fornes. Multiple values are connected by a separating comma, i.e. 'homus,rebelo1'")
         HomusImageGenerator.add_arguments_for_homus_image_generator(parser)
 
 
