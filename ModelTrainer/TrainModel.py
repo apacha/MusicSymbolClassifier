@@ -165,7 +165,8 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
     print("Total Error: {0:0.5f}%".format((1 - classification_accuracy) * 100))
 
     end_time = time()
-    print("Execution time: %.1fs" % (end_time - start_time))
+    execution_time_in_seconds = round(end_time - start_time)
+    print("Execution time: {0:.1f}s".format(end_time - start_time))
 
     training_result_image = "{1}_{0}_{2:.1f}p.png".format(training_configuration.name(), datetime.date.today(),
                                                           classification_accuracy * 100)
@@ -198,7 +199,8 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
                                                            accuracy=classification_accuracy,
                                                            date=today,
                                                            use_fixed_canvas=use_fixed_canvas,
-                                                           datasets=datasets_string)
+                                                           datasets=datasets_string,
+                                                           execution_time_in_seconds=execution_time_in_seconds)
 
 
 if __name__ == "__main__":
