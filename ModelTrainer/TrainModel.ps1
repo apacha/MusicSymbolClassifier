@@ -21,43 +21,46 @@ $env:PYTHONPATH = $pathToSourceRoot
 ################################################
 # Upcoming Trainings 
 ################################################
-# Started on Donkey, 26.07.2017
-Start-Transcript -path "$($pathToTranscript)2017-07-26_vgg_96x96_no_fixed_canvas_Adadelta_mb32_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp.txt" -append
-python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name vgg -s 3 --width 96 --height 96 --minibatch_size 32 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp
+# Started on Donkey, 30.07.2017
+Start-Transcript -path "$($pathToTranscript)2017-07-30_res_net_5_96x96_no_fixed_canvas_Adadelta_mb32_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp_fornes.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name res_net_5 -s 3 --width 96 --height 96 --minibatch_size 32 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp,fornes
 Stop-Transcript
 
-Start-Transcript -path "$($pathToTranscript)2017-07-26_vgg4_96x96_no_fixed_canvas_Adadelta_mb32_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp.txt" -append
-python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name vgg4 -s 3 --width 96 --height 96 --minibatch_size 32 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp
+Start-Transcript -path "$($pathToTranscript)2017-07-30_res_net_1_96x96_no_fixed_canvas_Adadelta_mb16_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp_fornes.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name res_net_1 -s 3 --width 96 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp,fornes
 Stop-Transcript
 
-Start-Transcript -path "$($pathToTranscript)2017-07-26_res_net_1_96x96_no_fixed_canvas_Adadelta_mb32_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp.txt" -append
-python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name res_net_1 -s 3 --width 96 --height 96 --minibatch_size 32 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp
+Start-Transcript -path "$($pathToTranscript)2017-07-30_res_net_2_96x96_no_fixed_canvas_Adadelta_mb16_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp_fornes.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name res_net_2 -s 3 --width 96 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp,fornes
 Stop-Transcript
 
-Start-Transcript -path "$($pathToTranscript)2017-07-26_res_net_2_96x96_no_fixed_canvas_Adadelta_mb32_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp.txt" -append
-python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name res_net_2 -s 3 --width 96 --height 96 --minibatch_size 32 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp
+Start-Transcript -path "$($pathToTranscript)2017-07-30_res_net_3_96x96_no_fixed_canvas_Adadelta_mb16_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp_fornes.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name res_net_3 -s 3 --width 96 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp,fornes
 Stop-Transcript
 
-Start-Transcript -path "$($pathToTranscript)2017-07-26_res_net_3_96x96_no_fixed_canvas_Adadelta_mb32_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp.txt" -append
-python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name res_net_3 -s 3 --width 96 --height 96 --minibatch_size 32 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp
+Start-Transcript -path "$($pathToTranscript)2017-07-30_res_net_3_small_96x96_no_fixed_canvas_Adadelta_mb16_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp_fornes.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name res_net_3_small -s 3 --width 96 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp,fornes
 Stop-Transcript
 
-Start-Transcript -path "$($pathToTranscript)2017-07-26_res_net_3_small_96x96_no_fixed_canvas_Adadelta_mb32_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp.txt" -append
-python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name res_net_3_small -s 3 --width 96 --height 96 --minibatch_size 32 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp
+Start-Transcript -path "$($pathToTranscript)2017-07-30_res_net_4_96x96_no_fixed_canvas_Adadelta_mb16_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp_fornes.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name res_net_4 -s 3 --width 96 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp,fornes
 Stop-Transcript
 
-Start-Transcript -path "$($pathToTranscript)2017-07-26_res_net_4_96x96_no_fixed_canvas_Adadelta_mb32_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp.txt" -append
-python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name res_net_4 -s 3 --width 96 --height 96 --minibatch_size 32 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp
+Start-Transcript -path "$($pathToTranscript)2017-07-30_res_net_5_96x96_no_fixed_canvas_Adadelta_mb16_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp_fornes.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name res_net_5 -s 3 --width 96 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp,fornes
 Stop-Transcript
 
-Start-Transcript -path "$($pathToTranscript)2017-07-26_res_net_5_96x96_no_fixed_canvas_Adadelta_mb32_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp.txt" -append
-python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name res_net_5 -s 3 --width 96 --height 96 --minibatch_size 32 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp
+Start-Transcript -path "$($pathToTranscript)2017-07-30_res_net_5_small_96x96_no_fixed_canvas_Adadelta_mb16_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp_fornes.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name res_net_5_small -s 3 --width 96 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp,fornes
 Stop-Transcript
 
-Start-Transcript -path "$($pathToTranscript)2017-07-26_res_net_5_small_96x96_no_fixed_canvas_Adadelta_mb32_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp.txt" -append
-python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name res_net_5_small -s 3 --width 96 --height 96 --minibatch_size 32 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp
+Start-Transcript -path "$($pathToTranscript)2017-07-30_vgg_96x96_no_fixed_canvas_Adadelta_mb16_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp_fornes.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name vgg -s 3 --width 96 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp,fornes
 Stop-Transcript
 
+Start-Transcript -path "$($pathToTranscript)2017-07-30_vgg4_96x96_no_fixed_canvas_Adadelta_mb16_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp_fornes.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name vgg4 -s 3 --width 96 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp,fornes
+Stop-Transcript
 
 
 ##########################################################
@@ -86,6 +89,58 @@ Stop-Transcript
 # but retain those configurations for documentation
 #######################################################
 exit
+
+# Started on Donkey, 28.07.2017
+Start-Transcript -path "$($pathToTranscript)2017-07-28_res_net_2_96x96_no_fixed_canvas_Adadelta_mb32_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp_fornes.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name res_net_2 -s 3 --width 96 --height 96 --minibatch_size 32 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp,fornes
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-28_res_net_3_96x96_no_fixed_canvas_Adadelta_mb32_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp_fornes.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name res_net_3 -s 3 --width 96 --height 96 --minibatch_size 32 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp,fornes
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-28_res_net_3_small_96x96_no_fixed_canvas_Adadelta_mb32_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp_fornes.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name res_net_3_small -s 3 --width 96 --height 96 --minibatch_size 32 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp,fornes
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-28_vgg4_96x96_no_fixed_canvas_Adadelta_mb32_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp_fornes.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name vgg4 -s 3 --width 96 --height 96 --minibatch_size 32 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp,fornes
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-28_res_net_4_96x96_no_fixed_canvas_Adadelta_mb32_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp_fornes.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name res_net_4 -s 3 --width 96 --height 96 --minibatch_size 32 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp,fornes
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-28_res_net_5_small_96x96_no_fixed_canvas_Adadelta_mb32_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp_fornes.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name res_net_5_small -s 3 --width 96 --height 96 --minibatch_size 32 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp,fornes
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-28_res_net_1_96x96_no_fixed_canvas_Adadelta_mb32_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp_fornes.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name res_net_1 -s 3 --width 96 --height 96 --minibatch_size 32 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp,fornes
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-26_vgg_96x96_no_fixed_canvas_Adadelta_mb32_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp_fornes.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name vgg -s 3 --width 96 --height 96 --minibatch_size 32 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp,fornes
+Stop-Transcript
+
+# Started on Monsti, 27.07.2017
+Start-Transcript -path "$($pathToTranscript)2017-07-27_vgg_96x96_no_fixed_canvas_Adadelta_mb16_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name vgg -s 3 --width 96 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp
+Stop-Transcript
+
+# Started on Donkey, 27.07.2017
+Start-Transcript -path "$($pathToTranscript)2017-07-27_vgg4_96x96_no_fixed_canvas_Adadelta_mb32_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name vgg4 -s 3 --width 96 --height 96 --minibatch_size 32 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-07-27_res_net_1_96x96_no_fixed_canvas_Adadelta_mb32_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name res_net_1 -s 3 --width 96 --height 96 --minibatch_size 32 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp
+Stop-Transcript
+
+# Started on Donkey, 26.07.2017
+Start-Transcript -path "$($pathToTranscript)2017-07-26_vgg_96x96_no_fixed_canvas_Adadelta_mb32_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name vgg -s 3 --width 96 --height 96 --minibatch_size 32 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp
+Stop-Transcript
 
 # Started on Donkey, 23.07.2017
 Start-Transcript -path "$($pathToTranscript)2017-07-23_vgg_96x96_no_fixed_canvas_Adadelta_mb32_homus_rebelo1_rebelo2_printed.txt" -append
