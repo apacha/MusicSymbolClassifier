@@ -32,7 +32,7 @@ install:
   - pip list
 
 script:
-  - pytest --cov=./ ModelTrainer/
+  - travis_wait pytest --cov=./ ModelTrainer/
 
 after_success:
   - codecov
