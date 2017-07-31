@@ -1,0 +1,38 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20170726224315
+Username: DONKEY\Alex
+RunAs User: DONKEY\Alex
+Machine: DONKEY (Microsoft Windows NT 10.0.15063.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -Command if((Get-ExecutionPolicy ) -ne 'AllSigned') { Set-ExecutionPolicy -Scope Process Bypass }; & 'C:\Users\Alex\Repositories\MusicSymbolClassifier\ModelTrainer\TrainModel.ps1'
+Process ID: 5492
+PSVersion: 5.1.15063.483
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.15063.483
+BuildVersion: 10.0.15063.483
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\Users\Alex\Repositories\MusicSymbolClassifier\ModelTrainer\2017-07-26_vgg4_96x96_no_fixed_canvas_Adadelta_mb32_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp.txt
+Using TensorFlow backend.
+Deleting dataset directory data
+Traceback (most recent call last):
+  File "C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py", line 245, in <module>
+    staff_line_vertical_offsets=offsets)
+  File "C:\Users\Alex\Repositories\MusicSymbolClassifier\ModelTrainer\datasets\TrainingDatasetProvider.py", line 43, in recreate_and_prepare_datasets_for_training
+    self.__delete_dataset_directory()
+  File "C:\Users\Alex\Repositories\MusicSymbolClassifier\ModelTrainer\datasets\TrainingDatasetProvider.py", line 60, in __delete_dataset_directory
+    shutil.rmtree(self.dataset_directory)
+  File "C:\Programming\Anaconda3-4.2.0\lib\shutil.py", line 488, in rmtree
+    return _rmtree_unsafe(path, onerror)
+  File "C:\Programming\Anaconda3-4.2.0\lib\shutil.py", line 387, in _rmtree_unsafe
+    onerror(os.rmdir, path, sys.exc_info())
+  File "C:\Programming\Anaconda3-4.2.0\lib\shutil.py", line 385, in _rmtree_unsafe
+    os.rmdir(path)
+OSError: [WinError 145] The directory is not empty: 'data'
+**********************
+Windows PowerShell transcript end
+End time: 20170726224450
+**********************
