@@ -15,6 +15,7 @@ from datasets.HomusImageGenerator import HomusImageGenerator
 from datasets.ImageResizer import ImageResizer
 from datasets.MuscimaPlusPlusDatasetDownloader import MuscimaPlusPlusDatasetDownloader
 from datasets.MuscimaPlusPlusImageGenerator import MuscimaPlusPlusImageGenerator
+from datasets.OpenOmrDatasetDownloader import OpenOmrDatasetDownloader
 from datasets.PrintedMusicSymbolsDatasetDownloader import PrintedMusicSymbolsDatasetDownloader
 from datasets.RebeloMusicSymbolDataset1Downloader import RebeloMusicSymbolDataset1Downloader
 from datasets.RebeloMusicSymbolDataset2Downloader import RebeloMusicSymbolDataset2Downloader
@@ -105,6 +106,9 @@ class TrainingDatasetProvider:
             dataset_downloader.download_and_extract_dataset()
             image_generator = MuscimaPlusPlusImageGenerator()
             image_generator.extract_symbols_for_training(raw_dataset_directory, self.image_dataset_directory)
+        if 'openomr' in datasets:
+            dataset_downloader = OpenOmrDatasetDownloader(self.image_dataset_directory)
+            dataset_downloader.download_and_extract_dataset()
 
     @staticmethod
     def add_arguments_for_training_dataset_provider(parser: argparse.ArgumentParser):
@@ -113,8 +117,9 @@ class TrainingDatasetProvider:
                             help="Height of the input-images for the network in pixel")
         parser.add_argument("--datasets", dest="datasets", default="homus",
                             help="Specifies which datasets are used for the training. One or multiple datasets of the "
-                                 "following are possible: homus, rebelo1, rebelo2, printed, audiveris, muscima_pp or "
-                                 "fornes. Multiple values are connected by a separating comma, i.e. 'homus,rebelo1'")
+                                 "following are possible: homus, rebelo1, rebelo2, printed, audiveris, muscima_pp, "
+                                 "fornes or openomr. "
+                                 "Multiple values are connected by a separating comma, i.e. 'homus,rebelo1'")
         HomusImageGenerator.add_arguments_for_homus_image_generator(parser)
 
 

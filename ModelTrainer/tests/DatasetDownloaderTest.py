@@ -8,6 +8,7 @@ from datasets.Dataset import Dataset
 from datasets.FornesMusicSymbolsDatasetDownloader import FornesMusicSymbolsDatasetDownloader
 from datasets.HomusDatasetDownloader import HomusDatasetDownloader
 from datasets.MuscimaPlusPlusDatasetDownloader import MuscimaPlusPlusDatasetDownloader
+from datasets.OpenOmrDatasetDownloader import OpenOmrDatasetDownloader
 from datasets.PrintedMusicSymbolsDatasetDownloader import PrintedMusicSymbolsDatasetDownloader
 from datasets.RebeloMusicSymbolDataset1Downloader import RebeloMusicSymbolDataset1Downloader
 from datasets.RebeloMusicSymbolDataset2Downloader import RebeloMusicSymbolDataset2Downloader
@@ -89,6 +90,17 @@ class DatasetDownloaderTest(unittest.TestCase):
         self.download_dataset_and_verify_correct_extraction(destination_directory, number_of_samples_in_the_dataset,
                                                             target_file_extension, zip_file,
                                                             MuscimaPlusPlusDatasetDownloader(destination_directory))
+
+    def test_download_and_extract_openomr_dataset_expect_folder_to_be_created(self):
+        # Arrange
+        zip_file = "OpenOMR-Dataset.zip"
+        destination_directory = "OpenOMR"
+        number_of_samples_in_the_dataset = 503
+        target_file_extension = "*.png"
+
+        self.download_dataset_and_verify_correct_extraction(destination_directory, number_of_samples_in_the_dataset,
+                                                            target_file_extension, zip_file,
+                                                            OpenOmrDatasetDownloader(destination_directory))
 
     def download_dataset_and_verify_correct_extraction(self, destination_directory: str,
                                                        number_of_samples_in_the_dataset: int,
