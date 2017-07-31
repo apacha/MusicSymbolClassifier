@@ -6,7 +6,10 @@ from datasets.Dataset import Dataset
 
 
 class OpenOmrDatasetDownloader(Dataset):
-    """ Loads the OpenOMR Symbols dataset """
+    """ Loads the OpenOMR Symbols dataset
+        https://sourceforge.net/projects/openomr/
+        Copyright 2013 by Arnaud F. Desaedeleer under GPL license
+    """
 
     def __init__(self, destination_directory: str):
         """

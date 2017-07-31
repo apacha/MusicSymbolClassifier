@@ -6,7 +6,8 @@ from datasets.Dataset import Dataset
 
 
 class PrintedMusicSymbolsDatasetDownloader(Dataset):
-    """ Loads the Printed Music Symbols dataset, see https://github.com/apacha/PrintedMusicSymbolsDataset
+    """ Loads the Printed Music Symbols dataset
+        https://github.com/apacha/PrintedMusicSymbolsDataset
         Copyright 2017 by Alexander Pacha under MIT license
      """
 

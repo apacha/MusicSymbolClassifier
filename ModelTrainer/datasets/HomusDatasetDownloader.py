@@ -5,7 +5,10 @@ from datasets.Dataset import Dataset
 
 
 class HomusDatasetDownloader(Dataset):
-    """ Downloads the HOMUS dataset (V-2.0) """
+    """ Downloads the HOMUS dataset (V-2.0)
+        http://grfia.dlsi.ua.es/homus/
+        License unspecified
+    """
 
     def __init__(self, destination_directory: str):
         """

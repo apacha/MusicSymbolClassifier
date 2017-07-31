@@ -6,7 +6,10 @@ from datasets.Dataset import Dataset
 
 
 class RebeloMusicSymbolDataset2Downloader(Dataset):
-    """ Loads the Rebelo-2 dataset with music symbols """
+    """ Loads the Rebelo-2 dataset with music symbols
+        http://www.inescporto.pt/~arebelo/index.php
+        Copyright 2017 by Ana Rebelo under CC BY-SA 4.0 license
+    """
 
     def __init__(self, destination_directory: str):
         """

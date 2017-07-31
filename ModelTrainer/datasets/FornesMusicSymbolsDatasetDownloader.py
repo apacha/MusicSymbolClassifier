@@ -6,7 +6,10 @@ from datasets.Dataset import Dataset
 
 
 class FornesMusicSymbolsDatasetDownloader(Dataset):
-    """ Loads the Fornes Music Symbols dataset """
+    """ Loads the Fornes Music Symbols dataset
+        http://www.cvc.uab.es/~afornes/
+        License unspecified - citation requested
+        """
 
     def __init__(self, destination_directory: str):
         """

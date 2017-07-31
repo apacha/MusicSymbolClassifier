@@ -5,7 +5,10 @@ from datasets.Dataset import Dataset
 
 
 class MuscimaPlusPlusDatasetDownloader(Dataset):
-    """ Downloads the Muscima++ dataset """
+    """ Downloads the Muscima++ dataset
+        https://ufal.mff.cuni.cz/muscima
+        Copyright 2017 Jan Hajic jr. under CC-BY-NC-SA 4.0 license
+    """
 
     def __init__(self, destination_directory: str):
         """
