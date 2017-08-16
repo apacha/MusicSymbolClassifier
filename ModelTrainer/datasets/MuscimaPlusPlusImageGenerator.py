@@ -8,6 +8,8 @@ import sys
 
 from PIL import Image
 from muscima.io import parse_cropobject_list
+from tqdm import tqdm
+
 from datasets.ExportPath import ExportPath
 from muscima.cropobject import CropObject
 
@@ -68,13 +70,8 @@ class MuscimaPlusPlusImageGenerator:
 
     def __load_crop_objects_from_xml_files(self, xml_files: List[str]) -> List[CropObject]:
         crop_objects = []
-        file_counter = 1
-        for xml_file in xml_files:
-            self.__write_progress(
-                "Loading crop-objects from xml-files {0: >3}/{1}".format(file_counter, len(xml_files)))
-            file_counter += 1
+        for xml_file in tqdm(xml_files, desc="Loading crop-objects from xml-files", smoothing=0.1, mininterval=0.25):
             crop_objects.extend(self.__get_crop_objects_from_xml_file(xml_file))
-        print("")  # Print empty line for next print statement to start on a new line
 
         for crop_object in crop_objects:
             # Some classes have special characters in their class name that we have to remove
@@ -202,12 +199,8 @@ class MuscimaPlusPlusImageGenerator:
         return final_crop_objects
 
     def __render_masks_of_crop_objects_into_image(self, crop_objects: List[CropObject], destination_directory: str):
-        crop_object_counter = 1
-        total_number_of_crop_objects = len(crop_objects)
-        for crop_object in crop_objects:
-            self.__write_progress("Generating images from crop-object masks {0: >5}/{1}".format(crop_object_counter,
-                                                                                                total_number_of_crop_objects))
-            crop_object_counter += 1
+        for crop_object in tqdm(crop_objects, desc="Generating images from crop-object masks", smoothing=0.1,
+                                mininterval=0.25):
             symbol_class = crop_object.clsname
             # Make a copy of the mask to not temper with the original data
             mask = crop_object.mask.copy()
@@ -225,13 +218,6 @@ class MuscimaPlusPlusImageGenerator:
 
             export_path = ExportPath(destination_directory, symbol_class, crop_object.uid)
             image.save(export_path.get_full_path())
-
-        print("")  # Print empty line for next message to start on new line
-
-    def __write_progress(self, progress: str):
-        sys.stdout.write('\r')
-        sys.stdout.write(progress)
-        sys.stdout.flush()
 
 
 if __name__ == "__main__":
