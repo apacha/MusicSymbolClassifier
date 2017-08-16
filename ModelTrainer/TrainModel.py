@@ -172,8 +172,9 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
                                                           classification_accuracy * 100)
     TrainingHistoryPlotter.plot_history(history, training_result_image)
 
-    notification_message = "Training on HOMUS dataset with model {0} finished. " \
-                           "Accuracy: {1:0.5f}%".format(model_name, classification_accuracy * 100)
+    datasets_string = str.join(",", datasets)
+    notification_message = "Training on {0} dataset with model {1} finished. " \
+                           "Accuracy: {2:0.5f}%".format(datasets_string, model_name, classification_accuracy * 100)
     TelegramNotifier.send_message_via_telegram(notification_message, training_result_image)
 
     dataset_size = training_data_generator.samples + validation_data_generator.samples + test_data_generator.samples
@@ -184,7 +185,7 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
     data_augmentation = "{0}% zoom, {1}° rotation".format(int(training_configuration.zoom_range * 100),
                                                           training_configuration.rotation_range)
     today = "{0:02d}.{1:02d}.{2}".format(date.today().day, date.today().month, date.today().year)
-    datasets_string = str.join(",", datasets)
+
     GoogleSpreadsheetReporter.append_result_to_spreadsheet(dataset_size=dataset_size, image_sizes=image_sizes,
                                                            stroke_thicknesses=stroke_thicknesses_string,
                                                            staff_lines=staff_line_vertical_offsets_string,
