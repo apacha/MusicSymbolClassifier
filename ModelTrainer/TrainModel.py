@@ -6,6 +6,7 @@ from datetime import date
 from time import time
 from typing import List
 
+import keras
 import numpy
 import numpy as np
 from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau
@@ -115,11 +116,7 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
     )
 
     print("Loading best model from check-point and testing...")
-    # For some models, loading the model directly does not work, but loading the weights does
-    # (see https://github.com/fchollet/keras/issues/4044#issuecomment-254921595)
-    # best_model = keras.models.load_model(best_model_path)
-    best_model = training_configuration.classifier()
-    best_model.load_weights(best_model_path)
+    best_model = keras.models.load_model(best_model_path)
 
     test_data_generator.reset()
     file_names = test_data_generator.filenames
