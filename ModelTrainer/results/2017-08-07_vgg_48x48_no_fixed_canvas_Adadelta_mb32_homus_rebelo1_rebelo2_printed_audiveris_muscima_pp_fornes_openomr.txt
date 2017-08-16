@@ -1,0 +1,968 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20170807191801
+Username: DONKEY\Alex
+RunAs User: DONKEY\Alex
+Machine: DONKEY (Microsoft Windows NT 10.0.15063.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -Command if((Get-ExecutionPolicy ) -ne 'AllSigned') { Set-ExecutionPolicy -Scope Process Bypass }; & 'C:\Users\Alex\Repositories\MusicSymbolClassifier\ModelTrainer\TrainModel.ps1'
+Process ID: 8012
+PSVersion: 5.1.15063.483
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.15063.483
+BuildVersion: 10.0.15063.483
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\Users\Alex\Repositories\MusicSymbolClassifier\ModelTrainer\2017-08-07_vgg_48x48_no_fixed_canvas_Adadelta_mb32_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp_fornes_openomr.txt
+Using TensorFlow backend.
+Deleting dataset directory data
+Extracting HOMUS Dataset...
+Generating 15200 images with 15200 symbols in 1 different stroke thicknesses ([3]) and with staff-lines with 1 different offsets from the top ([])
+In directory C:\Users\Alex\Repositories\MusicSymbolClassifier\ModelTrainer\data\images
+15200/15200
+Extracting Rebelo Symbol Dataset 1...
+Deleting temporary directory C:\Users\Alex\Repositories\MusicSymbolClassifier\ModelTrainer\Rebelo-Music-Symbol-Dataset1
+Extracting Rebelo Symbol Dataset 2...
+Deleting temporary directory C:\Users\Alex\Repositories\MusicSymbolClassifier\ModelTrainer\Rebelo-Music-Symbol-Dataset2
+Extracting Printed Music Symbol dataset...
+Deleting temporary directory C:\Users\Alex\Repositories\MusicSymbolClassifier\ModelTrainer\PrintedMusicSymbolsDataset
+Extracting Fornes Music Symbol dataset...
+Deleting temporary directory C:\Users\Alex\Repositories\MusicSymbolClassifier\ModelTrainer\Fornes-Music-Symbols
+Extracting Audiveris OMR Dataset...
+Extracting Symbols from Audiveris OMR Dataset...
+Extracting MUSCIMA++ Dataset...
+Extracting Symbols from Muscima++ Dataset...
+Loading crop-objects from xml-files 140/140
+Loaded 91255 crop-objects
+Filtering 135 broken symbols
+Filtering 7977 symbols from 7 ignored classes
+Generating images from crop-object masks 37076/37076
+Processing compound objects ...
+Generating images from crop-object masks 18382/18382
+Extracting OpenOMR dataset...
+Deleting temporary directory C:\Users\Alex\Repositories\MusicSymbolClassifier\ModelTrainer\OpenOmrDataset
+Resizing all images with the LANCZOS interpolation to 48x48px (width x height).
+Resizing images 91054 of 91054Deleting split directories...
+Splitting data into training, validation and test sets...
+Copying 2 training files of 1-8-Time...
+Copying 0 validation files of 1-8-Time...
+Copying 0 test files of 1-8-Time...
+Copying 323 training files of 12-8-Time...
+Copying 40 validation files of 12-8-Time...
+Copying 40 test files of 12-8-Time...
+Copying 319 training files of 2-2-Time...
+Copying 39 validation files of 2-2-Time...
+Copying 39 test files of 2-2-Time...
+Copying 353 training files of 2-4-Time...
+Copying 44 validation files of 2-4-Time...
+Copying 44 test files of 2-4-Time...
+Copying 10 training files of 2-8-Time...
+Copying 1 validation files of 2-8-Time...
+Copying 1 test files of 2-8-Time...
+Copying 387 training files of 3-4-Time...
+Copying 48 validation files of 3-4-Time...
+Copying 48 test files of 3-4-Time...
+Copying 344 training files of 3-8-Time...
+Copying 42 validation files of 3-8-Time...
+Copying 42 test files of 3-8-Time...
+Copying 6 training files of 4-2-Time...
+Copying 0 validation files of 4-2-Time...
+Copying 0 test files of 4-2-Time...
+Copying 342 training files of 4-4-Time...
+Copying 42 validation files of 4-4-Time...
+Copying 42 test files of 4-4-Time...
+Copying 1 training files of 4-8-Time...
+Copying 0 validation files of 4-8-Time...
+Copying 0 test files of 4-8-Time...
+Copying 12 training files of 5-4-Time...
+Copying 1 validation files of 5-4-Time...
+Copying 1 test files of 5-4-Time...
+Copying 11 training files of 5-8-Time...
+Copying 1 validation files of 5-8-Time...
+Copying 1 test files of 5-8-Time...
+Copying 4 training files of 6-4-Time...
+Copying 0 validation files of 6-4-Time...
+Copying 0 test files of 6-4-Time...
+Copying 337 training files of 6-8-Time...
+Copying 42 validation files of 6-8-Time...
+Copying 42 test files of 6-8-Time...
+Copying 9 training files of 7-4-Time...
+Copying 0 validation files of 7-4-Time...
+Copying 0 test files of 7-4-Time...
+Copying 6 training files of 8-8-Time...
+Copying 0 validation files of 8-8-Time...
+Copying 0 test files of 8-8-Time...
+Copying 326 training files of 9-8-Time...
+Copying 40 validation files of 9-8-Time...
+Copying 40 test files of 9-8-Time...
+Copying 497 training files of Accent...
+Copying 62 validation files of Accent...
+Copying 62 test files of Accent...
+Copying 17 training files of Arpeggio...
+Copying 2 validation files of Arpeggio...
+Copying 2 test files of Arpeggio...
+Copying 5438 training files of Barline...
+Copying 679 validation files of Barline...
+Copying 679 test files of Barline...
+Copying 6537 training files of Beam...
+Copying 816 validation files of Beam...
+Copying 816 test files of Beam...
+Copying 289 training files of Brace...
+Copying 35 validation files of Brace...
+Copying 35 test files of Brace...
+Copying 11 training files of Breath-Mark...
+Copying 1 validation files of Breath-Mark...
+Copying 1 test files of Breath-Mark...
+Copying 22 training files of Breve...
+Copying 2 validation files of Breve...
+Copying 2 test files of Breve...
+Copying 1353 training files of C-Clef...
+Copying 168 validation files of C-Clef...
+Copying 168 test files of C-Clef...
+Copying 96 training files of Chord...
+Copying 11 validation files of Chord...
+Copying 11 test files of Chord...
+Copying 2 training files of Coda...
+Copying 0 validation files of Coda...
+Copying 0 test files of Coda...
+Copying 2 training files of Coda-Square...
+Copying 0 validation files of Coda-Square...
+Copying 0 test files of Coda-Square...
+Copying 550 training files of Common-Time...
+Copying 68 validation files of Common-Time...
+Copying 68 test files of Common-Time...
+Copying 510 training files of Cut-Time...
+Copying 63 validation files of Cut-Time...
+Copying 63 test files of Cut-Time...
+Copying 3816 training files of Dot...
+Copying 477 validation files of Dot...
+Copying 477 test files of Dot...
+Copying 8 training files of Dotted-Horizontal-Spanner...
+Copying 0 validation files of Dotted-Horizontal-Spanner...
+Copying 0 test files of Dotted-Horizontal-Spanner...
+Copying 1 training files of Double-Flat...
+Copying 0 validation files of Double-Flat...
+Copying 0 test files of Double-Flat...
+Copying 751 training files of Double-Sharp...
+Copying 93 validation files of Double-Sharp...
+Copying 93 test files of Double-Sharp...
+Copying 120 training files of Double-Whole-Rest...
+Copying 15 validation files of Double-Whole-Rest...
+Copying 15 test files of Double-Whole-Rest...
+Copying 14 training files of Eighth-Grace-Note...
+Copying 1 validation files of Eighth-Grace-Note...
+Copying 1 test files of Eighth-Grace-Note...
+Copying 2511 training files of Eighth-Note...
+Copying 313 validation files of Eighth-Note...
+Copying 313 test files of Eighth-Note...
+Copying 1805 training files of Eighth-Rest...
+Copying 225 validation files of Eighth-Rest...
+Copying 225 test files of Eighth-Rest...
+Copying 1261 training files of F-Clef...
+Copying 157 validation files of F-Clef...
+Copying 157 test files of F-Clef...
+Copying 111 training files of Fermata...
+Copying 13 validation files of Fermata...
+Copying 13 test files of Fermata...
+Copying 2496 training files of Flat...
+Copying 311 validation files of Flat...
+Copying 311 test files of Flat...
+Copying 1984 training files of G-Clef...
+Copying 247 validation files of G-Clef...
+Copying 247 test files of G-Clef...
+Copying 97 training files of Glissando...
+Copying 12 validation files of Glissando...
+Copying 12 test files of Glissando...
+Copying 179 training files of Hairpin-Crescendo...
+Copying 22 validation files of Hairpin-Crescendo...
+Copying 22 test files of Hairpin-Crescendo...
+Copying 213 training files of Hairpin-Decrescendo...
+Copying 26 validation files of Hairpin-Decrescendo...
+Copying 26 test files of Hairpin-Decrescendo...
+Copying 1192 training files of Half-Note...
+Copying 148 validation files of Half-Note...
+Copying 148 test files of Half-Note...
+Copying 10 training files of Horizontal-Spanner...
+Copying 1 validation files of Horizontal-Spanner...
+Copying 1 test files of Horizontal-Spanner...
+Copying 64 training files of Marcato...
+Copying 7 validation files of Marcato...
+Copying 7 test files of Marcato...
+Copying 70 training files of Mordent...
+Copying 8 validation files of Mordent...
+Copying 8 test files of Mordent...
+Copying 78 training files of Multiple-Eighth-Notes...
+Copying 9 validation files of Multiple-Eighth-Notes...
+Copying 9 test files of Multiple-Eighth-Notes...
+Copying 27 training files of Multiple-Half-Notes...
+Copying 3 validation files of Multiple-Half-Notes...
+Copying 3 test files of Multiple-Half-Notes...
+Copying 195 training files of Multiple-Quarter-Notes...
+Copying 24 validation files of Multiple-Quarter-Notes...
+Copying 24 test files of Multiple-Quarter-Notes...
+Copying 69 training files of Multiple-Sixteenth-Notes...
+Copying 8 validation files of Multiple-Sixteenth-Notes...
+Copying 8 test files of Multiple-Sixteenth-Notes...
+Copying 2511 training files of Natural...
+Copying 313 validation files of Natural...
+Copying 313 test files of Natural...
+Copying 3 training files of Onehundred-Twenty-Eight-Note...
+Copying 0 validation files of Onehundred-Twenty-Eight-Note...
+Copying 0 test files of Onehundred-Twenty-Eight-Note...
+Copying 3 training files of Onehundred-Twenty-Eight-Rest...
+Copying 0 validation files of Onehundred-Twenty-Eight-Rest...
+Copying 0 test files of Onehundred-Twenty-Eight-Rest...
+Copying 5313 training files of Other...
+Copying 664 validation files of Other...
+Copying 664 test files of Other...
+Copying 14356 training files of Quarter-Note...
+Copying 1794 validation files of Quarter-Note...
+Copying 1794 test files of Quarter-Note...
+Copying 1417 training files of Quarter-Rest...
+Copying 177 validation files of Quarter-Rest...
+Copying 177 test files of Quarter-Rest...
+Copying 14 training files of Repeat-Measure...
+Copying 1 validation files of Repeat-Measure...
+Copying 1 test files of Repeat-Measure...
+Copying 2 training files of Segno...
+Copying 0 validation files of Segno...
+Copying 0 test files of Segno...
+Copying 3424 training files of Sharp...
+Copying 428 validation files of Sharp...
+Copying 428 test files of Sharp...
+Copying 1001 training files of Sixteenth-Note...
+Copying 124 validation files of Sixteenth-Note...
+Copying 124 test files of Sixteenth-Note...
+Copying 936 training files of Sixteenth-Rest...
+Copying 117 validation files of Sixteenth-Rest...
+Copying 117 test files of Sixteenth-Rest...
+Copying 706 training files of Sixty-Four-Note...
+Copying 88 validation files of Sixty-Four-Note...
+Copying 88 test files of Sixty-Four-Note...
+Copying 433 training files of Sixty-Four-Rest...
+Copying 54 validation files of Sixty-Four-Rest...
+Copying 54 test files of Sixty-Four-Rest...
+Copying 97 training files of Staccatissimo...
+Copying 11 validation files of Staccatissimo...
+Copying 11 test files of Staccatissimo...
+Copying 69 training files of Stopped...
+Copying 8 validation files of Stopped...
+Copying 8 test files of Stopped...
+Copying 193 training files of Tenuto...
+Copying 24 validation files of Tenuto...
+Copying 24 test files of Tenuto...
+Copying 762 training files of Thirty-Two-Note...
+Copying 95 validation files of Thirty-Two-Note...
+Copying 95 test files of Thirty-Two-Note...
+Copying 508 training files of Thirty-Two-Rest...
+Copying 63 validation files of Thirty-Two-Rest...
+Copying 63 test files of Thirty-Two-Rest...
+Copying 3018 training files of Tie-Slur...
+Copying 377 validation files of Tie-Slur...
+Copying 377 test files of Tie-Slur...
+Copying 145 training files of Trill...
+Copying 17 validation files of Trill...
+Copying 17 test files of Trill...
+Copying 19 training files of Trill-Wobble...
+Copying 2 validation files of Trill-Wobble...
+Copying 2 test files of Trill-Wobble...
+Copying 59 training files of Tuplet...
+Copying 7 validation files of Tuplet...
+Copying 7 test files of Tuplet...
+Copying 65 training files of Turn...
+Copying 8 validation files of Turn...
+Copying 8 test files of Turn...
+Copying 10 training files of Volta...
+Copying 1 validation files of Volta...
+Copying 1 test files of Volta...
+Copying 783 training files of Whole-Half-Rest...
+Copying 97 validation files of Whole-Half-Rest...
+Copying 97 test files of Whole-Half-Rest...
+Copying 1877 training files of Whole-Note...
+Copying 234 validation files of Whole-Note...
+Copying 234 test files of Whole-Note...
+Loading configuration and data-readers...
+Found 72912 images belonging to 79 classes.
+Found 9071 images belonging to 79 classes.
+Found 9071 images belonging to 79 classes.
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #
+=================================================================
+conv2d_1 (Conv2D)            (None, 48, 48, 16)        448
+_________________________________________________________________
+batch_normalization_1 (Batch (None, 48, 48, 16)        64
+_________________________________________________________________
+activation_1 (Activation)    (None, 48, 48, 16)        0
+_________________________________________________________________
+conv2d_2 (Conv2D)            (None, 48, 48, 16)        2320
+_________________________________________________________________
+batch_normalization_2 (Batch (None, 48, 48, 16)        64
+_________________________________________________________________
+activation_2 (Activation)    (None, 48, 48, 16)        0
+_________________________________________________________________
+max_pooling2d_1 (MaxPooling2 (None, 24, 24, 16)        0
+_________________________________________________________________
+conv2d_3 (Conv2D)            (None, 24, 24, 32)        4640
+_________________________________________________________________
+batch_normalization_3 (Batch (None, 24, 24, 32)        128
+_________________________________________________________________
+activation_3 (Activation)    (None, 24, 24, 32)        0
+_________________________________________________________________
+conv2d_4 (Conv2D)            (None, 24, 24, 32)        9248
+_________________________________________________________________
+batch_normalization_4 (Batch (None, 24, 24, 32)        128
+_________________________________________________________________
+activation_4 (Activation)    (None, 24, 24, 32)        0
+_________________________________________________________________
+max_pooling2d_2 (MaxPooling2 (None, 12, 12, 32)        0
+_________________________________________________________________
+conv2d_5 (Conv2D)            (None, 12, 12, 64)        18496
+_________________________________________________________________
+batch_normalization_5 (Batch (None, 12, 12, 64)        256
+_________________________________________________________________
+activation_5 (Activation)    (None, 12, 12, 64)        0
+_________________________________________________________________
+conv2d_6 (Conv2D)            (None, 12, 12, 64)        36928
+_________________________________________________________________
+batch_normalization_6 (Batch (None, 12, 12, 64)        256
+_________________________________________________________________
+activation_6 (Activation)    (None, 12, 12, 64)        0
+_________________________________________________________________
+conv2d_7 (Conv2D)            (None, 12, 12, 64)        36928
+_________________________________________________________________
+batch_normalization_7 (Batch (None, 12, 12, 64)        256
+_________________________________________________________________
+activation_7 (Activation)    (None, 12, 12, 64)        0
+_________________________________________________________________
+max_pooling2d_3 (MaxPooling2 (None, 6, 6, 64)          0
+_________________________________________________________________
+conv2d_8 (Conv2D)            (None, 6, 6, 128)         73856
+_________________________________________________________________
+batch_normalization_8 (Batch (None, 6, 6, 128)         512
+_________________________________________________________________
+activation_8 (Activation)    (None, 6, 6, 128)         0
+_________________________________________________________________
+conv2d_9 (Conv2D)            (None, 6, 6, 128)         147584
+_________________________________________________________________
+batch_normalization_9 (Batch (None, 6, 6, 128)         512
+_________________________________________________________________
+activation_9 (Activation)    (None, 6, 6, 128)         0
+_________________________________________________________________
+conv2d_10 (Conv2D)           (None, 6, 6, 128)         147584
+_________________________________________________________________
+batch_normalization_10 (Batc (None, 6, 6, 128)         512
+_________________________________________________________________
+activation_10 (Activation)   (None, 6, 6, 128)         0
+_________________________________________________________________
+max_pooling2d_4 (MaxPooling2 (None, 3, 3, 128)         0
+_________________________________________________________________
+conv2d_11 (Conv2D)           (None, 3, 3, 192)         221376
+_________________________________________________________________
+batch_normalization_11 (Batc (None, 3, 3, 192)         768
+_________________________________________________________________
+activation_11 (Activation)   (None, 3, 3, 192)         0
+_________________________________________________________________
+conv2d_12 (Conv2D)           (None, 3, 3, 192)         331968
+_________________________________________________________________
+batch_normalization_12 (Batc (None, 3, 3, 192)         768
+_________________________________________________________________
+activation_12 (Activation)   (None, 3, 3, 192)         0
+_________________________________________________________________
+conv2d_13 (Conv2D)           (None, 3, 3, 192)         331968
+_________________________________________________________________
+batch_normalization_13 (Batc (None, 3, 3, 192)         768
+_________________________________________________________________
+activation_13 (Activation)   (None, 3, 3, 192)         0
+_________________________________________________________________
+conv2d_14 (Conv2D)           (None, 3, 3, 192)         331968
+_________________________________________________________________
+batch_normalization_14 (Batc (None, 3, 3, 192)         768
+_________________________________________________________________
+activation_14 (Activation)   (None, 3, 3, 192)         0
+_________________________________________________________________
+max_pooling2d_5 (MaxPooling2 (None, 1, 1, 192)         0
+_________________________________________________________________
+flatten_1 (Flatten)          (None, 192)               0
+_________________________________________________________________
+output_class (Dense)         (None, 79)                15247
+=================================================================
+Total params: 1,716,319
+Trainable params: 1,713,439
+Non-trainable params: 2,880
+_________________________________________________________________
+Model vgg loaded.
+2017-08-07 19:32:27.818361: W c:\tf_jenkins\home\workspace\release-win\m\windows-gpu\py\36\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE instructions, but these are availab
+le on your machine and could speed up CPU computations.
+2017-08-07 19:32:27.818481: W c:\tf_jenkins\home\workspace\release-win\m\windows-gpu\py\36\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE2 instructions, but these are availa
+ble on your machine and could speed up CPU computations.
+2017-08-07 19:32:27.818882: W c:\tf_jenkins\home\workspace\release-win\m\windows-gpu\py\36\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE3 instructions, but these are availa
+ble on your machine and could speed up CPU computations.
+2017-08-07 19:32:27.820244: W c:\tf_jenkins\home\workspace\release-win\m\windows-gpu\py\36\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are avai
+lable on your machine and could speed up CPU computations.
+2017-08-07 19:32:27.820553: W c:\tf_jenkins\home\workspace\release-win\m\windows-gpu\py\36\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are avai
+lable on your machine and could speed up CPU computations.
+2017-08-07 19:32:27.820927: W c:\tf_jenkins\home\workspace\release-win\m\windows-gpu\py\36\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are availab
+le on your machine and could speed up CPU computations.
+2017-08-07 19:32:27.821248: W c:\tf_jenkins\home\workspace\release-win\m\windows-gpu\py\36\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are availa
+ble on your machine and could speed up CPU computations.
+2017-08-07 19:32:27.821542: W c:\tf_jenkins\home\workspace\release-win\m\windows-gpu\py\36\tensorflow\core\platform\cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are availab
+le on your machine and could speed up CPU computations.
+2017-08-07 19:32:28.138031: I c:\tf_jenkins\home\workspace\release-win\m\windows-gpu\py\36\tensorflow\core\common_runtime\gpu\gpu_device.cc:940] Found device 0 with properties:
+name: GeForce GTX 1080 Ti
+major: 6 minor: 1 memoryClockRate (GHz) 1.582
+pciBusID 0000:01:00.0
+Total memory: 11.00GiB
+Free memory: 9.12GiB
+2017-08-07 19:32:28.138152: I c:\tf_jenkins\home\workspace\release-win\m\windows-gpu\py\36\tensorflow\core\common_runtime\gpu\gpu_device.cc:961] DMA: 0
+2017-08-07 19:32:28.139554: I c:\tf_jenkins\home\workspace\release-win\m\windows-gpu\py\36\tensorflow\core\common_runtime\gpu\gpu_device.cc:971] 0:   Y
+2017-08-07 19:32:28.139827: I c:\tf_jenkins\home\workspace\release-win\m\windows-gpu\py\36\tensorflow\core\common_runtime\gpu\gpu_device.cc:1030] Creating TensorFlow device (/gpu:0) -> (device: 0, name: GeForce GTX 1080 Ti, pc
+i bus id: 0000:01:00.0)
+Training for 200 epochs with initial learning rate of 0.01, weight-decay of 0.0001 and Nesterov Momentum of 0.9 ...
+Additional parameters: Initialization: glorot_uniform, Minibatch-size: 32, Early stopping after 20 epochs without improvement
+Data-Shape: (48, 48, 3), Reducing learning rate by factor to 0.5 respectively if not improved validation accuracy after 8 epochs
+Data-augmentation: Zooming 20.0% randomly, rotating 10° randomly
+Optimizer: Adadelta, with parameters {'lr': 1.0, 'rho': 0.95, 'decay': 0.0, 'epsilon': 1e-08}
+Performing object localization: False
+Training on dataset...
+Epoch 1/200
+   9/2279 [..............................] - ETA: 958s - loss: 4.1402 - acc: 0.1944 2017-08-07 19:32:38.707986: I c:\tf_jenkins\home\workspace\release-win\m\windows-gpu\py\36\tensorflow\core\common_runtime\gpu\pool_allocator.c
+c:247] PoolAllocator: After 3056 get requests, put_count=3043 evicted_count=1000 eviction_rate=0.328623 and unsatisfied allocation rate=0.364202
+2279/2279 [==============================] - 76s - loss: 0.8098 - acc: 0.8158 - val_loss: 0.5484 - val_acc: 0.8874m -inf to 0.88744, saving model to 2017-08-07_vgg.h5_limit_ from 100 to 110
+Epoch 2/200
+2279/2279 [==============================] - 74s - loss: 0.4637 - acc: 0.9092 - val_loss: 0.3792 - val_acc: 0.9367m 0.88744 to 0.93672, saving model to 2017-08-07_vgg.h5
+Epoch 3/200
+2279/2279 [==============================] - 72s - loss: 0.4010 - acc: 0.9282 - val_loss: 0.3780 - val_acc: 0.9345ove
+Epoch 4/200
+2279/2279 [==============================] - 73s - loss: 0.3683 - acc: 0.9382 - val_loss: 0.3349 - val_acc: 0.9497m 0.93672 to 0.94973, saving model to 2017-08-07_vgg.h5
+Epoch 5/200
+2279/2279 [==============================] - 74s - loss: 0.3451 - acc: 0.9455 - val_loss: 0.3172 - val_acc: 0.9542m 0.94973 to 0.95425, saving model to 2017-08-07_vgg.h5
+Epoch 6/200
+2279/2279 [==============================] - 76s - loss: 0.3269 - acc: 0.9500 - val_loss: 0.3205 - val_acc: 0.9542ove
+Epoch 7/200
+2279/2279 [==============================] - 78s - loss: 0.3185 - acc: 0.9519 - val_loss: 0.3409 - val_acc: 0.9479ove
+Epoch 8/200
+2279/2279 [==============================] - 79s - loss: 0.3077 - acc: 0.9555 - val_loss: 0.3316 - val_acc: 0.9530ove
+Epoch 9/200
+2279/2279 [==============================] - 82s - loss: 0.2994 - acc: 0.9572 - val_loss: 0.2911 - val_acc: 0.9626m 0.95425 to 0.96263, saving model to 2017-08-07_vgg.h5
+Epoch 10/200
+2279/2279 [==============================] - 79s - loss: 0.2931 - acc: 0.9589 - val_loss: 0.2767 - val_acc: 0.9660m 0.96263 to 0.96605, saving model to 2017-08-07_vgg.h5
+Epoch 11/200
+2279/2279 [==============================] - 79s - loss: 0.2843 - acc: 0.9606 - val_loss: 0.3192 - val_acc: 0.9526ove
+Epoch 12/200
+2279/2279 [==============================] - 79s - loss: 0.2811 - acc: 0.9619 - val_loss: 0.2852 - val_acc: 0.9633ove
+Epoch 13/200
+2279/2279 [==============================] - 81s - loss: 0.2766 - acc: 0.9635 - val_loss: 0.2721 - val_acc: 0.9687m 0.96605 to 0.96869, saving model to 2017-08-07_vgg.h5
+Epoch 14/200
+2279/2279 [==============================] - 73s - loss: 0.2757 - acc: 0.9637 - val_loss: 0.2954 - val_acc: 0.9592ove
+Epoch 15/200
+2279/2279 [==============================] - 73s - loss: 0.2728 - acc: 0.9647 - val_loss: 0.2707 - val_acc: 0.9677ove
+Epoch 16/200
+2279/2279 [==============================] - 74s - loss: 0.2691 - acc: 0.9664 - val_loss: 0.2800 - val_acc: 0.9640ove
+Epoch 17/200
+2279/2279 [==============================] - 74s - loss: 0.2667 - acc: 0.9678 - val_loss: 0.2664 - val_acc: 0.9707m 0.96869 to 0.97068, saving model to 2017-08-07_vgg.h5
+Epoch 18/200
+2279/2279 [==============================] - 69s - loss: 0.2643 - acc: 0.9682 - val_loss: 0.2932 - val_acc: 0.9611ove
+Epoch 19/200
+2279/2279 [==============================] - 67s - loss: 0.2648 - acc: 0.9683 - val_loss: 0.3213 - val_acc: 0.9578ove
+Epoch 20/200
+2279/2279 [==============================] - 68s - loss: 0.2649 - acc: 0.9690 - val_loss: 0.2891 - val_acc: 0.9648ove
+Epoch 21/200
+2279/2279 [==============================] - 67s - loss: 0.2657 - acc: 0.9690 - val_loss: 0.2939 - val_acc: 0.9622ove
+Epoch 22/200
+2279/2279 [==============================] - 67s - loss: 0.2653 - acc: 0.9704 - val_loss: 0.3003 - val_acc: 0.9601ove
+Epoch 23/200
+2279/2279 [==============================] - 67s - loss: 0.2650 - acc: 0.9693 - val_loss: 0.3159 - val_acc: 0.9570ove
+Epoch 24/200
+2279/2279 [==============================] - 69s - loss: 0.2648 - acc: 0.9717 - val_loss: 0.3069 - val_acc: 0.9644ove
+Epoch 25/200
+2279/2279 [==============================] - 73s - loss: 0.2674 - acc: 0.9710 - val_loss: 0.2936 - val_acc: 0.9665ove
+Epoch 26/200
+2278/2279 [============================>.] - ETA: 0s - loss: 0.2685 - acc: 0.9706Epoch 00025: val_acc did not improve
+
+2279/2279 [==============================] - 75s - loss: 0.2686 - acc: 0.9705 - val_loss: 0.3008 - val_acc: 0.9633
+Epoch 27/200
+2279/2279 [==============================] - 76s - loss: 0.2361 - acc: 0.9801 - val_loss: 0.2667 - val_acc: 0.9753m 0.97068 to 0.97531, saving model to 2017-08-07_vgg.h5
+Epoch 28/200
+2279/2279 [==============================] - 69s - loss: 0.2264 - acc: 0.9824 - val_loss: 0.2682 - val_acc: 0.9730ove
+Epoch 29/200
+2279/2279 [==============================] - 67s - loss: 0.2195 - acc: 0.9831 - val_loss: 0.2619 - val_acc: 0.9754m 0.97531 to 0.97542, saving model to 2017-08-07_vgg.h5
+Epoch 30/200
+2279/2279 [==============================] - 72s - loss: 0.2163 - acc: 0.9833 - val_loss: 0.2556 - val_acc: 0.9741ove
+Epoch 31/200
+2279/2279 [==============================] - 71s - loss: 0.2117 - acc: 0.9842 - val_loss: 0.2494 - val_acc: 0.9755m 0.97542 to 0.97553, saving model to 2017-08-07_vgg.h5
+Epoch 32/200
+2279/2279 [==============================] - 70s - loss: 0.2102 - acc: 0.9841 - val_loss: 0.2591 - val_acc: 0.9733ove
+Epoch 33/200
+2279/2279 [==============================] - 67s - loss: 0.2069 - acc: 0.9841 - val_loss: 0.2740 - val_acc: 0.9729ove
+Epoch 34/200
+2279/2279 [==============================] - 68s - loss: 0.2058 - acc: 0.9843 - val_loss: 0.2499 - val_acc: 0.9751ove
+Epoch 35/200
+2279/2279 [==============================] - 72s - loss: 0.2041 - acc: 0.9841 - val_loss: 0.2603 - val_acc: 0.9745ove
+Epoch 36/200
+2279/2279 [==============================] - 67s - loss: 0.2032 - acc: 0.9845 - val_loss: 0.2557 - val_acc: 0.9752ove
+Epoch 37/200
+2279/2279 [==============================] - 68s - loss: 0.2029 - acc: 0.9846 - val_loss: 0.2638 - val_acc: 0.9731ove
+Epoch 38/200
+2279/2279 [==============================] - 69s - loss: 0.1993 - acc: 0.9853 - val_loss: 0.2370 - val_acc: 0.9766m 0.97553 to 0.97663, saving model to 2017-08-07_vgg.h5
+Epoch 39/200
+2279/2279 [==============================] - 67s - loss: 0.2004 - acc: 0.9847 - val_loss: 0.2699 - val_acc: 0.9676ove
+Epoch 40/200
+2279/2279 [==============================] - 66s - loss: 0.2011 - acc: 0.9848 - val_loss: 0.2474 - val_acc: 0.9746ove
+Epoch 41/200
+2279/2279 [==============================] - 66s - loss: 0.1997 - acc: 0.9852 - val_loss: 0.2636 - val_acc: 0.9711ove
+Epoch 42/200
+2279/2279 [==============================] - 66s - loss: 0.1999 - acc: 0.9848 - val_loss: 0.2513 - val_acc: 0.9761ove
+Epoch 43/200
+2279/2279 [==============================] - 66s - loss: 0.1994 - acc: 0.9852 - val_loss: 0.2585 - val_acc: 0.9729ove
+Epoch 44/200
+2279/2279 [==============================] - 66s - loss: 0.1980 - acc: 0.9859 - val_loss: 0.2548 - val_acc: 0.9739ove
+Epoch 45/200
+2279/2279 [==============================] - 66s - loss: 0.1988 - acc: 0.9855 - val_loss: 0.2555 - val_acc: 0.9730ove
+Epoch 46/200
+2279/2279 [==============================] - 66s - loss: 0.1994 - acc: 0.9855 - val_loss: 0.2594 - val_acc: 0.9765ove
+Epoch 47/200
+2278/2279 [============================>.] - ETA: 0s - loss: 0.2008 - acc: 0.9855Epoch 00046: val_acc did not improve
+
+2279/2279 [==============================] - 67s - loss: 0.2008 - acc: 0.9855 - val_loss: 0.2746 - val_acc: 0.9713
+Epoch 48/200
+2279/2279 [==============================] - 66s - loss: 0.1856 - acc: 0.9896 - val_loss: 0.2429 - val_acc: 0.9765ove
+Epoch 49/200
+2279/2279 [==============================] - 66s - loss: 0.1809 - acc: 0.9909 - val_loss: 0.2440 - val_acc: 0.9773m 0.97663 to 0.97729, saving model to 2017-08-07_vgg.h5
+Epoch 50/200
+2279/2279 [==============================] - 66s - loss: 0.1768 - acc: 0.9916 - val_loss: 0.2552 - val_acc: 0.9771ove
+Epoch 51/200
+2279/2279 [==============================] - 66s - loss: 0.1770 - acc: 0.9912 - val_loss: 0.2422 - val_acc: 0.9776m 0.97729 to 0.97762, saving model to 2017-08-07_vgg.h5
+Epoch 52/200
+2279/2279 [==============================] - 67s - loss: 0.1745 - acc: 0.9916 - val_loss: 0.2443 - val_acc: 0.9794m 0.97762 to 0.97938, saving model to 2017-08-07_vgg.h5
+Epoch 53/200
+2279/2279 [==============================] - 66s - loss: 0.1732 - acc: 0.9916 - val_loss: 0.2415 - val_acc: 0.9764ove
+Epoch 54/200
+2279/2279 [==============================] - 66s - loss: 0.1720 - acc: 0.9919 - val_loss: 0.2519 - val_acc: 0.9761ove
+Epoch 55/200
+2279/2279 [==============================] - 67s - loss: 0.1704 - acc: 0.9919 - val_loss: 0.2529 - val_acc: 0.9770ove
+Epoch 56/200
+2279/2279 [==============================] - 66s - loss: 0.1706 - acc: 0.9916 - val_loss: 0.2275 - val_acc: 0.9780ove
+Epoch 57/200
+2279/2279 [==============================] - 66s - loss: 0.1685 - acc: 0.9920 - val_loss: 0.2401 - val_acc: 0.9777ove
+Epoch 58/200
+2279/2279 [==============================] - 66s - loss: 0.1676 - acc: 0.9922 - val_loss: 0.2602 - val_acc: 0.9728ove
+Epoch 59/200
+2279/2279 [==============================] - 66s - loss: 0.1680 - acc: 0.9925 - val_loss: 0.2462 - val_acc: 0.9777ove
+Epoch 60/200
+2279/2279 [==============================] - 66s - loss: 0.1652 - acc: 0.9927 - val_loss: 0.2703 - val_acc: 0.9730ove
+Epoch 61/200
+2278/2279 [============================>.] - ETA: 0s - loss: 0.1648 - acc: 0.9925Epoch 00060: val_acc did not improve
+
+2279/2279 [==============================] - 66s - loss: 0.1648 - acc: 0.9925 - val_loss: 0.2509 - val_acc: 0.9776
+Epoch 62/200
+2279/2279 [==============================] - 66s - loss: 0.1587 - acc: 0.9943 - val_loss: 0.2436 - val_acc: 0.9768ove
+Epoch 63/200
+2279/2279 [==============================] - 66s - loss: 0.1558 - acc: 0.9950 - val_loss: 0.2498 - val_acc: 0.9756ove
+Epoch 64/200
+2279/2279 [==============================] - 66s - loss: 0.1543 - acc: 0.9950 - val_loss: 0.2515 - val_acc: 0.9775ove
+Epoch 65/200
+2279/2279 [==============================] - 66s - loss: 0.1536 - acc: 0.9950 - val_loss: 0.2392 - val_acc: 0.9780ove
+Epoch 66/200
+2279/2279 [==============================] - 66s - loss: 0.1532 - acc: 0.9949 - val_loss: 0.2477 - val_acc: 0.9744ove
+Epoch 67/200
+2279/2279 [==============================] - 66s - loss: 0.1521 - acc: 0.9952 - val_loss: 0.2447 - val_acc: 0.9774ove
+Epoch 68/200
+2279/2279 [==============================] - 66s - loss: 0.1523 - acc: 0.9949 - val_loss: 0.2440 - val_acc: 0.9784ove
+Epoch 69/200
+2277/2279 [============================>.] - ETA: 0s - loss: 0.1506 - acc: 0.9952Epoch 00068: val_acc did not improve
+
+2279/2279 [==============================] - 66s - loss: 0.1506 - acc: 0.9952 - val_loss: 0.2460 - val_acc: 0.9762
+Epoch 70/200
+2279/2279 [==============================] - 66s - loss: 0.1478 - acc: 0.9955 - val_loss: 0.2433 - val_acc: 0.9757ove
+Epoch 71/200
+2279/2279 [==============================] - 66s - loss: 0.1461 - acc: 0.9962 - val_loss: 0.2452 - val_acc: 0.9765ove
+Epoch 72/200
+2279/2279 [==============================] - 66s - loss: 0.1463 - acc: 0.9959 - val_loss: 0.2591 - val_acc: 0.9761ove
+Epoch 73/200
+2279/2279 [==============================] - 66s - loss: 0.1451 - acc: 0.9961 - val_loss: 0.2377 - val_acc: 0.9802m 0.97938 to 0.98016, saving model to 2017-08-07_vgg.h5
+Epoch 74/200
+2279/2279 [==============================] - 66s - loss: 0.1443 - acc: 0.9962 - val_loss: 0.2420 - val_acc: 0.9784ove
+Epoch 75/200
+2279/2279 [==============================] - 66s - loss: 0.1431 - acc: 0.9966 - val_loss: 0.2398 - val_acc: 0.9788ove
+Epoch 76/200
+2279/2279 [==============================] - 66s - loss: 0.1445 - acc: 0.9961 - val_loss: 0.2482 - val_acc: 0.9771ove
+Epoch 77/200
+2279/2279 [==============================] - 66s - loss: 0.1425 - acc: 0.9966 - val_loss: 0.2423 - val_acc: 0.9795ove
+Epoch 78/200
+2279/2279 [==============================] - 66s - loss: 0.1431 - acc: 0.9963 - val_loss: 0.2386 - val_acc: 0.9775ove
+Epoch 79/200
+2279/2279 [==============================] - 66s - loss: 0.1424 - acc: 0.9964 - val_loss: 0.2470 - val_acc: 0.9791ove
+Epoch 80/200
+2279/2279 [==============================] - 66s - loss: 0.1417 - acc: 0.9963 - val_loss: 0.2448 - val_acc: 0.9781ove
+Epoch 81/200
+2279/2279 [==============================] - 67s - loss: 0.1408 - acc: 0.9964 - val_loss: 0.2352 - val_acc: 0.9803m 0.98016 to 0.98027, saving model to 2017-08-07_vgg.h5
+Epoch 82/200
+2279/2279 [==============================] - 66s - loss: 0.1400 - acc: 0.9967 - val_loss: 0.2423 - val_acc: 0.9778ove
+Epoch 83/200
+2279/2279 [==============================] - 66s - loss: 0.1400 - acc: 0.9966 - val_loss: 0.2377 - val_acc: 0.9805m 0.98027 to 0.98049, saving model to 2017-08-07_vgg.h5
+Epoch 84/200
+2279/2279 [==============================] - 66s - loss: 0.1392 - acc: 0.9966 - val_loss: 0.2489 - val_acc: 0.9782ove
+Epoch 85/200
+2279/2279 [==============================] - 66s - loss: 0.1390 - acc: 0.9966 - val_loss: 0.2352 - val_acc: 0.9784ove
+Epoch 86/200
+2279/2279 [==============================] - 66s - loss: 0.1381 - acc: 0.9970 - val_loss: 0.2447 - val_acc: 0.9788ove
+Epoch 87/200
+2279/2279 [==============================] - 67s - loss: 0.1381 - acc: 0.9967 - val_loss: 0.2433 - val_acc: 0.9768ove
+Epoch 88/200
+2279/2279 [==============================] - 66s - loss: 0.1372 - acc: 0.9968 - val_loss: 0.2410 - val_acc: 0.9773ove
+Epoch 89/200
+2279/2279 [==============================] - 66s - loss: 0.1371 - acc: 0.9968 - val_loss: 0.2501 - val_acc: 0.9771ove
+Epoch 90/200
+2279/2279 [==============================] - 66s - loss: 0.1373 - acc: 0.9968 - val_loss: 0.2399 - val_acc: 0.9796ove
+Epoch 91/200
+2279/2279 [==============================] - 66s - loss: 0.1363 - acc: 0.9968 - val_loss: 0.2473 - val_acc: 0.9766ove
+Epoch 92/200
+2277/2279 [============================>.] - ETA: 0s - loss: 0.1363 - acc: 0.9966Epoch 00091: val_acc did not improve
+
+2279/2279 [==============================] - 66s - loss: 0.1363 - acc: 0.9966 - val_loss: 0.2392 - val_acc: 0.9804
+Epoch 93/200
+2279/2279 [==============================] - 66s - loss: 0.1347 - acc: 0.9969 - val_loss: 0.2451 - val_acc: 0.9752ove
+Epoch 94/200
+2279/2279 [==============================] - 66s - loss: 0.1336 - acc: 0.9971 - val_loss: 0.2250 - val_acc: 0.9800ove
+Epoch 95/200
+2279/2279 [==============================] - 66s - loss: 0.1337 - acc: 0.9973 - val_loss: 0.2445 - val_acc: 0.9775ove
+Epoch 96/200
+2279/2279 [==============================] - 66s - loss: 0.1336 - acc: 0.9972 - val_loss: 0.2373 - val_acc: 0.9776ove
+Epoch 97/200
+2279/2279 [==============================] - 66s - loss: 0.1330 - acc: 0.9972 - val_loss: 0.2429 - val_acc: 0.9783ove
+Epoch 98/200
+2279/2279 [==============================] - 66s - loss: 0.1331 - acc: 0.9970 - val_loss: 0.2441 - val_acc: 0.9771ove
+Epoch 99/200
+2279/2279 [==============================] - 66s - loss: 0.1328 - acc: 0.9970 - val_loss: 0.2356 - val_acc: 0.9794ove
+Epoch 100/200
+2277/2279 [============================>.] - ETA: 0s - loss: 0.1317 - acc: 0.9973Epoch 00099: val_acc did not improve
+
+2279/2279 [==============================] - 66s - loss: 0.1316 - acc: 0.9973 - val_loss: 0.2402 - val_acc: 0.9773
+Epoch 101/200
+2279/2279 [==============================] - 66s - loss: 0.1317 - acc: 0.9976 - val_loss: 0.2375 - val_acc: 0.9783ove
+Epoch 102/200
+2279/2279 [==============================] - 66s - loss: 0.1309 - acc: 0.9976 - val_loss: 0.2401 - val_acc: 0.9782ove
+Epoch 103/200
+2279/2279 [==============================] - 66s - loss: 0.1312 - acc: 0.9975 - val_loss: 0.2455 - val_acc: 0.9775ove
+Epoch 104/200
+2279/2279 [==============================] - 66s - loss: 0.1306 - acc: 0.9975 - val_loss: 0.2373 - val_acc: 0.9777ove
+Epoch 00103: early stopping
+Loading best model from check-point and testing...
+C:\Programming\Anaconda3\lib\site-packages\sklearn\metrics\classification.py:1113: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples.
+  'precision', 'predicted', average, warn_for)
+                          precision    recall  f1-score   support
+
+               12-8-Time       0.98      1.00      0.99        40
+                2-2-Time       1.00      0.97      0.99        39
+                2-4-Time       0.98      0.98      0.98        44
+                2-8-Time       1.00      1.00      1.00         1
+                3-4-Time       0.96      0.98      0.97        48
+                3-8-Time       0.95      1.00      0.98        42
+                4-4-Time       1.00      1.00      1.00        42
+                5-4-Time       1.00      1.00      1.00         1
+                5-8-Time       0.00      0.00      0.00         1
+                6-8-Time       0.98      0.98      0.98        42
+                9-8-Time       1.00      0.95      0.97        40
+                  Accent       0.91      0.95      0.93        62
+                Arpeggio       0.00      0.00      0.00         2
+                 Barline       0.99      0.99      0.99       679
+                    Beam       0.97      0.96      0.96       816
+                   Brace       0.92      0.97      0.94        35
+             Breath-Mark       0.50      1.00      0.67         1
+                   Breve       1.00      1.00      1.00         2
+                  C-Clef       1.00      1.00      1.00       168
+                   Chord       0.92      1.00      0.96        11
+             Common-Time       0.97      1.00      0.99        68
+                Cut-Time       1.00      0.98      0.99        63
+                     Dot       0.99      0.99      0.99       477
+            Double-Sharp       1.00      0.99      0.99        93
+       Double-Whole-Rest       1.00      0.87      0.93        15
+       Eighth-Grace-Note       1.00      1.00      1.00         1
+             Eighth-Note       0.99      0.98      0.99       313
+             Eighth-Rest       0.99      1.00      0.99       225
+                  F-Clef       0.99      1.00      1.00       157
+                 Fermata       0.93      1.00      0.96        13
+                    Flat       0.99      0.99      0.99       311
+                  G-Clef       1.00      1.00      1.00       247
+               Glissando       0.91      0.83      0.87        12
+       Hairpin-Crescendo       1.00      1.00      1.00        22
+     Hairpin-Decrescendo       0.88      0.81      0.84        26
+               Half-Note       0.97      0.98      0.98       148
+      Horizontal-Spanner       0.50      1.00      0.67         1
+                 Marcato       1.00      1.00      1.00         7
+                 Mordent       1.00      1.00      1.00         8
+   Multiple-Eighth-Notes       0.90      1.00      0.95         9
+     Multiple-Half-Notes       1.00      1.00      1.00         3
+  Multiple-Quarter-Notes       0.96      0.92      0.94        24
+Multiple-Sixteenth-Notes       1.00      1.00      1.00         8
+                 Natural       0.99      0.99      0.99       313
+                   Other       0.95      0.94      0.95       664
+            Quarter-Note       0.99      1.00      0.99      1794
+            Quarter-Rest       0.98      0.97      0.97       177
+          Repeat-Measure       1.00      1.00      1.00         1
+                   Sharp       1.00      0.99      0.99       428
+          Sixteenth-Note       0.94      0.96      0.95       124
+          Sixteenth-Rest       0.97      0.97      0.97       117
+         Sixty-Four-Note       0.94      0.90      0.92        88
+         Sixty-Four-Rest       0.98      0.98      0.98        54
+           Staccatissimo       0.92      1.00      0.96        11
+                 Stopped       1.00      1.00      1.00         8
+                  Tenuto       0.70      0.67      0.68        24
+         Thirty-Two-Note       0.90      0.89      0.90        95
+         Thirty-Two-Rest       0.95      0.97      0.96        63
+                Tie-Slur       0.96      0.97      0.96       377
+                   Trill       0.94      0.94      0.94        17
+            Trill-Wobble       1.00      0.50      0.67         2
+                  Tuplet       0.88      1.00      0.93         7
+                    Turn       1.00      1.00      1.00         8
+                   Volta       0.00      0.00      0.00         1
+         Whole-Half-Rest       0.92      0.98      0.95        97
+              Whole-Note       0.98      0.95      0.97       234
+
+             avg / total       0.98      0.98      0.98      9071
+
+Misclassified files:
+        2-2-Time\45-44_3.png is incorrectly classified as Barline
+        2-4-Time\2-9_3.png is incorrectly classified as 3-4-Time
+        3-4-Time\39-30_3.png is incorrectly classified as 2-4-Time
+        5-8-Time\symbol44.png is incorrectly classified as 3-8-Time
+        6-8-Time\symbol223.png is incorrectly classified as Chord
+        9-8-Time\45-28_3.png is incorrectly classified as 12-8-Time
+        9-8-Time\symbol146.png is incorrectly classified as 3-8-Time
+        Accent\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-03_N-18_D-ideal___644.png is incorrectly classified as Hairpin-Decrescendo
+        Accent\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-10_N-18_D-ideal___622.png is incorrectly classified as Eighth-Rest
+        Accent\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-20_N-16_D-ideal___366.png is incorrectly classified as Hairpin-Decrescendo
+        Arpeggio\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-01_N-10_D-ideal___639.png is incorrectly classified as Barline
+        Arpeggio\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-21_N-08_D-ideal___593.png is incorrectly classified as Quarter-Rest
+        Barline\32-152_3.png is incorrectly classified as Quarter-Note
+        Barline\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-06_N-16_D-ideal___72.png is incorrectly classified as Quarter-Rest
+        Barline\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-11_N-12_D-ideal___612.png is incorrectly classified as Brace
+        Barline\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-13_N-16_D-ideal___121.png is incorrectly classified as Beam
+        Barline\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-18_N-12_D-ideal___620.png is incorrectly classified as Brace
+        Barline\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-30_N-17_D-ideal___771.png is incorrectly classified as Brace
+        Barline\symbol7196.png is incorrectly classified as Other
+        Beam\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-04_N-12_D-ideal___521.png is incorrectly classified as Tie-Slur
+        Beam\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-06_N-02_D-ideal___287.png is incorrectly classified as Tie-Slur
+        Beam\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-06_N-02_D-ideal___389.png is incorrectly classified as Whole-Half-Rest
+        Beam\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-06_N-02_D-ideal___512.png is incorrectly classified as Dot
+        Beam\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-07_N-05_D-ideal___150.png is incorrectly classified as Whole-Half-Rest
+        Beam\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-11_N-12_D-ideal___399.png is incorrectly classified as Tie-Slur
+        Beam\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-20_N-03_D-ideal___324.png is incorrectly classified as Tie-Slur
+        Beam\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-21_N-05_D-ideal___444.png is incorrectly classified as Dot
+        Beam\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-21_N-08_D-ideal___518.png is incorrectly classified as Tenuto
+        Beam\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-22_N-10_D-ideal___453.png is incorrectly classified as Tie-Slur
+        Beam\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-22_N-14_D-ideal___263.png is incorrectly classified as Tie-Slur
+        Beam\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-25_N-09_D-ideal___290.png is incorrectly classified as Tie-Slur
+        Beam\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-27_N-02_D-ideal___87.png is incorrectly classified as Tenuto
+        Beam\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-28_N-08_D-ideal___308.png is incorrectly classified as Whole-Half-Rest
+        Beam\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-29_N-10_D-ideal___606.png is incorrectly classified as Tie-Slur
+        Beam\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-30_N-17_D-ideal___415.png is incorrectly classified as Tie-Slur
+        Beam\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-30_N-17_D-ideal___423.png is incorrectly classified as Tenuto
+        Beam\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-30_N-17_D-ideal___440.png is incorrectly classified as Tie-Slur
+        Beam\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-35_N-05_D-ideal___280.png is incorrectly classified as Tenuto
+        Beam\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-36_N-14_D-ideal___441.png is incorrectly classified as Glissando
+        Beam\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-37_N-17_D-ideal___409.png is incorrectly classified as Tenuto
+        Beam\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-44_N-17_D-ideal___387.png is incorrectly classified as Tie-Slur
+        Beam\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-46_N-07_D-ideal___479.png is incorrectly classified as Tie-Slur
+        Beam\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-46_N-20_D-ideal___510.png is incorrectly classified as Tie-Slur
+        Beam\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-48_N-02_D-ideal___303.png is incorrectly classified as Tie-Slur
+        Beam\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-48_N-02_D-ideal___93.png is incorrectly classified as Tenuto
+        Beam\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-49_N-05_D-ideal___68.png is incorrectly classified as Tenuto
+        Beam\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-49_N-11_D-ideal___480.png is incorrectly classified as Whole-Half-Rest
+        Beam\symbol559.png is incorrectly classified as Whole-Half-Rest
+        Beam\symbol927.png is incorrectly classified as Other
+        Brace\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-44_N-17_D-ideal___717.png is incorrectly classified as Barline
+        Cut-Time\symbol360.png is incorrectly classified as Common-Time
+        Dot\42-146_3.png is incorrectly classified as Whole-Half-Rest
+        Dot\63-145_3.png is incorrectly classified as Other
+        Dot\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-36_N-10_D-ideal___442.png is incorrectly classified as Other
+        Dot\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-36_N-15_D-ideal___133.png is incorrectly classified as Other
+        Dot\symbol200.png is incorrectly classified as Staccatissimo
+        Double-Sharp\92-61_3.png is incorrectly classified as Other
+        Double-Whole-Rest\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-20_N-02_D-ideal___627.png is incorrectly classified as Whole-Half-Rest
+        Double-Whole-Rest\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-48_N-02_D-ideal___621.png is incorrectly classified as Barline
+        Eighth-Note\61-99_3.png is incorrectly classified as Sixteenth-Note
+        Eighth-Note\85-101_3.png is incorrectly classified as Sixteenth-Note
+        Eighth-Note\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-15_N-10_D-ideal___135.png is incorrectly classified as Sixteenth-Rest
+        Eighth-Note\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-15_N-10_D-ideal___136.png is incorrectly classified as Quarter-Note
+        Eighth-Note\symbol2592.png is incorrectly classified as Multiple-Eighth-Notes
+        Eighth-Rest\symbol8030.png is incorrectly classified as Sixteenth-Rest
+        Flat\45-56_3.png is incorrectly classified as Natural
+        Flat\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-31_N-01_D-ideal___46.png is incorrectly classified as Natural
+        Flat\symbol2056.png is incorrectly classified as Other
+        Glissando\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-26_N-19_D-ideal___458.png is incorrectly classified as Beam
+        Glissando\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-33_N-19_D-ideal___450.png is incorrectly classified as Beam
+        Hairpin-Decrescendo\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-02_N-06_D-ideal___630.png is incorrectly classified as Accent
+        Hairpin-Decrescendo\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-21_N-08_D-ideal___535.png is incorrectly classified as Accent
+        Hairpin-Decrescendo\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-29_N-10_D-ideal___840.png is incorrectly classified as Accent
+        Hairpin-Decrescendo\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-32_N-20_D-ideal___587.png is incorrectly classified as Accent
+        Hairpin-Decrescendo\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-44_N-06_D-ideal___525.png is incorrectly classified as Accent
+        Half-Note\33-78_3.png is incorrectly classified as Quarter-Note
+        Half-Note\33-79_3.png is incorrectly classified as Quarter-Note
+        Half-Note\symbol156.png is incorrectly classified as Other
+        Multiple-Quarter-Notes\symbol4681.png is incorrectly classified as Quarter-Note
+        Multiple-Quarter-Notes\symbol5192.png is incorrectly classified as Quarter-Note
+        Natural\45-68_3.png is incorrectly classified as Quarter-Rest
+        Natural\65-67_3.png is incorrectly classified as Sixteenth-Rest
+        Other\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-01_N-14_D-ideal___489.png is incorrectly classified as Beam
+        Other\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-03_N-01_D-ideal___476.png is incorrectly classified as Half-Note
+        Other\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-08_N-14_D-ideal___497.png is incorrectly classified as Quarter-Note
+        Other\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-10_N-07_D-ideal___525.png is incorrectly classified as Sharp
+        Other\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-12_N-04_D-ideal___556.png is incorrectly classified as Whole-Note
+        Other\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-15_N-14_D-ideal___299.png is incorrectly classified as Flat
+        Other\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-17_N-01_D-ideal___731.png is incorrectly classified as Eighth-Rest
+        Other\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-17_N-18_D-ideal___80.png is incorrectly classified as Barline
+        Other\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-22_N-14_D-ideal___477.png is incorrectly classified as Whole-Note
+        Other\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-22_N-14_D-ideal___527.png is incorrectly classified as Whole-Note
+        Other\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-23_N-13_D-ideal___523.png is incorrectly classified as Breath-Mark
+        Other\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-24_N-01_D-ideal___586.png is incorrectly classified as Quarter-Note
+        Other\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-24_N-07_D-ideal___323.png is incorrectly classified as Beam
+        Other\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-31_N-01_D-ideal___272.png is incorrectly classified as Flat
+        Other\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-31_N-01_D-ideal___639.png is incorrectly classified as Dot
+        Other\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-32_N-20_D-ideal___181.png is incorrectly classified as Beam
+        Other\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-36_N-10_D-ideal___178.png is incorrectly classified as Tie-Slur
+        Other\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-36_N-14_D-ideal___544.png is incorrectly classified as Half-Note
+        Other\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-42_N-08_D-ideal___601.png is incorrectly classified as Eighth-Rest
+        Other\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-43_N-14_D-ideal___544.png is incorrectly classified as Dot
+        Other\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-43_N-14_D-ideal___573.png is incorrectly classified as Tie-Slur
+        Other\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-43_N-15_D-ideal___498.png is incorrectly classified as Dot
+        Other\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-44_N-13_D-ideal___487.png is incorrectly classified as Quarter-Note
+        Other\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-44_N-13_D-ideal___500.png is incorrectly classified as Whole-Note
+        Other\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-44_N-13_D-ideal___533.png is incorrectly classified as Common-Time
+        Other\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-45_N-01_D-ideal___560.png is incorrectly classified as Whole-Note
+        Other\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-47_N-04_D-ideal___796.png is incorrectly classified as Sharp
+        Other\symbol102902.png is incorrectly classified as Quarter-Note
+        Other\symbol103862.png is incorrectly classified as Quarter-Note
+        Other\symbol104534.png is incorrectly classified as Tuplet
+        Other\symbol110870.png is incorrectly classified as Fermata
+        Other\symbol1314.png is incorrectly classified as Quarter-Note
+        Other\symbol15226.png is incorrectly classified as Half-Note
+        Other\symbol2181.png is incorrectly classified as 3-4-Time
+        Other\symbol386.png is incorrectly classified as Whole-Half-Rest
+        Other\symbol394.png is incorrectly classified as Quarter-Note
+        Other\symbol471.png is incorrectly classified as Beam
+        Other\symbol5413.png is incorrectly classified as Multiple-Quarter-Notes
+        Quarter-Note\6.png is incorrectly classified as Eighth-Note
+        Quarter-Note\76-91_3.png is incorrectly classified as Half-Note
+        Quarter-Note\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-05_N-19_D-ideal___340.png is incorrectly classified as Other
+        Quarter-Note\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-11_N-12_D-ideal___56.png is incorrectly classified as Beam
+        Quarter-Note\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-30_N-06_D-ideal___316.png is incorrectly classified as Other
+        Quarter-Note\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-39_N-20_D-ideal___603.png is incorrectly classified as Other
+        Quarter-Rest\1-101_3.png is incorrectly classified as Other
+        Quarter-Rest\2-101_3.png is incorrectly classified as Quarter-Note
+        Quarter-Rest\76-94_3.png is incorrectly classified as Other
+        Quarter-Rest\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-13_N-03_D-ideal___69.png is incorrectly classified as Other
+        Quarter-Rest\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-20_N-16_D-ideal___371.png is incorrectly classified as Other
+        Quarter-Rest\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-42_N-08_D-ideal___523.png is incorrectly classified as Other
+        Sharp\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-17_N-18_D-ideal___594.png is incorrectly classified as Other
+        Sharp\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-28_N-09_D-ideal___269.png is incorrectly classified as Trill
+        Sharp\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-30_N-17_D-ideal___723.png is incorrectly classified as Other
+        Sharp\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-30_N-17_D-ideal___725.png is incorrectly classified as Other
+        Sharp\symbol5863.png is incorrectly classified as Natural
+        Sixteenth-Note\47-115_3.png is incorrectly classified as Eighth-Note
+        Sixteenth-Note\87-113_3.png is incorrectly classified as Thirty-Two-Note
+        Sixteenth-Note\87-115_3.png is incorrectly classified as Eighth-Note
+        Sixteenth-Note\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-09_N-17_D-ideal___109.png is incorrectly classified as Eighth-Note
+        Sixteenth-Note\symbol84.png is incorrectly classified as Thirty-Two-Note
+        Sixteenth-Rest\50-117_3.png is incorrectly classified as F-Clef
+        Sixteenth-Rest\76-117_3.png is incorrectly classified as Thirty-Two-Rest
+        Sixteenth-Rest\91-117_3.png is incorrectly classified as Thirty-Two-Rest
+        Sixty-Four-Note\32-135_3.png is incorrectly classified as Thirty-Two-Note
+        Sixty-Four-Note\34-132_3.png is incorrectly classified as Sixteenth-Note
+        Sixty-Four-Note\39-134_3.png is incorrectly classified as Thirty-Two-Note
+        Sixty-Four-Note\77-137_3.png is incorrectly classified as 6-8-Time
+        Sixty-Four-Note\86-133_3.png is incorrectly classified as Thirty-Two-Note
+        Sixty-Four-Note\86-136_3.png is incorrectly classified as Thirty-Two-Note
+        Sixty-Four-Note\98-135_3.png is incorrectly classified as Thirty-Two-Note
+        Sixty-Four-Note\98-138_3.png is incorrectly classified as Thirty-Two-Note
+        Sixty-Four-Note\symbols59.png is incorrectly classified as Thirty-Two-Note
+        Sixty-Four-Rest\32-144_3.png is incorrectly classified as Thirty-Two-Rest
+        Tenuto\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-12_N-04_D-ideal___696.png is incorrectly classified as Beam
+        Tenuto\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-19_N-04_D-ideal___607.png is incorrectly classified as Beam
+        Tenuto\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-19_N-04_D-ideal___620.png is incorrectly classified as Beam
+        Tenuto\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-33_N-04_D-ideal___364.png is incorrectly classified as Beam
+        Tenuto\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-40_N-04_D-ideal___624.png is incorrectly classified as Beam
+        Tenuto\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-47_N-04_D-ideal___575.png is incorrectly classified as Beam
+        Tenuto\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-50_N-04_D-ideal___812.png is incorrectly classified as Beam
+        Tenuto\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-50_N-04_D-ideal___814.png is incorrectly classified as Beam
+        Thirty-Two-Note\12-140_3.png is incorrectly classified as G-Clef
+        Thirty-Two-Note\2-139_3.png is incorrectly classified as Sixteenth-Note
+        Thirty-Two-Note\36-123_3.png is incorrectly classified as Sixteenth-Note
+        Thirty-Two-Note\39-125_3.png is incorrectly classified as Sixty-Four-Note
+        Thirty-Two-Note\39-126_3.png is incorrectly classified as Sixty-Four-Note
+        Thirty-Two-Note\45-124_3.png is incorrectly classified as Quarter-Rest
+        Thirty-Two-Note\49-122_3.png is incorrectly classified as Sixty-Four-Note
+        Thirty-Two-Note\53-125_3.png is incorrectly classified as Sixty-Four-Note
+        Thirty-Two-Note\81-123_3.png is incorrectly classified as Sixteenth-Note
+        Thirty-Two-Note\symbols95.png is incorrectly classified as Sixty-Four-Note
+        Thirty-Two-Rest\2-141_3.png is incorrectly classified as Sixteenth-Rest
+        Thirty-Two-Rest\70-129_3.png is incorrectly classified as Sixty-Four-Rest
+        Tie-Slur\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-10_N-18_D-ideal___645.png is incorrectly classified as Beam
+        Tie-Slur\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-17_N-18_D-ideal___431.png is incorrectly classified as Other
+        Tie-Slur\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-24_N-18_D-ideal___659.png is incorrectly classified as Beam
+        Tie-Slur\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-27_N-16_D-ideal___581.png is incorrectly classified as Beam
+        Tie-Slur\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-29_N-10_D-ideal___503.png is incorrectly classified as Other
+        Tie-Slur\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-31_N-01_D-ideal___557.png is incorrectly classified as Beam
+        Tie-Slur\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-32_N-20_D-ideal___583.png is incorrectly classified as Beam
+        Tie-Slur\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-34_N-03_D-ideal___86.png is incorrectly classified as Beam
+        Tie-Slur\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-42_N-08_D-ideal___680.png is incorrectly classified as Hairpin-Decrescendo
+        Tie-Slur\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-49_N-09_D-ideal___340.png is incorrectly classified as Other
+        Tie-Slur\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-49_N-11_D-ideal___575.png is incorrectly classified as Beam
+        Tie-Slur\symbol102856.png is incorrectly classified as Beam
+        Tie-Slur\symbol113104.png is incorrectly classified as Beam
+        Trill\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-48_N-02_D-ideal___358.png is incorrectly classified as Sixteenth-Note
+        Trill-Wobble\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-16_N-06_D-ideal___823.png is incorrectly classified as Beam
+        Volta\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-25_N-12_D-ideal___608.png is incorrectly classified as Horizontal-Spanner
+        Whole-Half-Rest\41-76_3.png is incorrectly classified as Beam
+        Whole-Half-Rest\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-03_N-18_D-ideal___512.png is incorrectly classified as Beam
+        Whole-Note\82-70_3.png is incorrectly classified as Accent
+        Whole-Note\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-04_N-20_D-ideal___196.png is incorrectly classified as Other
+        Whole-Note\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-25_N-20_D-ideal___250.png is incorrectly classified as Other
+        Whole-Note\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-28_N-08_D-ideal___255.png is incorrectly classified as Other
+        Whole-Note\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-33_N-19_D-ideal___116.png is incorrectly classified as Other
+        Whole-Note\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-33_N-19_D-ideal___125.png is incorrectly classified as Other
+        Whole-Note\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-33_N-19_D-ideal___132.png is incorrectly classified as Other
+        Whole-Note\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-37_N-06_D-ideal___255.png is incorrectly classified as Other
+        Whole-Note\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-42_N-05_D-ideal___146.png is incorrectly classified as Other
+        Whole-Note\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-46_N-20_D-ideal___146.png is incorrectly classified as Other
+        Whole-Note\MUSCIMA-pp_0.9___CVC-MUSCIMA_W-46_N-20_D-ideal___54.png is incorrectly classified as Other
+loss: 0.25175
+acc: 0.97751
+Total Accuracy: 97.75107%
+Total Error: 2.24893%
+Execution time: 7208.5s
+WARNING:googleapiclient.discovery_cache:file_cache is unavailable when using oauth2client >= 4.0.0
+Traceback (most recent call last):
+  File "C:\Programming\Anaconda3\lib\site-packages\googleapiclient\discovery_cache\__init__.py", line 36, in autodetect
+    from google.appengine.api import memcache
+ModuleNotFoundError: No module named 'google.appengine'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Programming\Anaconda3\lib\site-packages\googleapiclient\discovery_cache\file_cache.py", line 33, in <module>
+    from oauth2client.contrib.locked_file import LockedFile
+ModuleNotFoundError: No module named 'oauth2client.contrib.locked_file'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Programming\Anaconda3\lib\site-packages\googleapiclient\discovery_cache\file_cache.py", line 37, in <module>
+    from oauth2client.locked_file import LockedFile
+ModuleNotFoundError: No module named 'oauth2client.locked_file'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Programming\Anaconda3\lib\site-packages\googleapiclient\discovery_cache\__init__.py", line 41, in autodetect
+    from . import file_cache
+  File "C:\Programming\Anaconda3\lib\site-packages\googleapiclient\discovery_cache\file_cache.py", line 41, in <module>
+    'file_cache is unavailable when using oauth2client >= 4.0.0')
+ImportError: file_cache is unavailable when using oauth2client >= 4.0.0
+Uploading results to Google Spreadsheet and appending at first empty line 218
+**********************
+Windows PowerShell transcript end
+End time: 20170807213235
+**********************
