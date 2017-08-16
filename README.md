@@ -19,7 +19,7 @@ Before running them, make sure that you have the necessary requirements installe
 
 ## Requirements
 
-- Python 3.5
+- Python 3.6
 - Keras 2.0.6
 - Tensorflow 1.2.1 (or optionally tensorflow-gpu 1.2.1)
 
