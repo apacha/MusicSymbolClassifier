@@ -16,5 +16,5 @@ $env:PYTHONPATH = $pathToSourceRoot
 
 # Actually start the training with the default-values and without a fixed canvas for the HOMUS dataset
 Start-Transcript -path "$($pathToTranscript)Training_best_model_transcript.txt" -append
-python TrainModel.py --disable_fixed_canvas_size
+python TrainModel.py --disable_fixed_canvas_size --datasets homus
 Stop-Transcript
