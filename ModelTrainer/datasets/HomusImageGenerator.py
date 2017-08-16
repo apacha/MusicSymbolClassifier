@@ -5,6 +5,8 @@ from typing import List
 
 import sys
 
+from tqdm import tqdm
+
 from datasets.ExportPath import ExportPath
 from datasets.HomusSymbol import HomusSymbol
 
@@ -64,11 +66,12 @@ class HomusImageGenerator:
         if width is not None and height is not None:
             output += "\nCentrally drawn on a fixed canvas of size {0}x{1} (Width x Height)".format(width, height)
 
-        output += "\nIn directory {0}".format(os.path.abspath(destination_directory))
         print(output)
-        current_symbol = 0
+        print("In directory {0}".format(os.path.abspath(destination_directory)), flush=True)
+
         bounding_boxes = dict()
 
+        progress_bar = tqdm(total=total_number_of_symbols, mininterval=0.25)
         for symbol_file in all_symbol_files:
             with open(symbol_file) as file:
                 content = file.read()
@@ -89,14 +92,9 @@ class HomusImageGenerator:
                     symbol.draw_onto_canvas(export_path, stroke_thickness, 0, width,
                                             height, staff_line_spacing, staff_line_vertical_offsets, bounding_boxes)
 
-                current_symbol += 1 * staff_line_multiplier
-                if current_symbol % 10 == 0:
-                    sys.stdout.write('\r')
-                    sys.stdout.write("{0: >5}/{1}".format(current_symbol, total_number_of_symbols))
-                    sys.stdout.flush()
+                progress_bar.update(1*staff_line_multiplier)
 
-        # Print an empty line, so the next command starts in a new line instead of at the end of the progress-bar
-        print("")
+        progress_bar.close()
         return bounding_boxes
 
     @staticmethod
