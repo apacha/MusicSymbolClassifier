@@ -77,7 +77,7 @@ class HomusSymbol:
     def draw_onto_canvas(self, export_path: ExportPath, stroke_thickness: int, margin: int, destination_width: int,
                          destination_height: int, staff_line_spacing: int = 14,
                          staff_line_vertical_offsets: List[int] = None,
-                         bounding_boxes: dict = None, random_position_in_canvas: bool = False):
+                         bounding_boxes: dict = None, random_position_on_canvas: bool = False):
         """
         Draws the symbol onto a canvas with a fixed size
         :param bounding_boxes: The dictionary into which the bounding-boxes will be added of each generated image
@@ -92,7 +92,7 @@ class HomusSymbol:
         """
         width = self.dimensions.width + 2 * margin
         height = self.dimensions.height + 2 * margin
-        if random_position_in_canvas:
+        if random_position_on_canvas:
             # max is required for elements that are larger than the canvas,
             # where the possible range for the random value would be negative
             random_horizontal_offset = random.randint(0, max(0, destination_width - width))

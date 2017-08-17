@@ -20,7 +20,7 @@ class HomusImageGenerator:
                       canvas_height: int = None,
                       staff_line_spacing: int = 14,
                       staff_line_vertical_offsets: List[int] = None,
-                      random_position_in_canvas: bool = False) -> dict:
+                      random_position_on_canvas: bool = False) -> dict:
         """
         Creates a visual representation of the Homus Dataset by parsing all text-files and the symbols as specified
         by the parameters by drawing lines that connect the points from each stroke of each symbol.
@@ -47,7 +47,7 @@ class HomusImageGenerator:
                                             generated with the appropriate staff-lines, e.g. 1-5_3_offset_70.png and
                                             1-5_3_offset_77.png for two versions of the symbol 1-5 with stroke thickness
                                             3 and staff-line offsets 70 and 77 pixels from the top.
-        :param random_position_in_canvas: True, if the symbols should be randomly placed on the fixed canvas.
+        :param random_position_on_canvas: True, if the symbols should be randomly placed on the fixed canvas.
                                           False, if the symbols should be centered in the fixed canvas.
                                           Note that this flag only has an effect, if fixed canvas sizes are used.
         :return: A dictionary that contains the file-names of all generated symbols and the respective bounding-boxes
@@ -95,7 +95,7 @@ class HomusImageGenerator:
                 else:
                     symbol.draw_onto_canvas(export_path, stroke_thickness, 0, canvas_width,
                                             canvas_height, staff_line_spacing, staff_line_vertical_offsets,
-                                            bounding_boxes, random_position_in_canvas)
+                                            bounding_boxes, random_position_on_canvas)
 
                 progress_bar.update(1 * staff_line_multiplier)
 
@@ -118,12 +118,12 @@ class HomusImageGenerator:
                             help="True, if the images should be drawn on a fixed canvas with the specified width and height."
                                  "False to draw the symbols with their original sizes (each symbol might be different)")
         parser.set_defaults(use_fixed_canvas=True)
-        parser.add_argument("--random_position_in_canvas", dest="random_position_in_canvas", action="store_true",
+        parser.add_argument("--random_position_on_canvas", dest="random_position_on_canvas", action="store_true",
                             help="Provide this flag, if the symbols should be randomly placed on the fixed canvas."
                                  "Omit this flag, if the symbols should be centered in the fixed canvas (default)."
                                  "Note, that this flag only has an effect, if a fixed canvas size is used which gets "
                                  "disabled by the --disable_fixed_canvas_size flag.")
-        parser.set_defaults(random_position_in_canvas=False)
+        parser.set_defaults(random_position_on_canvas=False)
 
 
 if __name__ == "__main__":
@@ -160,4 +160,4 @@ if __name__ == "__main__":
                                       height,
                                       flags.staff_line_spacing,
                                       offsets,
-                                      flags.random_position_in_canvas)
+                                      flags.random_position_on_canvas)

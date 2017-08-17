@@ -37,7 +37,7 @@ class TrainingDatasetProvider:
                                                    stroke_thicknesses_for_generated_symbols: List[int],
                                                    staff_line_spacing: int,
                                                    staff_line_vertical_offsets: List[int],
-                                                   random_position_in_canvas: bool) -> None:
+                                                   random_position_on_canvas: bool) -> None:
         """
         Deletes the dataset_directory and recreates the requested datasets into that folder.
         Some datasets just need to be downloaded and extracted (e.g. PrintedMusicSymbolsDataset),
@@ -46,7 +46,7 @@ class TrainingDatasetProvider:
         self.__delete_dataset_directory()
         self.__download_and_extract_datasets(datasets, width, height, use_fixed_canvas, staff_line_spacing,
                                              staff_line_vertical_offsets, stroke_thicknesses_for_generated_symbols,
-                                             random_position_in_canvas)
+                                             random_position_on_canvas)
 
     def resize_all_images_to_fixed_size(self, width, height):
         print("Resizing all images with the LANCZOS interpolation to {0}x{1}px (width x height).".format(width, height))
@@ -65,7 +65,7 @@ class TrainingDatasetProvider:
 
     def __download_and_extract_datasets(self, datasets, width, height, use_fixed_canvas, staff_line_spacing,
                                         staff_line_vertical_offsets, stroke_thicknesses_for_generated_symbols,
-                                        random_position_in_canvas: bool):
+                                        random_position_on_canvas: bool):
         if 'homus' in datasets:
             raw_dataset_directory = os.path.join(self.dataset_directory, "homus_raw")
             dataset_downloader = HomusDatasetDownloader(raw_dataset_directory)
@@ -81,7 +81,7 @@ class TrainingDatasetProvider:
                                                                generated_image_width,
                                                                generated_image_height, staff_line_spacing,
                                                                staff_line_vertical_offsets,
-                                                               random_position_in_canvas)
+                                                               random_position_on_canvas)
 
             bounding_boxes_cache = os.path.join(self.dataset_directory, "bounding_boxes.txt")
             with open(bounding_boxes_cache, "wb") as cache:
