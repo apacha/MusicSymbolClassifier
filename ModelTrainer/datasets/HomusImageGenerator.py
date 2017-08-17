@@ -16,10 +16,11 @@ class HomusImageGenerator:
     def create_images(raw_data_directory: str,
                       destination_directory: str,
                       stroke_thicknesses: List[int],
-                      width: int = None,
-                      height: int = None,
+                      canvas_width: int = None,
+                      canvas_height: int = None,
                       staff_line_spacing: int = 14,
-                      staff_line_vertical_offsets: List[int] = None) -> dict:
+                      staff_line_vertical_offsets: List[int] = None,
+                      random_position_in_canvas: bool = False) -> dict:
         """
         Creates a visual representation of the Homus Dataset by parsing all text-files and the symbols as specified
         by the parameters by drawing lines that connect the points from each stroke of each symbol.
@@ -33,10 +34,10 @@ class HomusImageGenerator:
         :param stroke_thicknesses: The thickness of the pen, used for drawing the lines in pixels. If multiple are
                                    specified, multiple images will be generated that have a different suffix, e.g.
                                    1-16-3.png for the 3-px version and 1-16-2.png for the 2-px version of the image 1-16
-        :param width: The width of the canvas, that each image will be drawn upon, regardless of the original size of
+        :param canvas_width: The width of the canvas, that each image will be drawn upon, regardless of the original size of
                       the symbol. Larger symbols will be cropped. If the original size of the symbol should be used,
                       provided None here.
-        :param height: The height of the canvas, that each image will be drawn upon, regardless of the original size of
+        :param canvas_height: The height of the canvas, that each image will be drawn upon, regardless of the original size of
                        the symbol. Larger symbols will be cropped. If the original size of the symbol should be used,
                        provided None here
         :param staff_line_spacing: Number of pixels spacing between each of the five staff-lines
@@ -46,6 +47,9 @@ class HomusImageGenerator:
                                             generated with the appropriate staff-lines, e.g. 1-5_3_offset_70.png and
                                             1-5_3_offset_77.png for two versions of the symbol 1-5 with stroke thickness
                                             3 and staff-line offsets 70 and 77 pixels from the top.
+        :param random_position_in_canvas: True, if the symbols should be randomly placed on the fixed canvas.
+                                          False, if the symbols should be centered in the fixed canvas.
+                                          Note that this flag only has an effect, if fixed canvas sizes are used.
         :return: A dictionary that contains the file-names of all generated symbols and the respective bounding-boxes
                  of each symbol.
         """
@@ -63,8 +67,8 @@ class HomusImageGenerator:
             output += " and with staff-lines with {0} different offsets from the top ({1})".format(
                 staff_line_multiplier, staff_line_vertical_offsets)
 
-        if width is not None and height is not None:
-            output += "\nCentrally drawn on a fixed canvas of size {0}x{1} (Width x Height)".format(width, height)
+        if canvas_width is not None and canvas_height is not None:
+            output += "\nCentrally drawn on a fixed canvas of size {0}x{1} (Width x Height)".format(canvas_width, canvas_height)
 
         print(output)
         print("In directory {0}".format(os.path.abspath(destination_directory)), flush=True)
@@ -86,13 +90,14 @@ class HomusImageGenerator:
             for stroke_thickness in stroke_thicknesses:
                 export_path = ExportPath(destination_directory, symbol.symbol_class, raw_file_name_without_extension,
                                          'png', stroke_thickness)
-                if width is None and height is None:
+                if canvas_width is None and canvas_height is None:
                     symbol.draw_into_bitmap(export_path, stroke_thickness, margin=2)
                 else:
-                    symbol.draw_onto_canvas(export_path, stroke_thickness, 0, width,
-                                            height, staff_line_spacing, staff_line_vertical_offsets, bounding_boxes)
+                    symbol.draw_onto_canvas(export_path, stroke_thickness, 0, canvas_width,
+                                            canvas_height, staff_line_spacing, staff_line_vertical_offsets,
+                                            bounding_boxes, random_position_in_canvas)
 
-                progress_bar.update(1*staff_line_multiplier)
+                progress_bar.update(1 * staff_line_multiplier)
 
         progress_bar.close()
         return bounding_boxes
@@ -113,6 +118,12 @@ class HomusImageGenerator:
                             help="True, if the images should be drawn on a fixed canvas with the specified width and height."
                                  "False to draw the symbols with their original sizes (each symbol might be different)")
         parser.set_defaults(use_fixed_canvas=True)
+        parser.add_argument("--random_position_in_canvas", dest="random_position_in_canvas", action="store_true",
+                            help="Provide this flag, if the symbols should be randomly placed on the fixed canvas."
+                                 "Omit this flag, if the symbols should be centered in the fixed canvas (default)."
+                                 "Note, that this flag only has an effect, if a fixed canvas size is used which gets "
+                                 "disabled by the --disable_fixed_canvas_size flag.")
+        parser.set_defaults(random_position_in_canvas=False)
 
 
 if __name__ == "__main__":
@@ -132,8 +143,6 @@ if __name__ == "__main__":
     parser.add_argument("--width", default="96", type=int, help="Width of the generated images in pixel")
     parser.add_argument("--height", default="96", type=int, help="Height of the generated images in pixel")
 
-    parser.set_defaults(use_fixed_canvas=True)
-
     flags, unparsed = parser.parse_known_args()
 
     offsets = []
@@ -150,4 +159,5 @@ if __name__ == "__main__":
                                       width,
                                       height,
                                       flags.staff_line_spacing,
-                                      offsets)
+                                      offsets,
+                                      flags.random_position_in_canvas)

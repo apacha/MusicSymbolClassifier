@@ -64,6 +64,29 @@ class HomusSymbolTest(unittest.TestCase):
         # Cleanup
         os.remove(export_path.get_full_path())
 
+    def test_draw_onto_canvas_random_position(self):
+        # Arrange
+        symbol = HomusSymbol("", [[Point2D(0, 0), Point2D(100, 100)]], "", Rectangle(Point2D(0, 0), 100, 100))
+        export_path = ExportPath("", "", "bitmap_random", "png", 2)
+        bounding_boxes = dict()
+
+        # Act
+        symbol.draw_onto_canvas(export_path, stroke_thickness=2, margin=2, destination_width=1000,
+                                destination_height=1000, random_position_in_canvas=True, bounding_boxes=bounding_boxes)
+
+        # Assert
+        self.assertTrue(os.path.exists(export_path.get_full_path()))
+        bounding_box = bounding_boxes["bitmap_random_2.png"]
+        self.assertEqual(bounding_box.height, 100)
+        self.assertEqual(bounding_box.width, 100)
+        self.assertNotEqual(bounding_box.left, 450)
+        self.assertNotEqual(bounding_box.top, 450)
+        self.assertNotEqual(bounding_box.right, 550)
+        self.assertNotEqual(bounding_box.bottom, 550)
+
+        # Cleanup
+        os.remove(export_path.get_full_path())
+
     def test_draw_into_bitmap_without_larger_canvas(self):
         # Arrange
         symbol = HomusSymbol("", [[Point2D(0, 0), Point2D(100, 100)]], "", Rectangle(Point2D(0, 0), 100, 100))

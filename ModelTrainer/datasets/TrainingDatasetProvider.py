@@ -62,7 +62,8 @@ class TrainingDatasetProvider:
             shutil.rmtree(self.dataset_directory)
 
     def __download_and_extract_datasets(self, datasets, width, height, use_fixed_canvas, staff_line_spacing,
-                                        staff_line_vertical_offsets, stroke_thicknesses_for_generated_symbols):
+                                        staff_line_vertical_offsets, stroke_thicknesses_for_generated_symbols,
+                                        random_position_in_canvas: bool):
         if 'homus' in datasets:
             raw_dataset_directory = os.path.join(self.dataset_directory, "homus_raw")
             dataset_downloader = HomusDatasetDownloader(raw_dataset_directory)
@@ -77,7 +78,8 @@ class TrainingDatasetProvider:
                                                                stroke_thicknesses_for_generated_symbols,
                                                                generated_image_width,
                                                                generated_image_height, staff_line_spacing,
-                                                               staff_line_vertical_offsets)
+                                                               staff_line_vertical_offsets,
+                                                               random_position_in_canvas)
 
             bounding_boxes_cache = os.path.join(self.dataset_directory, "bounding_boxes.txt")
             with open(bounding_boxes_cache, "wb") as cache:

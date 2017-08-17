@@ -1,3 +1,4 @@
+import random
 import sys
 from typing import List
 
@@ -75,7 +76,8 @@ class HomusSymbol:
 
     def draw_onto_canvas(self, export_path: ExportPath, stroke_thickness: int, margin: int, destination_width: int,
                          destination_height: int, staff_line_spacing: int = 14,
-                         staff_line_vertical_offsets: List[int] = None, bounding_boxes: dict = None):
+                         staff_line_vertical_offsets: List[int] = None,
+                         bounding_boxes: dict = None, random_position_in_canvas: bool = False):
         """
         Draws the symbol onto a canvas with a fixed size
         :param bounding_boxes: The dictionary into which the bounding-boxes will be added of each generated image
@@ -90,10 +92,18 @@ class HomusSymbol:
         """
         width = self.dimensions.width + 2 * margin
         height = self.dimensions.height + 2 * margin
-        width_offset_for_centering = (destination_width - width) / 2
-        height_offset_for_centering = (destination_height - height) / 2
-        offset = Point2D(self.dimensions.origin.x - margin - width_offset_for_centering,
-                         self.dimensions.origin.y - margin - height_offset_for_centering)
+        if random_position_in_canvas:
+            # max is required for elements that are larger than the canvas,
+            # where the possible range for the random value would be negative
+            random_horizontal_offset = random.randint(0, max(0, destination_width - width))
+            random_vertical_offset = random.randint(0, max(0, destination_height - height))
+            offset = Point2D(self.dimensions.origin.x - margin - random_horizontal_offset,
+                             self.dimensions.origin.y - margin - random_vertical_offset)
+        else:
+            width_offset_for_centering = (destination_width - width) / 2
+            height_offset_for_centering = (destination_height - height) / 2
+            offset = Point2D(self.dimensions.origin.x - margin - width_offset_for_centering,
+                             self.dimensions.origin.y - margin - height_offset_for_centering)
 
         image_without_staff_lines = Image.new('RGB', (destination_width, destination_height),
                                               "white")  # create a new white image
@@ -108,7 +118,7 @@ class HomusSymbol:
 
         location = self.__subtract_offset(self.dimensions.origin, offset)
         bounding_box_in_image = Rectangle(location, self.dimensions.width, self.dimensions.height)
-        # self.draw_bounding_box(draw, location)
+        #self.draw_bounding_box(draw, location)
 
         del draw
 
