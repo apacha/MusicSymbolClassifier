@@ -10,21 +10,15 @@ from scipy import ndimage
 from scipy.misc import imresize
 import os
 
-from models.ConfigurationFactory import ConfigurationFactory
 
-
-def test_model(model_path: str, model_name: str, image_paths: List[str]):
+def test_model(model_path: str, image_paths: List[str]):
     # model_path = "C:\\Users\\Alex\\Repositories\\MusicSymbolClassifier\\HomusTrainer\\results\\2017-06-05_vgg4.h5"
     # model_name = "vgg4"
     # image_path = "C:\\Users\\Alex\\Repositories\\MusicSymbolClassifier\\HomusTrainer\\Quarter1.png"
 
-    print("Model: ", model_name)
     print("Weights loaded from : ", model_path)
 
     print("Loading classifier...")
-    # best_model = ConfigurationFactory().get_configuration_by_name(model_name).classifier()
-    # best_model.load_weights(model_path)
-    # classifier = best_model
     classifier = keras.models.load_model(model_path)
     classifier.summary()
 
@@ -95,10 +89,11 @@ def test_model(model_path: str, model_name: str, image_paths: List[str]):
                        'Whole-Half-Rest',
                        'Whole-Note']
 
-        print("Class scores:")
 
-        for i in range(len(scores)):
-            print("{0:<18s} {1:.5f}".format(class_names[i], scores[i]))
+        if len(image_paths) == 1:
+            print("Class scores:")
+            for i in range(len(scores)):
+                print("{0:<18s} {1:.5f}".format(class_names[i], scores[i]))
 
         print(" Image is most likely: {0} (certainty: {1:0.2f})".format(class_names[class_with_highest_probability],
                                                                         scores[class_with_highest_probability]))
@@ -118,18 +113,15 @@ if __name__ == "__main__":
     parser = ArgumentParser("Classify an RGB-image with a pre-trained classifier")
     parser.add_argument("-c", "--classifier", dest="model_path",
                         help="path to the classifier that contains the weights (*.h5)",
-                        default="C:\\Users\\Alex\\Repositories\\MusicSymbolClassifier\\HomusTrainer\\results\\2017-06-05_vgg4.h5")
-    parser.add_argument("-m", "--model", dest="model_name",
-                        help="name of the model being used",
-                        default="vgg4")
+                        default="2017-08-17_vgg4_with_localization.h5")
     parser.add_argument("-i", "--images", dest="image_paths", nargs="+",
                         help="path(s) to the rgb image(s) to classify",
-                        default="C:\\Users\\Alex\\Repositories\\MusicSymbolClassifier\\HomusTrainer\\Quarter1.png")
+                        default="C:\\Users\\Alex\\Repositories\\MusicSymbolClassifier\\ModelTrainer\\data\\images\\3-4-Time\\1-13_3.png")
 
     args = parser.parse_args()
 
-    if len(sys.argv) < 7:
+    if len(sys.argv) < 5:
         parser.print_help()
         sys.exit(-1)
 
-    test_model(args.model_path, args.model_name, args.image_paths)
+    test_model(args.model_path, args.image_paths)
