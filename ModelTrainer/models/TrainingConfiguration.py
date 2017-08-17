@@ -6,6 +6,7 @@ from keras.optimizers import Optimizer, SGD, Adam, Adadelta
 
 class TrainingConfiguration(ABC):
     """ The base class for a configuration that specifies the hyperparameters of a training """
+
     def __init__(self,
                  data_shape: tuple = (224, 128, 3),  # Rows = Height, columns = Width, channels = typically 3 (RGB)
                  number_of_classes: int = 32,
@@ -83,11 +84,13 @@ class TrainingConfiguration(ABC):
 
         optimizer = self.get_optimizer()
 
-        summary = "Training for {0:d} epochs with initial learning rate of {1}, weight-decay of {2} and Nesterov Momentum of {3} ...\n" \
-            .format(self.number_of_epochs, self.learning_rate, self.weight_decay, self.nesterov_momentum)
-        summary += "Additional parameters: Initialization: {0}, Minibatch-size: {1}, Early stopping after {2} epochs without improvement\n" \
-            .format(self.initialization, self.training_minibatch_size, self.number_of_epochs_before_early_stopping)
-        summary += "Data-Shape: {0}, Reducing learning rate by factor to {1} respectively if not improved validation accuracy after {2} epochs\n" \
+        summary = "Training for {0:d} epochs ...\n".format(self.number_of_epochs)
+        summary += "Additional parameters: Initialization: {0}, Weight-decay of {1}, Minibatch-size: {2}, " \
+                   "Early stopping after {3} epochs without improvement\n" \
+            .format(self.initialization, self.weight_decay, self.training_minibatch_size,
+                    self.number_of_epochs_before_early_stopping)
+        summary += "Data-Shape: {0}, Reducing learning rate by factor to {1} respectively if not improved validation " \
+                   "accuracy after {2} epochs\n" \
             .format(self.data_shape, self.learning_rate_reduction_factor,
                     self.number_of_epochs_before_reducing_learning_rate)
         summary += "Data-augmentation: Zooming {0}% randomly, rotating {1}° randomly\n" \
