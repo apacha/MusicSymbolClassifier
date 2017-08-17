@@ -1,6 +1,6 @@
 from keras import Input
 from keras.engine import Layer, Model
-from keras.layers import Activation, BatchNormalization, Convolution2D, Dense, Flatten, MaxPooling2D
+from keras.layers import Activation, BatchNormalization, Convolution2D, Dense, Flatten, MaxPooling2D, AveragePooling2D
 from keras.models import Sequential
 from keras.regularizers import l2
 from keras.utils import plot_model
@@ -41,7 +41,7 @@ class Vgg4WithLocalizationConfiguration(TrainingConfiguration):
         layer = self.add_convolution_block_with_batch_normalization(layer, 512, 3)
         layer = self.add_convolution_block_with_batch_normalization(layer, 512, 3)
         layer = self.add_convolution_block_with_batch_normalization(layer, 512, 3)
-        layer = MaxPooling2D()(layer)
+        layer = AveragePooling2D()(layer)
 
         feature_vector = Flatten()(layer)
 
@@ -74,7 +74,7 @@ class Vgg4WithLocalizationConfiguration(TrainingConfiguration):
 
 
 if __name__ == "__main__":
-    configuration = Vgg4WithLocalizationConfiguration("Adadelta", 96, 96, 16, 32)
+    configuration = Vgg4WithLocalizationConfiguration("Adadelta", 112, 112, 16, 32)
     configuration.classifier().summary()
     plot_model(configuration.classifier(), to_file="vgg4_with_localization.png")
     print(configuration.summary())

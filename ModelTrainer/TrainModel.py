@@ -248,7 +248,8 @@ if __name__ == "__main__":
             use_fixed_canvas=flags.use_fixed_canvas,
             stroke_thicknesses_for_generated_symbols=stroke_thicknesses_for_generated_symbols,
             staff_line_spacing=flags.staff_line_spacing,
-            staff_line_vertical_offsets=offsets)
+            staff_line_vertical_offsets=offsets,
+            random_position_in_canvas=flags.random_position_in_canvas)
         training_dataset_provider.resize_all_images_to_fixed_size(flags.width, flags.height)
         training_dataset_provider.split_dataset_into_training_validation_and_test_set()
 

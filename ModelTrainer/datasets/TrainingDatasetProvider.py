@@ -36,7 +36,8 @@ class TrainingDatasetProvider:
                                                    use_fixed_canvas: bool,
                                                    stroke_thicknesses_for_generated_symbols: List[int],
                                                    staff_line_spacing: int,
-                                                   staff_line_vertical_offsets: List[int]) -> None:
+                                                   staff_line_vertical_offsets: List[int],
+                                                   random_position_in_canvas: bool) -> None:
         """
         Deletes the dataset_directory and recreates the requested datasets into that folder.
         Some datasets just need to be downloaded and extracted (e.g. PrintedMusicSymbolsDataset),
@@ -44,7 +45,8 @@ class TrainingDatasetProvider:
         """
         self.__delete_dataset_directory()
         self.__download_and_extract_datasets(datasets, width, height, use_fixed_canvas, staff_line_spacing,
-                                             staff_line_vertical_offsets, stroke_thicknesses_for_generated_symbols)
+                                             staff_line_vertical_offsets, stroke_thicknesses_for_generated_symbols,
+                                             random_position_in_canvas)
 
     def resize_all_images_to_fixed_size(self, width, height):
         print("Resizing all images with the LANCZOS interpolation to {0}x{1}px (width x height).".format(width, height))
