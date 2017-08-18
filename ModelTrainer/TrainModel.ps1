@@ -22,11 +22,10 @@ $env:PYTHONPATH = $pathToSourceRoot
 # Upcoming Trainings 
 ################################################
 
-# Started on Donkey, 17.08.2017
-Start-Transcript -path "$($pathToTranscript)2017-08-17_vgg4_with_localization_112x112_Adadelta_mb32.txt" -append
-python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name vgg4_with_localization -s 3 --width 112 --height 112 --minibatch_size 32 --optimizer Adadelta --random_position_on_canvas
+# Started on Monsti, 18.08.2017
+Start-Transcript -path "$($pathToTranscript)2017-08-18_vgg4_with_localization_112x112_Adadelta_mb32.txt" -append
+python "$($pathToTranscript)TrainModel.py" --model_name vgg4_with_localization -s 3 --width 112 --height 112 --minibatch_size 32 --optimizer Adadelta --random_position_on_canvas -offsets 28
 Stop-Transcript
-
 
 ##########################################################
 # Models that performed best exclusively on HOMUS dataset
@@ -54,6 +53,13 @@ Stop-Transcript
 # but retain those configurations for documentation
 #######################################################
 exit
+
+# Started on Donkey, 17.08.2017
+Start-Transcript -path "$($pathToTranscript)2017-08-17_vgg4_with_localization_112x112_Adadelta_mb32.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name vgg4_with_localization -s 3 --width 112 --height 112 --minibatch_size 32 --optimizer Adadelta --random_position_on_canvas
+Stop-Transcript
+
+
 # Started on Donkey, 07.08.2017
 
 # rerun failed scripts
