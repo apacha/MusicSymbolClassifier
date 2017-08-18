@@ -8,7 +8,6 @@ from datasets.MuscimaPlusPlusImageGenerator import MuscimaPlusPlusImageGenerator
 
 
 class MuscimaPlusPlusImageGeneratorTest(unittest.TestCase):
-
     def test_download_extract_and_render_all_symbols(self):
         # Arrange
         datasetDownloader = MuscimaPlusPlusDatasetDownloader("temp/muscima_pp_raw")
@@ -24,7 +23,7 @@ class MuscimaPlusPlusImageGeneratorTest(unittest.TestCase):
         self.assertEqual(91255, actual_number_of_files)
 
         # Cleanup
-        os.remove("MUSCIMA-pp_v0.9.zip")
+        os.remove(datasetDownloader.get_dataset_filename())
         shutil.rmtree("temp")
 
     def test_download_extract_and_render_training_symbols(self):
@@ -42,7 +41,7 @@ class MuscimaPlusPlusImageGeneratorTest(unittest.TestCase):
         self.assertEqual(55458, actual_number_of_files)
 
         # Cleanup
-        os.remove("MUSCIMA-pp_v0.9.zip")
+        os.remove(datasetDownloader.get_dataset_filename())
         shutil.rmtree("temp")
 
 

@@ -64,13 +64,13 @@ class MuscimaPlusPlusImageGenerator:
         return crop_objects_that_can_be_rendered_directly
 
     def __load_all_xml_files(self, raw_data_directory: str) -> List[str]:
-        raw_data_directory = os.path.join(raw_data_directory, "v0.9", "data", "cropobjects")
+        raw_data_directory = os.path.join(raw_data_directory, "v0.9.1", "data", "cropobjects")
         xml_files = [y for x in os.walk(raw_data_directory) for y in glob(os.path.join(x[0], '*.xml'))]
         return xml_files
 
     def __load_crop_objects_from_xml_files(self, xml_files: List[str]) -> List[CropObject]:
         crop_objects = []
-        for xml_file in tqdm(xml_files, desc="Loading crop-objects from xml-files", smoothing=0.1, mininterval=0.25):
+        for xml_file in tqdm(xml_files, desc="Loading crop-objects from xml-files", smoothing=0.1, ncols=120):
             crop_objects.extend(self.__get_crop_objects_from_xml_file(xml_file))
 
         for crop_object in crop_objects:
@@ -200,7 +200,7 @@ class MuscimaPlusPlusImageGenerator:
 
     def __render_masks_of_crop_objects_into_image(self, crop_objects: List[CropObject], destination_directory: str):
         for crop_object in tqdm(crop_objects, desc="Generating images from crop-object masks", smoothing=0.1,
-                                mininterval=0.25):
+                                ncols=120):
             symbol_class = crop_object.clsname
             # Make a copy of the mask to not temper with the original data
             mask = crop_object.mask.copy()

@@ -18,10 +18,10 @@ class MuscimaPlusPlusDatasetDownloader(Dataset):
         super().__init__(destination_directory)
 
     def get_dataset_download_url(self) -> str:
-        return "https://ufal.mff.cuni.cz/~hajicj/2017/docs/MUSCIMA-pp_v0.9.zip"
+        return "https://ufal.mff.cuni.cz/~hajicj/2017/docs/MUSCIMA-pp_v0.9.1.zip"
 
     def get_dataset_filename(self) -> str:
-        return "MUSCIMA-pp_v0.9.zip"
+        return "MUSCIMA-pp_v0.9.1.zip"
 
     def download_and_extract_dataset(self):
         if not os.path.exists(self.get_dataset_filename()):
