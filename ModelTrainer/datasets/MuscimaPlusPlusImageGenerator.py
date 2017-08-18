@@ -43,7 +43,7 @@ class MuscimaPlusPlusImageGenerator:
         :param destination_directory: The directory, in which the symbols should be generated into. One sub-folder per
                                       symbol category will be generated automatically
         """
-        print("Extracting Symbols from Muscima++ Dataset...")
+        print("Extracting Symbols from Muscima++ Dataset...", flush=True)
 
         xml_files = self.__load_all_xml_files(raw_data_directory)
         crop_objects = self.__load_crop_objects_from_xml_files(xml_files)
@@ -99,7 +99,7 @@ class MuscimaPlusPlusImageGenerator:
         crop_objects = [crop_object for crop_object in crop_objects if not crop_object.clsname in ignored_classes]
         number_of_filtered_objects = len(crop_objects)
         print("Filtering {0} symbols from {1} ignored classes".format(
-            number_of_unfiltered_objects - number_of_filtered_objects, len(ignored_classes)))
+            number_of_unfiltered_objects - number_of_filtered_objects, len(ignored_classes)), flush=True)
         return crop_objects
 
     def __map_class_names(self, crop_objects: List[CropObject]) -> List[CropObject]:
@@ -111,7 +111,7 @@ class MuscimaPlusPlusImageGenerator:
         return reclassified_crop_objects
 
     def __process_compound_crop_objects(self, crop_objects: List[CropObject]) -> List[CropObject]:
-        print("Processing compound objects ...")
+        print("Processing compound objects ...", flush=True)
 
         with open(os.path.join(self.path_of_this_file, "MuscimaPlusPlusClassesThatNeedComposition.json")) as file:
             classes_that_need_composition = json.load(file)
