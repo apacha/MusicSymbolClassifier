@@ -4,6 +4,7 @@ from models.ResNet2Configuration import ResNet2Configuration
 from models.ResNet1Configuration import ResNet1Configuration
 from models.ResNet3Configuration import ResNet3Configuration
 from models.ResNet3SmallConfiguration import ResNet3SmallConfiguration
+from models.ResNet3SmallWithLocalization import ResNet3SmallWithLocalization
 from models.ResNet4Configuration import ResNet4Configuration
 from models.ResNet5Configuration import ResNet5Configuration
 from models.ResNet5SmallConfiguration import ResNet5SmallConfiguration
@@ -44,7 +45,8 @@ class ConfigurationFactory:
                           ResNet4Configuration(optimizer, width, height, training_minibatch_size, number_of_classes),
                           ResNet5Configuration(optimizer, width, height, training_minibatch_size, number_of_classes),
                           ResNet5SmallConfiguration(optimizer, width, height, training_minibatch_size, number_of_classes),
-                          Vgg4WithLocalizationConfiguration(optimizer, width, height, training_minibatch_size, number_of_classes)]
+                          Vgg4WithLocalizationConfiguration(optimizer, width, height, training_minibatch_size, number_of_classes),
+                          ResNet3SmallWithLocalization(optimizer, width, height, training_minibatch_size, number_of_classes)]
         return configurations
 
 

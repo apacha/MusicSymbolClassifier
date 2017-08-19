@@ -22,9 +22,9 @@ $env:PYTHONPATH = $pathToSourceRoot
 # Upcoming Trainings 
 ################################################
 
-# Started on Monsti, 18.08.2017
-Start-Transcript -path "$($pathToTranscript)2017-08-18_vgg4_with_localization_112x112_Adadelta_mb32.txt" -append
-python "$($pathToTranscript)TrainModel.py" --model_name vgg4_with_localization -s 3 --width 112 --height 112 --minibatch_size 32 --optimizer Adadelta --random_position_on_canvas -offsets 28
+# Started on Monsti, 19.08.2017
+Start-Transcript -path "$($pathToTranscript)2017-08-19_res_net_3_small_with_localization_112x112_Adadelta_mb32.txt" -append
+python "$($pathToTranscript)TrainModel.py" --model_name res_net_3_small_with_localization -s 3 --width 112 --height 112 --minibatch_size 32 --optimizer Adadelta --random_position_on_canvas -offsets 28
 Stop-Transcript
 
 ##########################################################
@@ -53,6 +53,11 @@ Stop-Transcript
 # but retain those configurations for documentation
 #######################################################
 exit
+
+# Started on Monsti, 19.08.2017
+Start-Transcript -path "$($pathToTranscript)2017-08-19_vgg4_with_localization_112x112_Adadelta_mb32.txt" -append
+python "$($pathToTranscript)TrainModel.py" --model_name vgg4_with_localization -s 3 --width 112 --height 112 --minibatch_size 32 --optimizer Adadelta --random_position_on_canvas -offsets 28
+Stop-Transcript
 
 # Started on Donkey, 17.08.2017
 Start-Transcript -path "$($pathToTranscript)2017-08-17_vgg4_with_localization_112x112_Adadelta_mb32.txt" -append
