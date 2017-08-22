@@ -89,13 +89,13 @@ def test_model(model_path: str, image_paths: List[str]):
                        'Whole-Half-Rest',
                        'Whole-Note']
 
-
         if len(image_paths) == 1:
             print("Class scores:")
             for i in range(len(scores)):
                 print("{0:<18s} {1:.5f}".format(class_names[i], scores[i]))
 
-        print(" Image is most likely: {0} (certainty: {1:0.2f})".format(class_names[class_with_highest_probability],
+        most_likely_class = class_names[class_with_highest_probability]
+        print(" Image is most likely: {0} (certainty: {1:0.2f})".format(most_likely_class,
                                                                         scores[class_with_highest_probability]))
 
         red = (255, 0, 0)
@@ -106,7 +106,8 @@ def test_model(model_path: str, image_paths: List[str]):
         draw.rectangle(rectangle, fill=None, outline=red)
         path = os.path.dirname(image_path)
         file_name, extension = os.path.splitext(os.path.basename(image_path))
-        image_with_bounding_box.save(os.path.join(path, file_name + "_localization" + extension))
+        image_with_bounding_box.save(
+            os.path.join(path, "{0}_{1}_localization{2}".format(file_name, most_likely_class, extension)))
 
 
 if __name__ == "__main__":
@@ -116,12 +117,34 @@ if __name__ == "__main__":
                         default="2017-08-17_vgg4_with_localization.h5")
     parser.add_argument("-i", "--images", dest="image_paths", nargs="+",
                         help="path(s) to the rgb image(s) to classify",
-                        default="C:\\Users\\Alex\\Repositories\\MusicSymbolClassifier\\ModelTrainer\\data\\images\\3-4-Time\\1-13_3.png")
+                        # default="C:\\Users\\Alex\\Repositories\\MusicSymbolClassifier\\ModelTrainer\\data\\images\\3-4-Time\\1-13_3.png abc",
+                        default=""
+                        )
+    parser.add_argument("-d", "--image_directory", dest="image_directory",
+                        help="path to a folder that contains all images that should be classified",
+                        # default="C:\\Users\\Alex\\Repositories\\MusicSymbolClassifier\\ModelTester\\test-data\\",
+                        default=""
+                        )
 
     args = parser.parse_args()
 
-    if len(sys.argv) < 5:
+    if len(args.image_paths) == 0 and len(args.image_directory) == 0:
+        print("No data for classification provided. Aborting")
         parser.print_help()
         sys.exit(-1)
 
-    test_model(args.model_path, args.image_paths)
+    files = []
+
+    if len(args.image_paths) > 0:
+        if type(args.image_paths) == str:
+            files.append(args.image_paths)
+        else:
+            files += args.image_paths
+
+    if len(args.image_directory) > 0:
+        files_in_directory = os.listdir(args.image_directory)
+        images_in_directory = [os.path.join(args.image_directory, i) for i in files_in_directory if
+                               i.endswith("png") or i.endswith("jpg")]
+        files += images_in_directory
+
+    test_model(args.model_path, files)
