@@ -13,7 +13,9 @@ class Vgg4WithLocalizationConfiguration(TrainingConfiguration):
 
     def __init__(self, optimizer, width, height, training_minibatch_size, number_of_classes):
         super().__init__(optimizer=optimizer, data_shape=(height, width, 3),
-                         training_minibatch_size=training_minibatch_size, number_of_classes=number_of_classes)
+                         training_minibatch_size=training_minibatch_size, number_of_classes=number_of_classes,
+                         number_of_epochs_before_early_stopping=30,
+                         number_of_epochs_before_reducing_learning_rate=14)
 
     def classifier(self) -> Sequential:
         """ Returns the model of this configuration """
