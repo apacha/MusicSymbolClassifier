@@ -3,7 +3,8 @@ import shutil
 import unittest
 from glob import glob
 
-from datasets.MuscimaPlusPlusDatasetDownloader import MuscimaPlusPlusDatasetDownloader
+from omrdatasettools.downloaders.MuscimaPlusPlusDatasetDownloader import MuscimaPlusPlusDatasetDownloader
+
 from datasets.MuscimaPlusPlusImageGenerator2 import MuscimaPlusPlusImageGenerator2
 
 

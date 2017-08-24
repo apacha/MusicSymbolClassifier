@@ -3,9 +3,6 @@ import shutil
 import unittest
 from glob import glob
 
-from omrdatasettools.downloaders.OpenOmrDatasetDownloader import OpenOmrDatasetDownloader
-
-from datasets.OpenOmrImagePreparer import OpenOmrImagePreparer
 from datasets.TrainingDatasetProvider import TrainingDatasetProvider
 
 
