@@ -5,20 +5,23 @@ import shutil
 from typing import List
 
 from PIL import Image
+from omrdatasettools.downloaders.AudiverisOmrDatasetDownloader import AudiverisOmrDatasetDownloader
+from omrdatasettools.downloaders.FornesMusicSymbolsDatasetDownloader import FornesMusicSymbolsDatasetDownloader
 from omrdatasettools.downloaders.HomusDatasetDownloader import HomusDatasetDownloader
+from omrdatasettools.downloaders.MuscimaPlusPlusDatasetDownloader import MuscimaPlusPlusDatasetDownloader
+from omrdatasettools.downloaders.OpenOmrDatasetDownloader import OpenOmrDatasetDownloader
+from omrdatasettools.downloaders.PrintedMusicSymbolsDatasetDownloader import PrintedMusicSymbolsDatasetDownloader
+from omrdatasettools.downloaders.RebeloMusicSymbolDataset1Downloader import RebeloMusicSymbolDataset1Downloader
+from omrdatasettools.downloaders.RebeloMusicSymbolDataset2Downloader import RebeloMusicSymbolDataset2Downloader
+from omrdatasettools.image_generators.AudiverisOmrImageGenerator import AudiverisOmrImageGenerator
+from omrdatasettools.image_generators.HomusImageGenerator import HomusImageGenerator
 
-from datasets.AudiverisOmrDatasetDownloader import AudiverisOmrDatasetDownloader
-from datasets.AudiverisOmrImageGenerator import AudiverisOmrImageGenerator
+from datasets.AudiverisOmrImagePreparer import AudiverisOmrImagePreparer
 from datasets.DatasetSplitter import DatasetSplitter
-from datasets.FornesMusicSymbolsDatasetDownloader import FornesMusicSymbolsDatasetDownloader
-from datasets.HomusImageGenerator import HomusImageGenerator
+from datasets.FornesMusicSymbolsImagePreparer import FornesMusicSymbolsImagePreparer
 from datasets.ImageResizer import ImageResizer
-from datasets.MuscimaPlusPlusDatasetDownloader import MuscimaPlusPlusDatasetDownloader
-from datasets.MuscimaPlusPlusImageGenerator import MuscimaPlusPlusImageGenerator
-from datasets.OpenOmrDatasetDownloader import OpenOmrDatasetDownloader
-from datasets.PrintedMusicSymbolsDatasetDownloader import PrintedMusicSymbolsDatasetDownloader
-from datasets.RebeloMusicSymbolDataset1Downloader import RebeloMusicSymbolDataset1Downloader
-from datasets.RebeloMusicSymbolDataset2Downloader import RebeloMusicSymbolDataset2Downloader
+from datasets.MuscimaPlusPlusImageGenerator2 import MuscimaPlusPlusImageGenerator2
+from datasets.OpenOmrImagePreparer import OpenOmrImagePreparer
 
 
 class TrainingDatasetProvider:
@@ -96,23 +99,32 @@ class TrainingDatasetProvider:
             dataset_downloader = PrintedMusicSymbolsDatasetDownloader(self.image_dataset_directory)
             dataset_downloader.download_and_extract_dataset()
         if 'fornes' in datasets:
-            dataset_downloader = FornesMusicSymbolsDatasetDownloader(self.image_dataset_directory)
+            raw_dataset_directory = os.path.join(self.dataset_directory, "fornes_raw")
+            dataset_downloader = FornesMusicSymbolsDatasetDownloader(raw_dataset_directory)
             dataset_downloader.download_and_extract_dataset()
+            image_preparer = FornesMusicSymbolsImagePreparer()
+            image_preparer.prepare_dataset(raw_dataset_directory, self.image_dataset_directory)
         if 'audiveris' in datasets:
-            raw_dataset_directory = os.path.join(self.dataset_directory, "audiveris_raw")
+            raw_dataset_directory = os.path.join(self.dataset_directory, "audiveris_omr_raw")
+            intermediate_image_directory = os.path.join(self.dataset_directory, "audiveris_omr_images")
             dataset_downloader = AudiverisOmrDatasetDownloader(raw_dataset_directory)
             dataset_downloader.download_and_extract_dataset()
             image_generator = AudiverisOmrImageGenerator()
-            image_generator.extract_symbols(raw_dataset_directory, self.image_dataset_directory)
+            image_generator.extract_symbols(raw_dataset_directory, intermediate_image_directory)
+            image_preparer = AudiverisOmrImagePreparer()
+            image_preparer.prepare_dataset(intermediate_image_directory, self.image_dataset_directory)
         if 'muscima_pp' in datasets:
             raw_dataset_directory = os.path.join(self.dataset_directory, "muscima_pp_raw")
             dataset_downloader = MuscimaPlusPlusDatasetDownloader(raw_dataset_directory)
             dataset_downloader.download_and_extract_dataset()
-            image_generator = MuscimaPlusPlusImageGenerator()
+            image_generator = MuscimaPlusPlusImageGenerator2()
             image_generator.extract_symbols_for_training(raw_dataset_directory, self.image_dataset_directory)
         if 'openomr' in datasets:
-            dataset_downloader = OpenOmrDatasetDownloader(self.image_dataset_directory)
+            raw_dataset_directory = os.path.join(self.dataset_directory, "open_omr_raw")
+            dataset_downloader = OpenOmrDatasetDownloader(raw_dataset_directory)
             dataset_downloader.download_and_extract_dataset()
+            image_preparer = OpenOmrImagePreparer()
+            image_preparer.prepare_dataset(raw_dataset_directory, self.image_dataset_directory)
 
     @staticmethod
     def add_arguments_for_training_dataset_provider(parser: argparse.ArgumentParser):
@@ -150,4 +162,5 @@ if __name__ == "__main__":
         use_fixed_canvas=flags.use_fixed_canvas,
         stroke_thicknesses_for_generated_symbols=stroke_thicknesses_for_generated_symbols,
         staff_line_spacing=flags.staff_line_spacing,
-        staff_line_vertical_offsets=offsets)
+        staff_line_vertical_offsets=offsets,
+        random_position_on_canvas=False)
