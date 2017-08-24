@@ -5,12 +5,12 @@ import shutil
 from typing import List
 
 from PIL import Image
+from omrdatasettools.downloaders.HomusDatasetDownloader import HomusDatasetDownloader
 
 from datasets.AudiverisOmrDatasetDownloader import AudiverisOmrDatasetDownloader
 from datasets.AudiverisOmrImageGenerator import AudiverisOmrImageGenerator
 from datasets.DatasetSplitter import DatasetSplitter
 from datasets.FornesMusicSymbolsDatasetDownloader import FornesMusicSymbolsDatasetDownloader
-from datasets.HomusDatasetDownloader import HomusDatasetDownloader
 from datasets.HomusImageGenerator import HomusImageGenerator
 from datasets.ImageResizer import ImageResizer
 from datasets.MuscimaPlusPlusDatasetDownloader import MuscimaPlusPlusDatasetDownloader

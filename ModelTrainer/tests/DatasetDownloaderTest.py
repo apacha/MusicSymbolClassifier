@@ -6,7 +6,6 @@ from glob import glob
 from datasets.AudiverisOmrDatasetDownloader import AudiverisOmrDatasetDownloader
 from datasets.Dataset import Dataset
 from datasets.FornesMusicSymbolsDatasetDownloader import FornesMusicSymbolsDatasetDownloader
-from datasets.HomusDatasetDownloader import HomusDatasetDownloader
 from datasets.MuscimaPlusPlusDatasetDownloader import MuscimaPlusPlusDatasetDownloader
 from datasets.OpenOmrDatasetDownloader import OpenOmrDatasetDownloader
 from datasets.PrintedMusicSymbolsDatasetDownloader import PrintedMusicSymbolsDatasetDownloader
@@ -15,17 +14,6 @@ from datasets.RebeloMusicSymbolDataset2Downloader import RebeloMusicSymbolDatase
 
 
 class DatasetDownloaderTest(unittest.TestCase):
-    def test_download_and_extract_homus_dataset_expect_folder_to_be_created(self):
-        destination_directory = "HOMUS"
-        downloader = HomusDatasetDownloader(".")
-        zip_file = downloader.get_dataset_filename()
-        number_of_samples_in_the_dataset = 15200
-        target_file_extension = "*.txt"
-
-        self.download_dataset_and_verify_correct_extraction(destination_directory, number_of_samples_in_the_dataset,
-                                                            target_file_extension, zip_file,
-                                                            downloader)
-
     def test_download_and_extract_rebelo1_dataset_expect_folder_to_be_created(self):
         # Arrange
         destination_directory = "Rebelo1Images"

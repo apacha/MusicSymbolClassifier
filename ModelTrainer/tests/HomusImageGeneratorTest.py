@@ -3,7 +3,8 @@ import shutil
 import unittest
 from glob import glob
 
-from datasets.HomusDatasetDownloader import HomusDatasetDownloader
+from omrdatasettools.downloaders.HomusDatasetDownloader import HomusDatasetDownloader
+
 from datasets.HomusImageGenerator import HomusImageGenerator
 
 
