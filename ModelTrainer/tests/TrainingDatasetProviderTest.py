@@ -19,7 +19,9 @@ class TrainingDatasetProviderTest(unittest.TestCase):
 
         # Assert
         all_image_files = [y for x in os.walk("temp/images") for y in glob(os.path.join(x[0], '*.png'))]
-        actual_number_of_classes = len(os.listdir("temp/images"))
+        all_classes = os.listdir("temp/images")
+        print(all_classes)
+        actual_number_of_classes = len(all_classes)
         actual_number_of_images = len(all_image_files)
 
         self.assertEqual(expected_number_of_images, actual_number_of_images)
