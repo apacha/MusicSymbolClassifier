@@ -11,14 +11,14 @@ from datasets.OpenOmrImagePreparer import OpenOmrImagePreparer
 class OpenOmrImagePreparerTest(unittest.TestCase):
     def test_download_and_prepare_dataset(self):
         # Arrange
-        datasetDownloader = OpenOmrDatasetDownloader("temp/open_omr_raw")
+        datasetDownloader = OpenOmrDatasetDownloader("temp/open_omr_raw2")
         expected_number_of_images = 503
 
         # Act
         datasetDownloader.download_and_extract_dataset()
         image_generator = OpenOmrImagePreparer()
-        image_generator.prepare_dataset("temp/open_omr_raw", "temp/open_omr_image")
-        all_image_files = [y for x in os.walk("temp/open_omr_image") for y in glob(os.path.join(x[0], '*.png'))]
+        image_generator.prepare_dataset("temp/open_omr_raw2", "temp/open_omr_image2")
+        all_image_files = [y for x in os.walk("temp/open_omr_image2") for y in glob(os.path.join(x[0], '*.png'))]
         actual_number_of_images = len(all_image_files)
 
         # Assert
