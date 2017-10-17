@@ -108,8 +108,12 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
         callbacks = [model_checkpoint, early_stop]
 
     class_weight_calculator = ClassWeightCalculator()
-    class_weights = class_weight_calculator.calculate_class_weights(image_dataset_directory, method=class_weights_balancing_method,
+    class_weights = class_weight_calculator.calculate_class_weights(image_dataset_directory,
+                                                                    method=class_weights_balancing_method,
                                                                     class_indices=training_data_generator.class_indices)
+    if class_weights_balancing_method is not None:
+        print("Using {0} method for obtaining class weights to compensate for an unbalanced dataset.".format(
+            class_weights_balancing_method))
 
     print("Training on dataset...")
     history = model.fit_generator(
