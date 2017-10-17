@@ -56,6 +56,7 @@ class ResNet3SmallWithLocalization(TrainingConfiguration):
         model = Model(inputs=[input], outputs=[classification_head, regression_head])
         model.compile(self.get_optimizer(),
                       loss={'output_class': 'categorical_crossentropy', 'output_bounding_box': 'mse'},
+                      loss_weights={'output_class': 0.998, 'output_bounding_box': 0.002},
                       metrics=["accuracy"])
         return model
 
