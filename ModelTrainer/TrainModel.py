@@ -13,6 +13,7 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau
 from keras.preprocessing.image import ImageDataGenerator
 from sklearn import metrics
 
+from ClassWeightCalculator import ClassWeightCalculator
 from reporting import TelegramNotifier, GoogleSpreadsheetReporter
 from reporting.TrainingHistoryPlotter import TrainingHistoryPlotter
 from datasets.TrainingDatasetProvider import TrainingDatasetProvider
@@ -23,7 +24,8 @@ from models.ConfigurationFactory import ConfigurationFactory
 def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: List[int],
                 width: int, height: int,
                 staff_line_vertical_offsets: List[int], training_minibatch_size: int,
-                optimizer: str, dynamic_learning_rate_reduction: bool, use_fixed_canvas: bool, datasets: List[str]):
+                optimizer: str, dynamic_learning_rate_reduction: bool, use_fixed_canvas: bool, datasets: List[str],
+                class_weights_balancing_method: str):
     image_dataset_directory = os.path.join(dataset_directory, "images")
 
     bounding_boxes = None
@@ -105,6 +107,10 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
         print("Learning-rate reduction on Plateau disabled")
         callbacks = [model_checkpoint, early_stop]
 
+    class_weight_calculator = ClassWeightCalculator()
+    class_weights = class_weight_calculator.calculate_class_weights(image_dataset_directory, method=class_weights_balancing_method,
+                                                                    class_indices=training_data_generator.class_indices)
+
     print("Training on dataset...")
     history = model.fit_generator(
         generator=training_data_generator,
@@ -112,7 +118,8 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
         epochs=training_configuration.number_of_epochs,
         callbacks=callbacks,
         validation_data=validation_data_generator,
-        validation_steps=validation_steps_per_epoch
+        validation_steps=validation_steps_per_epoch,
+        class_weight=class_weights
     )
 
     print("Loading best model from check-point and testing...")
@@ -219,13 +226,18 @@ if __name__ == "__main__":
 
     parser.add_argument("--minibatch_size", default=16, type=int,
                         help="Size of the minibatches for training, typically one of 8, 16, 32, 64 or 128")
-    parser.add_argument("--optimizer", default="Adadelta",
+    parser.add_argument("--optimizer", default="Adadelta", type=str,
                         help="The optimizer used for the training, can be SGD, Adam or Adadelta")
 
     parser.add_argument("--no_dynamic_learning_rate_reduction", dest="dynamic_learning_rate_reduction",
                         action="store_false",
                         help="True, if the learning rate should not be scheduled to be reduced on a plateau.")
     parser.set_defaults(dynamic_learning_rate_reduction=True)
+    parser.add_argument("--class_weights_balancing_method", default=None, type=str,
+                        help="The optional weight balancing method for handling unbalanced datasets. If provided,"
+                             "valid choices are simple or skBalance. 'simple' uses 1/sqrt(#samples_per_class) as "
+                             "weights for samples from each class to compensate for classes that are underrepresented."
+                             "'skBalance' uses the Python SkLearn module to calculate more sophisticated weights.")
 
     TrainingDatasetProvider.add_arguments_for_training_dataset_provider(parser)
 
@@ -263,7 +275,8 @@ if __name__ == "__main__":
                 optimizer=flags.optimizer,
                 dynamic_learning_rate_reduction=flags.dynamic_learning_rate_reduction,
                 use_fixed_canvas=flags.use_fixed_canvas,
-                datasets=datasets)
+                datasets=datasets,
+                class_weights_balancing_method=flags.class_weights_balancing_method)
 
     # To run in in python console
     # dataset_directory = 'data'

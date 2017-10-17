@@ -22,6 +22,18 @@ $env:PYTHONPATH = $pathToSourceRoot
 # Upcoming Trainings 
 ################################################
 
+Start-Transcript -path "$($pathToTranscript)2017-10-17_res_net_3_small_simpleBalance_96x96_no_fixed_canvas_Adadelta_mb16_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp_fornes_openomr.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name res_net_3_small -s 3 --width 96 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp,fornes,openomr --class_weights_balancing_method simple
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-10-17_vgg4_skBalance_96x96_no_fixed_canvas_Adadelta_mb16_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp_fornes_openomr.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name vgg4 -s 3 --width 96 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp,fornes,openomr --class_weights_balancing_method skBalance
+Stop-Transcript
+
+Start-Transcript -path "$($pathToTranscript)2017-10-17_vgg4_simpleBalance_96x96_no_fixed_canvas_Adadelta_mb16_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp_fornes_openomr.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name vgg4 -s 3 --width 96 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp,fornes,openomr --class_weights_balancing_method simple
+Stop-Transcript
+
 ##########################################################
 # Models that performed best exclusively on HOMUS dataset
 ##########################################################
@@ -40,6 +52,12 @@ Start-Transcript -path "$($pathToTranscript)2017-07-19_res_net_3_4_small_192x96_
 python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name res_net_3_small -s 3 --width 96 --height 192 --minibatch_size 16 --optimizer Adadelta
 Stop-Transcript
 
+##########################################################
+# Models that performed best on joint datasets
+##########################################################
+Start-Transcript -path "$($pathToTranscript)2017-08-07_res_net_3_small_48x96_no_fixed_canvas_Adadelta_mb32_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp_fornes_openomr.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name res_net_3_small -s 3 --width 96 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp,fornes,openomr
+Stop-Transcript
 
 #######################################################
 # Below are configurations that already were 
@@ -48,6 +66,22 @@ Stop-Transcript
 # but retain those configurations for documentation
 #######################################################
 exit
+
+# Started on Donki, 16.10.2017
+Start-Transcript -path "$($pathToTranscript)2017-10-16_res_net_3_small_skBalance_96x96_no_fixed_canvas_Adadelta_mb16_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp_fornes_openomr.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name res_net_3_small -s 3 --width 96 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp,fornes,openomr --class_weights_balancing_method skBalance
+Stop-Transcript
+
+# Started on Donki, 28.08.2017
+Start-Transcript -path "$($pathToTranscript)2017-08-28_res_net_3_small_with_localization_112x112_Adadelta_mb32_loss-weights-0.998-0.002.txt" -append
+python "$($pathToTranscript)TrainModel.py" --model_name res_net_3_small_with_localization -s 3 --width 112 --height 112 --minibatch_size 32 --optimizer Adadelta --random_position_on_canvas -offsets 28
+Stop-Transcript
+
+
+# Started on Donki, 28.08.2017
+Start-Transcript -path "$($pathToTranscript)2017-08-28_res_net_3_small_with_localization_112x112_Adadelta_mb32_loss-weights-0.8-0.2.txt" -append
+python "$($pathToTranscript)TrainModel.py" --model_name res_net_3_small_with_localization -s 3 --width 112 --height 112 --minibatch_size 32 --optimizer Adadelta --random_position_on_canvas -offsets 28
+Stop-Transcript
 
 # Started on Monsti, 20.08.2017
 Start-Transcript -path "$($pathToTranscript)2017-08-20_res_net_3_small_with_localization_112x112_Adadelta_mb16.txt" -append
