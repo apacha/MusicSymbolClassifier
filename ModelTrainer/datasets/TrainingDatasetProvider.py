@@ -16,7 +16,7 @@ from omrdatasettools.downloaders.RebeloMusicSymbolDataset2Downloader import Rebe
 from omrdatasettools.image_generators.AudiverisOmrImageGenerator import AudiverisOmrImageGenerator
 from omrdatasettools.image_generators.HomusImageGenerator import HomusImageGenerator
 
-from datasets.AudiverisOmrImagePreparer import AudiverisOmrImagePreparer
+from datasets.AudiverisOmrImageExtractor import AudiverisOmrImageExtractor
 from datasets.DatasetSplitter import DatasetSplitter
 from datasets.FornesMusicSymbolsImagePreparer import FornesMusicSymbolsImagePreparer
 from datasets.ImageResizer import ImageResizer
@@ -111,7 +111,7 @@ class TrainingDatasetProvider:
             dataset_downloader.download_and_extract_dataset()
             image_generator = AudiverisOmrImageGenerator()
             image_generator.extract_symbols(raw_dataset_directory, intermediate_image_directory)
-            image_preparer = AudiverisOmrImagePreparer()
+            image_preparer = AudiverisOmrImageExtractor()
             image_preparer.prepare_dataset(intermediate_image_directory, self.image_dataset_directory)
         if 'muscima_pp' in datasets:
             raw_dataset_directory = os.path.join(self.dataset_directory, "muscima_pp_raw")
