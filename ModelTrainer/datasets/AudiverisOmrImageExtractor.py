@@ -8,7 +8,7 @@ from omrdatasettools.downloaders.AudiverisOmrDatasetDownloader import AudiverisO
 from omrdatasettools.image_generators.AudiverisOmrImageGenerator import AudiverisOmrImageGenerator
 
 
-class AudiverisOmrImagePreparer(object):
+class AudiverisOmrImageExtractor(object):
     def __init__(self) -> None:
         super().__init__()
         self.path_of_this_file = os.path.dirname(os.path.realpath(__file__))
@@ -60,5 +60,5 @@ if __name__ == "__main__":
     image_generator.extract_symbols(flags.raw_dataset_directory, flags.intermediate_image_directory)
 
     # Actually prepare our dataset
-    dataset_preparer = AudiverisOmrImagePreparer()
+    dataset_preparer = AudiverisOmrImageExtractor()
     dataset_preparer.prepare_dataset(flags.intermediate_image_directory, flags.image_dataset_directory)
