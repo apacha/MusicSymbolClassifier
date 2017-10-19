@@ -60,6 +60,8 @@ class ClassWeightCalculator:
 
         class_weights_with_indices = dict()
 
+        # Keras does not expect a dictionary with class-names as keys, but with class-indices as keys of the dictionary,
+        # therefore we have to recreate the dicitionary.
         for class_name in class_weights.keys():
             class_weights_with_indices[class_indices[class_name]] = class_weights[class_name]
 

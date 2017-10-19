@@ -92,7 +92,7 @@ class MuscimaPlusPlusImageGenerator2(MuscimaPlusPlusImageGenerator):
             stem_object = None
             flag_objects = []
             for o in c.outlinks:
-                uid_of_outlink = c.dataset + "___" + c.doc + "___" + str(o)
+                uid_of_outlink = c.build_uid(c.dataset, c.doc, str(o))
                 if not uid_of_outlink in crop_object_dict:
                     continue  # The targeted object has been filtered by broken-list or ignored classes
                 outgoing_object = crop_object_dict[uid_of_outlink]

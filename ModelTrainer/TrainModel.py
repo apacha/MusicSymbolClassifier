@@ -14,7 +14,7 @@ from keras.preprocessing.image import ImageDataGenerator
 from sklearn import metrics
 
 from ClassWeightCalculator import ClassWeightCalculator
-from reporting import TelegramNotifier, GoogleSpreadsheetReporter
+from reporting import TelegramNotifier, GoogleSpreadsheetReporter, sklearn_reporting
 from reporting.TrainingHistoryPlotter import TrainingHistoryPlotter
 from datasets.TrainingDatasetProvider import TrainingDatasetProvider
 from datasets.DirectoryIteratorWithBoundingBoxes import DirectoryIteratorWithBoundingBoxes
@@ -145,13 +145,24 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
     else:
         predicted_classes = numpy.argmax(predictions, axis=1)
 
-    report = metrics.classification_report(true_classes, predicted_classes,
-                                           target_names=names_of_classes_with_test_data)
-
     test_data_generator.reset()
     evaluation = best_model.evaluate_generator(test_data_generator, steps=test_steps_per_epoch)
     classification_accuracy = 0
 
+    print("Reporting classification statistics with micro average")
+    report = sklearn_reporting.classification_report(true_classes, predicted_classes, digits=3,
+                                                     target_names=names_of_classes_with_test_data, average='micro')
+    print(report)
+
+    print("Reporting classification statistics with macro average")
+    report = sklearn_reporting.classification_report(true_classes, predicted_classes, digits=3,
+                                                     target_names=names_of_classes_with_test_data, average='macro')
+    print(report)
+
+    print("Reporting classification statistics with weighted average")
+    report = sklearn_reporting.classification_report(true_classes, predicted_classes, digits=3,
+                                                     target_names=names_of_classes_with_test_data, average='weighted'
+                                                     )
     print(report)
 
     indices_of_misclassified_files = [i for i, e in enumerate(true_classes - predicted_classes) if e != 0]
@@ -193,6 +204,7 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
     data_augmentation = "{0}% zoom, {1}° rotation".format(int(training_configuration.zoom_range * 100),
                                                           training_configuration.rotation_range)
     today = "{0:02d}.{1:02d}.{2}".format(date.today().day, date.today().month, date.today().year)
+    balancing_method = "None" if class_weights_balancing_method is None else class_weights_balancing_method
 
     GoogleSpreadsheetReporter.append_result_to_spreadsheet(dataset_size=dataset_size, image_sizes=image_sizes,
                                                            stroke_thicknesses=stroke_thicknesses_string,
@@ -209,7 +221,8 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
                                                            date=today,
                                                            use_fixed_canvas=use_fixed_canvas,
                                                            datasets=datasets_string,
-                                                           execution_time_in_seconds=execution_time_in_seconds)
+                                                           execution_time_in_seconds=execution_time_in_seconds,
+                                                           balancing_method=balancing_method)
 
 
 if __name__ == "__main__":
