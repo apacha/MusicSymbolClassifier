@@ -9,7 +9,7 @@ from typing import List
 import keras
 import numpy
 import numpy as np
-from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau
+from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau, TensorBoard
 from keras.preprocessing.image import ImageDataGenerator
 from sklearn import metrics
 
@@ -86,7 +86,8 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
     print("Model {0} loaded.".format(training_configuration.name()))
     print(training_configuration.summary())
 
-    best_model_path = "{1}_{0}.h5".format(training_configuration.name(), datetime.date.today())
+    start_of_training = datetime.date.today()
+    best_model_path = "{0}_{1}.h5".format(start_of_training, training_configuration.name())
 
     monitor_variable = 'val_acc'
     if training_configuration.performs_localization():
@@ -101,11 +102,14 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
                                                 verbose=1,
                                                 factor=training_configuration.learning_rate_reduction_factor,
                                                 min_lr=training_configuration.minimum_learning_rate)
+    tensorboard_callback = TensorBoard(
+            log_dir="./logs/{0}_{1}/".format(start_of_training, training_configuration.name()),
+            batch_size=training_configuration.training_minibatch_size)
     if dynamic_learning_rate_reduction:
-        callbacks = [model_checkpoint, early_stop, learning_rate_reduction]
+        callbacks = [model_checkpoint, early_stop, tensorboard_callback, learning_rate_reduction]
     else:
         print("Learning-rate reduction on Plateau disabled")
-        callbacks = [model_checkpoint, early_stop]
+        callbacks = [model_checkpoint, early_stop, tensorboard_callback]
 
     class_weight_calculator = ClassWeightCalculator()
     class_weights = class_weight_calculator.calculate_class_weights(image_dataset_directory,
@@ -187,7 +191,7 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
     execution_time_in_seconds = round(end_time - start_time)
     print("Execution time: {0:.1f}s".format(end_time - start_time))
 
-    training_result_image = "{1}_{0}_{2:.1f}p.png".format(training_configuration.name(), datetime.date.today(),
+    training_result_image = "{1}_{0}_{2:.1f}p.png".format(training_configuration.name(), start_of_training,
                                                           classification_accuracy * 100)
     TrainingHistoryPlotter.plot_history(history, training_result_image)
 
@@ -203,7 +207,7 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
                                      training_configuration.input_image_columns)
     data_augmentation = "{0}% zoom, {1}° rotation".format(int(training_configuration.zoom_range * 100),
                                                           training_configuration.rotation_range)
-    today = "{0:02d}.{1:02d}.{2}".format(date.today().day, date.today().month, date.today().year)
+    today = "{0:02d}.{1:02d}.{2}".format(start_of_training.day, start_of_training.month, start_of_training.year)
     balancing_method = "None" if class_weights_balancing_method is None else class_weights_balancing_method
 
     GoogleSpreadsheetReporter.append_result_to_spreadsheet(dataset_size=dataset_size, image_sizes=image_sizes,
