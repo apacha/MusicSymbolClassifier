@@ -56,6 +56,11 @@ Stop-Transcript
 exit
 
 
+# Started on Donkey, 19.10.2017
+Start-Transcript -path "$($pathToTranscript)2017-10-19_res_net_3_skBalance_96x96_no_fixed_canvas_Adadelta_mb16_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp_fornes_openomr.txt" -append
+python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name res_net_3 -s 3 --width 96 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp,fornes,openomr --class_weights_balancing_method skBalance
+Stop-Transcript
+
 # Started on Donkey, 18.10.2017
 Start-Transcript -path "$($pathToTranscript)2017-10-17_vgg4_simpleBalance_96x96_no_fixed_canvas_Adadelta_mb16_homus_rebelo1_rebelo2_printed_audiveris_muscima_pp_fornes_openomr.txt" -append
 python C:/Users/Alex/Repositories/MusicSymbolClassifier/ModelTrainer/TrainModel.py --model_name vgg4 -s 3 --width 96 --height 96 --minibatch_size 16 --optimizer Adadelta --disable_fixed_canvas_size --datasets homus,rebelo1,rebelo2,printed,audiveris,muscima_pp,fornes,openomr --class_weights_balancing_method simple
