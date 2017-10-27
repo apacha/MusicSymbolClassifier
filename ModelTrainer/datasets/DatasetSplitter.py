@@ -8,13 +8,12 @@ import numpy
 
 
 class DatasetSplitter:
-    """ The abstract base class for the datasets used to train the model """
+    """ Class that can be used to create a reproducible random-split of a dataset into train/validation/test sets """
 
     def __init__(self,
                  source_directory: str,
                  destination_directory: str):
         """
-
         :param source_directory: The root directory, where all images currently reside.
             Must one sub-folders per class.
         :param destination_directory: The root directory, into which the data will be placed.
