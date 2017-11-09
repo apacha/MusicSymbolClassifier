@@ -39,6 +39,24 @@ Run `python ModelTrainer/TrainModel.py` or `ModelTrainer/TrainBestModel.ps1` for
 
 The result of this training is a .h5 (e.g. res_net_4.h5) file that contains the trained model and when running via the PowerShell-script a transcript of the entire training is also created for later investigation.
 
+`TrainModel.py` has a couple of parameters that can be changed for the training. Note that all options have meaningful default values, so they are completely optional:
+
+- `--dataset_directory` the folder where the images should be stored. Default is `data`
+- `--datasets` Specifies which datasets are used for the training. One or multiple datasets of the following are possible: homus, rebelo1, rebelo2, printed, audiveris, muscima_pp, fornes or openomr. Multiple values are connected by a separating comma, i.e. `homus,rebelo1`.
+- `--use_existing_dataset_directory` Whether to delete and recreate the dataset-directory (by downloading the appropriate files from the internet, extracting and generating images) or simply use whatever data currently is inside of that directory. This flag should not be provided, if you switch datasets.
+- `--model_name` the name of the model configuration used for training (e.g. `vgg4`). Run `ListAvailableConfigurations.ps1` or `models/ConfigurationFactory.py` to get a list of all available configurations
+- `--width` Width of the input-images for the network in pixel
+- `--height` Height of the input-images for the network in pixel
+
+Further parameters for optional hyperparameter tuning
+
+- `--minibatch_size` Size of the minibatches for training, typically one of 8, 16, 32, 64 or 128
+- `--optimizer` The optimizer used for the training, can be SGD, Adam or Adadelta
+- `--no_dynamic_learning_rate_reduction` True, if the learning rate should not be scheduled to be reduced on a plateau
+- `--class_weights_balancing_method` The optional weight balancing method for handling unbalanced datasets. If provided, valid choices are simple or skBalance. 'simple' uses 1/sqrt(#samples_per_class) as weights for samples from each class to compensate for classes that are underrepresented. 'skBalance' uses the Python SkLearn module to calculate more sophisticated weights.
+
+
+
 # License
 
 Published under MIT License,
