@@ -8,7 +8,7 @@ This repository is the model trainer part of the Music Symbol Classifier, which 
 |[![Build Status](https://travis-ci.org/apacha/MusicSymbolClassifier.svg?branch=master)](https://travis-ci.org/apacha/MusicSymbolClassifier)|TBD|[![Build status](https://ci.appveyor.com/api/projects/status/2lxb6eg6qnfj9jq5?svg=true)](https://ci.appveyor.com/project/apacha/manualmusicsymbolclassifier)|
 |[![codecov](https://codecov.io/gh/apacha/MusicSymbolClassifier/branch/master/graph/badge.svg)](https://codecov.io/gh/apacha/MusicSymbolClassifier) [![Code Health](https://landscape.io/github/apacha/MusicSymbolClassifier/master/landscape.svg?style=flat)](https://landscape.io/github/apacha/MusicSymbolClassifier/master)|||
 
-Note my previous project which classifies images into Music scores or something else which can be found in [this](https://github.com/apacha/MusicScoreClassifier) repository on Github.
+Note my previous project which classifies images into Music scores or something else which can be found in [this](https://github.com/apacha/MusicScoreClassifier) repository on Github and my current project that tries to perform [Music Object Detection](https://github.com/apacha/MusicObjectDetector) (Object Detection for Music Symbols).
 
 An extensive overview of the results of different parameters is documented in this [Google Spreadsheet](https://docs.google.com/spreadsheets/d/1D9kHRhrOBogcrr5ko1DleCnHVKGGNkwbBc6_mnfA6XE/edit?usp=sharing)
 
