@@ -12,6 +12,9 @@ Note my previous project which classifies images into Music scores or something 
 
 An extensive overview of the results of different parameters is documented in this [Google Spreadsheet](https://docs.google.com/spreadsheets/d/1D9kHRhrOBogcrr5ko1DleCnHVKGGNkwbBc6_mnfA6XE/edit?usp=sharing)
 
+[This scientific paper](https://alexanderpacha.files.wordpress.com/2017/05/grec_2017_paper___towards_a_universal_music_symbol_classifier.pdf) contains more information on this research, including condensed results. If you find this research useful, please consider citing it as:
+
+    "Towards a Universal Music Symbol Classifier". Alexander Pacha, Horst Eidenberger. Proceedings of the 12th IAPR International Workshop on Graphics Recognition, Kyoto, Japan, November 2017.
 
 # Running the application
 This repository contains several scripts that can be used independently of each other. 
@@ -20,8 +23,8 @@ Before running them, make sure that you have the necessary requirements installe
 ## Requirements
 
 - Python 3.6
-- Keras 2.0.6
-- Tensorflow 1.2.1 (or optionally tensorflow-gpu 1.2.1)
+- Keras 2.0.9
+- Tensorflow 1.4.0 (or optionally tensorflow-gpu 1.4.0)
 
 Optional: If you want to print the graph of the model being trained, install GraphViz on Windows via http://www.graphviz.org/Download_windows.php and add /bin to the PATH or run `sudo apt-get install graphviz` on Ubuntu (see https://github.com/fchollet/keras/issues/3210)
 
