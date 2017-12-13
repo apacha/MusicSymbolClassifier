@@ -11,6 +11,7 @@ from models.ResNet5SmallConfiguration import ResNet5SmallConfiguration
 from models.SimpleConfiguration import SimpleConfiguration
 from models.TrainingConfiguration import TrainingConfiguration
 from models.Vgg4Configuration import Vgg4Configuration
+from models.Vgg4ConvOnlyConfiguration import Vgg4ConvOnlyConfiguration
 from models.Vgg4WithLocalization import Vgg4WithLocalizationConfiguration
 from models.VggConfiguration import VggConfiguration
 
@@ -46,6 +47,7 @@ class ConfigurationFactory:
                           ResNet5Configuration(optimizer, width, height, training_minibatch_size, number_of_classes),
                           ResNet5SmallConfiguration(optimizer, width, height, training_minibatch_size, number_of_classes),
                           Vgg4WithLocalizationConfiguration(optimizer, width, height, training_minibatch_size, number_of_classes),
+                          Vgg4ConvOnlyConfiguration(optimizer, width, height, training_minibatch_size, number_of_classes),
                           ResNet3SmallWithLocalization(optimizer, width, height, training_minibatch_size, number_of_classes)]
         return configurations
 
