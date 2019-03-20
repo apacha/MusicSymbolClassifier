@@ -10,13 +10,25 @@ This repository is the model trainer part of the Universal Music Symbol Classifi
 |[![Build Status](https://travis-ci.org/apacha/MusicSymbolClassifier.svg?branch=master)](https://travis-ci.org/apacha/MusicSymbolClassifier)|[![Build status](https://ci.appveyor.com/api/projects/status/2lxb6eg6qnfj9jq5?svg=true)](https://ci.appveyor.com/project/apacha/manualmusicsymbolclassifier)|
 |[![codecov](https://codecov.io/gh/apacha/MusicSymbolClassifier/branch/master/graph/badge.svg)](https://codecov.io/gh/apacha/MusicSymbolClassifier) [![Code Health](https://landscape.io/github/apacha/MusicSymbolClassifier/master/landscape.svg?style=flat)](https://landscape.io/github/apacha/MusicSymbolClassifier/master)||
 
-Note my previous project which classifies images into Music scores or something else which can be found in [this](https://github.com/apacha/MusicScoreClassifier) repository on Github and my current project that tries to perform [Music Object Detection](https://github.com/apacha/MusicObjectDetector-TF/tree/master/MusicObjectDetector) (Object Detection for Music Symbols).
+Note my previous project which classifies images into Music scores or something else which can be found in [this](https://github.com/apacha/MusicScoreClassifier) repository on Github and my current project that tries to perform [Music Object Detection](https://github.com/apacha/MusicObjectDetector-TF) (Object Detection for Music Symbols).
 
 An extensive overview of the results of different parameters is documented in this [Google Spreadsheet](https://docs.google.com/spreadsheets/d/1D9kHRhrOBogcrr5ko1DleCnHVKGGNkwbBc6_mnfA6XE/edit?usp=sharing)
 
 [This scientific paper](https://alexanderpacha.files.wordpress.com/2017/05/grec_2017_paper___towards_a_universal_music_symbol_classifier.pdf) contains more information on this research, including condensed results. If you find this research useful, please consider citing it as:
 
-    "Towards a Universal Music Symbol Classifier". Alexander Pacha, Horst Eidenberger. Proceedings of the 12th IAPR International Workshop on Graphics Recognition, Kyoto, Japan, November 2017.
+    @InProceedings{Pacha2017,
+      author       = {Pacha, Alexander and Eidenberger, Horst},
+      title        = {Towards a Universal Music Symbol Classifier},
+      booktitle    = {14th International Conference on Document Analysis and Recognition},
+      year         = {2017},
+      pages        = {35--36},
+      address      = {Kyoto, Japan},
+      organization = {IAPR TC10 (Technical Committee on Graphics Recognition)},
+      publisher    = {IEEE Computer Society},
+      doi          = {10.1109/ICDAR.2017.265},
+      isbn         = {978-1-5386-3586-5},
+      issn         = {2379-2140},
+    }
 
 # Running the application
 This repository contains several scripts that can be used independently of each other. 
