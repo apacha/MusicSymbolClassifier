@@ -37,8 +37,8 @@ Before running them, make sure that you have the necessary requirements installe
 ## Requirements
 
 - Python 3.6
-- Keras 2.0.9
-- Tensorflow 1.4.0 (or optionally tensorflow-gpu 1.4.0)
+- Keras
+- Tensorflow (or optionally tensorflow-gpu)
 
 Optional: If you want to print the graph of the model being trained, install GraphViz on Windows via http://www.graphviz.org/Download_windows.php and add /bin to the PATH or run `sudo apt-get install graphviz` on Ubuntu (see https://github.com/fchollet/keras/issues/3210)
 
