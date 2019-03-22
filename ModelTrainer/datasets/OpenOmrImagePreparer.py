@@ -47,8 +47,8 @@ if __name__ == "__main__":
     flags, unparsed = parser.parse_known_args()
 
     # Download the dataset
-    dataset_downloader = OpenOmrDatasetDownloader(flags.raw_dataset_directory)
-    #dataset_downloader.download_and_extract_dataset()
+    dataset_downloader = OpenOmrDatasetDownloader()
+    dataset_downloader.download_and_extract_dataset(flags.raw_dataset_directory)
 
     # Actually prepare our dataset
     dataset_preparer = OpenOmrImagePreparer()

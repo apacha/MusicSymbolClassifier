@@ -52,8 +52,8 @@ if __name__ == "__main__":
 
     flags, unparsed = parser.parse_known_args()
 
-    dataset_downloader = AudiverisOmrDatasetDownloader(flags.raw_dataset_directory)
-    dataset_downloader.download_and_extract_dataset()
+    dataset_downloader = AudiverisOmrDatasetDownloader()
+    dataset_downloader.download_and_extract_dataset(flags.raw_dataset_directory)
 
     # Convert the raw data into images
     image_generator = AudiverisOmrImageGenerator()

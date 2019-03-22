@@ -4,7 +4,7 @@ import json
 import os
 
 import shutil
-from omrdatasettools.converters.ImageInverter import ImageInverter
+from omrdatasettools.converters.ImageColorInverter import ImageColorInverter
 from omrdatasettools.downloaders.FornesMusicSymbolsDatasetDownloader import FornesMusicSymbolsDatasetDownloader
 from tqdm import tqdm
 
@@ -15,8 +15,8 @@ class FornesMusicSymbolsImagePreparer(object):
         self.path_of_this_file = os.path.dirname(os.path.realpath(__file__))
 
     def prepare_dataset(self, raw_dataset_directory, image_dataset_directory):
-        image_inverter = ImageInverter()
-        image_inverter.invert_images(raw_dataset_directory)
+        image_inverter = ImageColorInverter()
+        image_inverter.invert_images(raw_dataset_directory, "*.bmp")
 
         with open(os.path.join(self.path_of_this_file, "FornesMusicSymbolsBrokenSymbols.json")) as file:
             broken_symbols = json.load(file)
@@ -53,8 +53,8 @@ if __name__ == "__main__":
 
     flags, unparsed = parser.parse_known_args()
 
-    dataset_downloader = FornesMusicSymbolsDatasetDownloader(flags.raw_dataset_directory)
-    dataset_downloader.download_and_extract_dataset()
+    dataset_downloader = FornesMusicSymbolsDatasetDownloader()
+    dataset_downloader.download_and_extract_dataset(flags.raw_dataset_directory)
 
     dataset_preparer = FornesMusicSymbolsImagePreparer()
     dataset_preparer.prepare_dataset(flags.raw_dataset_directory, flags.image_dataset_directory)
