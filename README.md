@@ -12,7 +12,7 @@ This repository is the model trainer part of the Universal Music Symbol Classifi
 
 Note my previous project which classifies images into Music scores or something else which can be found in [this](https://github.com/apacha/MusicScoreClassifier) repository on Github and my current project that tries to perform [Music Object Detection](https://github.com/apacha/MusicObjectDetector-TF) (Object Detection for Music Symbols).
 
-An extensive overview of the results of different parameters is documented in this [Google Spreadsheet](https://docs.google.com/spreadsheets/d/1D9kHRhrOBogcrr5ko1DleCnHVKGGNkwbBc6_mnfA6XE/edit?usp=sharing)
+An extensive overview of the results of different parameters is documented in this [Google Spreadsheet](https://docs.google.com/spreadsheets/d/1D9kHRhrOBogcrr5ko1DleCnHVKGGNkwbBc6_mnfA6XE/edit?usp=sharing) and you may also take a look at this [presentation](https://docs.google.com/presentation/d/14g97TnrcI9o-5D6DIY-dMFfBp9kUAqpbe86c-VE83Bk/edit?usp=sharing), given at GREC 2017.
 
 [This scientific paper](https://alexanderpacha.files.wordpress.com/2017/05/grec_2017_paper___towards_a_universal_music_symbol_classifier.pdf) contains more information on this research, including condensed results. If you find this research useful, please consider citing it as:
 
