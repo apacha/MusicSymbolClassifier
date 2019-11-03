@@ -4,10 +4,10 @@ import os
 from typing import List
 
 from muscima.cropobject import CropObject
-from omrdatasettools.image_generators.MuscimaPlusPlusImageGenerator import MuscimaPlusPlusImageGenerator
+from omrdatasettools.image_generators.MuscimaPlusPlusSymbolImageGenerator import MuscimaPlusPlusSymbolImageGenerator
 
 
-class MuscimaPlusPlusImageGenerator2(MuscimaPlusPlusImageGenerator):
+class MuscimaPlusPlusImageGenerator2(MuscimaPlusPlusSymbolImageGenerator):
     def __init__(self) -> None:
         super().__init__()
         self.path_of_this_file = os.path.dirname(os.path.realpath(__file__))
