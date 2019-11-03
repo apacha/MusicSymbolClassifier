@@ -103,8 +103,7 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
                                                 factor=training_configuration.learning_rate_reduction_factor,
                                                 min_lr=training_configuration.minimum_learning_rate)
     tensorboard_callback = TensorBoard(
-            log_dir="./logs/{0}_{1}/".format(start_of_training, training_configuration.name()),
-            batch_size=training_configuration.training_minibatch_size)
+            log_dir="./logs/{0}_{1}/".format(start_of_training, training_configuration.name()))
     if dynamic_learning_rate_reduction:
         callbacks = [model_checkpoint, early_stop, tensorboard_callback, learning_rate_reduction]
     else:
