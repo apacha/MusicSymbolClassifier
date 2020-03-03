@@ -1,7 +1,6 @@
 import os
 from glob import glob
 
-import sys
 from PIL import Image
 from tqdm import tqdm
 

@@ -2,17 +2,14 @@ import argparse
 import datetime
 import os
 import pickle
-from datetime import date
 from time import time
 from typing import List
 
-import tensorflow as tf
 import tensorflow.keras
 import numpy
 import numpy as np
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau, TensorBoard
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from sklearn import metrics
 
 from ClassWeightCalculator import ClassWeightCalculator
 from reporting import TelegramNotifier, GoogleSpreadsheetReporter, sklearn_reporting
@@ -131,7 +128,7 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
     )
 
     print("Loading best model from check-point and testing...")
-    best_model = keras.models.load_model(best_model_path)
+    best_model = tensorflow.keras.models.load_model(best_model_path)
 
     test_data_generator.reset()
     file_names = test_data_generator.filenames

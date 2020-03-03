@@ -53,7 +53,7 @@ class MuscimaPlusPlusImageGenerator2(MuscimaPlusPlusSymbolImageGenerator):
         with open(os.path.join(self.path_of_this_file, "MuscimaPlusPlusIgnoredClasses.json")) as file:
             ignored_classes = json.load(file)
         number_of_unfiltered_objects = len(crop_objects)
-        crop_objects = [crop_object for crop_object in crop_objects if not crop_object.clsname in ignored_classes]
+        crop_objects = [crop_object for crop_object in crop_objects if crop_object.clsname not in ignored_classes]
         number_of_filtered_objects = len(crop_objects)
         print("Filtering {0} symbols from {1} ignored classes".format(
             number_of_unfiltered_objects - number_of_filtered_objects, len(ignored_classes)), flush=True)
@@ -93,7 +93,7 @@ class MuscimaPlusPlusImageGenerator2(MuscimaPlusPlusSymbolImageGenerator):
             flag_objects = []
             for o in c.outlinks:
                 uid_of_outlink = c.build_uid(c.dataset, c.doc, str(o))
-                if not uid_of_outlink in crop_object_dict:
+                if uid_of_outlink not in crop_object_dict:
                     continue  # The targeted object has been filtered by broken-list or ignored classes
                 outgoing_object = crop_object_dict[uid_of_outlink]
                 if outgoing_object.clsname == 'stem':

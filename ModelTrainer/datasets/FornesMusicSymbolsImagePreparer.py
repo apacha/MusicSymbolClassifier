@@ -23,8 +23,8 @@ class FornesMusicSymbolsImagePreparer(object):
         with open(os.path.join(self.path_of_this_file, "FornesMusicSymbolsNameMapping.json")) as file:
             class_name_mapping = json.load(file)
 
-        image_directories = [dir for dir in os.listdir(raw_dataset_directory) if
-                             os.path.isdir(os.path.join(raw_dataset_directory, dir))]
+        image_directories = [directory for directory in os.listdir(raw_dataset_directory) if
+                             os.path.isdir(os.path.join(raw_dataset_directory, directory))]
 
         print("Copying images into respective class folders ...")
 

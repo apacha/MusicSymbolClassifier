@@ -2,23 +2,21 @@ import argparse
 import os
 import shutil
 
-import keras
+import tensorflow.keras
 import tensorflow
-from tensorflow.keras import backend as K
 from tensorflow.keras.models import Sequential
-from tensorflow.contrib.session_bundle import exporter
 from tensorflow.core.protobuf import saver_pb2
 from tensorflow.python.framework import graph_io
 from tensorflow.python.tools import freeze_graph
 
-K.set_learning_phase(0)  # all new operations will be in test mode from now on
+tensorflow.keras.backend.set_learning_phase(0)  # all new operations will be in test mode from now on
 
 
 def export_model_to_tensorflow(path_to_trained_keras_model: str):
     print("Loading model for exporting to Protocol Buffer format...")
-    model = keras.models.load_model(path_to_trained_keras_model)
+    model = tensorflow.keras.models.load_model(path_to_trained_keras_model)
 
-    sess = K.get_session()
+    sess = tensorflow.keras.backend.get_session()
 
     # serialize the model and get its weights, for quick re-building
     config = model.get_config()
@@ -77,10 +75,10 @@ def export_model_to_tensorflow(path_to_trained_keras_model: str):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-            "--path_to_trained_keras_model",
-            type=str,
-            default="vgg.h5",
-            help="The path to the file that containes the trained keras model that should be converted to a Protobuf file")
+        "--path_to_trained_keras_model",
+        type=str,
+        default="vgg.h5",
+        help="The path to the file that containes the trained keras model that should be converted to a Protobuf file")
 
     flags, unparsed = parser.parse_known_args()
 

@@ -1,4 +1,4 @@
-from tensorflow.keras.layers import Activation, AveragePooling2D, BatchNormalization, Convolution2D, Dense, Flatten, MaxPooling2D, \
+from tensorflow.keras.layers import Activation, BatchNormalization, Convolution2D, MaxPooling2D, \
     GlobalAveragePooling2D
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.regularizers import l2
@@ -40,7 +40,7 @@ class Vgg4ConvOnlyConfiguration(TrainingConfiguration):
         self.add_convolution(model, 512, 3, self.weight_decay)
         self.add_convolution(model, 512, 3, self.weight_decay)
 
-        model.add(Convolution2D(self.number_of_classes, kernel_size=(1,1), padding='same'))
+        model.add(Convolution2D(self.number_of_classes, kernel_size=(1, 1), padding='same'))
         model.add(GlobalAveragePooling2D())
         model.add(Activation('softmax', name='output_class'))
 

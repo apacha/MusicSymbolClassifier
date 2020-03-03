@@ -1,6 +1,5 @@
 import warnings
 import numpy as np
-import sklearn
 from sklearn.metrics import precision_recall_fscore_support
 from sklearn.utils.multiclass import unique_labels
 
@@ -137,7 +136,6 @@ def classification_report(y_true, y_pred, labels=None, target_names=None,
                              width=width, digits=digits)
 
     return report
-
 
 
 if __name__ == '__main__':

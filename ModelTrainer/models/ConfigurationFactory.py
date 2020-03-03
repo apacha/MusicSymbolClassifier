@@ -35,20 +35,26 @@ class ConfigurationFactory:
         raise Exception("No configuration found by name {0}".format(name))
 
     @staticmethod
-    def get_all_configurations(optimizer, width, height, training_minibatch_size, number_of_classes) -> List[TrainingConfiguration]:
+    def get_all_configurations(optimizer, width, height, training_minibatch_size, number_of_classes) -> List[
+        TrainingConfiguration]:
         configurations = [SimpleConfiguration(optimizer, width, height, training_minibatch_size, number_of_classes),
                           VggConfiguration(optimizer, width, height, training_minibatch_size, number_of_classes),
                           Vgg4Configuration(optimizer, width, height, training_minibatch_size, number_of_classes),
                           ResNet1Configuration(optimizer, width, height, training_minibatch_size, number_of_classes),
                           ResNet2Configuration(optimizer, width, height, training_minibatch_size, number_of_classes),
                           ResNet3Configuration(optimizer, width, height, training_minibatch_size, number_of_classes),
-                          ResNet3SmallConfiguration(optimizer, width, height, training_minibatch_size, number_of_classes),
+                          ResNet3SmallConfiguration(optimizer, width, height, training_minibatch_size,
+                                                    number_of_classes),
                           ResNet4Configuration(optimizer, width, height, training_minibatch_size, number_of_classes),
                           ResNet5Configuration(optimizer, width, height, training_minibatch_size, number_of_classes),
-                          ResNet5SmallConfiguration(optimizer, width, height, training_minibatch_size, number_of_classes),
-                          Vgg4WithLocalizationConfiguration(optimizer, width, height, training_minibatch_size, number_of_classes),
-                          Vgg4ConvOnlyConfiguration(optimizer, width, height, training_minibatch_size, number_of_classes),
-                          ResNet3SmallWithLocalization(optimizer, width, height, training_minibatch_size, number_of_classes)]
+                          ResNet5SmallConfiguration(optimizer, width, height, training_minibatch_size,
+                                                    number_of_classes),
+                          Vgg4WithLocalizationConfiguration(optimizer, width, height, training_minibatch_size,
+                                                            number_of_classes),
+                          Vgg4ConvOnlyConfiguration(optimizer, width, height, training_minibatch_size,
+                                                    number_of_classes),
+                          ResNet3SmallWithLocalization(optimizer, width, height, training_minibatch_size,
+                                                       number_of_classes)]
         return configurations
 
 
