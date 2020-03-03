@@ -4,8 +4,8 @@ import shutil
 
 import keras
 import tensorflow
-from keras import backend as K
-from keras.models import Sequential
+from tensorflow.keras import backend as K
+from tensorflow.keras.models import Sequential
 from tensorflow.contrib.session_bundle import exporter
 from tensorflow.core.protobuf import saver_pb2
 from tensorflow.python.framework import graph_io

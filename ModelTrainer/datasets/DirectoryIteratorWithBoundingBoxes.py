@@ -1,10 +1,9 @@
 import os
 
 import numpy as np
-from keras import backend
-from keras.preprocessing import image
-from keras.preprocessing.image import DirectoryIterator, ImageDataGenerator
-from six.moves import range
+from tensorflow.keras import backend
+from tensorflow.keras.preprocessing import image
+from tensorflow.keras.preprocessing.image import DirectoryIterator, ImageDataGenerator
 
 try:
     from PIL import Image as pil_image

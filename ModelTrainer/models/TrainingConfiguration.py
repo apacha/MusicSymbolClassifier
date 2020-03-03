@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
-from keras.engine import Model
-from keras.optimizers import Optimizer, SGD, Adam, Adadelta
+from tensorflow.keras import Model
+from tensorflow.keras.optimizers import Optimizer, SGD, Adam, Adadelta
 
 
 class TrainingConfiguration(ABC):

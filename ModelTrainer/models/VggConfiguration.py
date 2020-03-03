@@ -1,7 +1,7 @@
-from keras.layers import Activation, BatchNormalization, Convolution2D, Dense, Flatten, MaxPooling2D
-from keras.models import Sequential
-from keras.regularizers import l2
-from keras.utils import plot_model
+from tensorflow.keras.layers import Activation, BatchNormalization, Convolution2D, Dense, Flatten, MaxPooling2D
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.regularizers import l2
+from tensorflow.keras.utils import plot_model
 
 from models.TrainingConfiguration import TrainingConfiguration
 

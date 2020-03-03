@@ -6,11 +6,12 @@ from datetime import date
 from time import time
 from typing import List
 
-import keras
+import tensorflow as tf
+import tensorflow.keras
 import numpy
 import numpy as np
-from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau, TensorBoard
-from keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau, TensorBoard
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from sklearn import metrics
 
 from ClassWeightCalculator import ClassWeightCalculator
