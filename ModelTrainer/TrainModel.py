@@ -87,9 +87,9 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
     start_of_training = datetime.date.today()
     best_model_path = "{0}_{1}.h5".format(start_of_training, training_configuration.name())
 
-    monitor_variable = 'val_acc'
+    monitor_variable = 'val_accuracy'
     if training_configuration.performs_localization():
-        monitor_variable = 'val_output_class_acc'
+        monitor_variable = 'val_output_class_accuracy'
 
     model_checkpoint = ModelCheckpoint(best_model_path, monitor=monitor_variable, save_best_only=True, verbose=1)
     early_stop = EarlyStopping(monitor=monitor_variable,
