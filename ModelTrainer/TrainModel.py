@@ -93,7 +93,7 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
         monitor_variable = 'val_output_class_accuracy'
 
     best_model_basename = "{0}_{1}".format(start_of_training, training_configuration.name())
-    best_model_path = best_model_basename + "_saved-model-{epoch:02d}.h5"
+    best_model_path = best_model_basename + "-{epoch:02d}.h5"
     model_checkpoint = ModelCheckpoint(best_model_path, monitor=monitor_variable, save_best_only=True, verbose=1,
              save_freq='epoch')
     early_stop = EarlyStopping(monitor=monitor_variable,
