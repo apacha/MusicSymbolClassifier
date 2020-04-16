@@ -92,7 +92,8 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
     if training_configuration.performs_localization():
         monitor_variable = 'val_output_class_accuracy'
 
-    best_model_path = "saved-model-{epoch:02d}.h5"
+    best_model_basename = "{0}_{1}".format(start_of_training, training_configuration.name())
+    best_model_path = best_model_basename + "_saved-model-{epoch:02d}.h5"
     model_checkpoint = ModelCheckpoint(best_model_path, monitor=monitor_variable, save_best_only=True, verbose=1,
              save_freq='epoch')
     early_stop = EarlyStopping(monitor=monitor_variable,
@@ -274,9 +275,9 @@ if __name__ == "__main__":
                              "valid choices are simple or skBalance. 'simple' uses 1/sqrt(#samples_per_class) as "
                              "weights for samples from each class to compensate for classes that are underrepresented."
                              "'skBalance' uses the Python SkLearn module to calculate more sophisticated weights.")
-    parser.add_argument("--telegram_messages", dest="send_telegram_messages", action="store_true",
+    parser.add_argument("--no_telegram_messages", dest="send_telegram_messages", action="store_false",
                         help="Send messages via telegram")
-    parser.set_defaults(send_telegram_messages=False)
+    parser.set_defaults(send_telegram_messages=True)
 
 
     TrainingDatasetProvider.add_arguments_for_training_dataset_provider(parser)
