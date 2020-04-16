@@ -7,7 +7,6 @@ class TrainingHistoryPlotter:
     @staticmethod
     def plot_history(history: History, file_name: str, show_plot: bool = False):
         epoch_list = numpy.add(history.epoch, 1)  # Add 1 so it starts with epoch 1 instead of 0
-        print('history.history: ', history.history)
 
         fig = pyplot.figure(1)
         # fig.suptitle('TRAINNING vs VALIDATION', fontsize=14, fontweight='bold')
