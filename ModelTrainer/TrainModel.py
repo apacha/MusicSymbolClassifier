@@ -1,5 +1,6 @@
 import argparse
 import datetime
+import fnmatch
 import os
 import pickle
 from time import time
@@ -23,7 +24,8 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
                 width: int, height: int,
                 staff_line_vertical_offsets: List[int], training_minibatch_size: int,
                 optimizer: str, dynamic_learning_rate_reduction: bool, use_fixed_canvas: bool, datasets: List[str],
-                class_weights_balancing_method: str):
+                class_weights_balancing_method: str,
+                send_telegram_messages: bool):
     image_dataset_directory = os.path.join(dataset_directory, "images")
 
     bounding_boxes = None
@@ -85,13 +87,14 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
     print(training_configuration.summary())
 
     start_of_training = datetime.date.today()
-    best_model_path = "{0}_{1}.h5".format(start_of_training, training_configuration.name())
 
     monitor_variable = 'val_accuracy'
     if training_configuration.performs_localization():
         monitor_variable = 'val_output_class_accuracy'
 
-    model_checkpoint = ModelCheckpoint(best_model_path, monitor=monitor_variable, save_best_only=True, verbose=1)
+    best_model_path = "saved-model-{epoch:02d}.h5"
+    model_checkpoint = ModelCheckpoint(best_model_path, monitor=monitor_variable, save_best_only=True, verbose=1,
+             save_freq='epoch')
     early_stop = EarlyStopping(monitor=monitor_variable,
                                patience=training_configuration.number_of_epochs_before_early_stopping,
                                verbose=1)
@@ -127,8 +130,20 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
         class_weight=class_weights
     )
 
-    print("Loading best model from check-point and testing...")
-    best_model = tensorflow.keras.models.load_model(best_model_path)
+    print("Loading latest model from check-point and testing...")
+    latest_mtime = 0
+    latest_file = None
+    for f in os.listdir('.'):
+        if fnmatch.fnmatch(f, '*.h5'):
+            fd = os.open(f, os.O_RDONLY)
+            st = os.fstat(fd)
+            mt = st.st_mtime
+            if not latest_file or mt > latest_mtime:
+                latest_mtime = mt
+                latest_file = f
+
+    print('latest model file is {0}'.format(latest_file))
+    best_model = tensorflow.keras.models.load_model(latest_file)
 
     test_data_generator.reset()
     file_names = test_data_generator.filenames
@@ -195,7 +210,10 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
     datasets_string = str.join(",", datasets)
     notification_message = "Training on {0} dataset with model {1} finished. " \
                            "Accuracy: {2:0.5f}%".format(datasets_string, model_name, classification_accuracy * 100)
-    TelegramNotifier.send_message_via_telegram(notification_message, training_result_image)
+    if send_telegram_messages:
+        TelegramNotifier.send_message_via_telegram(notification_message, training_result_image)
+    else:
+        print(notification_message)
 
     dataset_size = training_data_generator.samples + validation_data_generator.samples + test_data_generator.samples
     stroke_thicknesses_string = ",".join(map(str, stroke_thicknesses))
@@ -256,6 +274,10 @@ if __name__ == "__main__":
                              "valid choices are simple or skBalance. 'simple' uses 1/sqrt(#samples_per_class) as "
                              "weights for samples from each class to compensate for classes that are underrepresented."
                              "'skBalance' uses the Python SkLearn module to calculate more sophisticated weights.")
+    parser.add_argument("--telegram_messages", dest="send_telegram_messages", action="store_true",
+                        help="Send messages via telegram")
+    parser.set_defaults(send_telegram_messages=False)
+
 
     TrainingDatasetProvider.add_arguments_for_training_dataset_provider(parser)
 
@@ -294,7 +316,8 @@ if __name__ == "__main__":
                 dynamic_learning_rate_reduction=flags.dynamic_learning_rate_reduction,
                 use_fixed_canvas=flags.use_fixed_canvas,
                 datasets=datasets,
-                class_weights_balancing_method=flags.class_weights_balancing_method)
+                class_weights_balancing_method=flags.class_weights_balancing_method,
+                flags.send_telegram_messages)
 
     # To run in in python console
     # dataset_directory = 'data'

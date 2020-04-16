@@ -7,17 +7,18 @@ class TrainingHistoryPlotter:
     @staticmethod
     def plot_history(history: History, file_name: str, show_plot: bool = False):
         epoch_list = numpy.add(history.epoch, 1)  # Add 1 so it starts with epoch 1 instead of 0
+        print('history.history: ', history.history)
 
         fig = pyplot.figure(1)
         # fig.suptitle('TRAINNING vs VALIDATION', fontsize=14, fontweight='bold')
 
         # Regular plot for classification only
-        if "val_acc" in history.history:
+        if "val_accuracy" in history.history:
             TrainingHistoryPlotter.add_subplot(epoch_list, fig, history, 211, "Loss", "loss", "Training loss",
                                                "val_loss",
                                                "Validation loss", "upper right")
-            TrainingHistoryPlotter.add_subplot(epoch_list, fig, history, 212, "Accuracy", "acc", "Training accuracy",
-                                               "val_acc",
+            TrainingHistoryPlotter.add_subplot(epoch_list, fig, history, 212, "Accuracy", "accuracy", "Training accuracy",
+                                               "val_accuracy",
                                                "Validation accuracy", "lower right")
         else:
             TrainingHistoryPlotter.add_subplot(epoch_list, fig, history, 221, "Classification Loss",
