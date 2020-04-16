@@ -1,5 +1,6 @@
 import argparse
 import datetime
+import fnmatch
 import os
 import pickle
 from time import time
@@ -86,13 +87,14 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
     print(training_configuration.summary())
 
     start_of_training = datetime.date.today()
-    best_model_path = "{0}_{1}.h5".format(start_of_training, training_configuration.name())
 
     monitor_variable = 'val_accuracy'
     if training_configuration.performs_localization():
         monitor_variable = 'val_output_class_accuracy'
 
-    model_checkpoint = ModelCheckpoint(best_model_path, monitor=monitor_variable, save_best_only=True, verbose=1)
+    best_model_path = "saved-model-{epoch:02d}.h5"
+    model_checkpoint = ModelCheckpoint(best_model_path, monitor=monitor_variable, save_best_only=True, verbose=1,
+             save_freq='epoch')
     early_stop = EarlyStopping(monitor=monitor_variable,
                                patience=training_configuration.number_of_epochs_before_early_stopping,
                                verbose=1)
@@ -128,8 +130,20 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
         class_weight=class_weights
     )
 
-    print("Loading best model from check-point and testing...")
-    best_model = tensorflow.keras.models.load_model(best_model_path)
+    print("Loading latest model from check-point and testing...")
+    latest_mtime = 0
+    latest_file = None
+    for f in os.listdir('.'):
+        if fnmatch.fnmatch(f, '*.h5'):
+            fd = os.open(f, os.O_RDONLY)
+            st = os.fstat(fd)
+            mt = st.st_mtime
+            if not latest_file or mt > latest_mtime:
+                latest_mtime = mt
+                latest_file = f
+
+    print('latest model file is {0}'.format(latest_file))
+    best_model = tensorflow.keras.models.load_model(latest_file)
 
     test_data_generator.reset()
     file_names = test_data_generator.filenames
@@ -263,7 +277,6 @@ if __name__ == "__main__":
     parser.add_argument("--no_telegram_messages", dest="send_telegram_messages", action="store_false",
                         help="Send messages via telegram")
     parser.set_defaults(send_telegram_messages=True)
-
 
     TrainingDatasetProvider.add_arguments_for_training_dataset_provider(parser)
 
