@@ -23,7 +23,8 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
                 width: int, height: int,
                 staff_line_vertical_offsets: List[int], training_minibatch_size: int,
                 optimizer: str, dynamic_learning_rate_reduction: bool, use_fixed_canvas: bool, datasets: List[str],
-                class_weights_balancing_method: str):
+                class_weights_balancing_method: str,
+                send_telegram_messages: bool):
     image_dataset_directory = os.path.join(dataset_directory, "images")
 
     bounding_boxes = None
@@ -195,7 +196,10 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
     datasets_string = str.join(",", datasets)
     notification_message = "Training on {0} dataset with model {1} finished. " \
                            "Accuracy: {2:0.5f}%".format(datasets_string, model_name, classification_accuracy * 100)
-    TelegramNotifier.send_message_via_telegram(notification_message, training_result_image)
+    if send_telegram_messages:
+        TelegramNotifier.send_message_via_telegram(notification_message, training_result_image)
+    else:
+        print(notification_message)
 
     dataset_size = training_data_generator.samples + validation_data_generator.samples + test_data_generator.samples
     stroke_thicknesses_string = ",".join(map(str, stroke_thicknesses))
@@ -256,6 +260,10 @@ if __name__ == "__main__":
                              "valid choices are simple or skBalance. 'simple' uses 1/sqrt(#samples_per_class) as "
                              "weights for samples from each class to compensate for classes that are underrepresented."
                              "'skBalance' uses the Python SkLearn module to calculate more sophisticated weights.")
+    parser.add_argument("--no_telegram_messages", dest="send_telegram_messages", action="store_false",
+                        help="Send messages via telegram")
+    parser.set_defaults(send_telegram_messages=True)
+
 
     TrainingDatasetProvider.add_arguments_for_training_dataset_provider(parser)
 
@@ -294,7 +302,8 @@ if __name__ == "__main__":
                 dynamic_learning_rate_reduction=flags.dynamic_learning_rate_reduction,
                 use_fixed_canvas=flags.use_fixed_canvas,
                 datasets=datasets,
-                class_weights_balancing_method=flags.class_weights_balancing_method)
+                class_weights_balancing_method=flags.class_weights_balancing_method,
+                flags.send_telegram_messages)
 
     # To run in in python console
     # dataset_directory = 'data'
