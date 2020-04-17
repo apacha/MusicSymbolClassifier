@@ -260,9 +260,9 @@ if __name__ == "__main__":
                              "valid choices are simple or skBalance. 'simple' uses 1/sqrt(#samples_per_class) as "
                              "weights for samples from each class to compensate for classes that are underrepresented."
                              "'skBalance' uses the Python SkLearn module to calculate more sophisticated weights.")
-    parser.add_argument("--no_telegram_messages", dest="send_telegram_messages", action="store_false",
+    parser.add_argument("--telegram_messages", dest="send_telegram_messages", action="store_true",
                         help="Send messages via telegram")
-    parser.set_defaults(send_telegram_messages=True)
+    parser.set_defaults(send_telegram_messages=False)
 
 
     TrainingDatasetProvider.add_arguments_for_training_dataset_provider(parser)
@@ -303,7 +303,7 @@ if __name__ == "__main__":
                 use_fixed_canvas=flags.use_fixed_canvas,
                 datasets=datasets,
                 class_weights_balancing_method=flags.class_weights_balancing_method,
-                flags.send_telegram_messages)
+                send_telegram_messages=flags.send_telegram_messages)
 
     # To run in in python console
     # dataset_directory = 'data'
