@@ -4,7 +4,9 @@ import json
 import os
 from distutils import dir_util
 
-from omrdatasettools.downloaders.OpenOmrDatasetDownloader import OpenOmrDatasetDownloader
+from omrdatasettools.Downloader import Downloader
+from omrdatasettools.OmrDataset import OmrDataset
+from tqdm import tqdm
 
 
 class OpenOmrImagePreparer(object):
@@ -20,7 +22,7 @@ class OpenOmrImagePreparer(object):
 
         image_directories = os.listdir(raw_dataset_directory)
 
-        for symbol_class in image_directories:
+        for symbol_class in tqdm(image_directories, "Copying directories..."):
             if symbol_class in ignored_classes:
                 continue
 
@@ -47,8 +49,8 @@ if __name__ == "__main__":
     flags, unparsed = parser.parse_known_args()
 
     # Download the dataset
-    dataset_downloader = OpenOmrDatasetDownloader()
-    dataset_downloader.download_and_extract_dataset(flags.raw_dataset_directory)
+    dataset_downloader = Downloader()
+    dataset_downloader.download_and_extract_dataset(OmrDataset.OpenOmr, flags.raw_dataset_directory)
 
     # Actually prepare our dataset
     dataset_preparer = OpenOmrImagePreparer()

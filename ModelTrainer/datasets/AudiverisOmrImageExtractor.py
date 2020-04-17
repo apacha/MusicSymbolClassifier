@@ -4,13 +4,13 @@ import json
 import os
 from distutils import dir_util
 
-from omrdatasettools.downloaders.AudiverisOmrDatasetDownloader import AudiverisOmrDatasetDownloader
-from omrdatasettools.image_generators.AudiverisOmrImageGenerator import AudiverisOmrImageGenerator
+from omrdatasettools.Downloader import Downloader
+from omrdatasettools.AudiverisOmrImageGenerator import AudiverisOmrImageGenerator
+from omrdatasettools.OmrDataset import OmrDataset
 
 
-class AudiverisOmrImageExtractor(object):
+class AudiverisOmrImageExtractor():
     def __init__(self) -> None:
-        super().__init__()
         self.path_of_this_file = os.path.dirname(os.path.realpath(__file__))
 
     def prepare_dataset(self, intermediate_image_directory, image_dataset_directory):
@@ -52,8 +52,8 @@ if __name__ == "__main__":
 
     flags, unparsed = parser.parse_known_args()
 
-    dataset_downloader = AudiverisOmrDatasetDownloader()
-    dataset_downloader.download_and_extract_dataset(flags.raw_dataset_directory)
+    dataset_downloader = Downloader()
+    dataset_downloader.download_and_extract_dataset(OmrDataset.Audiveris, flags.raw_dataset_directory)
 
     # Convert the raw data into images
     image_generator = AudiverisOmrImageGenerator()

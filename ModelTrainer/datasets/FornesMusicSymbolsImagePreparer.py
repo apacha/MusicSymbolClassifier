@@ -4,14 +4,16 @@ import json
 import os
 
 import shutil
-from omrdatasettools.converters.ImageColorInverter import ImageColorInverter
-from omrdatasettools.downloaders.FornesMusicSymbolsDatasetDownloader import FornesMusicSymbolsDatasetDownloader
+
+from omrdatasettools.OmrDataset import OmrDataset
+from omrdatasettools.Downloader import Downloader
 from tqdm import tqdm
+
+from datasets.ImageColorInverter import ImageColorInverter
 
 
 class FornesMusicSymbolsImagePreparer(object):
     def __init__(self) -> None:
-        super().__init__()
         self.path_of_this_file = os.path.dirname(os.path.realpath(__file__))
 
     def prepare_dataset(self, raw_dataset_directory, image_dataset_directory):
@@ -53,8 +55,8 @@ if __name__ == "__main__":
 
     flags, unparsed = parser.parse_known_args()
 
-    dataset_downloader = FornesMusicSymbolsDatasetDownloader()
-    dataset_downloader.download_and_extract_dataset(flags.raw_dataset_directory)
+    dataset_downloader = Downloader()
+    dataset_downloader.download_and_extract_dataset(OmrDataset.Fornes, flags.raw_dataset_directory)
 
     dataset_preparer = FornesMusicSymbolsImagePreparer()
     dataset_preparer.prepare_dataset(flags.raw_dataset_directory, flags.image_dataset_directory)

@@ -4,7 +4,7 @@ import os
 from typing import List
 
 from muscima.cropobject import CropObject
-from omrdatasettools.image_generators.MuscimaPlusPlusSymbolImageGenerator import MuscimaPlusPlusSymbolImageGenerator
+from omrdatasettools.MuscimaPlusPlusSymbolImageGenerator import MuscimaPlusPlusSymbolImageGenerator
 
 
 class MuscimaPlusPlusImageGenerator2(MuscimaPlusPlusSymbolImageGenerator):
