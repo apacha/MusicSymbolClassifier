@@ -3,7 +3,8 @@ import shutil
 import unittest
 from glob import glob
 
-from omrdatasettools.downloaders.OpenOmrDatasetDownloader import OpenOmrDatasetDownloader
+from omrdatasettools.Downloader import Downloader
+from omrdatasettools.OmrDataset import OmrDataset
 
 from datasets.OpenOmrImagePreparer import OpenOmrImagePreparer
 
@@ -11,11 +12,11 @@ from datasets.OpenOmrImagePreparer import OpenOmrImagePreparer
 class OpenOmrImagePreparerTest(unittest.TestCase):
     def test_download_and_prepare_dataset(self):
         # Arrange
-        dataset_downloader = OpenOmrDatasetDownloader()
+        dataset_downloader = Downloader()
         expected_number_of_images = 503
 
         # Act
-        dataset_downloader.download_and_extract_dataset("temp/open_omr_raw2")
+        dataset_downloader.download_and_extract_dataset(OmrDataset.OpenOmr, "temp/open_omr_raw2")
         image_generator = OpenOmrImagePreparer()
         image_generator.prepare_dataset("temp/open_omr_raw2", "temp/open_omr_image2")
         all_image_files = [y for x in os.walk("temp/open_omr_image2") for y in glob(os.path.join(x[0], '*.png'))]
@@ -25,7 +26,7 @@ class OpenOmrImagePreparerTest(unittest.TestCase):
         self.assertEqual(expected_number_of_images, actual_number_of_images)
 
         # Cleanup
-        os.remove(dataset_downloader.get_dataset_filename())
+        os.remove(OmrDataset.OpenOmr.get_dataset_filename())
         shutil.rmtree("temp")
 
 
