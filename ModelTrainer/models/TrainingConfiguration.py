@@ -10,7 +10,7 @@ class TrainingConfiguration(ABC):
     def __init__(self,
                  data_shape: tuple = (224, 128, 3),  # Rows = Height, columns = Width, channels = typically 3 (RGB)
                  number_of_classes: int = 32,
-                 number_of_epochs: int = 200,
+                 number_of_epochs: int = 2,
                  number_of_epochs_before_early_stopping: int = 20,
                  number_of_epochs_before_reducing_learning_rate: int = 8,
                  training_minibatch_size: int = 64,
