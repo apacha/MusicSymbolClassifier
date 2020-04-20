@@ -3,6 +3,7 @@ import datetime
 import fnmatch
 import os
 import pickle
+import re
 from time import time
 from typing import List
 
@@ -25,6 +26,8 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
                 staff_line_vertical_offsets: List[int], training_minibatch_size: int,
                 optimizer: str, dynamic_learning_rate_reduction: bool, use_fixed_canvas: bool, datasets: List[str],
                 class_weights_balancing_method: str,
+                save_after_every_epoch: bool,
+                resume_from_checkpoint: str,
                 send_telegram_messages: bool):
     image_dataset_directory = os.path.join(dataset_directory, "images")
 
@@ -83,7 +86,23 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
     model = training_configuration.classifier()
     model.summary()
 
-    print("Model {0} loaded.".format(training_configuration.name()))
+    print("Model {0} created.".format(training_configuration.name()))
+
+    initial_epoch = 0
+    if resume_from_checkpoint:
+        # Try to parse epoch from checkpoint filename. Checkpoint files written by this program
+        # are of the form <start>_<configname>-<epoch>.h5.
+        m = re.match('[^-]+-(\d+).h5', resume_from_checkpoint)
+        if m and m.groups() and len(m.groups() == 1):
+            initial_epoch = int(m.groups()[0]) + 1
+        # This will not restore parameters that are adapted dynamically during training since
+        # afaik not all of them get saved to the model checkpoint.
+        model.load_weights(resume_from_checkpoint)
+        print("Model {0} weights loaded from checkpoint {1}. Training will resume from epoch {2}".format(
+            training_configuration.name(),
+            resume_from_checkpoint,
+            initial_epoch))
+
     print(training_configuration.summary())
 
     start_of_training = datetime.date.today()
@@ -92,10 +111,13 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
     if training_configuration.performs_localization():
         monitor_variable = 'val_output_class_accuracy'
 
-    best_model_basename = "{0}_{1}".format(start_of_training, training_configuration.name())
-    best_model_path = best_model_basename + "-{epoch:02d}.h5"
-    model_checkpoint = ModelCheckpoint(best_model_path, monitor=monitor_variable, save_best_only=True, verbose=1,
-             save_freq='epoch')
+    best_model_path = "{0}_{1}".format(start_of_training, training_configuration.name())
+    if save_after_every_epoch:
+        model_checkpoint = ModelCheckpoint(best_model_path + "-{epoch:02d}.h5", monitor=monitor_variable,
+                save_best_only=True, verbose=1, save_freq='epoch')
+    else:
+        model_checkpoint = ModelCheckpoint(best_model_path+".h5", monitor=monitor_variable,
+                save_best_only=True, verbose=1)
     early_stop = EarlyStopping(monitor=monitor_variable,
                                patience=training_configuration.number_of_epochs_before_early_stopping,
                                verbose=1)
@@ -128,23 +150,30 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
         callbacks=callbacks,
         validation_data=validation_data_generator,
         validation_steps=validation_steps_per_epoch,
-        class_weight=class_weights
+        class_weight=class_weights,
+        initial_epoch=initial_epoch
     )
 
-    print("Loading latest model from check-point and testing...")
-    latest_mtime = 0
-    latest_file = None
-    for f in os.listdir('.'):
-        if fnmatch.fnmatch(f, '*.h5'):
-            fd = os.open(f, os.O_RDONLY)
-            st = os.fstat(fd)
-            mt = st.st_mtime
-            if not latest_file or mt > latest_mtime:
-                latest_mtime = mt
-                latest_file = f
+    best_model = None
+    if save_after_every_epoch:
+        print("Loading best model from check-point and testing...")
+        best_model = tensorflow.keras.models.load_model(best_model_path + '.h5')
+    else:
+        print("Loading latest model from check-point and testing...")
+        latest_mtime = 0
+        latest_file = None
+        pattern = best_model_path + '*.h5'
+        for f in os.listdir('.'):
+            if fnmatch.fnmatch(f, pattern):
+                fd = os.open(f, os.O_RDONLY)
+                st = os.fstat(fd)
+                mt = st.st_mtime
+                if not latest_file or mt > latest_mtime:
+                    latest_mtime = mt
+                    latest_file = f
 
-    print('latest model file is {0}'.format(latest_file))
-    best_model = tensorflow.keras.models.load_model(latest_file)
+        print('latest model file is {0}'.format(latest_file))
+        best_model = tensorflow.keras.models.load_model(latest_file)
 
     test_data_generator.reset()
     file_names = test_data_generator.filenames
@@ -278,7 +307,11 @@ if __name__ == "__main__":
     parser.add_argument("--no_telegram_messages", dest="send_telegram_messages", action="store_false",
                         help="Send messages via telegram")
     parser.set_defaults(send_telegram_messages=True)
-
+    parser.add_argument("--save_after_every_epoch", dest="save_after_every_epoch", action="store_true",
+                        help="Write a checkpoint after every epoch")
+    parser.set_defaults(save_after_every_epoch=False)
+    parser.add_argument("--resume_from_checkpoint", dest="resume_from_checkpoint", default=None, type=str,
+                        help="Load checkpoint from file specified.")
 
     TrainingDatasetProvider.add_arguments_for_training_dataset_provider(parser)
 
@@ -318,7 +351,9 @@ if __name__ == "__main__":
                 use_fixed_canvas=flags.use_fixed_canvas,
                 datasets=datasets,
                 class_weights_balancing_method=flags.class_weights_balancing_method,
-                flags.send_telegram_messages)
+                save_after_every_epoch=flags.save_after_every_epoch,
+                resume_from_checkpoint=flags.resume_from_checkpoint,
+                send_telegram_messages=flags.send_telegram_messages)
 
     # To run in in python console
     # dataset_directory = 'data'
