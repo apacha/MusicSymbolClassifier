@@ -92,6 +92,9 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
     if resume_from_checkpoint:
         # Try to parse epoch from checkpoint filename. Checkpoint files written by this program
         # are of the form <start>_<configname>-<epoch>.h5.
+        # The regular expression assumes there are no dashes in start or configname, otherwise
+        # the initial epoch will just be 0. That is harmless unless you have parameters that
+        # depend on the epoch.
         m = re.match('[^-]+-(\d+).h5', resume_from_checkpoint)
         if m and m.groups() and len(m.groups() == 1):
             initial_epoch = int(m.groups()[0]) + 1
@@ -155,7 +158,7 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
     )
 
     best_model = None
-    if save_after_every_epoch:
+    if not save_after_every_epoch:
         print("Loading best model from check-point and testing...")
         best_model = tensorflow.keras.models.load_model(best_model_path + '.h5')
     else:
