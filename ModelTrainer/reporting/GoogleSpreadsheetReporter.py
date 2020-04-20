@@ -64,8 +64,8 @@ def append_result_to_spreadsheet(dataset_size: int = 15200, image_sizes: str = "
                 balancing_method]
         write_into_spreadsheet(service, spreadsheet_id, data, first_empty_line)
     except Exception as exception:
-        print("Error while uploading results to Google Spreadsheet: {0}".format(str(exception)))
-        traceback.print_exc()
+        print("Info: Results could not be uploaded to Google Spreadsheet because it is probably not configured: {0}".format(str(exception)))
+        # traceback.print_exc()
 
 
 def get_service_and_spreadsheet_id():
