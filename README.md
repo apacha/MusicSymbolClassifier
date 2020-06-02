@@ -36,19 +36,13 @@ Before running them, make sure that you have the necessary requirements installe
 
 ## Requirements
 
-- Python 3.6
-- Keras
-- Tensorflow (or optionally tensorflow-gpu)
+- Python 3.5+
+- Tensorflow 2.1.0
 
 Optional: If you want to print the graph of the model being trained, install GraphViz on Windows via http://www.graphviz.org/Download_windows.php and add /bin to the PATH or run `sudo apt-get install graphviz` on Ubuntu (see https://github.com/fchollet/keras/issues/3210)
 
 For installing Tensorflow and Keras we recommend using [Anaconda](https://www.continuum.io/downloads) or 
 [Miniconda](https://conda.io/miniconda.html) as Python distribution (we did so for preparing Travis-CI and it worked).
-
-To accelerate training even further, you can make use of your GPU, by installing tensorflow-gpu instead of tensorflow
-via pip (note that you can only have one of them) and the required Nvidia drivers. For Windows, we recommend the
-[excellent tutorial by Phil Ferriere](https://github.com/philferriere/dlwin). For Linux, we recommend using the
- official tutorials by [Tensorflow](https://www.tensorflow.org/install/) and [Keras](https://keras.io/#installation).
 
 ## Training the model
 
