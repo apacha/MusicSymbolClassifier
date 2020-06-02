@@ -11,7 +11,7 @@ class TrainingDatasetProviderTest(unittest.TestCase):
         # Arrange
         dataset_provider = TrainingDatasetProvider("temp")
         datasets = ["homus", "rebelo1", "rebelo2", "printed", "audiveris", "muscima_pp", "fornes", "openomr"]
-        expected_number_of_images = 91170
+        expected_number_of_images = 80405
         expected_number_of_classes = 79
 
         # Act

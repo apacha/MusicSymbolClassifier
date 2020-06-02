@@ -14,10 +14,10 @@ class MuscimaPlusPlusImageGeneratorTest(unittest.TestCase):
     def test_download_extract_and_render_training_symbols(self):
         # Arrange
         dataset_downloader = Downloader()
-        expected_number_of_images = 55574
+        expected_number_of_images = 44809
 
         # Act
-        dataset_downloader.download_and_extract_dataset(OmrDataset.MuscimaPlusPlus_V1, "temp/muscima_pp_raw")
+        dataset_downloader.download_and_extract_dataset(OmrDataset.MuscimaPlusPlus_V2, "temp/muscima_pp_raw")
         image_generator = MuscimaPlusPlusImageGenerator2()
         image_generator.extract_symbols_for_training("temp/muscima_pp_raw", "temp/muscima_img")
         all_image_files = [y for x in os.walk("temp/muscima_img") for y in glob(os.path.join(x[0], '*.png'))]
@@ -27,7 +27,7 @@ class MuscimaPlusPlusImageGeneratorTest(unittest.TestCase):
         self.assertEqual(expected_number_of_images, actual_number_of_images)
 
         # Cleanup
-        os.remove(OmrDataset.MuscimaPlusPlus_V1.get_dataset_filename())
+        os.remove(OmrDataset.MuscimaPlusPlus_V2.get_dataset_filename())
         shutil.rmtree("temp")
 
 
