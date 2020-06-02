@@ -104,7 +104,7 @@ class TrainingDatasetProvider:
             image_preparer.prepare_dataset(intermediate_image_directory, self.image_dataset_directory)
         if 'muscima_pp' in datasets:
             raw_dataset_directory = os.path.join(self.dataset_directory, "muscima_pp_raw")
-            dataset_downloader.download_and_extract_dataset(OmrDataset.MuscimaPlusPlus_V1, raw_dataset_directory)
+            dataset_downloader.download_and_extract_dataset(OmrDataset.MuscimaPlusPlus_V2, raw_dataset_directory)
             image_generator = MuscimaPlusPlusImageGenerator2()
             image_generator.extract_symbols_for_training(raw_dataset_directory, self.image_dataset_directory)
         if 'openomr' in datasets:
