@@ -12,7 +12,7 @@ class TrainingDatasetProviderTest(unittest.TestCase):
         dataset_provider = TrainingDatasetProvider("temp")
         datasets = ["homus", "rebelo1", "rebelo2", "printed", "audiveris", "muscima_pp", "fornes", "openomr"]
         expected_number_of_images = 80405
-        expected_number_of_classes = 79
+        expected_number_of_classes = 84
 
         # Act
         dataset_provider.recreate_and_prepare_datasets_for_training(datasets, 80, 80, True, [3], 14, [], False)
