@@ -67,7 +67,6 @@ Further parameters for optional hyperparameter tuning
 - `--class_weights_balancing_method` The optional weight balancing method for handling unbalanced datasets. If provided, valid choices are simple or skBalance. 'simple' uses 1/sqrt(#samples_per_class) as weights for samples from each class to compensate for classes that are underrepresented. 'skBalance' uses the Python SkLearn module to calculate more sophisticated weights.
 
 
-
 # License
 
 Published under MIT License,
