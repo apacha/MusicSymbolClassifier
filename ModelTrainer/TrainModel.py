@@ -10,6 +10,7 @@ from typing import List
 import tensorflow.keras
 import numpy
 import numpy as np
+from keras.models import Model
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau, TensorBoard
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
@@ -83,7 +84,7 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
         bounding_boxes=bounding_boxes)
     test_steps_per_epoch = np.math.ceil(test_data_generator.samples / test_data_generator.batch_size)
 
-    model = training_configuration.classifier()
+    model:Model = training_configuration.classifier()
     model.summary()
 
     print("Model {0} created.".format(training_configuration.name()))
@@ -146,8 +147,8 @@ def train_model(dataset_directory: str, model_name: str, stroke_thicknesses: Lis
             class_weights_balancing_method))
 
     print("Training on dataset...")
-    history = model.fit_generator(
-        generator=training_data_generator,
+    history = model.fit(
+        x=training_data_generator,
         steps_per_epoch=training_steps_per_epoch,
         epochs=training_configuration.number_of_epochs,
         callbacks=callbacks,
