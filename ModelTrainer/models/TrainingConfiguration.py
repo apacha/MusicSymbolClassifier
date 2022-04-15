@@ -102,7 +102,4 @@ class TrainingConfiguration(ABC):
         summary += "Optimizer: {0}, with parameters {1}\n".format(self.optimizer, optimizer.get_config())
         summary += "Performing object localization: {0}".format(self.performs_localization())
 
-        if self.classifier().loss_weights is not None:
-            summary += "Loss-Weights: {0}".format(self.classifier().loss_weights)
-
         return summary
