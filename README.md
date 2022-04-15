@@ -36,8 +36,8 @@ Before running them, make sure that you have the necessary requirements installe
 
 ## Requirements
 
-- Python 3.5+
-- Tensorflow 2.1.0
+- Python 3.5+ (tested with 3.9)
+- Tensorflow 2.8.0
 
 Optional: If you want to print the graph of the model being trained, install GraphViz on Windows via http://www.graphviz.org/Download_windows.php and add /bin to the PATH or run `sudo apt-get install graphviz` on Ubuntu (see https://github.com/fchollet/keras/issues/3210)
 
@@ -71,7 +71,7 @@ Further parameters for optional hyperparameter tuning
 
 Published under MIT License,
 
-Copyright (c) 2020 [Alexander Pacha](http://alexanderpacha.com), [TU Wien](https://www.ims.tuwien.ac.at/people/alexander-pacha)
+Copyright (c) 2022 [Alexander Pacha](http://alexanderpacha.com), [TU Wien](https://informatics.tuwien.ac.at/people/alexander-pacha)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
