@@ -2,6 +2,7 @@ import argparse
 import os
 import random
 import shutil
+from pathlib import Path
 from typing import List
 
 import numpy
@@ -69,6 +70,9 @@ class DatasetSplitter:
 
         directories = os.listdir(self.source_directory)
         for image_class in directories:
+            if not (Path(self.source_directory) / image_class).is_dir():
+                # Skip .DS_store files - an abomination of MacOS
+                continue
             path_to_images_of_class = os.path.join(self.source_directory, image_class)
             number_of_images_in_class = len(os.listdir(path_to_images_of_class))
             training_sample_indices, validation_sample_indices, test_sample_indices = \
